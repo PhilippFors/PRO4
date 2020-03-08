@@ -12,8 +12,9 @@ public class CharacterController : MonoBehaviour
     Vector3 moveVelocity;
     Vector3 pointToLook;
     Vector3 rotationVelocity;
+
     public GameObject lookSphere;
-   
+    public Vector3 currentDirection;
 
 
     Plane groundPlane = new Plane(Vector3.up, new Vector3(0, 1.5f, 0));
@@ -22,8 +23,9 @@ public class CharacterController : MonoBehaviour
     PlayerControls gamePadControls;
     Vector2 move;
     Vector2 rotate;
-  
-    
+
+
+
 
     private void Awake()
     {
@@ -46,28 +48,27 @@ public class CharacterController : MonoBehaviour
     private void Update()
     {
         Look();
-        
+        Move();
     }
 
     private void FixedUpdate()
     {
 
-        Move();
+        GetComponent<Rigidbody>().AddForce(new Vector3(0, 2, 0));
 
     }
-    private void OnEnable()
-    {
-        gamePadControls.Gameplay.Enable();
-    }
+   //private void OnEnable()
+   //{
+   //    gamePadControls.Gameplay.Enable();
+   //}
+   //
+   //private void OnDisable()
+   //{
+   //    gamePadControls.Gameplay.Disable();
+   //}
 
-    private void OnDisable()
-    {
-        gamePadControls.Gameplay.Disable();
-    }
     public void Move()
     {
-
-
         if (gamepadEnabled)
         {
 
@@ -93,14 +94,14 @@ public class CharacterController : MonoBehaviour
                 moveVelocity = direction * moveSpeed;
             }
         }
-
-
-
         Vector3 horizMovement = right * moveVelocity.x * Time.deltaTime;
-        Vector3 vertiMovment = forward * moveVelocity.z * Time.deltaTime;
-
+        Vector3 vertikMovement = forward * moveVelocity.z * Time.deltaTime;
+        Vector3 h = right * moveVelocity.x;
+        Vector3 v = forward * moveVelocity.z;
+        currentDirection = h+v;
         transform.position += horizMovement;
-        transform.position += vertiMovment;
+        transform.position += vertikMovement;
+
     }
 
     void Look()
@@ -123,17 +124,17 @@ public class CharacterController : MonoBehaviour
         else
         {
             Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
-            
+
             float rayLength;
-            
+
             if (groundPlane.Raycast(cameraRay, out rayLength))
             {
                 pointToLook = cameraRay.GetPoint(rayLength);
                 Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
                 transform.LookAt(new Vector4(pointToLook.x, transform.position.y, pointToLook.z));
                 lookSphere.transform.position = new Vector3(pointToLook.x, pointToLook.y, pointToLook.z);
-                
-                
+
+
             }
         }
 
