@@ -5,7 +5,6 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     public GameObject Bullet_Emitter;
-    public AudioClip shootSound;
 
     //Drag in the Bullet Prefab from the Component Inspector.
     public GameObject Bullet;
@@ -62,7 +61,6 @@ public class Shooting : MonoBehaviour
                 //The Bullet instantiation happens here.
                 GameObject Temporary_Bullet_Handler;
                 Temporary_Bullet_Handler = Instantiate(Bullet, Bullet_Emitter.transform.position, Bullet_Emitter.transform.rotation) as GameObject;
-               
 
                 //Sometimes bullets may appear rotated incorrectly due to the way its pivot was set from the original modeling package.
                 //This is EASILY corrected here, you might have to rotate it from a different axis and or angle based on your particular mesh.
