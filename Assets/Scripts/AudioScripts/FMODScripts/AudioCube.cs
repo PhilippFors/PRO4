@@ -11,6 +11,9 @@ public class AudioCube : MonoBehaviour
 
     public bool _deathBlock;
 
+    public bool _laser;
+    public float _laserThreshhold;
+
     public bool _colorCube;
 
     public bool _yDynamicCube;
@@ -89,7 +92,24 @@ public class AudioCube : MonoBehaviour
                 {
                     if (FMODAudioPeer._audioBandBuffer[_bandArray[0]] >= 0)
                     {
-                        transform.localScale = new Vector3(transform.localScale.x, FMODAudioPeer._audioBandBuffer[_bandArray[0]] * _yDynamicFactor, transform.localScale.z);
+                        if (_laser)
+                        {
+                            
+                            if (FMODAudioPeer._audioBandBuffer[_bandArray[0]] > _laserThreshhold)
+                            {
+                                transform.localScale = new Vector3(transform.localScale.x, 50, transform.localScale.z);
+                            }
+                            else
+                            {
+                                transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
+                            }
+                            
+                        }
+                        else
+                        {
+                            transform.localScale = new Vector3(transform.localScale.x, FMODAudioPeer._audioBandBuffer[_bandArray[0]] * _yDynamicFactor, transform.localScale.z);
+                        }
+                    
                     }
                    
                 }
@@ -102,8 +122,16 @@ public class AudioCube : MonoBehaviour
                     {
                         Color.RGBToHSV((colorArray[i]), out H, out S, out V);
                         V = FMODAudioPeer._audioBandBuffer[_bandArray[i]];
+                        if (_laser)
+                        {
+                            Debug.Log("BandWeight:" +V);
+                        }
                         _arMaterials[i].SetColor("_EmissionColor", Color.HSVToRGB(H, S, V, true));
                     }
+                }
+                if (_laser)
+                {
+
                 }
             }
         }
