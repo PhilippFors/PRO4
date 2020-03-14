@@ -13,7 +13,8 @@ class FMODAudioPeer : MonoBehaviour
     FMOD.DSP fft;
     FMOD.ChannelGroup channelGroup;
 
-
+    bool isPlaying = false;
+    bool ready = false;
 
     const int WindowSize = 512;
 
@@ -25,8 +26,8 @@ class FMODAudioPeer : MonoBehaviour
     float[] _bandBuffer = new float[8];
     float[] _bufferDecrease = new float[8];
 
-   public float _bufferDecreaseValue = 1;
-   public float _bufferIncreaseValue = 1;
+    public float _bufferDecreaseValue = 1;
+    public float _bufferIncreaseValue = 1;
 
 
     float[] _freqBandHighest = new float[8];
@@ -49,92 +50,101 @@ class FMODAudioPeer : MonoBehaviour
         fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, WindowSize * 2);
 
         //assign the dsp to a channel
-       
+
         musicInstance.getChannelGroup(out channelGroup);
 
 
-       
-       
+
+
         //FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
 
-        channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.TAIL, fft);
-       
+        //channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.TAIL, fft);
 
 
 
 
-        
+
+
     }
 
 
 
     void Update()
     {
-        
-        musicInstance.getChannelGroup(out channelGroup);
-        channelGroup.isPlaying(out bool isPlaying);
-        if (!isPlaying)
+        if (!ready)
+        {
+            musicInstance.getChannelGroup(out channelGroup);
+            channelGroup.isPlaying(out isPlaying);
+        }
+
+
+        if (isPlaying && !ready)
         {
             channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, fft);
+            ready = true;
         }
 
-
-        IntPtr unmanagedData;
-        uint length;
-        fft.getParameterData((int)FMOD.DSP_FFT.SPECTRUMDATA, out unmanagedData, out length);
-        FMOD.DSP_PARAMETER_FFT fftData = (FMOD.DSP_PARAMETER_FFT)Marshal.PtrToStructure(unmanagedData, typeof(FMOD.DSP_PARAMETER_FFT));
-        var spectrum = fftData.spectrum;
-
-
-        
-        if (fftData.numchannels == 0){
-            Debug.Log("keine FFT Channels vorhanden");
-        }
-        if (fftData.numchannels > 0)
+        if (ready)
         {
+            IntPtr unmanagedData;
+            uint length;
+            fft.getParameterData((int)FMOD.DSP_FFT.SPECTRUMDATA, out unmanagedData, out length);
+            FMOD.DSP_PARAMETER_FFT fftData = (FMOD.DSP_PARAMETER_FFT)Marshal.PtrToStructure(unmanagedData, typeof(FMOD.DSP_PARAMETER_FFT));
+            var spectrum = fftData.spectrum;
 
-            
-            // Debug.Log(fftData.spectrum[0].Length);
 
-            //--- Frequency Bands
-            //cant call the methdo because i cant convert the var to an actual array
 
-            int count = 0;
-            
-            for (int i = 0; i < 8; i++)
+            if (fftData.numchannels == 0)
+            {
+                Debug.Log("keine FFT Channels vorhanden");
+            }
+            if (fftData.numchannels > 0)
             {
 
 
-                float average = 0;
-                int sampleCount = (int)Mathf.Pow(2, i) * 2;
+                // Debug.Log(fftData.spectrum[0].Length);
 
-                if (i == 7)
+                //--- Frequency Bands
+                //cant call the methdo because i cant convert the var to an actual array
+
+                int count = 0;
+
+                for (int i = 0; i < 8; i++)
                 {
-                    sampleCount += 2;
-                }
-                for (int j = 0; j < sampleCount; j++)
-                {
-                    average += spectrum[0][count] * (count + 1);
-                    count++;
-                }
 
-                //_____
-            
 
-                average /= count;
-                _freqBand[i] = average * 10;
+                    float average = 0;
+                    int sampleCount = (int)Mathf.Pow(2, i) * 2;
+
+                    if (i == 7)
+                    {
+                        sampleCount += 2;
+                    }
+                    for (int j = 0; j < sampleCount; j++)
+                    {
+                        average += spectrum[0][count] * (count + 1);
+                        count++;
+                    }
+
+                    //_____
+
+
+                    average /= count;
+                    _freqBand[i] = average * 10;
+                }
+                //-----------------------------------------------
+
+                BandBuffer();
+                CreateAudioBands();
+
+
+
+
             }
-            //-----------------------------------------------
-            
-            BandBuffer();
-            CreateAudioBands();
 
-           
-           
 
         }
 
-         
     }
 
     void MakeFrequencyBands()
