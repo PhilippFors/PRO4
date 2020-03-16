@@ -3,12 +3,12 @@
     "maps": [
         {
             "name": "Gameplay",
-            "id": "f89fd80d-bf06-4a10-aaf7-d74bf302e6bf",
+            "id": "0d591860-e460-46dd-a3e6-671aa64ca166",
             "actions": [
                 {
                     "name": "Movement",
                     "type": "Button",
-                    "id": "d97fbafe-5c78-434c-8815-f34dca4955a3",
+                    "id": "49c3cd4e-50fd-454b-971a-36715fbc91ce",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -16,16 +16,8 @@
                 {
                     "name": "Rotate",
                     "type": "Button",
-                    "id": "35ab68bf-d580-4659-afc9-d58e2a5a1a2e",
+                    "id": "2fdf1204-269a-4df8-a414-26bf038f12fb",
                     "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "67d43e96-eb4d-4bdc-a2eb-52ac5c86deb2",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -33,10 +25,10 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c4b2a4d6-4ae4-4717-a570-2f57c1707703",
+                    "id": "2b37d1ad-fe27-4fc8-aa29-ef58443a89c7",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "AxisDeadzone(min=0.2)",
+                    "processors": "",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": false,
@@ -44,23 +36,12 @@
                 },
                 {
                     "name": "",
-                    "id": "f7d54bb4-1649-4696-a0e3-b16d5290da5a",
+                    "id": "a98c3121-dcb6-45cc-b95b-7679dfa6da22",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "750a7ea1-2b8e-4c4e-ab23-917a4d2e3568",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

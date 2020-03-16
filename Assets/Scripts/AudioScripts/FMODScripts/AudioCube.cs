@@ -124,7 +124,7 @@ public class AudioCube : MonoBehaviour
                         V = FMODAudioPeer._audioBandBuffer[_bandArray[i]];
                         if (_laser)
                         {
-                            Debug.Log("BandWeight:" +V);
+                            //Debug.Log("BandWeight:" +V);
                         }
                         _arMaterials[i].SetColor("_EmissionColor", Color.HSVToRGB(H, S, V, true));
                     }
