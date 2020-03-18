@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 3f;
+    [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private Camera mainCam;
     Vector3 forward, right;
     Vector3 moveVelocity;
@@ -115,9 +115,10 @@ public class CharacterController : MonoBehaviour
             Vector3 input = new Vector3(rotate.x, 0, rotate.y);
             var lookRot = mainCam.transform.TransformDirection(input);
             lookRot = Vector3.ProjectOnPlane(lookRot, Vector3.up);
+            
 
-            
-            
+
+
             if (lookRot != Vector3.zero)
             {
                 Quaternion newRotation = Quaternion.LookRotation(lookRot);
