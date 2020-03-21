@@ -1,18 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : MonoBehaviour
+public class AttackState : BaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    Enemy _enemy;
+    public AttackState(Enemy enemy) : base(enemy.gameObject)
     {
-        
+        _enemy = enemy;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStateEnter()
     {
-        
+        throw new NotImplementedException();
     }
+
+    public override void OnStateExit()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Type OnStateUpdate()
+    {
+
+        throw new NotImplementedException();
+
+    }
+    
 }

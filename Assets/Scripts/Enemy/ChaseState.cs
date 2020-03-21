@@ -1,18 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class ChaseState : MonoBehaviour
+public class ChaseState : BaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    private Enemy _enemy;
+
+    public ChaseState(Enemy enemy) : base(enemy.gameObject)
     {
-        
+        _enemy = enemy;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnStateEnter()
     {
-        
+        throw new NotImplementedException();
+    }
+
+    public override void OnStateExit()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Type OnStateUpdate()
+    {
+        return null;
     }
 }
