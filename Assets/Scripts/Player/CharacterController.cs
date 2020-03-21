@@ -51,7 +51,9 @@ public class CharacterController : MonoBehaviour
 
         GetComponent<Rigidbody>().AddForce(new Vector3(0, -2, 0));
         Look();
+      //  Dash();
        Move();
+       
 
     }
 
@@ -104,8 +106,17 @@ public class CharacterController : MonoBehaviour
         currentDirection = h + v;
         transform.position += horizMovement;
         transform.position += vertikMovement;
+//        moveSpeed = 18;
 
     }
+
+//    public void Dash()
+//    {
+//        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+//        {
+//            moveSpeed = moveSpeed * 10;
+//        }
+//    }
 
     public void Look()
     {
