@@ -8,14 +8,16 @@ public class EnemyStateMachine : MonoBehaviour
     // Start is called before the first frame update
     private Dictionary<Type, BaseState> _availableStates;
 
-    public BaseState CurrentState { get; private set; }
+    public BaseState CurrentState;
 
     // Update is called once per frame
     void Update()
     {
         if (CurrentState == null)
         {
+            
             CurrentState = _availableStates[typeof(IdleState)];
+            CurrentState.OnStateEnter();
         }
 
         var nextState = CurrentState?.OnStateUpdate();

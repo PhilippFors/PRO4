@@ -6,7 +6,7 @@ using UnityEngine;
 public class IdleState : BaseState
 {
     private Enemy _enemy;
-
+    public GameObject player;
     public IdleState(Enemy enemy) : base(enemy.gameObject)
     {
         _enemy = enemy;
@@ -14,16 +14,21 @@ public class IdleState : BaseState
 
     public override void OnStateEnter()
     {
-        throw new NotImplementedException();
+        player = GameObject.Find("player");
+        _enemy.GetTarget(player.transform);
     }
 
     public override void OnStateExit()
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public override Type OnStateUpdate()
     {
-        throw new NotImplementedException();
+        if(player != null)
+        {
+            return typeof(ChaseState);
+        }
+        return typeof(IdleState);
     }
 }

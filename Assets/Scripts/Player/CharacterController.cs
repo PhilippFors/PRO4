@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
     Vector3 forward, right;
     Vector3 moveVelocity;
     Vector3 pointToLook;
-    public GameObject reticle;
+    //public GameObject reticle;
 
     public GameObject lookSphere;
     public Vector3 currentDirection;
@@ -55,11 +55,6 @@ public class CharacterController : MonoBehaviour
        Move();
        
 
-    }
-
-    void Db()
-    {
-        Debug.Log("Input performed");
     }
     private void OnEnable()
     {

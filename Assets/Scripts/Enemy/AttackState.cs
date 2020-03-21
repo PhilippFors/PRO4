@@ -13,19 +13,29 @@ public class AttackState : BaseState
 
     public override void OnStateEnter()
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public override void OnStateExit()
     {
-        throw new NotImplementedException();
+        return;
     }
 
     public override Type OnStateUpdate()
     {
+        _enemy.Attack(1);
 
-        throw new NotImplementedException();
-
+        if (Input.GetKeyDown("f"))
+        {
+            _enemy.StopAnim();
+            return typeof(IdleState);
+        }
+        if (Vector3.Distance(_enemy.Target.position, transform.position) > EnemySettings.EnemyRange)
+        {
+            _enemy.StopAnim();
+            return typeof(ChaseState);
+        }
+        return typeof(AttackState);
     }
-    
+
 }

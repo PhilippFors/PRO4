@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
 
     public Transform Target { get; private set; }
-
+    public GameObject target;
+    public Animator animator;
     public EnemyStateMachine StateMachine => GetComponent<EnemyStateMachine>();
 
     private void Awake()
@@ -23,11 +24,23 @@ public class Enemy : MonoBehaviour
             {typeof(ChaseState), new ChaseState(this) },
             {typeof(AttackState), new AttackState(this) },
         };
+
+        StateMachine.SetStates(states);
     }
 
-
-    void GetTarget(Transform target)
+    public void GetTarget(Transform target)
     {
         this.Target = target;
+        this.target = target.gameObject;
+    }
+
+    public void Attack(int attackSequenze)
+    {
+        animator.SetInteger("Sequenz1", attackSequenze);
+    }
+
+    public void StopAnim()
+    {
+        animator.Play("Cancel");
     }
 }
