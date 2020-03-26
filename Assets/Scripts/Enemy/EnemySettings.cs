@@ -11,6 +11,9 @@ public class EnemySettings : MonoBehaviour
     [SerializeField] private float enemyRange = 3f;
     public static float EnemyRange => Instance.enemyRange;
 
+    [SerializeField] private float enemyLookSpeed= 3f;
+    public static float EnemyLookSpeed => Instance.enemyLookSpeed;
+
 
     private static EnemySettings _instance;
     public static EnemySettings Instance

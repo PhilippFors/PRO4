@@ -14,6 +14,10 @@ public class ChaseState : BaseState
 
     public override void OnStateEnter()
     {
+        Vector3 dir = _enemy.Target.position - _enemy.transform.position;
+        dir.y = 0;
+        Quaternion look = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, look, Time.deltaTime * 2);
         return;
     }
 
@@ -24,13 +28,17 @@ public class ChaseState : BaseState
 
     public override Type OnStateUpdate()
     {
-       transform.LookAt(new Vector3(_enemy.Target.position.x, transform.position.y, _enemy.Target.position.z));
-       transform.position += transform.forward * EnemySettings.EnemySpeed * Time.deltaTime;
-       //
-       if(Vector3.Distance(_enemy.Target.position, transform.position) < EnemySettings.EnemyRange)
-       {
-           return typeof(AttackState);
-       }
+        Vector3 dir = _enemy.Target.position - _enemy.transform.position;
+        dir.y = 0;
+        Quaternion look = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, look, Time.deltaTime * EnemySettings.EnemyLookSpeed);
+
+        transform.position += transform.forward * EnemySettings.EnemySpeed * Time.deltaTime;
+        //
+        if (Vector3.Distance(_enemy.Target.position, transform.position) < EnemySettings.EnemyRange)
+        {
+            return typeof(AttackState);
+        }
         return typeof(ChaseState);
     }
 

@@ -24,7 +24,14 @@ public class CharacterController : MonoBehaviour
 
     Vector2 move;
     Vector2 rotate;
-
+    private void OnEnable()
+    {
+        input.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        input.Gameplay.Disable();
+    }
     private void Awake()
     {
         input = new PlayerControls();
@@ -39,7 +46,7 @@ public class CharacterController : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-        Cursor.visible = false;
+        Cursor.visible = true;
     }
     private void Update()
     {
@@ -54,18 +61,9 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().AddForce(new Vector3(0, -2, 0));
-
-    }
-    private void OnEnable()
-    {
-        input.Gameplay.Enable();
+        GetComponent<Rigidbody>().AddForce(Vector3.down);
     }
 
-    private void OnDisable()
-    {
-        input.Gameplay.Disable();
-    }
 
     public void Move()
     {
@@ -98,7 +96,7 @@ public class CharacterController : MonoBehaviour
         currentDirection = h + v;
         transform.position += horizMovement;
         transform.position += vertikMovement;
-        //        moveSpeed = 18;
+
     }
 
     //    public void Dash()
@@ -111,15 +109,11 @@ public class CharacterController : MonoBehaviour
 
     public void Look()
     {
-
         if (gamepadEnabled)
         {
             Vector3 input = new Vector3(rotate.x, 0, rotate.y);
             var lookRot = mainCam.transform.TransformDirection(input);
             lookRot = Vector3.ProjectOnPlane(lookRot, Vector3.up);
-
-
-
 
             if (lookRot != Vector3.zero)
             {
@@ -132,8 +126,6 @@ public class CharacterController : MonoBehaviour
                 //lookSphere.transform.position += horizMovement;
                 //lookSphere.transform.position += vertikMovement;
             }
-
-
         }
         else
         {
@@ -147,12 +139,7 @@ public class CharacterController : MonoBehaviour
                 Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
                 transform.LookAt(new Vector4(pointToLook.x, transform.position.y, pointToLook.z));
                 //lookSphere.transform.position = new Vector3(pointToLook.x, pointToLook.y, pointToLook.z);
-
-
             }
         }
-
     }
-
-
 }

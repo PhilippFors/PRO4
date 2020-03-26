@@ -6,6 +6,8 @@ using UnityEngine;
 public class AttackState : BaseState
 {
     Enemy _enemy;
+    float waitTime = 0;
+
     public AttackState(Enemy enemy) : base(enemy.gameObject)
     {
         _enemy = enemy;
@@ -13,6 +15,7 @@ public class AttackState : BaseState
 
     public override void OnStateEnter()
     {
+
         return;
     }
 
@@ -23,19 +26,36 @@ public class AttackState : BaseState
 
     public override Type OnStateUpdate()
     {
-        _enemy.Attack(1);
+
 
         if (Input.GetKeyDown("f"))
         {
             _enemy.StopAnim();
             return typeof(IdleState);
         }
-        if (Vector3.Distance(_enemy.Target.position, transform.position) > EnemySettings.EnemyRange)
+        if (Vector3.Distance(_enemy.Target.position, transform.position) < EnemySettings.EnemyRange)
+        {
+            _enemy.Attack(1);
+        }
+        else
         {
             _enemy.StopAnim();
-            return typeof(ChaseState);
+            if (Wait())
+            {
+                return typeof(ChaseState);
+            }
         }
         return typeof(AttackState);
     }
+    bool Wait()
+    {
+        while (waitTime < 1f)
+        {
+            waitTime += Time.deltaTime;
+            return false;
+        }
+        waitTime = 0f;
+        return true;
 
+    }
 }
