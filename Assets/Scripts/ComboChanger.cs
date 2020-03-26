@@ -8,6 +8,8 @@ public class ComboChanger : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().comboCounter = 0;
+        animator.ResetTrigger("FastAttack");
+        animator.ResetTrigger("SlowAttack");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

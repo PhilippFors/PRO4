@@ -13,7 +13,7 @@ public class CharacterController : MonoBehaviour
     Vector3 pointToLook;
     //public GameObject reticle;
 
-    public GameObject lookSphere;
+    //public GameObject lookSphere;
     public Vector3 currentDirection;
 
 
@@ -43,24 +43,21 @@ public class CharacterController : MonoBehaviour
     }
     private void Update()
     {
-
+        Look();
+        //  Dash();
+        Move();
     }
 
     private void FixedUpdate()
     {
-
         GetComponent<Rigidbody>().AddForce(new Vector3(0, -2, 0));
-        Look();
-      //  Dash();
-       Move();
-       
 
     }
     private void OnEnable()
     {
         input.Gameplay.Enable();
     }
-    
+
     private void OnDisable()
     {
         input.Gameplay.Disable();
@@ -70,30 +67,26 @@ public class CharacterController : MonoBehaviour
     {
         if (gamepadEnabled)
         {
-
-            
             moveVelocity.x = move.x * moveSpeed;
             moveVelocity.z = move.y * moveSpeed;
             moveVelocity.y = 0;
-
-
         }
-       else
-       {
-           Vector3 direction = new Vector3(Input.GetAxisRaw("HorizontalKey"), 0, Input.GetAxisRaw("VerticalKey"));
-           if ((Input.GetAxisRaw("HorizontalKey") == 1 || Input.GetAxisRaw("HorizontalKey") == -1) & Input.GetAxisRaw("VerticalKey") == 0)
-           {
-               moveVelocity = direction * (moveSpeed + 2); ;
-           }
-           else if ((Input.GetAxisRaw("VerticalKey") == 1 || Input.GetAxisRaw("VerticalKey") == -1) & Input.GetAxisRaw("HorizontalKey") == 0)
-           {
-               moveVelocity = direction * (moveSpeed + 2);
-           }
-           else
-           {
-               moveVelocity = direction * moveSpeed;
-           }
-       }
+        else
+        {
+            Vector3 direction = new Vector3(Input.GetAxisRaw("HorizontalKey"), 0, Input.GetAxisRaw("VerticalKey"));
+            if ((Input.GetAxisRaw("HorizontalKey") == 1 || Input.GetAxisRaw("HorizontalKey") == -1) & Input.GetAxisRaw("VerticalKey") == 0)
+            {
+                moveVelocity = direction * (moveSpeed + 2); ;
+            }
+            else if ((Input.GetAxisRaw("VerticalKey") == 1 || Input.GetAxisRaw("VerticalKey") == -1) & Input.GetAxisRaw("HorizontalKey") == 0)
+            {
+                moveVelocity = direction * (moveSpeed + 2);
+            }
+            else
+            {
+                moveVelocity = direction * moveSpeed;
+            }
+        }
         Vector3 horizMovement = right * moveVelocity.x * Time.deltaTime;
         Vector3 vertikMovement = forward * moveVelocity.z * Time.deltaTime;
         Vector3 h = right * moveVelocity.x;
@@ -101,17 +94,16 @@ public class CharacterController : MonoBehaviour
         currentDirection = h + v;
         transform.position += horizMovement;
         transform.position += vertikMovement;
-//        moveSpeed = 18;
-
+        //        moveSpeed = 18;
     }
 
-//    public void Dash()
-//    {
-//        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
-//        {
-//            moveSpeed = moveSpeed * 10;
-//        }
-//    }
+    //    public void Dash()
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+    //        {
+    //            moveSpeed = moveSpeed * 10;
+    //        }
+    //    }
 
     public void Look()
     {
@@ -121,7 +113,7 @@ public class CharacterController : MonoBehaviour
             Vector3 input = new Vector3(rotate.x, 0, rotate.y);
             var lookRot = mainCam.transform.TransformDirection(input);
             lookRot = Vector3.ProjectOnPlane(lookRot, Vector3.up);
-            
+
 
 
 
@@ -129,32 +121,32 @@ public class CharacterController : MonoBehaviour
             {
                 Quaternion newRotation = Quaternion.LookRotation(lookRot);
                 transform.rotation = newRotation;
-              //Vector3 horizMovement = right * rotate.x * Time.deltaTime * moveSpeed;
-              //Vector3 vertikMovement = forward * rotate.y * Time.deltaTime * moveSpeed;
-              //
-              //
-              //lookSphere.transform.position += horizMovement;
-              //lookSphere.transform.position += vertikMovement;
+                //Vector3 horizMovement = right * rotate.x * Time.deltaTime * moveSpeed;
+                //Vector3 vertikMovement = forward * rotate.y * Time.deltaTime * moveSpeed;
+                //
+                //
+                //lookSphere.transform.position += horizMovement;
+                //lookSphere.transform.position += vertikMovement;
             }
 
 
         }
-       else
-       {
-           Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
-       
-           float rayLength;
-       
-           if (groundPlane.Raycast(cameraRay, out rayLength))
-           {
-               pointToLook = cameraRay.GetPoint(rayLength);
-               Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-               transform.LookAt(new Vector4(pointToLook.x, transform.position.y, pointToLook.z));
-               lookSphere.transform.position = new Vector3(pointToLook.x, pointToLook.y, pointToLook.z);
-       
-       
-           }
-       }
+        else
+        {
+            Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
+
+            float rayLength;
+
+            if (groundPlane.Raycast(cameraRay, out rayLength))
+            {
+                pointToLook = cameraRay.GetPoint(rayLength);
+                Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
+                transform.LookAt(new Vector4(pointToLook.x, transform.position.y, pointToLook.z));
+                //lookSphere.transform.position = new Vector3(pointToLook.x, pointToLook.y, pointToLook.z);
+
+
+            }
+        }
 
     }
 
