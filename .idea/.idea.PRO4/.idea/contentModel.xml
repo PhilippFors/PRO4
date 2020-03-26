@@ -78,6 +78,7 @@
             </e>
           </e>
         </e>
+        <e p="ResetValues.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AudioScripts" t="Include">
             <e p="AudioBullet.cs" t="Include" />
@@ -94,11 +95,25 @@
           <e p="AudioSkillsController.cs" t="Include" />
           <e p="Body.cs" t="Include" />
           <e p="Bullet.cs" t="Include" />
-          <e p="CameraController.cs" t="Include" />
-          <e p="CharacterController.cs" t="Include" />
-          <e p="Enemies.cs" t="Include" />
+          <e p="ComboChanger.cs" t="Include" />
+          <e p="Enemy" t="Include">
+            <e p="AttackState.cs" t="Include" />
+            <e p="BaseState.cs" t="Include" />
+            <e p="ChaseState.cs" t="Include" />
+            <e p="Enemies.cs" t="Include" />
+            <e p="Enemy.cs" t="Include" />
+            <e p="EnemySettings.cs" t="Include" />
+            <e p="EnemyStateMachine.cs" t="Include" />
+            <e p="FindState.cs" t="Include" />
+            <e p="IdleState.cs" t="Include" />
+          </e>
+          <e p="IncreasingSkillMeter.cs" t="Include" />
           <e p="Obstacles" t="Include">
             <e p="DeathBlockTrigger.cs" t="Include" />
+          </e>
+          <e p="Player" t="Include">
+            <e p="CameraController.cs" t="Include" />
+            <e p="CharacterController.cs" t="Include" />
           </e>
           <e p="PlayerAttack.cs" t="Include" />
           <e p="Reticle.cs" t="Include" />

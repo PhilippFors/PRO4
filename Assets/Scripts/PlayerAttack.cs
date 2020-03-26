@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public int lowPassSkill = 0;
     private GameObject _child; //the weapon object
+    public int comboCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +18,15 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FastAttack();
         SlowAttack();
+        FastAttack();
+        
     }
 
     //fast attack: on button plays animation of child (weapon) object
     public void FastAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button4))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1)) ;
         {
             _child.GetComponent<Animator>().SetTrigger("FastAttack");
         }
@@ -37,5 +40,5 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-   
+
 }
