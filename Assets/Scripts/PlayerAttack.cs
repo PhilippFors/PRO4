@@ -18,27 +18,26 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SlowAttack();
-        FastAttack();
-        
+        Attacking();
+
     }
 
-    //fast attack: on button plays animation of child (weapon) object
-    public void FastAttack()
+    
+    
+    public void Attacking()
     {
         if (Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
             _child.GetComponent<Animator>().SetTrigger("FastAttack");
         }
-    }
-    
-    public void SlowAttack()
-    {
+        
         if (Input.GetKeyDown(KeyCode.Joystick1Button5))
         {
             _child.GetComponent<Animator>().SetTrigger("SlowAttack");
         }
     }
+    
+    
 
 
 }
