@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class IncreasingSkillMeter : StateMachineBehaviour
 {
+    private PlayerAttack attack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public new void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().comboCounter >= 3)
+        if (attack.comboCounter >= 3)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().lowPassSkill += 2;
+            attack.lowPassSkill += 2;
         }
-       
-        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,10 +22,10 @@ public class IncreasingSkillMeter : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

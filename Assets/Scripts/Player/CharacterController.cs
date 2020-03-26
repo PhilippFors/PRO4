@@ -43,9 +43,13 @@ public class CharacterController : MonoBehaviour
     }
     private void Update()
     {
-        Look();
-        //  Dash();
-        Move();
+        if (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            Look();
+            //Dash();
+            Move();
+        }
+       
     }
 
     private void FixedUpdate()
