@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
@@ -10,6 +11,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Camera mainCam;
     Vector3 forward, right;
     Vector3 moveVelocity;
+
     Vector3 pointToLook;
     //public GameObject reticle;
 
@@ -24,14 +26,18 @@ public class CharacterController : MonoBehaviour
 
     Vector2 move;
     Vector2 rotate;
+    private RaycastHit rayCastHit;
+
     private void OnEnable()
     {
         input.Gameplay.Enable();
     }
+
     private void OnDisable()
     {
         input.Gameplay.Disable();
     }
+
     private void Awake()
     {
         input = new PlayerControls();
@@ -40,6 +46,7 @@ public class CharacterController : MonoBehaviour
         input.Gameplay.Rotate.performed += rt => rotate = rt.ReadValue<Vector2>();
         input.Gameplay.Rotate.canceled += rt => rotate = Vector2.zero;
     }
+
     void Start()
     {
         forward = Camera.main.transform.forward;
@@ -48,15 +55,16 @@ public class CharacterController : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         Cursor.visible = true;
     }
+
     private void Update()
     {
         if (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             Look();
-            //Dash();
+            
             Move();
+            Dash();
         }
-       
     }
 
     private void FixedUpdate()
@@ -76,11 +84,14 @@ public class CharacterController : MonoBehaviour
         else
         {
             Vector3 direction = new Vector3(Input.GetAxisRaw("HorizontalKey"), 0, Input.GetAxisRaw("VerticalKey"));
-            if ((Input.GetAxisRaw("HorizontalKey") == 1 || Input.GetAxisRaw("HorizontalKey") == -1) & Input.GetAxisRaw("VerticalKey") == 0)
+            if ((Input.GetAxisRaw("HorizontalKey") == 1 || Input.GetAxisRaw("HorizontalKey") == -1) &
+                Input.GetAxisRaw("VerticalKey") == 0)
             {
-                moveVelocity = direction * (moveSpeed + 2); ;
+                moveVelocity = direction * (moveSpeed + 2);
+                ;
             }
-            else if ((Input.GetAxisRaw("VerticalKey") == 1 || Input.GetAxisRaw("VerticalKey") == -1) & Input.GetAxisRaw("HorizontalKey") == 0)
+            else if ((Input.GetAxisRaw("VerticalKey") == 1 || Input.GetAxisRaw("VerticalKey") == -1) &
+                     Input.GetAxisRaw("HorizontalKey") == 0)
             {
                 moveVelocity = direction * (moveSpeed + 2);
             }
@@ -89,6 +100,7 @@ public class CharacterController : MonoBehaviour
                 moveVelocity = direction * moveSpeed;
             }
         }
+
         Vector3 horizMovement = right * moveVelocity.x * Time.deltaTime;
         Vector3 vertikMovement = forward * moveVelocity.z * Time.deltaTime;
         Vector3 h = right * moveVelocity.x;
@@ -96,16 +108,32 @@ public class CharacterController : MonoBehaviour
         currentDirection = h + v;
         transform.position += horizMovement;
         transform.position += vertikMovement;
-
+        
     }
 
-    //    public void Dash()
-    //    {
-    //        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
-    //        {
-    //            moveSpeed = moveSpeed * 10;
-    //        }
-    //    }
+    private bool CanMove(Vector3 dir, float distance)
+    {
+        
+        return !Physics.Raycast(transform.position, dir, out rayCastHit, distance);;
+    }
+
+    public void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+        {
+            float dashDistance = 7f;
+            if (CanMove(currentDirection.normalized, dashDistance))
+            {
+                transform.position += currentDirection.normalized * dashDistance;
+            }
+            else
+            {
+                transform.position = rayCastHit.point;
+            }
+            
+
+        }
+    }
 
     public void Look()
     {
