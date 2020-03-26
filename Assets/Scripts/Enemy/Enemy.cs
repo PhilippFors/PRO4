@@ -41,6 +41,6 @@ public class Enemy : MonoBehaviour
 
     public void StopAnim()
     {
-        animator.Play("Cancel");
+        animator.SetTrigger("cancel");
     }
 }

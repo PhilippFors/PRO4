@@ -8,6 +8,8 @@ public class ResetValues : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetInteger("Sequenz1", 0);
+        animator.ResetTrigger("cancel");
+        
     }
 
 }
