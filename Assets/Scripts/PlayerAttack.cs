@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     //fast attack: on button plays animation of child (weapon) object
     public void FastAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button1)) ;
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
             _child.GetComponent<Animator>().SetTrigger("FastAttack");
         }
