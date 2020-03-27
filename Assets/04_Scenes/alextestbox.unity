@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -15111,14 +15111,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1277148572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0509eb92ee1f50f43a25b9e8554c618d, type: 3}
+  m_Script: {fileID: 11500000, guid: 32dc352d684cb89448f2bbf3120ba6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 18
-  rotationSpeed: 35
+  moveSpeed: 5
+  rotationSpeed: 50
   mainCam: {fileID: 624565996}
   currentDirection: {x: 0, y: 0, z: 0}
-  gamepadEnabled: 1
+  gamepadEnabled: 0
 --- !u!54 &1277148576
 Rigidbody:
   m_ObjectHideFlags: 0
