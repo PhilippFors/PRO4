@@ -13,7 +13,7 @@ public class Shooting : MonoBehaviour
     //Enter the Speed of the Bullet from the Component Inspector.
     public float Bullet_Forward_Force;
     
-    public CharacterController player;
+    public PlayerController player;
 
     // Use this for initialization
     void Start()

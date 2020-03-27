@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class ChaseState : BaseState
 {
@@ -41,7 +43,4 @@ public class ChaseState : BaseState
         }
         return typeof(ChaseState);
     }
-
-
-
 }
