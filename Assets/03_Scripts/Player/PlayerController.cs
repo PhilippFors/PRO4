@@ -9,42 +9,49 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private Camera mainCam;
+
     Vector3 forward, right;
     Vector3 moveVelocity;
-
     Vector3 pointToLook;
-    //public GameObject reticle;
-
-    //public GameObject lookSphere;
     public Vector3 currentDirection;
 
-
-    Plane groundPlane = new Plane(Vector3.up, new Vector3(0, 1.5f, 0));
-    public bool gamepadEnabled = false;
+    Plane groundPlane;
 
     PlayerControls input;
 
-    Vector2 move;
-    Vector2 rotate;
+    Vector2 move = Vector3.zero;
+    Vector2 rotate = Vector3.zero;
     private RaycastHit rayCastHit;
+
+    #region PlayerController controls enable/disable
 
     private void OnEnable()
     {
         input.Gameplay.Enable();
+
     }
 
     private void OnDisable()
     {
         input.Gameplay.Disable();
     }
+    #endregion
 
+    #region Start/Awake
     private void Awake()
     {
+
         input = new PlayerControls();
+        //Gamepad
         input.Gameplay.Movement.performed += mv => move = mv.ReadValue<Vector2>();
         input.Gameplay.Movement.canceled += mv => move = Vector2.zero;
-        input.Gameplay.Rotate.performed += rt => rotate = rt.ReadValue<Vector2>();
-        input.Gameplay.Rotate.canceled += rt => rotate = Vector2.zero;
+
+        input.Gameplay.Rotate.performed += rt => Rotate(rt.ReadValue<Vector2>());
+        input.Gameplay.Look.performed += rt => Look(rt.ReadValue<Vector2>());
+
+        //input.Gameplay.Rotate.canceled += rt => rotate = Vector2.zero;
+
+        input.Gameplay.Dash.performed += ctx => Dash();
     }
 
     void Start()
@@ -55,119 +62,86 @@ public class PlayerController : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         Cursor.visible = true;
     }
+    #endregion
 
     private void Update()
     {
-        if (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            Look();
-            
-            Move();
-            Dash();
-        }
-    }
+        // if (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        // {
+        Move();
 
-    private void FixedUpdate()
-    {
-        GetComponent<Rigidbody>().AddForce(Vector3.down);
+        //  }
     }
-
 
     public void Move()
     {
-        if (gamepadEnabled)
-        {
-            moveVelocity.x = move.x * moveSpeed;
-            moveVelocity.z = move.y * moveSpeed;
-            moveVelocity.y = 0;
-        }
-        else
-        {
-            Vector3 direction = new Vector3(Input.GetAxisRaw("HorizontalKey"), 0, Input.GetAxisRaw("VerticalKey"));
-            if ((Input.GetAxisRaw("HorizontalKey") == 1 || Input.GetAxisRaw("HorizontalKey") == -1) &
-                Input.GetAxisRaw("VerticalKey") == 0)
-            {
-                moveVelocity = direction * (moveSpeed + 2);
-                ;
-            }
-            else if ((Input.GetAxisRaw("VerticalKey") == 1 || Input.GetAxisRaw("VerticalKey") == -1) &
-                     Input.GetAxisRaw("HorizontalKey") == 0)
-            {
-                moveVelocity = direction * (moveSpeed + 2);
-            }
-            else
-            {
-                moveVelocity = direction * moveSpeed;
-            }
-        }
-
-        Vector3 horizMovement = right * moveVelocity.x * Time.deltaTime;
-        Vector3 vertikMovement = forward * moveVelocity.z * Time.deltaTime;
-        Vector3 h = right * moveVelocity.x;
-        Vector3 v = forward * moveVelocity.z;
-        currentDirection = h + v;
+        Vector3 direction = new Vector3(move.x, 0, move.y);
+        moveVelocity.y = 0;
+        moveVelocity = direction * moveSpeed * Time.deltaTime;
+        Vector3 horizMovement = right * moveVelocity.x;
+        Vector3 vertikMovement = forward * moveVelocity.z;
+        currentDirection = horizMovement + vertikMovement;
         transform.position += horizMovement;
         transform.position += vertikMovement;
-        
     }
 
     private bool CanMove(Vector3 dir, float distance)
     {
-        
-        return !Physics.Raycast(transform.position, dir, out rayCastHit, distance);;
+        return !Physics.Raycast(transform.position, dir, out rayCastHit, distance); ;
     }
 
     public void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+
+        float dashDistance = 7f;
+        if (CanMove(currentDirection.normalized, dashDistance))
         {
-            float dashDistance = 7f;
-            if (CanMove(currentDirection.normalized, dashDistance))
-            {
-                transform.position += currentDirection.normalized * dashDistance;
-            }
-            else
-            {
-                transform.position = rayCastHit.point;
-            }
-            
-
-        }
-    }
-
-    public void Look()
-    {
-        if (gamepadEnabled)
-        {
-            Vector3 input = new Vector3(rotate.x, 0, rotate.y);
-            var lookRot = mainCam.transform.TransformDirection(input);
-            lookRot = Vector3.ProjectOnPlane(lookRot, Vector3.up);
-
-            if (lookRot != Vector3.zero)
-            {
-                Quaternion newRotation = Quaternion.LookRotation(lookRot);
-                transform.rotation = newRotation;
-                //Vector3 horizMovement = right * rotate.x * Time.deltaTime * moveSpeed;
-                //Vector3 vertikMovement = forward * rotate.y * Time.deltaTime * moveSpeed;
-                //
-                //
-                //lookSphere.transform.position += horizMovement;
-                //lookSphere.transform.position += vertikMovement;
-            }
+            transform.position += currentDirection.normalized * dashDistance;
         }
         else
         {
-            Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
-
-            float rayLength;
-
-            if (groundPlane.Raycast(cameraRay, out rayLength))
-            {
-                pointToLook = cameraRay.GetPoint(rayLength);
-                Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
-                transform.LookAt(new Vector4(pointToLook.x, transform.position.y, pointToLook.z));
-                //lookSphere.transform.position = new Vector3(pointToLook.x, pointToLook.y, pointToLook.z);
-            }
+            transform.position = rayCastHit.point;
         }
+
     }
+
+    public void Rotate(Vector2 rotate)
+    {
+
+        Vector3 input = new Vector3(rotate.x, 0, rotate.y);
+        var lookRot = mainCam.transform.TransformDirection(input);
+        pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
+        pointToLook.y = 0;
+        if (pointToLook != Vector3.zero)
+        {
+            Quaternion newRot = Quaternion.LookRotation(pointToLook);
+            transform.rotation = newRot;
+        }
+
+    }
+
+    public void Look(Vector2 rotate)
+    {
+
+        groundPlane = new Plane(Vector3.up, new Vector3(0, transform.position.y, 0));
+        Ray cameraRay = mainCam.ScreenPointToRay(rotate);
+        float rayLength;
+        if (groundPlane.Raycast(cameraRay, out rayLength))
+        {
+            Vector3 rayPoint = cameraRay.GetPoint(rayLength);
+            pointToLook = rayPoint - transform.position;
+        }
+        pointToLook.y = 0;
+        if (pointToLook != Vector3.zero)
+        {
+            Quaternion newRot = Quaternion.LookRotation(pointToLook);
+            transform.rotation = newRot;
+        }
+
+
+        //Debug.Log("PointToLook" + pointToLook);
+        //Debug.Log("Rotate" + rotate);
+
+    }
+
 }
