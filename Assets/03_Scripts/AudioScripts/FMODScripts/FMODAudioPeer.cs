@@ -6,6 +6,12 @@ using System.Runtime.InteropServices;
 [RequireComponent(typeof(FMODUnity.StudioEventEmitter))]
 class FMODAudioPeer : MonoBehaviour
 {
+    //BPM Variables
+    private static FMODAudioPeer _fmodAudioPeerInstance;
+    public float _bpm;
+    private float _beatInterval, _beatTimer, _beatIntervalD8, _beatTimerD8;
+    public static bool _beatFull, _beatD8;
+    public static int _beatCountFull, _beatCountD8;
 
 
     FMODUnity.StudioEventEmitter emitter;
@@ -13,34 +19,63 @@ class FMODAudioPeer : MonoBehaviour
     FMOD.DSP fft;
     FMOD.ChannelGroup channelGroup;
 
+    //Werden benutzt um zu überprüfen ob Audio schon vorhanden ist
     bool isPlaying = false;
     bool ready = false;
 
+    //Lenght of Sample Array
     const int WindowSize = 512;
 
+    //Creating Analyzer for Environment/Game
+
+    //variables for the 8band audio spectrum
+    private float[] _freqBand8 = new float[8];
+    private float[] _bandBuffer8 = new float[8];
+    private float[] _bufferDecrease = new float[8];
+    private float[] _freqBandHighest8 = new float[8];
+
+    //variables for the 32band audio spectrum
+    //this is used for the UI Spectrum
+    private float[] _freqBand32 = new float[32];
+    private float[] _bandBuffer32 = new float[32];
+    private float[] _bufferDecrease32 = new float[32];
+    private float[] _freqBandHighest32 = new float[32];
 
 
-    //____
-    //public float[] _samples = new float[3000];
-    float[] _freqBand = new float[8];
-    float[] _bandBuffer = new float[8];
-    float[] _bufferDecrease = new float[8];
 
-    public float _bufferDecreaseValue = 1;
-    public float _bufferIncreaseValue = 1;
+    [HideInInspector]
+    public static float[] _audioBand8, _audioBandBuffer8;
+
+    [HideInInspector]
+    public static float[] _audioBand32, _audioBandBuffer32;
+
+    [HideInInspector]
+    public static float _amplitude, _amplitudeBuffer;
+    private float _amplitudeHighest;
+    public float _audioProfile;
 
 
-    float[] _freqBandHighest = new float[8];
-    public static float[] _audioBand = new float[8];
-    public static float[] _audioBandBuffer = new float[8];
-    //_____
+    public enum _channel { Stereo, Left, Right };
+    public _channel channel = new _channel();
+
+
+
 
 
 
     void Start()
     {
+        _audioBand8 = new float[8];
+        _audioBandBuffer8 = new float[8];
 
 
+        _audioBand32 = new float[32];
+        _audioBandBuffer32 = new float[32];
+
+
+        AudioProfile(8, _audioProfile);
+
+        //fetch the musicEvent
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
         musicInstance = emitter.getEvent();
 
@@ -50,20 +85,7 @@ class FMODAudioPeer : MonoBehaviour
         fft.setParameterInt((int)FMOD.DSP_FFT.WINDOWSIZE, WindowSize * 2);
 
         //assign the dsp to a channel
-
         musicInstance.getChannelGroup(out channelGroup);
-
-
-
-
-        //FMODUnity.RuntimeManager.CoreSystem.getMasterChannelGroup(out channelGroup);
-
-        //channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.TAIL, fft);
-
-
-
-
-
 
     }
 
@@ -71,6 +93,10 @@ class FMODAudioPeer : MonoBehaviour
 
     void Update()
     {
+        //BPM Calculation Methods
+        BeatDetection();
+
+
         if (!ready)
         {
             musicInstance.getChannelGroup(out channelGroup);
@@ -86,6 +112,7 @@ class FMODAudioPeer : MonoBehaviour
 
         if (ready)
         {
+            //Creating the spectrum with 512 samples
             IntPtr unmanagedData;
             uint length;
             fft.getParameterData((int)FMOD.DSP_FFT.SPECTRUMDATA, out unmanagedData, out length);
@@ -93,26 +120,23 @@ class FMODAudioPeer : MonoBehaviour
             var spectrum = fftData.spectrum;
 
 
-
+            //Checking if the channels already loaded
             if (fftData.numchannels == 0)
             {
                 Debug.Log("keine FFT Channels vorhanden");
             }
+            //Checking if the channels already loaded
             if (fftData.numchannels > 0)
             {
 
 
-                // Debug.Log(fftData.spectrum[0].Length);
 
-                //--- Frequency Bands
+                //--- Frequency Bands 8
                 //cant call the methdo because i cant convert the var to an actual array
-
                 int count = 0;
 
                 for (int i = 0; i < 8; i++)
                 {
-
-
                     float average = 0;
                     int sampleCount = (int)Mathf.Pow(2, i) * 2;
 
@@ -120,115 +144,299 @@ class FMODAudioPeer : MonoBehaviour
                     {
                         sampleCount += 2;
                     }
+
                     for (int j = 0; j < sampleCount; j++)
                     {
-                        average += spectrum[0][count] * (count + 1);
+                        if (channel == _channel.Stereo)
+                        {
+                            average += (spectrum[0][count] + spectrum[1][count]) * (count + 1);
+                        }
+                        if (channel == _channel.Left)
+                        {
+                            average += (spectrum[0][count]) * (count + 1);
+                        }
+                        if (channel == _channel.Right)
+                        {
+                            average += (spectrum[1][count]) * (count + 1);
+                        }
                         count++;
                     }
-
-                    //_____
-
-
                     average /= count;
-                    _freqBand[i] = average * 10;
+                    _freqBand8[i] = average * 10;
                 }
-                //-----------------------------------------------
-
-                BandBuffer();
-                CreateAudioBands();
 
 
 
+
+                /*
+                Aufteilung der Samples
+                0-7 	8	= 	4 sample = 32
+                8-15 	8	=	8 sample = 64
+                16-20 	5	= 16 sample = 	80
+                21-25 	5	= 24 sample = 	120
+                26-31 	6	= 36 sample = 	216
+                */
+
+                //--- Frequency Bands 32
+                //cant call the methdo because i cant convert the var to an actual array
+                count = 0;
+                int sampleCount32 = 1;
+                int power = 0;
+
+                for (int i = 0; i < 32; i++)
+                {
+                    float average = 0;
+
+                    if (i == 8 || i == 16 || i == 21 || i == 26)
+                    {
+                        power++;
+                        sampleCount32 = (int)Mathf.Pow(2, power);
+                        if (power == 3)
+                        {
+                            sampleCount32 -= 6;
+                        }
+                    }
+                    for (int j = 0; j < sampleCount32; j++)
+                    {
+                        if (channel == _channel.Stereo)
+                        {
+                            average += (spectrum[0][count] + spectrum[1][count]) * (count + 1);
+
+                        }
+                        if (channel == _channel.Left)
+                        {
+                            average += (spectrum[0][count]) * (count + 1);
+                        }
+                        if (channel == _channel.Right)
+                        {
+                            average += (spectrum[1][count]) * (count + 1);
+                        }
+                        count++;
+                    }
+                    average /= count;
+                    _freqBand32[i] = average * 40;
+                }
+
+                BandBuffer8();
+                BandBuffer32();
+                CreateAudioBands8();
+                CreateAudioBands32();
+                GetAmplitude(8);
 
             }
-
 
         }
 
     }
 
-    void MakeFrequencyBands()
+    //returned das fqBand mit Bufferfunkiont -> smoothed die werte
+    //die id gibt dabei an welches Band man will
+    // 0 - 7, je höher die Nummer desto höhere Frequenzen beherbergt das Band
+    //will man denn Bass so nimmt man die 0, die Höhen bei 6 - 7
+    public static float getFqBandBuffer8(int id)
     {
-        /*
-         * 
-         * 22050 / 512 = 43 Hertz per Sample
-         * 
-         * 20   - 60
-         * 60   - 250
-         * 250  - 500 
-         * 500  - 2000
-         * 2000 - 4000
-         * 4000 - 6000
-         * 6000 - 20000
-         * 
-         * 
-         * 0 - 2 = 86
-         * 1 - 4 = 172  - 87 - 258
-         * 2 - 8 = 344  - 259 - 602
-         * 3 - 16 = 688 - 603 - 1290
-         * 4 - 32 = 1376 - 1291 - 2666
-         * 5 - 64 = 2752 - 2667 - 5418
-         * 6 - 128 = 5504 - 5419 - 10922
-         * 7 - 256 = 11008 - 10923 - 21930
-         * 
-         * 510
-         * 
-         * 
-         */
 
-        int count = 0;
+        return _audioBandBuffer8[id];
+    }
 
+    public static float getFqBand8(int id)
+    {
+        return _audioBand8[id];
+    }
+
+    public static float getAmplitudeBuffer()
+    {
+        return _amplitudeBuffer;
+    }
+
+    public static float getFqBandBuffer32(int id)
+    {
+        return _audioBandBuffer32[id];
+    }
+
+    public static float getFqBand32(int id)
+    {
+        return _audioBand32[id];
+    }
+
+
+    void BeatDetection()
+    {
+        //full beat count
+        _beatFull = false;
+        _beatInterval = 60 / _bpm;
+        _beatTimer += Time.deltaTime;
+        if (_beatTimer >= _beatInterval)
+        {
+            _beatTimer -= _beatInterval;
+            _beatFull = true;
+            _beatCountFull++;
+            // Debug.Log("Full");
+            if (_beatCountFull % 4 == 0)
+            {
+                // Debug.Log("FullBar");
+            }
+        }
+
+
+
+        //divided beat count
+        _beatD8 = false;
+        _beatIntervalD8 = _beatInterval / 8;
+        _beatTimerD8 += Time.deltaTime;
+        if (_beatTimerD8 >= _beatIntervalD8)
+        {
+            _beatTimerD8 -= _beatIntervalD8;
+            _beatD8 = true;
+            _beatCountD8++;
+            // Debug.Log("D8");
+        }
+    }
+
+
+    //normalisiert die 8 Frequenzbänder
+    //damit erhalten wir Werte zwischen 0 und 1 für jedes Frequenzband
+    void CreateAudioBands8()
+    {
         for (int i = 0; i < 8; i++)
         {
-            float average = 0;
-            int sampleCount = (int)Mathf.Pow(2, i) * 2;
-
-            if (i == 7)
+            if (_freqBand8[i] > _freqBandHighest8[i])
             {
-                sampleCount += 2;
+                _freqBandHighest8[i] = _freqBand8[i];
             }
-            for (int j = 0; j < sampleCount; j++)
-            {
-                // average += _samples[count] * (count + 1);
-                count++;
-            }
-
-            average /= count;
-
-            _freqBand[i] = average * 10;
+            _audioBand8[i] = (_freqBand8[i] / _freqBandHighest8[i]);
+            _audioBandBuffer8[i] = (_bandBuffer8[i] / _freqBandHighest8[i]);
         }
     }
 
-
-
-    void CreateAudioBands()
+    //normalisiert die 32 Frequenzbänder
+    //damit erhalten wir Werte zwischen 0 und 1 für jedes Frequenzband
+    void CreateAudioBands32()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 32; i++)
         {
-            if (_freqBand[i] > _freqBandHighest[i])
+            if (_freqBand32[i] > _freqBandHighest32[i])
             {
-                _freqBandHighest[i] = _freqBand[i];
+                _freqBandHighest32[i] = _freqBand32[i];
             }
-            _audioBand[i] = (_freqBand[i] / _freqBandHighest[i]);
-            _audioBandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
+            _audioBand32[i] = (_freqBand32[i] / _freqBandHighest32[i]);
+            _audioBandBuffer32[i] = (_bandBuffer32[i] / _freqBandHighest32[i]);
+
         }
     }
 
-    void BandBuffer()
+    //smootht die Werte damit diese nicht so zappeln
+    void BandBuffer8()
     {
         for (int g = 0; g < 8; ++g)
         {
-            if (_freqBand[g] > _bandBuffer[g])
+            if (_freqBand8[g] > _bandBuffer8[g])
             {
-                _bandBuffer[g] = _freqBand[g];
-                _bufferDecrease[g] = 0.005f * _bufferDecreaseValue;
+                _bandBuffer8[g] = _freqBand8[g];
+                _bufferDecrease[g] = 0.005f;
             }
 
-            if (_freqBand[g] < _bandBuffer[g])
+            if (_freqBand8[g] < _bandBuffer8[g])
             {
-                _bandBuffer[g] -= _bufferDecrease[g];
-                _bufferDecrease[g] *= 2f * _bufferIncreaseValue;
+                _bufferDecrease[g] = (_bandBuffer8[g] - _freqBand8[g]) / 8;
+                _bandBuffer8[g] -= _bufferDecrease[g];
             }
         }
     }
+
+    //smootht die Werte damit diese nicht so zappeln
+    void BandBuffer32()
+    {
+        for (int g = 0; g < 32; ++g)
+        {
+            if (_freqBand32[g] > _bandBuffer32[g])
+            {
+                _bandBuffer32[g] = _freqBand32[g];
+                _bufferDecrease32[g] = 0.005f;
+            }
+
+            if (_freqBand32[g] < _bandBuffer32[g])
+            {
+                _bufferDecrease32[g] = (_bandBuffer32[g] - _freqBand32[g]) / 64;
+                _bandBuffer32[g] -= _bufferDecrease32[g];
+            }
+        }
+    }
+
+    //damit bekommen wir die Lautstärke
+    void GetAmplitude(int bandAmount)
+    {
+        float _currentAmplitude = 0;
+        float _CurrentAmplitudeBuffer = 0;
+        for (int i = 0; i < bandAmount; i++)
+        {
+            _currentAmplitude += _audioBand8[i];
+            _CurrentAmplitudeBuffer += _audioBandBuffer8[i];
+        }
+        if (_currentAmplitude > _amplitudeHighest)
+        {
+            _amplitudeHighest = _currentAmplitude;
+        }
+        _amplitude = _currentAmplitude / _amplitudeHighest;
+        _amplitudeBuffer = _CurrentAmplitudeBuffer / _amplitudeHighest;
+    }
+
+    //kann für jeden Track angepasst werden
+    //damit die Werte auch gleich am Anfang smooth sind, ohne dem AudioProfile brauchen diese ein bisschen bis sie sich einpendeln
+    void AudioProfile(int bandAmount, float audioProfile)
+    {
+        for (int i = 0; i < bandAmount; i++)
+        {
+            _freqBandHighest8[i] = audioProfile;
+        }
+    }
 }
+
+
+/*
+    //--- Frequency Bands 64
+    //cant call the methdo because i cant convert the var to an actual array
+
+count = 0;
+int sampleCount64 = 1;
+int power = 0;
+
+for (int i = 0; i < 64; i++)
+{
+   float average = 0;
+
+   if (i == 16 || i == 32 || i == 40 || i == 48 || i == 56)
+   {
+       power++;
+       sampleCount64 = (int)Mathf.Pow(2, power);
+       if (power == 3)
+       {
+           sampleCount64 -= 2;
+       }
+   }
+   for (int j = 0; j < sampleCount64; j++)
+   {
+       if (channel == _channel.Stereo)
+       {
+           average += (spectrum[0][count] + spectrum[1][count]) * (count + 1);
+
+       }
+       if (channel == _channel.Left)
+       {
+           average += (spectrum[0][count]) * (count + 1);
+       }
+       if (channel == _channel.Right)
+       {
+           average += (spectrum[1][count]) * (count + 1);
+       }
+       count++;
+   }
+   average /= count;
+   _freqBand64[i] = average * 80;
+
+*/
+
+
+
+
+
