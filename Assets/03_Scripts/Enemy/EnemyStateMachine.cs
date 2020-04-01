@@ -15,7 +15,6 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (CurrentState == null)
         {
-            
             CurrentState = _availableStates[typeof(IdleState)];
             CurrentState.OnStateEnter();
         }

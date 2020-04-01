@@ -16,10 +16,10 @@ public class ChaseState : BaseState
 
     public override void OnStateEnter()
     {
-        Vector3 dir = _enemy.Target.position - _enemy.transform.position;
-        dir.y = 0;
-        Quaternion look = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, look, Time.deltaTime * 2);
+       // Vector3 dir = _enemy.Target.position - _enemy.transform.position;
+       // dir.y = 0;
+       // Quaternion look = Quaternion.LookRotation(dir);
+       // transform.rotation = Quaternion.Lerp(_enemy.transform.rotation, look, Time.deltaTime * 2);
         return;
     }
 

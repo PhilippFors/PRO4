@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     Vector3 pointToLook;
     Vector2 move = Vector3.zero;
 
+    public bool doubleTrue = false;
     public float dashDistance = 7f;
 
     Plane groundPlane;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Rotate.performed += rt => GamepadLook(rt.ReadValue<Vector2>());
         input.Gameplay.Look.performed += rt => MouseLook(rt.ReadValue<Vector2>());
         input.Gameplay.Dash.performed += ctx => Dash();
+        
     }
 
     void Start()
@@ -68,16 +70,38 @@ public class PlayerController : MonoBehaviour
         // {
         UpdateLookDirection();
         Move();
+        InputDebug();
         //  }
     }
 
+    void InputDebug()
+    {
+        if (input.Gameplay.LeftAttack.triggered)
+        {
+            Debug.Log("Left is triggerd");
+
+            StartCoroutine(Timing());
+        }
+        if (input.Gameplay.RightAttack.triggered & doubleTrue)
+        {
+            Debug.Log("both are Triggered");
+        }
+    }
     #endregion
+
+    IEnumerator Timing()
+    {
+        doubleTrue = true;
+        yield return new WaitForSeconds(1.0f);
+        doubleTrue = false;
+        yield return null;
+    }
 
     #region Movement
     public void Move()
     {
         move = input.Gameplay.Movement.ReadValue<Vector2>();
-        Debug.Log(move);
+        //Debug.Log(move);
         Vector3 direction = new Vector3(move.x, 0, move.y);
         moveVelocity = direction * moveSpeed * Time.deltaTime;
         moveVelocity.y = 0;
@@ -125,9 +149,13 @@ public class PlayerController : MonoBehaviour
         //checking if the raycast intersects with the plane
         if (groundPlane.Raycast(cameraRay, out rayLength))
         {
+           
             Vector3 rayPoint = cameraRay.GetPoint(rayLength);
+            //Debug.DrawLine(cameraRay.origin, rayPoint);
             pointToLook = rayPoint - transform.position;
+            
         }
+        
     }
 
     void UpdateLookDirection()
