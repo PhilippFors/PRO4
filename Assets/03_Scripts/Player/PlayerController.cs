@@ -46,13 +46,8 @@ public class PlayerController : MonoBehaviour
     {
         input = new PlayerControls();
 
-        //These actions listen for any input coming from gamepad or Keyboard
-        // input.Gameplay.Movement.performed += mv => move = mv.ReadValue<Vector2>();
-        // input.Gameplay.Movement.canceled += mv => move = Vector2.zero;
-
         input.Gameplay.Rotate.performed += rt => GamepadLook(rt.ReadValue<Vector2>());
         input.Gameplay.Look.performed += rt => MouseLook(rt.ReadValue<Vector2>());
-
         input.Gameplay.Dash.performed += ctx => Dash();
     }
 
@@ -118,7 +113,6 @@ public class PlayerController : MonoBehaviour
         Vector3 input = new Vector3(rotate.x, 0, rotate.y);
         var lookRot = mainCam.transform.TransformDirection(input);
         pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
-
     }
 
     public void MouseLook(Vector2 rotate)
