@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
 
     public Transform Target { get; private set; }
-    public GameObject target;
+
     public Animator animator;
     public EnemyStateMachine StateMachine => GetComponent<EnemyStateMachine>();
 
@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
     public void GetTarget(Transform target)
     {
         this.Target = target;
-        this.target = target.gameObject;
     }
 
     public void Attack(int attackSequenze)

@@ -373,6 +373,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &-8559043490323214862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TriggerMusic/LowPass
+  m_EditorClassIdentifier: 
+  Name: LowPass
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
 --- !u!114 &-8529603571107115619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +436,23 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-8461146187433635564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Techno/Loudness
+  m_EditorClassIdentifier: 
+  Name: Loudness
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &-8338475067632793993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,24 +666,6 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 1
---- !u!114 &-8001039190964400815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Bank A.bank
-  m_EditorClassIdentifier: 
-  Path: FMODProject/fmodstudioproject/Build/Desktop/Bank A.bank
-  SubDir: 
-  lastModified: 637204088292405225
-  LoadResult: 0
-  FileSizes: []
-  Exists: 1
 --- !u!114 &-7973257228244187819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +683,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &-7952612687851059427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TriggerMusic/Loudness
+  m_EditorClassIdentifier: 
+  Name: Loudness
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &-7899668653518968197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,23 +1346,6 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
---- !u!114 &-6756388271873707195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TriggerMusic/toMain
-  m_EditorClassIdentifier: 
-  Name: toMain
-  Min: 0
-  Max: 1
-  Default: 0
-  Exists: 1
 --- !u!114 &-6651836404078439646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,6 +1398,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &-6427189904971675688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TriggerMusic/toMain
+  m_EditorClassIdentifier: 
+  Name: toMain
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &-6417646901782362008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,23 +2438,6 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
---- !u!114 &-4726140013418276763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TriggerMusic/Loudness
-  m_EditorClassIdentifier: 
-  Name: Loudness
-  Min: 0
-  Max: 1
-  Default: 0
-  Exists: 1
 --- !u!114 &-4709922233861425831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3097,23 +3113,6 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
-  Exists: 1
---- !u!114 &-3148502853724549323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Techno/HighPass
-  m_EditorClassIdentifier: 
-  Name: HighPass
-  Min: 0
-  Max: 1
-  Default: 1
   Exists: 1
 --- !u!114 &-3142759396255968189
 MonoBehaviour:
@@ -4371,23 +4370,6 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 1
---- !u!114 &-1036885965889721674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Techno/LowPass
-  m_EditorClassIdentifier: 
-  Name: LowPass
-  Min: 0
-  Max: 1
-  Default: 1
-  Exists: 1
 --- !u!114 &-1029246569070557188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4596,6 +4578,24 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
+--- !u!114 &-681286812501598505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bank A.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/fmodstudioproject/Build/Desktop/Bank A.bank
+  SubDir: 
+  lastModified: 637198226044490370
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-643393306068558457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5024,17 +5024,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7851902552419684115}
-  - {fileID: -8001039190964400815}
-  - {fileID: 7164877995076691495}
+  - {fileID: -681286812501598505}
+  - {fileID: 8052620310201998519}
   EditorEvents:
   - {fileID: 718985687491452366}
   - {fileID: 8055626155588391225}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 7164877995076691495}
+  - {fileID: 8052620310201998519}
   StringsBanks:
   - {fileID: 7851902552419684115}
-  stringsBankWriteTime: 637213736986202102
+  stringsBankWriteTime: 637213504928436992
   cacheVersion: 3
 --- !u!114 &6026265671979003
 MonoBehaviour:
@@ -5456,14 +5456,14 @@ MonoBehaviour:
   Path: event:/Techno
   guid: 5692dcf88a51cf4eb62b4127a726f9e4
   Banks:
-  - {fileID: 7164877995076691495}
+  - {fileID: 8052620310201998519}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 2141662061550038547}
-  - {fileID: -1036885965889721674}
-  - {fileID: -3148502853724549323}
+  - {fileID: -8461146187433635564}
+  - {fileID: 2191599991242016818}
+  - {fileID: 3045260373833091732}
   MinDistance: 0
   MaxDistance: 0
   Length: 174391
@@ -5776,23 +5776,6 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
---- !u!114 &1203167245015450325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TriggerMusic/LowPass
-  m_EditorClassIdentifier: 
-  Name: LowPass
-  Min: 0
-  Max: 1
-  Default: 1
-  Exists: 1
 --- !u!114 &1234814820879196037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6021,6 +6004,23 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &1531494483209291853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TriggerMusic/toBuildUp1
+  m_EditorClassIdentifier: 
+  Name: toBuildUp1
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &1560920474070120578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6192,23 +6192,6 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
---- !u!114 &1746531455333246317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TriggerMusic/toBuildUp2
-  m_EditorClassIdentifier: 
-  Name: toBuildUp2
-  Min: 0
-  Max: 1
-  Default: 0
-  Exists: 1
 --- !u!114 &1751545655282721634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6454,23 +6437,6 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
---- !u!114 &2141662061550038547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Techno/Loudness
-  m_EditorClassIdentifier: 
-  Name: Loudness
-  Min: 0
-  Max: 1
-  Default: 0
-  Exists: 1
 --- !u!114 &2157819517837296931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6505,6 +6471,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
+--- !u!114 &2191599991242016818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Techno/LowPass
+  m_EditorClassIdentifier: 
+  Name: LowPass
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
 --- !u!114 &2207591047328752158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7026,6 +7009,23 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
+--- !u!114 &3045260373833091732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Techno/HighPass
+  m_EditorClassIdentifier: 
+  Name: HighPass
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
 --- !u!114 &3100235987885684394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7473,23 +7473,6 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
---- !u!114 &4112587605815766148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TriggerMusic/toBuildUp1
-  m_EditorClassIdentifier: 
-  Name: toBuildUp1
-  Min: 0
-  Max: 1
-  Default: 0
-  Exists: 1
 --- !u!114 &4137589225075768999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7520,6 +7503,23 @@ MonoBehaviour:
   m_Name: parameter:/Techno/Loudness
   m_EditorClassIdentifier: 
   Name: Loudness
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &4200105545456841839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TriggerMusic/toBuildUp2
+  m_EditorClassIdentifier: 
+  Name: toBuildUp2
   Min: 0
   Max: 1
   Default: 0
@@ -8738,23 +8738,6 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 0
---- !u!114 &6315711246488612284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TriggerMusic/HighPass
-  m_EditorClassIdentifier: 
-  Name: HighPass
-  Min: 0
-  Max: 1
-  Default: 1
-  Exists: 1
 --- !u!114 &6336239372885434719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9199,24 +9182,6 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
---- !u!114 &7164877995076691495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: FMODProject/fmodstudioproject/Build/Desktop/Master.bank
-  SubDir: 
-  lastModified: 637213736986182179
-  LoadResult: 0
-  FileSizes: []
-  Exists: 1
 --- !u!114 &7179211102011169968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9549,6 +9514,23 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &7602656886356480963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TriggerMusic/HighPass
+  m_EditorClassIdentifier: 
+  Name: HighPass
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
 --- !u!114 &7617110454806327852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9665,7 +9647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: FMODProject/fmodstudioproject/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637213736986202102
+  lastModified: 637213504928436992
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -9809,6 +9791,24 @@ MonoBehaviour:
   Max: 1
   Default: 1
   Exists: 0
+--- !u!114 &8052620310201998519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMODProject/fmodstudioproject/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637213504928427218
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &8055626155588391225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9824,17 +9824,17 @@ MonoBehaviour:
   Path: event:/TriggerMusic
   guid: 938127eac0abe44a9c6e226257c42ec4
   Banks:
-  - {fileID: 7164877995076691495}
+  - {fileID: 8052620310201998519}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 1746531455333246317}
-  - {fileID: -6756388271873707195}
-  - {fileID: 6315711246488612284}
-  - {fileID: 1203167245015450325}
-  - {fileID: 4112587605815766148}
-  - {fileID: -4726140013418276763}
+  - {fileID: 4200105545456841839}
+  - {fileID: -6427189904971675688}
+  - {fileID: 7602656886356480963}
+  - {fileID: -8559043490323214862}
+  - {fileID: 1531494483209291853}
+  - {fileID: -7952612687851059427}
   MinDistance: 0
   MaxDistance: 0
   Length: 330823

@@ -14,7 +14,7 @@ public class IdleState : BaseState
 
     public override void OnStateEnter()
     {
-        player = GameObject.Find("player");
+        player = GameObject.FindGameObjectWithTag("Player");
         _enemy.GetTarget(player.transform);
     }
 

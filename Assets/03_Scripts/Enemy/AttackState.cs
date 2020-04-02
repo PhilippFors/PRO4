@@ -49,7 +49,7 @@ public class AttackState : BaseState
     }
     bool Wait()
     {
-        while (waitTime < 1f)
+        while (waitTime < 0.5f)
         {
             waitTime += Time.deltaTime;
             return false;
