@@ -27,7 +27,10 @@ public class Enemy : MonoBehaviour
 
         StateMachine.SetStates(states);
     }
-
+    //private void OnDrawGizmosSelected()
+    //{
+        //Gizmos.DrawWireSphere(transform.position, EnemySettings.EnemyRange);
+    //}
     public void GetTarget(Transform target)
     {
         this.Target = target;
