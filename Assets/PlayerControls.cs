@@ -97,6 +97,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Dash2"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b60ff2c-38aa-4ee8-be19-22d3faa49503"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -341,6 +349,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5d1a22f-c89a-4677-a25f-7fff3748a9c3"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -387,6 +406,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Skill2 = m_Gameplay.FindAction("Skill2", throwIfNotFound: true);
         m_Gameplay_Skill3 = m_Gameplay.FindAction("Skill3", throwIfNotFound: true);
         m_Gameplay_Skill4 = m_Gameplay.FindAction("Skill4", throwIfNotFound: true);
+        m_Gameplay_Dash2 = m_Gameplay.FindAction("Dash2", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -446,6 +466,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Skill2;
     private readonly InputAction m_Gameplay_Skill3;
     private readonly InputAction m_Gameplay_Skill4;
+    private readonly InputAction m_Gameplay_Dash2;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -460,6 +481,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Skill2 => m_Wrapper.m_Gameplay_Skill2;
         public InputAction @Skill3 => m_Wrapper.m_Gameplay_Skill3;
         public InputAction @Skill4 => m_Wrapper.m_Gameplay_Skill4;
+        public InputAction @Dash2 => m_Wrapper.m_Gameplay_Dash2;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -499,6 +521,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Skill4.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSkill4;
                 @Skill4.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSkill4;
                 @Skill4.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSkill4;
+                @Dash2.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash2;
+                @Dash2.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash2;
+                @Dash2.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash2;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -533,6 +558,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Skill4.started += instance.OnSkill4;
                 @Skill4.performed += instance.OnSkill4;
                 @Skill4.canceled += instance.OnSkill4;
+                @Dash2.started += instance.OnDash2;
+                @Dash2.performed += instance.OnDash2;
+                @Dash2.canceled += instance.OnDash2;
             }
         }
     }
@@ -567,5 +595,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSkill2(InputAction.CallbackContext context);
         void OnSkill3(InputAction.CallbackContext context);
         void OnSkill4(InputAction.CallbackContext context);
+        void OnDash2(InputAction.CallbackContext context);
     }
 }

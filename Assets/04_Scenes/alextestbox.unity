@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1919,13 +1919,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 05000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &162031821
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2281,6 +2280,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1277148572}
+  playerPosition: {x: 0, y: 0, z: 0}
+  cameraFollowSpeed: 5
 --- !u!1001 &272277002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5533,13 +5534,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 00000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &516792758
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5793,8 +5793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a108e6d357c35148a9bc8cdc408d3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bufferDecreaseValue: 0.5
-  _bufferIncreaseValue: 0.6
+  _bpm: 0
+  _audioProfile: 0
+  channel: 0
 --- !u!114 &525771212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8532,13 +8533,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 02000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &750571436
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10887,13 +10887,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 04000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &1022956803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11596,13 +11595,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 00000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 1
-  _laserThreshhold: 0.6
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!114 &1075386465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13016,13 +13014,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 01000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &1078858206
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14605,13 +14602,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 03000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &1202358059
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15065,6 +15061,7 @@ GameObject:
   - component: {fileID: 1277148573}
   - component: {fileID: 1277148582}
   - component: {fileID: 1277148581}
+  - component: {fileID: 1277148583}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -15118,7 +15115,8 @@ MonoBehaviour:
   rotationSpeed: 50
   mainCam: {fileID: 624565996}
   currentDirection: {x: 0, y: 0, z: 0}
-  gamepadEnabled: 0
+  doubleTrue: 0
+  dashDistance: 7
 --- !u!54 &1277148576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15242,6 +15240,18 @@ MonoBehaviour:
   maxHealth: 10
   health: 10
   damage: 2
+--- !u!114 &1277148583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277148572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0a24e28d5dd4740875cc129308615c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1279598392
 GameObject:
   m_ObjectHideFlags: 0
@@ -15691,13 +15701,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 07000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &1365816883
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18123,13 +18132,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 00000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 1
-  _laserThreshhold: 0.6
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!114 &1588419213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23322,13 +23330,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 06000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 0
-  _laserThreshhold: 0
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!65 &1959549632
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23688,13 +23695,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bandArray: 00000000
   _useBuffer: 1
-  _deathBlock: 0
-  _laser: 1
-  _laserThreshhold: 0.6
   _colorCube: 1
   _yDynamicCube: 1
-  _yDynamicFactor: 20
-  _useUnityAudioSystem: 0
+  _yDynamicStartScale: 0
+  _yDynamicMaxScale: 0
+  enable32Bands: 0
+  _bandArray32: 
 --- !u!114 &1974109552
 MonoBehaviour:
   m_ObjectHideFlags: 0
