@@ -50,8 +50,7 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Rotate.performed += rt => GamepadLook(rt.ReadValue<Vector2>());
         input.Gameplay.Look.performed += rt => MouseLook(rt.ReadValue<Vector2>());
         input.Gameplay.Dash.performed += ctx => Dash();
-        input.Gameplay.Dash2.performed += ctx => DashV2();
-        
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void Start()
@@ -101,6 +100,7 @@ public class PlayerController : MonoBehaviour
     #region Movement
     public void Move()
     {
+        
         move = input.Gameplay.Movement.ReadValue<Vector2>();
         //Debug.Log(move);
         Vector3 direction = new Vector3(move.x, 0, move.y);
@@ -129,29 +129,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = rayCastHit.point;
         }
-
     }
-    
-    public void DashV2()
-    {
-        
-        StartCoroutine(DashCoroutine());
-
-    }
-    
-    IEnumerator DashCoroutine()
-    {
-
-
-        moveSpeed = moveSpeed * 5;
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(1);
-
-        //After we have waited 5 seconds print the time again.
-        moveSpeed = moveSpeed / 5;
-
-    }
-    
     #endregion
 
     #region Look direction

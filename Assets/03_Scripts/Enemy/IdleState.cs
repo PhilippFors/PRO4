@@ -27,7 +27,7 @@ public class IdleState : BaseState
     {
         if(player != null)
         {
-            return typeof(ChaseState);
+            //return typeof(ChaseState);
         }
         return typeof(IdleState);
     }
