@@ -1,35 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
+using System;
 
-public class Enemy : MonoBehaviour
+public class DurgaAI : MonoBehaviour
 {
     // Start is called before the first frame update
 
     public Transform Target { get; private set; }
-
+    [SerializeField] private DurgaBody durgaBody => GetComponent<DurgaBody>();
     public Animator animator;
     public EnemyStateMachine StateMachine => GetComponent<EnemyStateMachine>();
 
     private void Awake()
     {
         InitStates();
+
     }
     private void InitStates()
     {
         var states = new Dictionary<Type, BaseState>()
         {
-            {typeof(IdleState), new IdleState(this)},
-            {typeof(ChaseState), new ChaseState(this) },
-            {typeof(AttackState), new AttackState(this) },
+            {typeof(IdleState), new IdleState(this, durgaBody)},
+            {typeof(ChaseState), new ChaseState(this, durgaBody) },
+            {typeof(AttackState), new AttackState(this, durgaBody) },
         };
 
         StateMachine.SetStates(states);
     }
     //private void OnDrawGizmosSelected()
     //{
-        //Gizmos.DrawWireSphere(transform.position, EnemySettings.EnemyRange);
+    //Gizmos.DrawWireSphere(transform.position, EnemySettings.EnemyRange);
     //}
     public void GetTarget(Transform target)
     {

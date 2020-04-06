@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Look.performed += rt => MouseLook(rt.ReadValue<Vector2>());
         input.Gameplay.Dash.performed += ctx => Dash();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        
     }
 
     void Start()
@@ -70,12 +71,13 @@ public class PlayerController : MonoBehaviour
         // {
         UpdateLookDirection();
         Move();
-        InputDebug();
+        // InputDebug();
         //  }
     }
 
     void InputDebug()
     {
+        
         if (input.Gameplay.LeftAttack.triggered)
         {
             Debug.Log("Left is triggerd");

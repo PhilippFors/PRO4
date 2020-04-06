@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EnemySettings : MonoBehaviour
 {
-    [SerializeField] private float enemySpeed = 3f;
+    [SerializeField] private float durgaSpeed = 3f;
 
-    public static float EnemySpeed => Instance.enemySpeed;
+    public static float DurgaSpeed => Instance.durgaSpeed;
 
-    [SerializeField] private float enemyRange = 3f;
-    public static float EnemyRange => Instance.enemyRange;
+    [SerializeField] private float durgaRange = 3f;
+    public static float DurgaRange => Instance.durgaRange;
 
-    [SerializeField] private float enemyLookSpeed= 3f;
-    public static float EnemyLookSpeed => Instance.enemyLookSpeed;
+    [SerializeField] private float durgaTurnSpeed= 3f;
+    public static float DurgaTurnSpeed => Instance.durgaTurnSpeed;
+
 
 
     private static EnemySettings _instance;
