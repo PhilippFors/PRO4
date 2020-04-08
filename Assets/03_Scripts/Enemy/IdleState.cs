@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class IdleState : BaseState
 {
-    private Enemy _enemy;
+    private DurgaAI durgaAI;
     public GameObject player;
-    public IdleState(Enemy enemy) : base(enemy.gameObject)
+    IEnemyBase durgaSettings;
+    public IdleState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
     {
-        _enemy = enemy;
+        durgaAI = durga;
+        durgaSettings = template;
     }
 
     public override void OnStateEnter()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        _enemy.GetTarget(player.transform);
+        durgaAI.GetTarget(player.transform);
     }
 
     public override void OnStateExit()
@@ -27,7 +29,7 @@ public class IdleState : BaseState
     {
         if(player != null)
         {
-            //return typeof(ChaseState);
+            return typeof(ChaseState);
         }
         return typeof(IdleState);
     }

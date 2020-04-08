@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Dash.performed += ctx => DashActivator();
         // input.Gameplay.Sprint.performed += ctx => Sprint();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        
     }
 
     void Start()
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void InputDebug()
     {
+        
         if (input.Gameplay.LeftAttack.triggered)
         {
             Debug.Log("Left is triggerd");

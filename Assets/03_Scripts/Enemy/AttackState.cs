@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    Enemy _enemy;
+    DurgaAI durgaAI;
+    IEnemyBase durgaSettings;
     float waitTime = 0;
 
-    public AttackState(Enemy enemy) : base(enemy.gameObject)
+    public AttackState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
     {
-        _enemy = enemy;
+        durgaAI = durga;
+        durgaSettings = template;
     }
 
     public override void OnStateEnter()
@@ -30,16 +32,16 @@ public class AttackState : BaseState
 
         if (Input.GetKeyDown("f"))
         {
-            _enemy.StopAnim();
+            durgaAI.StopAnim();
             return typeof(IdleState);
         }
-        if (Vector3.Distance(_enemy.Target.position, transform.position) < EnemySettings.EnemyRange)
+        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.getRange())
         {
-            _enemy.Attack(1);
+            durgaAI.Attack(1);
         }
         else
         {
-            _enemy.StopAnim();
+            durgaAI.StopAnim();
             if (Wait())
             {
                 return typeof(ChaseState);
