@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    public ModifierManager modManager;
+
     private void Start()
     {
         EventSystem.instance.AttackPlayer += calcDmg;
@@ -14,7 +14,10 @@ public class HealthManager : MonoBehaviour
 
     public void calcDmg(IEnemyBase enemy, float baseDmg)
     {
-        enemy.setHealth(1f);
+        float damage = baseDmg * MultiplierManager.instance.GetModValue(MultiplierName.damageMod);
+        damage = damage * damage / (damage + (enemy.GetStat(EnemyStatName.defense) * MultiplierManager.instance.GetModValue(MultiplierName.defense)));
+        //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
+        enemy.SetStat(EnemyStatName.health, enemy.GetStat(EnemyStatName.health) - damage);
     }
 
     public void calcDmg(PlayerBody player, float baseDmg)
@@ -26,7 +29,7 @@ public class HealthManager : MonoBehaviour
     {
         obstacle.setHealth(1f);
     }
-    
+
     private void OnDisable()
     {
         EventSystem.instance.AttackPlayer -= calcDmg;

@@ -9,7 +9,7 @@ public class PlayerBody : MonoBehaviour
     
     HealthManager healthManager;
     public void setHealth(float dmg){
-        _health -=dmg;
+        _health -= dmg;
     }
 
     public float getHealth(){

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IObstacleBase
 {
+
     void setHealth(float v);
     float getHealth();
 }

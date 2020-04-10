@@ -26,7 +26,6 @@ public class EventSystem : MonoBehaviour
         _instance = this;
     }
 
-
     public void OnAttack(IEnemyBase enemy, float basedmg)
     {
         AttackEnemy(enemy, basedmg);

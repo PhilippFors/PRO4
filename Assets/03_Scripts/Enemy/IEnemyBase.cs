@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public interface IEnemyBase
 {
-    void setHealth(float health);
+    void SetStat(EnemyStatName stat, float value);
 
-    float getHealth();
-
-    float getSpeed();
-
-    float getRange();
-
-    float getBaseDmg();
-
-    float getTurnSpeed();
+    float GetStat(EnemyStatName stat);
 }

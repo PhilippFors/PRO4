@@ -5,67 +5,49 @@ using System;
 
 public class DurgaBody : MonoBehaviour, IEnemyBase
 {
-    float _health;
-    float _baseDmg;
-    float _speed;
-    float _range;
-    float _turnSpeed;
-    float _defense;
 
-    public HealthManager healthManager;
     public EnemyTemplate durgaTemplate;
+    public List<EnemyStatistics> statList = new List<EnemyStatistics>();
     private void Start()
     {
-        _health = durgaTemplate.health;
-        _baseDmg = durgaTemplate.baseDmg;
-        _speed = durgaTemplate.speed;
-        _range = durgaTemplate.range;
-        _turnSpeed = durgaTemplate.turnSpeed;
-        _defense = durgaTemplate.defense;
+        statList = StatInit.InitEnemyStats(durgaTemplate);
+
+        Debug.Log(GetStat(EnemyStatName.range));
     }
 
-    void OnDeath(){
+    private void Update()
+    {
+        ModUpdate();
+    }
+    void OnDeath()
+    {
         Debug.Log("I died!");
     }
 
-    void CheckHealth(){
-        if(_health <= 0){
+    void CheckHealth()
+    {
+        if (GetStat(EnemyStatName.health) <= 0)
+        {
             OnDeath();
             Destroy(gameObject);
         }
     }
 
-    public void setHealth(float dmg)
+    public void SetStat(EnemyStatName stat, float value)
     {
-        _health -= dmg;
-        CheckHealth();
+        statList.Find(x => x.GetName().Equals(stat)).SetStat(value);
+        if (stat == EnemyStatName.health)
+            CheckHealth();
     }
 
-    public float getHealth()
+    public float GetStat(EnemyStatName stat)
     {
-        return _health;
+        return statList.Find(x => x.GetName().Equals(stat)).GetStat();
     }
 
-    public float getSpeed()
+    void ModUpdate()
     {
-        return _speed;
-    }
-
-    public float getRange()
-    {
-        return _range;
-    }
-
-    public float getBaseDmg()
-    {
-        return _baseDmg;
-    }
-
-    public float getTurnSpeed()
-    {
-        return _turnSpeed;
-    }
-    public float getDefense(){
-        return _defense;
+        float speed = GetStat(EnemyStatName.speed);
+        SetStat(EnemyStatName.speed, speed * MultiplierManager.instance.GetModValue(MultiplierName.speedMod));
     }
 }

@@ -8,7 +8,7 @@ public class DurgaAI : MonoBehaviour
     // Start is called before the first frame update
 
     public Transform Target { get; private set; }
-    [SerializeField] private DurgaBody durgaBody => GetComponent<DurgaBody>();
+    public DurgaBody durgaBody => GetComponent<DurgaBody>();
     public Animator animator;
     public EnemyStateMachine StateMachine => GetComponent<EnemyStateMachine>();
 
@@ -28,10 +28,10 @@ public class DurgaAI : MonoBehaviour
 
         StateMachine.SetStates(states);
     }
-    //private void OnDrawGizmosSelected()
-    //{
-    //Gizmos.DrawWireSphere(transform.position, EnemySettings.EnemyRange);
-    //}
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, durgaBody.GetStat(EnemyStatName.range));
+    }
     public void GetTarget(Transform target)
     {
         this.Target = target;
