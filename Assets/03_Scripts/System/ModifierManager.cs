@@ -10,11 +10,13 @@ public class ModifierManager : MonoBehaviour
     public struct Modifier
     {
         private readonly float RESET_VALUE;
+        public string name;
         private float v;
-        public Modifier(float value, float resetValue)
+        public Modifier(float value, float resetValue, string n)
         {
             v = value;
             RESET_VALUE = resetValue;
+            name = n;
         }
 
         //Adding functionality to the individual Modifiers can make using it easier
@@ -22,7 +24,7 @@ public class ModifierManager : MonoBehaviour
         {
             v = RESET_VALUE;
         }
-        public float GetModifer()
+        public float GetModValue()
         {
             return v;
         }
@@ -31,7 +33,6 @@ public class ModifierManager : MonoBehaviour
         {
             v = value;
         }
-
     }
 
     private const float RESET_VALUE = 1.0f;
@@ -61,10 +62,13 @@ public class ModifierManager : MonoBehaviour
     private void Start()
     {
         //Example for making List with mods. Would be ideal to instantiate in a seperate class and return the List to keep it clean.
-        Modifier someMod = new Modifier(1f, 1f);
-        Modifier someOtherMod = new Modifier(1f, 1f);
+        Modifier someMod = new Modifier(1f, 1f, "someMod");
+        Modifier someOtherMod = new Modifier(1f, 1f, "someOtherMod");
         modList.Add(someMod);
         modList.Add(someOtherMod);
+
+        //How to use "List.Find"
+        Debug.Log(modList.Find(x => x.name.Equals("someMod")).GetModValue());
 
     }
 
