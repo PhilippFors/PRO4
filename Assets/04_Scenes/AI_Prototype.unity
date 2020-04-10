@@ -1050,10 +1050,8 @@ GameObject:
   - component: {fileID: 1863734987}
   - component: {fileID: 1863734986}
   - component: {fileID: 1863734985}
-  - component: {fileID: 1863734984}
   - component: {fileID: 1863734989}
-  - component: {fileID: 1863734991}
-  - component: {fileID: 1863734990}
+  - component: {fileID: 1863734984}
   m_Layer: 0
   m_Name: Durga
   m_TagString: Untagged
@@ -1074,7 +1072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthManager: {fileID: 1009489554}
-  template: {fileID: 11400000, guid: 102e2de9d9373e0488d4755eb328faa8, type: 2}
+  durgaTemplate: {fileID: 11400000, guid: 102e2de9d9373e0488d4755eb328faa8, type: 2}
 --- !u!65 &1863734985
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1165,31 +1163,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1863734990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863734983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc51b927b685f5644bb24206abbd6c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
---- !u!114 &1863734991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863734983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba4cec5b9a3c17244a5ea5a858845992, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4915831656682832776
 PrefabInstance:
   m_ObjectHideFlags: 0

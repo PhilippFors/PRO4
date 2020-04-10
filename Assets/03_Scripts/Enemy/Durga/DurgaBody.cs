@@ -10,6 +10,7 @@ public class DurgaBody : MonoBehaviour, IEnemyBase
     float _speed;
     float _range;
     float _turnSpeed;
+    float _defense;
 
     public HealthManager healthManager;
     public EnemyTemplate durgaTemplate;
@@ -20,11 +21,24 @@ public class DurgaBody : MonoBehaviour, IEnemyBase
         _speed = durgaTemplate.speed;
         _range = durgaTemplate.range;
         _turnSpeed = durgaTemplate.turnSpeed;
+        _defense = durgaTemplate.defense;
     }
 
-    public void setHealth(float baseDmg)
+    void OnDeath(){
+        Debug.Log("I died!");
+    }
+
+    void CheckHealth(){
+        if(_health <= 0){
+            OnDeath();
+            Destroy(gameObject);
+        }
+    }
+
+    public void setHealth(float dmg)
     {
-        _health = healthManager.calcDmg(baseDmg, _health);
+        _health -= dmg;
+        CheckHealth();
     }
 
     public float getHealth()
@@ -50,5 +64,8 @@ public class DurgaBody : MonoBehaviour, IEnemyBase
     public float getTurnSpeed()
     {
         return _turnSpeed;
+    }
+    public float getDefense(){
+        return _defense;
     }
 }
