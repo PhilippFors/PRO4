@@ -34,11 +34,11 @@ public class ChaseState : BaseState
         Vector3 dir = durgaAI.Target.position - durgaAI.transform.position;
         dir.y = 0;
         Quaternion look = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.Lerp(durgaAI.transform.rotation, look, Time.deltaTime * durgaSettings.getTurnSpeed());
+        transform.rotation = Quaternion.Lerp(durgaAI.transform.rotation, look, Time.deltaTime * durgaSettings.GetStat(EnemyStatName.turnSpeed));
 
-        transform.position += transform.forward * durgaSettings.getSpeed() * Time.deltaTime;
+        transform.position += transform.forward * durgaSettings.GetStat(EnemyStatName.speed) * Time.deltaTime;
         //
-        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.getRange())
+        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStat(EnemyStatName.range))
         {
             return typeof(AttackState);
         }

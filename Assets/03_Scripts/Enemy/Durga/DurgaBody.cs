@@ -5,50 +5,49 @@ using System;
 
 public class DurgaBody : MonoBehaviour, IEnemyBase
 {
-    float _health;
-    float _baseDmg;
-    float _speed;
-    float _range;
-    float _turnSpeed;
 
-    public HealthManager healthManager;
     public EnemyTemplate durgaTemplate;
+    public List<EnemyStatistics> statList = new List<EnemyStatistics>();
     private void Start()
     {
-        _health = durgaTemplate.health;
-        _baseDmg = durgaTemplate.baseDmg;
-        _speed = durgaTemplate.speed;
-        _range = durgaTemplate.range;
-        _turnSpeed = durgaTemplate.turnSpeed;
+        statList = StatInit.InitEnemyStats(durgaTemplate);
+
+        Debug.Log(GetStat(EnemyStatName.range));
     }
 
-    public void setHealth(float baseDmg)
+    private void Update()
     {
-        _health = healthManager.calcDmg(baseDmg, _health);
+        ModUpdate();
+    }
+    void OnDeath()
+    {
+        Debug.Log("I died!");
     }
 
-    public float getHealth()
+    void CheckHealth()
     {
-        return _health;
+        if (GetStat(EnemyStatName.health) <= 0)
+        {
+            OnDeath();
+            Destroy(gameObject);
+        }
     }
 
-    public float getSpeed()
+    public void SetStat(EnemyStatName stat, float value)
     {
-        return _speed;
+        statList.Find(x => x.GetName().Equals(stat)).SetStat(value);
+        if (stat == EnemyStatName.health)
+            CheckHealth();
     }
 
-    public float getRange()
+    public float GetStat(EnemyStatName stat)
     {
-        return _range;
+        return statList.Find(x => x.GetName().Equals(stat)).GetStat();
     }
 
-    public float getBaseDmg()
+    void ModUpdate()
     {
-        return _baseDmg;
-    }
-
-    public float getTurnSpeed()
-    {
-        return _turnSpeed;
+        float speed = GetStat(EnemyStatName.speed);
+        SetStat(EnemyStatName.speed, speed * MultiplierManager.instance.GetModValue(MultiplierName.speedMod));
     }
 }
