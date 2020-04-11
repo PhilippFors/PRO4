@@ -3,20 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Skills
+{
+    public string name;
+    public float current;
+    public float max;
+
+    public Skills(string name, float current, float max)
+    {
+        this.name = name;
+        this.current = current;
+        this.max = max;
+    }
+}
+
 public class PlayerAttack : MonoBehaviour
 {
     PlayerControls input;
 
-    public float lowPassSkill = 0;
-    public float highPassSkill = 0;
-    public float justSomeSkill = 0;
-    public float lowPassSkillMax = 4;
-    public float highPassSkillMax = 4;
-    public float justSomeSkillMax = 4;
-    
+    public List<Skills> skill = new List<Skills>();
+
     private GameObject _child; //the weapon object
     public float comboCounter = 0;
-    
+
     private void OnEnable()
     {
         input.Gameplay.Enable();
@@ -33,6 +42,10 @@ public class PlayerAttack : MonoBehaviour
 
         input.Gameplay.LeftAttack.performed += rt => LeftAttack();
         input.Gameplay.RightAttack.performed += rt => RightAttack();
+
+        skill.Add(new Skills("lowPassSkill", 0, 4));
+        skill.Add(new Skills("highPassSkill", 0, 4));
+        skill.Add(new Skills("justSomeSkill", 0, 4));
     }
 
     // Start is called before the first frame update
@@ -44,9 +57,8 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
-    
+
     public void LeftAttack()
     {
         if (_child.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Wait"))
@@ -56,17 +68,14 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-    
+
     public void RightAttack()
     {
         if (_child.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Wait"))
         {
             {
                 _child.GetComponent<Animator>().SetTrigger("SlowAttack");
-                
             }
         }
     }
 }
-
-

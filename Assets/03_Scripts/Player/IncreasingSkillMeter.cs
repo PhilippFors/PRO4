@@ -13,19 +13,19 @@ public class IncreasingSkillMeter : StateMachineBehaviour
         attack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         if (stateInfo.IsTag("LowPassSkill") && attack.comboCounter >= 4)
         {
-            attack.lowPassSkill += 2;
+            attack.skill[0].current += 2;
 
         }
         
         if (stateInfo.IsTag("HighPassSkill") && attack.comboCounter >= 4)
         {
-            attack.highPassSkill += 2;
+            attack.skill[1].current += 2;
 
         }
         
         if (stateInfo.IsTag("JustSomeSkill") && attack.comboCounter >= 4)
         {
-            attack.justSomeSkill += 2;
+            attack.skill[2].current += 2;
 
         }
             

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProgressBarLowPass : ProgessBar
 {
-    public PlayerAttack skills;
-    public float skill;
+    [FormerlySerializedAs("skills")] public PlayerAttack player;
+
+    public int id;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +23,8 @@ public class ProgressBarLowPass : ProgessBar
     
     public override void GetCurrentFill()
     {
-        maximum = skills.lowPassSkillMax;
-        current = skills.lowPassSkill;
+        maximum = player.skill[id].max;
+        current = player.skill[id].current;
         base.GetCurrentFill();
     }
 }

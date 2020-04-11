@@ -8507,6 +8507,7 @@ MonoBehaviour:
   current: 2
   image: {fileID: 671808840}
   skills: {fileID: 1277148581}
+  id: 0
 --- !u!114 &671808840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16719,12 +16720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc8c07edb82ce4aac592a5f21bd9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowPassSkill: 2
-  highPassSkill: 0
-  justSomeSkill: 0
-  lowPassSkillMax: 4
-  highPassSkillMax: 4
-  justSomeSkillMax: 4
   comboCounter: 0
 --- !u!114 &1277148582
 MonoBehaviour:
@@ -17282,6 +17277,7 @@ MonoBehaviour:
   current: 2
   image: {fileID: 1358085093}
   skills: {fileID: 1277148581}
+  id: 2
 --- !u!114 &1358085093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24254,6 +24250,7 @@ MonoBehaviour:
   current: 2
   image: {fileID: 1811423123}
   skills: {fileID: 1277148581}
+  id: 1
 --- !u!114 &1811423123
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,19 +33,22 @@
           <e p="Downer.cs" t="Include" />
           <e p="Enemy" t="Include">
             <e p="AIManager.cs" t="Include" />
-            <e p="AttackState.cs" t="Include" />
             <e p="BaseState.cs" t="Include" />
-            <e p="ChaseState.cs" t="Include" />
             <e p="Durga" t="Include">
-              <e p="AttackTestTrigger.cs" t="Include" />
               <e p="DurgaAI.cs" t="Include" />
               <e p="DurgaBody.cs" t="Include" />
+              <e p="DurgaStates" t="Include">
+                <e p="AttackState.cs" t="Include" />
+                <e p="ChaseState.cs" t="Include" />
+                <e p="FindState.cs" t="Include" />
+                <e p="IdleState.cs" t="Include" />
+              </e>
+              <e p="EnemyTestWeapon.cs" t="Include" />
+              <e p="PlayerTestWeapon.cs" t="Include" />
             </e>
-            <e p="EnemySettings.cs" t="Include" />
             <e p="EnemyStateMachine.cs" t="Include" />
+            <e p="EnemyStatistics.cs" t="Include" />
             <e p="EnemyTemplate.cs" t="Include" />
-            <e p="FindState.cs" t="Include" />
-            <e p="IdleState.cs" t="Include" />
             <e p="IEnemyBase.cs" t="Include" />
             <e p="ResetValues.cs" t="Include" />
           </e>
@@ -53,12 +56,14 @@
           <e p="Obstacles" t="Include">
             <e p="ARLaser.cs" t="Include" />
             <e p="DeathBlockTrigger.cs" t="Include" />
+            <e p="IObstacleBase.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
             <e p="CameraController.cs" t="Include" />
             <e p="ComboChanger.cs" t="Include" />
             <e p="IncreasingSkillMeter.cs" t="Include" />
             <e p="PlayerAttack.cs" t="Include" />
+            <e p="PlayerBody.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="WeaponTrigger.cs" t="Include" />
           </e>
@@ -66,11 +71,14 @@
           <e p="Shooting.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
           <e p="system" t="Include">
+            <e p="EventSystem.cs" t="Include" />
             <e p="HealthManager.cs" t="Include" />
-            <e p="ModifierManager.cs" t="Include" />
+            <e p="Multiplier.cs" t="Include" />
+            <e p="MultiplierManager.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
-            <e p="ProgressBarLowPass.cs" t="Include" />
+            <e p="ProgressBarSkills.cs" t="Include" />
+            <e p="StatInit.cs" t="Include" />
           </e>
           <e p="Teleport.cs" t="Include" />
           <e p="TimeStretch.cs" t="Include" />
@@ -162,7 +170,6 @@
             </e>
           </e>
         </e>
-        <e p="Skills.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
