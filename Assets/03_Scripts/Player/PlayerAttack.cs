@@ -7,9 +7,15 @@ public class PlayerAttack : MonoBehaviour
 {
     PlayerControls input;
 
-    public int lowPassSkill = 0;
+    public float lowPassSkill = 0;
+    public float highPassSkill = 0;
+    public float justSomeSkill = 0;
+    public float lowPassSkillMax = 4;
+    public float highPassSkillMax = 4;
+    public float justSomeSkillMax = 4;
+    
     private GameObject _child; //the weapon object
-    public int comboCounter = 0;
+    public float comboCounter = 0;
     
     private void OnEnable()
     {

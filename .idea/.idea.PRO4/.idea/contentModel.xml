@@ -20,6 +20,7 @@
             <e p="AudioPlayer.cs" t="Include" />
             <e p="AudioWireframe.cs" t="Include" />
             <e p="FMODScripts" t="Include">
+              <e p="AR_AudioEmission.cs" t="Include" />
               <e p="AudioCube.cs" t="Include" />
               <e p="FMODAudioPeer.cs" t="Include" />
               <e p="uiSpectrum.cs" t="Include" />
@@ -28,39 +29,52 @@
           <e p="AudioSkillsController.cs" t="Include" />
           <e p="Body.cs" t="Include" />
           <e p="Bullet.cs" t="Include" />
-          <e p="ComboChanger.cs" t="Include" />
           <e p="Door.cs" t="Include" />
           <e p="Downer.cs" t="Include" />
           <e p="Enemy" t="Include">
+            <e p="AIManager.cs" t="Include" />
             <e p="AttackState.cs" t="Include" />
             <e p="BaseState.cs" t="Include" />
             <e p="ChaseState.cs" t="Include" />
-            <e p="Enemies.cs" t="Include" />
-            <e p="Enemy.cs" t="Include" />
+            <e p="Durga" t="Include">
+              <e p="AttackTestTrigger.cs" t="Include" />
+              <e p="DurgaAI.cs" t="Include" />
+              <e p="DurgaBody.cs" t="Include" />
+            </e>
             <e p="EnemySettings.cs" t="Include" />
             <e p="EnemyStateMachine.cs" t="Include" />
+            <e p="EnemyTemplate.cs" t="Include" />
             <e p="FindState.cs" t="Include" />
             <e p="IdleState.cs" t="Include" />
+            <e p="IEnemyBase.cs" t="Include" />
             <e p="ResetValues.cs" t="Include" />
           </e>
           <e p="Gapper.cs" t="Include" />
-          <e p="IncreasingSkillMeter.cs" t="Include" />
           <e p="Obstacles" t="Include">
             <e p="ARLaser.cs" t="Include" />
             <e p="DeathBlockTrigger.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
             <e p="CameraController.cs" t="Include" />
+            <e p="ComboChanger.cs" t="Include" />
+            <e p="IncreasingSkillMeter.cs" t="Include" />
+            <e p="PlayerAttack.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
+            <e p="WeaponTrigger.cs" t="Include" />
           </e>
-          <e p="PlayerAttack.cs" t="Include" />
           <e p="Reticle.cs" t="Include" />
           <e p="Shooting.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
+          <e p="system" t="Include">
+            <e p="HealthManager.cs" t="Include" />
+            <e p="ModifierManager.cs" t="Include" />
+            <e p="ProgessBar.cs" t="Include" />
+            <e p="ProgessBarDash.cs" t="Include" />
+            <e p="ProgressBarLowPass.cs" t="Include" />
+          </e>
           <e p="Teleport.cs" t="Include" />
           <e p="TimeStretch.cs" t="Include" />
           <e p="Upscale.cs" t="Include" />
-          <e p="WeaponTrigger.cs" t="Include" />
         </e>
         <e p="07_NavMeshComponents" t="Include">
           <e p="Editor" t="Include">
