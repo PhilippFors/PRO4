@@ -14,11 +14,10 @@ public class StatInit : MonoBehaviour
         return list;
     }
 
-    public static List<Multiplier> InitModifiers(){
+    public static List<Multiplier> InitMultipliers(){
         List<Multiplier> list = new List<Multiplier>();
         list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.speedMod));
         list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.defense));
-
         return list;
     }
 }

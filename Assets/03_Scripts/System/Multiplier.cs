@@ -5,11 +5,11 @@ public enum MultiplierName
 {
     defense,
     damageMod,
+    speedMod,
 
-    speedMod
 
 }
-public struct Multiplier
+public class Multiplier
 {
     private readonly float RESET_VALUE;
     private MultiplierName _name;
@@ -26,12 +26,12 @@ public struct Multiplier
     {
         v = RESET_VALUE;
     }
-    public float GetModValue()
+    public float GetValue()
     {
         return v;
     }
 
-    public void SetMod(float value)
+    public void SetValue(float value)
     {
         v = value;
     }

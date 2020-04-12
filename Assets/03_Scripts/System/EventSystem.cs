@@ -5,10 +5,9 @@ using System;
 
 public class EventSystem : MonoBehaviour
 {
-
-    public event Action<IEnemyBase, float> AttackEnemy;
+    public event Action<EnemyBaseClass, float> AttackEnemy;
     public event Action<PlayerBody, float> AttackPlayer;
-    public event Action<IObstacleBase, float> AttackObstacle;
+    public event Action<ObstacleBaseClass, float> AttackObstacle;
 
     private static EventSystem _instance;
     public static EventSystem instance
@@ -26,7 +25,7 @@ public class EventSystem : MonoBehaviour
         _instance = this;
     }
 
-    public void OnAttack(IEnemyBase enemy, float basedmg)
+    public void OnAttack(EnemyBaseClass enemy, float basedmg)
     {
         AttackEnemy(enemy, basedmg);
     }
@@ -36,10 +35,9 @@ public class EventSystem : MonoBehaviour
         AttackPlayer(player, basedmg);
     }
 
-    public void OnAttack(IObstacleBase obstacle, float basedmg)
+    public void OnAttack(ObstacleBaseClass obstacle, float basedmg)
     {
         AttackObstacle(obstacle, basedmg);
     }
-
 
 }

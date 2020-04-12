@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IObstacleBase
+public class ObstacleBaseClass : MonoBehaviour
 {
 
-    void setHealth(float v);
-    float getHealth();
 }

@@ -8,8 +8,8 @@ using UnityEngine.AI;
 public class ChaseState : BaseState
 {
     private DurgaAI durgaAI;
-    private IEnemyBase durgaSettings;
-    public ChaseState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
+    private EnemyBaseClass durgaSettings;
+    public ChaseState(DurgaAI durga, EnemyBaseClass template) : base(durga.gameObject, template)
     {
         durgaAI = durga;
         durgaSettings = template;

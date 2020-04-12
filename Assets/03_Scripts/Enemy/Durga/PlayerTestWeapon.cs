@@ -9,13 +9,13 @@ public class PlayerTestWeapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameObject obj = other.gameObject;
-        if (obj.GetComponent<IEnemyBase>() != null)
+        if (obj.GetComponent<EnemyBaseClass>() != null)
         {
-            EventSystem.instance.OnAttack(obj.GetComponent<IEnemyBase>(), bsdmg);
+            EventSystem.instance.OnAttack(obj.GetComponent<EnemyBaseClass>(), bsdmg);
         }
-        else if (obj.GetComponent<IObstacleBase>() != null)
+        else if (obj.GetComponent<ObstacleBaseClass>() != null)
         {
-            EventSystem.instance.OnAttack(obj.GetComponent<IObstacleBase>(), bsdmg);
+            EventSystem.instance.OnAttack(obj.GetComponent<ObstacleBaseClass>(), bsdmg);
         }
     }
 }

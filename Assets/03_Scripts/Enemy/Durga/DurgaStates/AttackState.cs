@@ -6,10 +6,10 @@ using UnityEngine;
 public class AttackState : BaseState
 {
     DurgaAI durgaAI;
-    IEnemyBase durgaSettings;
+    EnemyBaseClass durgaSettings;
     float waitTime = 0;
 
-    public AttackState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
+    public AttackState(DurgaAI durga, EnemyBaseClass template) : base(durga.gameObject, template)
     {
         durgaAI = durga;
         durgaSettings = template;

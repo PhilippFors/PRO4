@@ -9,22 +9,22 @@ public enum EnemyStatName
     turnSpeed,
     defense
 }
-public struct EnemyStatistics
+public class EnemyStatistics
 {
     private float v;
     private EnemyStatName _name;
-    public EnemyStatistics(float value, EnemyStatName name)
-    {
+
+    public EnemyStatistics(float value, EnemyStatName name){
         v = value;
         _name = name;
     }
 
-    public void SetStat(float value)
+    public void SetValue(float value)
     {
         v = value;
     }
 
-    public float GetStat()
+    public float GetValue()
     {
         return v;
     }

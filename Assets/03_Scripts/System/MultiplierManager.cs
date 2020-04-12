@@ -7,7 +7,7 @@ public class MultiplierManager : MonoBehaviour
 {
     //Lists are dynamic in size. Array would technically work too.
     private List<Multiplier> modList = new List<Multiplier>();
-
+   
     //Singleton setup
     private static MultiplierManager _instance;
     public static MultiplierManager instance
@@ -20,6 +20,7 @@ public class MultiplierManager : MonoBehaviour
             return _instance;
         }
     }
+
     private void Awake()
     {
         _instance = this;
@@ -27,20 +28,20 @@ public class MultiplierManager : MonoBehaviour
 
     private void Start()
     {
-        modList = StatInit.InitModifiers();
+        modList = StatInit.InitMultipliers();
     }
 
-    public float GetModValue(MultiplierName name)
+    public float GetMultiplierValue(MultiplierName name)
     {
         if (modList.Exists(x => x.GetName().Equals(name)))
-            return modList.Find(x => x.GetName().Equals(name)).GetModValue() == 0 ? 1f : modList.Find(x => x.GetName().Equals(name)).GetModValue();
+            return modList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1f : modList.Find(x => x.GetName().Equals(name)).GetValue();
 
         return 1;
     }
 
-    public void SetModValue(MultiplierName name, float value, float Skilltime)
+    public void SetMultiplierValue(MultiplierName name, float value, float Skilltime)
     {
-        modList.Find(x => x.GetName().Equals(name)).SetMod(value);
+        modList.Find(x => x.GetName().Equals(name)).SetValue(value);
         StartCoroutine(ResetTimer(Skilltime));
         //Start Musik Filters
     }
@@ -48,18 +49,17 @@ public class MultiplierManager : MonoBehaviour
     IEnumerator ResetTimer(float Skilltime)
     {
         yield return new WaitForSeconds(Skilltime);
-        ResetMods();
+        ResetMultiplier();
         //Reset Music
         yield return null;
     }
 
-    void ResetMods()
+    void ResetMultiplier()
     {
         //iterate over every mod with foreach
-        foreach (Multiplier mod in modList)
+        foreach (Multiplier mult in modList)
         {
-            mod.ResetMod();
+            mult.ResetMod();
         }
-
     }
 }
