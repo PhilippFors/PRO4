@@ -121,50 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &38596469
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 38596471}
-  - component: {fileID: 38596470}
-  m_Layer: 0
-  m_Name: GameObject (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &38596470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38596469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7f6fb2fdbfb60948bdf621ffbd823bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ting: {fileID: 690947951}
---- !u!4 &38596471
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38596469}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.587, y: 2.2799997, z: 4.3464}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54002795
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +135,7 @@ GameObject:
   - component: {fileID: 54002797}
   - component: {fileID: 54002796}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: TestWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,9 +150,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 54002795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8027a021b5919c489832562e1467403, type: 3}
+  m_Script: {fileID: 11500000, guid: 72c52b14834562545a907b95b65ebd06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bsdmg: 100
 --- !u!65 &54002797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -269,7 +226,7 @@ Transform:
   m_LocalScale: {x: 3.8432, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &69121058
 GameObject:
@@ -433,7 +390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308054696}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 24.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -631,10 +588,10 @@ GameObject:
   - component: {fileID: 690947954}
   - component: {fileID: 690947953}
   - component: {fileID: 690947952}
-  - component: {fileID: 690947951}
   - component: {fileID: 690947956}
+  - component: {fileID: 690947951}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: enemy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -649,10 +606,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 690947950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72c9e7b5f7fd4843a237980d97d1ac4, type: 3}
+  m_Script: {fileID: 11500000, guid: 05ed0d625fe01e044ae544985846b58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  template: {fileID: 11400000, guid: 1c6154573ba0a73468888cc9d01825c2, type: 2}
+  durgaTemplate: {fileID: 11400000, guid: 102e2de9d9373e0488d4755eb328faa8, type: 2}
 --- !u!65 &690947952
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -725,7 +682,7 @@ Transform:
   m_LocalScale: {x: 3.4482, y: 3.4482, z: 3.4482}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &690947956
 Rigidbody:
@@ -853,7 +810,7 @@ GameObject:
   - component: {fileID: 894898099}
   - component: {fileID: 894898098}
   m_Layer: 0
-  m_Name: TestEvent
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -868,7 +825,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 894898097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39471d3a2bfaf8d479102aa638839265, type: 3}
+  m_Script: {fileID: 11500000, guid: 804339ea83a0b9245a677b21edd68593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &894898099
@@ -883,7 +840,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1009489553
 GameObject:
@@ -1582,36 +1539,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1786348824
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1786348826}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1786348826
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786348824}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.587, y: 2.2799997, z: 4.3464}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1812671143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,10 +1718,10 @@ GameObject:
   - component: {fileID: 2082001299}
   - component: {fileID: 2082001298}
   - component: {fileID: 2082001297}
-  - component: {fileID: 2082001296}
   - component: {fileID: 2082001301}
+  - component: {fileID: 2082001296}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Enemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1809,10 +1736,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2082001295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72c9e7b5f7fd4843a237980d97d1ac4, type: 3}
+  m_Script: {fileID: 11500000, guid: 05ed0d625fe01e044ae544985846b58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  template: {fileID: 11400000, guid: 61cfafbbf6826dd4a8e1709217f59f2c, type: 2}
+  durgaTemplate: {fileID: 11400000, guid: 102e2de9d9373e0488d4755eb328faa8, type: 2}
 --- !u!65 &2082001297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1885,7 +1812,7 @@ Transform:
   m_LocalScale: {x: 3.4908, y: 3.4908, z: 3.4908}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2082001301
 Rigidbody:

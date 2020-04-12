@@ -36,12 +36,14 @@ public class EnemyBaseClass : MonoBehaviour
         {
             float initHealth = statList.Find(x => x.GetName().Equals(name)).GetValue();
             statList.Find(x => x.GetName().Equals(name)).SetValue(initHealth - value);
+            Debug.Log(gameObject.name + " just took " +  value + " damage.");
             CheckHealth();
         }
         else
         {
             statList.Find(x => x.GetName().Equals(name)).SetValue(value);
         }
+        
     }
 
     public float GetStatValue(StatName stat)

@@ -20,8 +20,8 @@ public class HealthManager : MonoBehaviour
     public void calcDmg(EnemyBaseClass enemy, float baseDmg)
     {
         float damage = baseDmg * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.damageMod);
-        damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
-        //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
+        // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
+        damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStatValue(StatName.defense)));
         enemy.SetStatValue(StatName.health, damage);
     }
 
