@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class SuperClass : MonoBehaviour
 {
-    protected List<EnemyStatistics> list;
+    protected List<GameStatistics> list;
 
-    public void SetStat(EnemyStatName name, float value)
+    public void SetStat(StatName name, float value)
     {
         list.Find(x => x.GetName().Equals(name)).SetValue(value);
         
-        if (name == EnemyStatName.health)
+        if (name == StatName.health)
             CheckHealth();
     }
 
-    public float getValue(EnemyStatName name){
+    public float getValue(StatName name){
         return list.Find(x => x.GetName().Equals(name)).GetValue();
     }
 
@@ -24,16 +24,16 @@ public class SuperClass : MonoBehaviour
     }
     protected void MultUpdate()
     {
-        Debug.Log(list.Find(x => x.GetName().Equals(EnemyStatName.health)).GetValue() + ", " + this.gameObject.name );
-        float speed = getValue(EnemyStatName.speed);
-        SetStat(EnemyStatName.speed, speed * MultiplierManager.instance.GetMultiplierValue(MultiplierName.speedMod));
+        Debug.Log(list.Find(x => x.GetName().Equals(StatName.health)).GetValue() + ", " + this.gameObject.name );
+        float speed = getValue(StatName.speed);
+        SetStat(StatName.speed, speed * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.speedMod));
     }
     
     protected virtual void OnDeath(){}
 
     protected void CheckHealth()
     {
-        if (getValue(EnemyStatName.health) <= 0.0f)
+        if (getValue(StatName.health) <= 0.0f)
         {
             OnDeath();
             Destroy(this.gameObject);

@@ -7,7 +7,7 @@ public class EventSystem : MonoBehaviour
 {
     public event Action<EnemyBaseClass, float> AttackEnemy;
     public event Action<PlayerBody, float> AttackPlayer;
-    public event Action<ObstacleBaseClass, float> AttackObstacle;
+    public event Action<DestructableObstacleBase, float> AttackObstacle;
 
     private static EventSystem _instance;
     public static EventSystem instance
@@ -35,7 +35,7 @@ public class EventSystem : MonoBehaviour
         AttackPlayer(player, basedmg);
     }
 
-    public void OnAttack(ObstacleBaseClass obstacle, float basedmg)
+    public void OnAttack(DestructableObstacleBase obstacle, float basedmg)
     {
         AttackObstacle(obstacle, basedmg);
     }

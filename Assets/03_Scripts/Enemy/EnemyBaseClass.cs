@@ -5,41 +5,53 @@ using UnityEngine;
 
 public class EnemyBaseClass : MonoBehaviour
 {
-    protected List<EnemyStatistics> statList;
-
+    protected List<GameStatistics> statList;
+    protected float deathTimer;
     private void Update()
     {
         MultUpdate();
     }
-    public virtual void OnDeath()
+    protected virtual void OnDeath()
     {
         Debug.Log("I died!");
     }
 
-    void CheckHealth()
+    protected void Kill()
     {
-        if (GetStat(EnemyStatName.health) <= 0)
+        Destroy(this.gameObject);
+    }
+
+    protected virtual void CheckHealth()
+    {
+        if (GetStatValue(StatName.health) <= 0)
         {
             OnDeath();
-            Destroy(gameObject);
+            Invoke("Kill", deathTimer);
+        }
+    }
+    public void SetStatValue(StatName name, float value)
+    {
+
+        if (name == StatName.health)
+        {
+            float initHealth = statList.Find(x => x.GetName().Equals(name)).GetValue();
+            statList.Find(x => x.GetName().Equals(name)).SetValue(initHealth - value);
+            CheckHealth();
+        }
+        else
+        {
+            statList.Find(x => x.GetName().Equals(name)).SetValue(value);
         }
     }
 
-    public void SetStat(EnemyStatName stat, float value)
-    {
-        statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
-        if (stat == EnemyStatName.health)
-            CheckHealth();
-    }
-
-    public float GetStat(EnemyStatName stat)
+    public float GetStatValue(StatName stat)
     {
         return statList.Find(x => x.GetName().Equals(stat)).GetValue();
     }
 
     void MultUpdate()
     {
-        float speed = GetStat(EnemyStatName.speed);
-        SetStat(EnemyStatName.speed, speed * MultiplierManager.instance.GetMultiplierValue(MultiplierName.speedMod));
+        float speed = GetStatValue(StatName.speed);
+        SetStatValue(StatName.speed, speed * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.speedMod));
     }
 }

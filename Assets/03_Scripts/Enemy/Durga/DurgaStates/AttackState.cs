@@ -35,7 +35,7 @@ public class AttackState : BaseState
             durgaAI.StopAnim();
             return typeof(IdleState);
         }
-        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStat(EnemyStatName.range))
+        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStatValue(StatName.range))
         {
             durgaAI.Attack(1);
         }

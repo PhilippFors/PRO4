@@ -6,7 +6,8 @@ using UnityEngine;
 public class MultiplierManager : MonoBehaviour
 {
     //Lists are dynamic in size. Array would technically work too.
-    private List<Multiplier> modList = new List<Multiplier>();
+    private List<Multiplier> enemyMultList = new List<Multiplier>();
+    private List<Multiplier> playerMultList = new List<Multiplier>();
    
     //Singleton setup
     private static MultiplierManager _instance;
@@ -28,22 +29,35 @@ public class MultiplierManager : MonoBehaviour
 
     private void Start()
     {
-        modList = StatInit.InitMultipliers();
+        enemyMultList = StatInit.InitEnemyMultipliers();
+        playerMultList = StatInit.InitPlayerMultipliers();
     }
 
-    public float GetMultiplierValue(MultiplierName name)
+    public float GetEnemyMultValue(MultiplierName name)
     {
-        if (modList.Exists(x => x.GetName().Equals(name)))
-            return modList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1f : modList.Find(x => x.GetName().Equals(name)).GetValue();
+        if (enemyMultList.Exists(x => x.GetName().Equals(name)))
+            return enemyMultList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1f : enemyMultList.Find(x => x.GetName().Equals(name)).GetValue();
+
+        return 1;
+    }
+    public float GetPlayerMultValue(MultiplierName name)
+    {
+        if (playerMultList.Exists(x => x.GetName().Equals(name)))
+            return playerMultList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1f : enemyMultList.Find(x => x.GetName().Equals(name)).GetValue();
 
         return 1;
     }
 
-    public void SetMultiplierValue(MultiplierName name, float value, float Skilltime)
+    public void SetEnemyMultValue(MultiplierName name, float value, float Skilltime)
     {
-        modList.Find(x => x.GetName().Equals(name)).SetValue(value);
+        enemyMultList.Find(x => x.GetName().Equals(name)).SetValue(value);
         StartCoroutine(ResetTimer(Skilltime));
         //Start Musik Filters
+    }
+
+    public void SetPlayerMultValue(MultiplierName name, float value)
+    {
+        playerMultList.Find(x => x.GetName().Equals(name)).SetValue(value);
     }
 
     IEnumerator ResetTimer(float Skilltime)
@@ -57,7 +71,7 @@ public class MultiplierManager : MonoBehaviour
     void ResetMultiplier()
     {
         //iterate over every mod with foreach
-        foreach (Multiplier mult in modList)
+        foreach (Multiplier mult in enemyMultList)
         {
             mult.ResetMod();
         }

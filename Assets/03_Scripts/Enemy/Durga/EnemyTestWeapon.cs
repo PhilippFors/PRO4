@@ -13,9 +13,9 @@ public class EnemyTestWeapon : MonoBehaviour
         {
             EventSystem.instance.OnAttack(obj.GetComponent<PlayerBody>(), basedmg);
         }
-        else if (obj.GetComponent<ObstacleBaseClass>() != null)
+        else if (obj.GetComponent<DestructableObstacleBase>() != null)
         {
-            EventSystem.instance.OnAttack(obj.GetComponent<ObstacleBaseClass>(), basedmg);
+            EventSystem.instance.OnAttack(obj.GetComponent<DestructableObstacleBase>(), basedmg);
         }
     }
 }

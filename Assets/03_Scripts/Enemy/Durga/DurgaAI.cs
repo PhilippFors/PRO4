@@ -30,7 +30,7 @@ public class DurgaAI : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, durgaBody.GetStat(EnemyStatName.range));
+        Gizmos.DrawWireSphere(transform.position, durgaBody.GetStatValue(StatName.range));
     }
     public void GetTarget(Transform target)
     {

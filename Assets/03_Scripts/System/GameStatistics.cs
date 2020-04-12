@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum EnemyStatName
+public enum StatName
 {
     health,
     speed,
     range,
     turnSpeed,
-    defense
+    defense,
+    attackSpeed
 }
-public class EnemyStatistics
+public class GameStatistics
 {
     private float v;
-    private EnemyStatName _name;
+    private StatName _name;
 
-    public EnemyStatistics(float value, EnemyStatName name){
+    public GameStatistics(float value, StatName name){
         v = value;
         _name = name;
     }
@@ -29,7 +30,7 @@ public class EnemyStatistics
         return v;
     }
 
-    public EnemyStatName GetName()
+    public StatName GetName()
     {
         return _name;
     }

@@ -13,8 +13,8 @@ public class Test : MonoBehaviour
     }
 
     void doThing(SuperClass thing, float dmg){
-        float newhealth = thing.getValue(EnemyStatName.health)-dmg;
-        thing.SetStat(EnemyStatName.health, newhealth);
+        float newhealth = thing.getValue(StatName.health)-dmg;
+        thing.SetStat(StatName.health, newhealth);
     }
 
 }
