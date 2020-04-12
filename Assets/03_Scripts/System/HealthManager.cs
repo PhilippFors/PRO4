@@ -19,18 +19,20 @@ public class HealthManager : MonoBehaviour
     }
     public void calcDmg(EnemyBaseClass enemy, float baseDmg)
     {
+        float initHealth = enemy.GetStatValue(StatName.health);
         float damage = baseDmg * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.damageMod);
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
         damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStatValue(StatName.defense)));
-        enemy.SetStatValue(StatName.health, damage);
+
+        enemy.SetStatValue(StatName.health, initHealth - damage);
     }
 
     public void calcDmg(PlayerBody player, float baseDmg)
     {
-        
+        float initHealth = player.GetStatValue(StatName.health);
         float damage = baseDmg * baseDmg / (baseDmg + player.GetStatValue(StatName.defense));
         //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
-        player.SetStatValue(StatName.health, damage);
+        player.SetStatValue(StatName.health, initHealth - damage);
     }
 
     public void calcDmg(DestructableObstacleBase obstacle, float baseDmg)

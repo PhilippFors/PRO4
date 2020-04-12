@@ -12,12 +12,12 @@ public class DestructableObstacleBase : MonoBehaviour
 
     private void Update()
     {
-        if (regenerate)
-        {
-            _health += _regenRate * Time.deltaTime;
-            if (_health >= _maxHealth)
-                regenerate = false;
-        }
+        if (!regenerate)
+            return;
+
+        _health += _regenRate * Time.deltaTime;
+        if (_health >= _maxHealth)
+            regenerate = false;
     }
 
     public void ReceiveDamage(float value)

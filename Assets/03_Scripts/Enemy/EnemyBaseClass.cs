@@ -31,19 +31,14 @@ public class EnemyBaseClass : MonoBehaviour
     }
     public void SetStatValue(StatName name, float value)
     {
-
+        statList.Find(x => x.GetName().Equals(name)).SetValue(value);
+        
         if (name == StatName.health)
         {
-            float initHealth = statList.Find(x => x.GetName().Equals(name)).GetValue();
-            statList.Find(x => x.GetName().Equals(name)).SetValue(initHealth - value);
-            Debug.Log(gameObject.name + " just took " +  value + " damage.");
+            Debug.Log(gameObject.name + " just took " + value + " damage.");
             CheckHealth();
         }
-        else
-        {
-            statList.Find(x => x.GetName().Equals(name)).SetValue(value);
-        }
-        
+
     }
 
     public float GetStatValue(StatName stat)

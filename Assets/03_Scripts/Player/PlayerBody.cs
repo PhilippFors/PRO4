@@ -18,20 +18,16 @@ public class PlayerBody : MonoBehaviour
     }
     protected virtual void OnDeath()
     {
-        Debug.Log("I died!");
+        Debug.Log("Player died!");
     }
 
     public void SetStatValue(StatName name, float value)
     {
+        statList.Find(x => x.GetName().Equals(name)).SetValue(value);
         if (name == StatName.health)
         {
-            float initHealth = statList.Find(x => x.GetName().Equals(name)).GetValue();
-            statList.Find(x => x.GetName().Equals(name)).SetValue(initHealth - value);
+            Debug.Log(gameObject.name + " just took " + value + " damage");
             CheckHealth();
-        }
-        else
-        {
-            statList.Find(x => x.GetName().Equals(name)).SetValue(value);
         }
     }
 
@@ -50,7 +46,7 @@ public class PlayerBody : MonoBehaviour
     {
         if (GetStatValue(StatName.health) <= 0)
         {
-            Debug.Log("Player is dead");
+            OnDeath();
 
         }
     }
