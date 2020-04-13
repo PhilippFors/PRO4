@@ -29,8 +29,10 @@ public class StatInit : MonoBehaviour
     public static List<Multiplier> InitEnemyMultipliers()
     {
         List<Multiplier> list = new List<Multiplier>();
-        list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.speedMod));
+        list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.speed));
         list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.defense));
+        list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.health));
+        list.Add(new Multiplier(1.0f, 1.0f, MultiplierName.damage));
         return list;
     }
      public static List<Multiplier> InitPlayerMultipliers(){

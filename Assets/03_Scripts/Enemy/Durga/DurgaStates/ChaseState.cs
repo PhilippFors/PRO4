@@ -36,7 +36,7 @@ public class ChaseState : BaseState
         Quaternion look = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.Lerp(durgaAI.transform.rotation, look, Time.deltaTime * durgaSettings.GetStatValue(StatName.turnSpeed));
 
-        transform.position += transform.forward * durgaSettings.GetStatValue(StatName.speed) * Time.deltaTime;
+        transform.position += transform.forward * durgaSettings.GetCalculatedValue(StatName.speed, MultiplierName.speed) * Time.deltaTime;
         //
         if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStatValue(StatName.range))
         {
