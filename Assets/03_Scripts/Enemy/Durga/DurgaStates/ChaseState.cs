@@ -8,8 +8,8 @@ using UnityEngine.AI;
 public class ChaseState : BaseState
 {
     private DurgaAI durgaAI;
-    private IEnemyBase durgaSettings;
-    public ChaseState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
+    private EnemyBaseClass durgaSettings;
+    public ChaseState(DurgaAI durga, EnemyBaseClass template) : base(durga.gameObject, template)
     {
         durgaAI = durga;
         durgaSettings = template;
@@ -34,11 +34,11 @@ public class ChaseState : BaseState
         Vector3 dir = durgaAI.Target.position - durgaAI.transform.position;
         dir.y = 0;
         Quaternion look = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.Lerp(durgaAI.transform.rotation, look, Time.deltaTime * durgaSettings.GetStat(EnemyStatName.turnSpeed));
+        transform.rotation = Quaternion.Lerp(durgaAI.transform.rotation, look, Time.deltaTime * durgaSettings.GetStatValue(StatName.turnSpeed));
 
-        transform.position += transform.forward * durgaSettings.GetStat(EnemyStatName.speed) * Time.deltaTime;
+        transform.position += transform.forward * durgaSettings.GetStatValue(StatName.speed) * Time.deltaTime;
         //
-        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStat(EnemyStatName.range))
+        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStatValue(StatName.range))
         {
             return typeof(AttackState);
         }

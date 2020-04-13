@@ -28,9 +28,9 @@ public class DurgaAI : MonoBehaviour
 
         StateMachine.SetStates(states);
     }
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, durgaBody.GetStat(EnemyStatName.range));
+        Gizmos.DrawWireSphere(transform.position, durgaBody.GetStatValue(StatName.range));
     }
     public void GetTarget(Transform target)
     {

@@ -8,6 +8,7 @@ public class AR_AudioEmission : MonoBehaviour
     public int[] _bandArray;
     // public float _startScale, _maxScale;
     public bool _useBuffer;
+  
 
     public bool _colorCube;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-    public BaseState(GameObject gameobject, IEnemyBase temp)
+    public BaseState(GameObject gameobject, EnemyBaseClass temp)
     {
         this.gameObject = gameobject;
         this.transform = gameobject.transform;
@@ -15,7 +15,7 @@ public abstract class BaseState
 
     protected GameObject gameObject;
     protected Transform transform;
-    protected IEnemyBase template;
+    protected EnemyBaseClass template;
 
     public abstract Type OnStateUpdate();
 

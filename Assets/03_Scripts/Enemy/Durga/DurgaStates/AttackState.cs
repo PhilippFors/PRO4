@@ -6,10 +6,10 @@ using UnityEngine;
 public class AttackState : BaseState
 {
     DurgaAI durgaAI;
-    IEnemyBase durgaSettings;
+    EnemyBaseClass durgaSettings;
     float waitTime = 0;
 
-    public AttackState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
+    public AttackState(DurgaAI durga, EnemyBaseClass template) : base(durga.gameObject, template)
     {
         durgaAI = durga;
         durgaSettings = template;
@@ -35,7 +35,7 @@ public class AttackState : BaseState
             durgaAI.StopAnim();
             return typeof(IdleState);
         }
-        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStat(EnemyStatName.range))
+        if (Vector3.Distance(durgaAI.Target.position, transform.position) < durgaSettings.GetStatValue(StatName.range))
         {
             durgaAI.Attack(1);
         }

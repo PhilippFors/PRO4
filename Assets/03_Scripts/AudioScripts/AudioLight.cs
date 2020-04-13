@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class AudioLight : MonoBehaviour
 {
-    public int _band1;
-    public int _band2;
+    private FMODAudioPeer _audioPeer;
+    public int _band;
     public float _startScale, _maxScale;
     public bool _useBuffer;
+    public bool _highIntensityLight;
     Light _light;
+    int _multiply;
 
     // Start is called before the first frame update
     void Start()
     {
         _light = GetComponent<Light>();
+        GameObject gameObj = GameObject.Find("FMODAudioPeer");
+        _audioPeer = gameObj.GetComponent<FMODAudioPeer>();
     }
 
     // Update is called once per frame
@@ -22,9 +26,25 @@ public class AudioLight : MonoBehaviour
 
 
         //  transform.localScale = new Vector3(transform.localScale.x, (AudioPeer._audioBandBuffer[_band] * _maxScale) + _startScale, transform.localScale.z);
+        if (_highIntensityLight)
+        {
+            _multiply = 10000;
+        }
+        else
+        {
+            _multiply = 1;
+        }
 
 
-        _light.intensity = AudioListenerPeer._audioBandBuffer[_band1];
+        if (_useBuffer)
+        {
+
+            _light.intensity = FMODAudioPeer._audioBandBuffer8[_band] * _multiply;
+        }
+       else
+        {
+            _light.intensity = FMODAudioPeer._audioBand8[_band] * _multiply;
+        }
 
 
     }

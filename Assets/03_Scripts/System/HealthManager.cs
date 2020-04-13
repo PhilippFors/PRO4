@@ -11,29 +11,34 @@ public class HealthManager : MonoBehaviour
         EventSystem.instance.AttackEnemy += calcDmg;
         EventSystem.instance.AttackObstacle += calcDmg;
     }
-
-    public void calcDmg(IEnemyBase enemy, float baseDmg)
-    {
-        float damage = baseDmg * MultiplierManager.instance.GetModValue(MultiplierName.damageMod);
-        damage = damage * damage / (damage + (enemy.GetStat(EnemyStatName.defense) * MultiplierManager.instance.GetModValue(MultiplierName.defense)));
-        //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
-        enemy.SetStat(EnemyStatName.health, enemy.GetStat(EnemyStatName.health) - damage);
-    }
-
-    public void calcDmg(PlayerBody player, float baseDmg)
-    {
-        player.setHealth(1f);
-    }
-
-    public void calcDmg(IObstacleBase obstacle, float baseDmg)
-    {
-        obstacle.setHealth(1f);
-    }
-
     private void OnDisable()
     {
         EventSystem.instance.AttackPlayer -= calcDmg;
         EventSystem.instance.AttackEnemy -= calcDmg;
         EventSystem.instance.AttackObstacle -= calcDmg;
     }
+    public void calcDmg(EnemyBaseClass enemy, float baseDmg)
+    {
+        float initHealth = enemy.GetStatValue(StatName.health);
+        float damage = baseDmg * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.damageMod);
+        // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
+        damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStatValue(StatName.defense)));
+
+        enemy.SetStatValue(StatName.health, initHealth - damage);
+    }
+
+    public void calcDmg(PlayerBody player, float baseDmg)
+    {
+        float initHealth = player.GetStatValue(StatName.health);
+        float damage = baseDmg * baseDmg / (baseDmg + player.GetStatValue(StatName.defense));
+        //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
+        player.SetStatValue(StatName.health, initHealth - damage);
+    }
+
+    public void calcDmg(DestructableObstacleBase obstacle, float baseDmg)
+    {
+        obstacle.ReceiveDamage(baseDmg);
+    }
+
+
 }

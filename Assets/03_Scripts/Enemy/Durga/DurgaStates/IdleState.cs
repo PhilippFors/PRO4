@@ -7,8 +7,8 @@ public class IdleState : BaseState
 {
     private DurgaAI durgaAI;
     public GameObject player;
-    IEnemyBase durgaSettings;
-    public IdleState(DurgaAI durga, IEnemyBase template) : base(durga.gameObject, template)
+    EnemyBaseClass durgaSettings;
+    public IdleState(DurgaAI durga, EnemyBaseClass template) : base(durga.gameObject, template)
     {
         durgaAI = durga;
         durgaSettings = template;

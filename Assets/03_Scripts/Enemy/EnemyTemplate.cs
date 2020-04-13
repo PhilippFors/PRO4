@@ -12,4 +12,6 @@ public class EnemyTemplate : ScriptableObject
     public float range;
     public float turnSpeed;
     public float defense;
+
+    public float attackSpeed;
 }
