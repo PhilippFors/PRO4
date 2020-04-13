@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
-public class ProgessBar : MonoBehaviour
+public class ProgessBar: MonoBehaviour
 {
     public float maximum ;
 

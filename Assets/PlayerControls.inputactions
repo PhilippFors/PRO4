@@ -86,12 +86,12 @@
                     "interactions": "Press"
                 },
                 {
-                    "name": "Sprint",
+                    "name": "GrenadeThrow",
                     "type": "Button",
                     "id": "1b60ff2c-38aa-4ee8-be19-22d3faa49503",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -344,7 +344,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Sprint",
+                    "action": "GrenadeThrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

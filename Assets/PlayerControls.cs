@@ -99,12 +99,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Sprint"",
+                    ""name"": ""GrenadeThrow"",
                     ""type"": ""Button"",
                     ""id"": ""1b60ff2c-38aa-4ee8-be19-22d3faa49503"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -357,7 +357,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Sprint"",
+                    ""action"": ""GrenadeThrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -406,7 +406,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Skill2 = m_Gameplay.FindAction("Skill2", throwIfNotFound: true);
         m_Gameplay_Skill3 = m_Gameplay.FindAction("Skill3", throwIfNotFound: true);
         m_Gameplay_Skill4 = m_Gameplay.FindAction("Skill4", throwIfNotFound: true);
-        m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
+        m_Gameplay_GrenadeThrow = m_Gameplay.FindAction("GrenadeThrow", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -466,7 +466,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Skill2;
     private readonly InputAction m_Gameplay_Skill3;
     private readonly InputAction m_Gameplay_Skill4;
-    private readonly InputAction m_Gameplay_Sprint;
+    private readonly InputAction m_Gameplay_GrenadeThrow;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -481,7 +481,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Skill2 => m_Wrapper.m_Gameplay_Skill2;
         public InputAction @Skill3 => m_Wrapper.m_Gameplay_Skill3;
         public InputAction @Skill4 => m_Wrapper.m_Gameplay_Skill4;
-        public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
+        public InputAction @GrenadeThrow => m_Wrapper.m_Gameplay_GrenadeThrow;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -521,9 +521,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Skill4.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSkill4;
                 @Skill4.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSkill4;
                 @Skill4.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSkill4;
-                @Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                @GrenadeThrow.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrenadeThrow;
+                @GrenadeThrow.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrenadeThrow;
+                @GrenadeThrow.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrenadeThrow;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -558,9 +558,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Skill4.started += instance.OnSkill4;
                 @Skill4.performed += instance.OnSkill4;
                 @Skill4.canceled += instance.OnSkill4;
-                @Sprint.started += instance.OnSprint;
-                @Sprint.performed += instance.OnSprint;
-                @Sprint.canceled += instance.OnSprint;
+                @GrenadeThrow.started += instance.OnGrenadeThrow;
+                @GrenadeThrow.performed += instance.OnGrenadeThrow;
+                @GrenadeThrow.canceled += instance.OnGrenadeThrow;
             }
         }
     }
@@ -595,6 +595,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSkill2(InputAction.CallbackContext context);
         void OnSkill3(InputAction.CallbackContext context);
         void OnSkill4(InputAction.CallbackContext context);
-        void OnSprint(InputAction.CallbackContext context);
+        void OnGrenadeThrow(InputAction.CallbackContext context);
     }
 }

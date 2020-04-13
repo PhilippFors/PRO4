@@ -6,7 +6,7 @@ using UnityEngine;
 public class IncreasingSkillMeter : StateMachineBehaviour
 {
     private static PlayerAttack attack;
-    
+
 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public new void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -14,21 +14,17 @@ public class IncreasingSkillMeter : StateMachineBehaviour
         if (stateInfo.IsTag("LowPassSkill") && attack.comboCounter >= 4)
         {
             attack.skill[0].current += 2;
-
         }
-        
-        if (stateInfo.IsTag("HighPassSkill") && attack.comboCounter >= 4)
+
+        else if (stateInfo.IsTag("HighPassSkill") && attack.comboCounter >= 4)
         {
             attack.skill[1].current += 2;
-
         }
-        
-        if (stateInfo.IsTag("JustSomeSkill") && attack.comboCounter >= 4)
+
+        else if (stateInfo.IsTag("JustSomeSkill") && attack.comboCounter >= 4)
         {
             attack.skill[2].current += 2;
-
         }
-            
     }
 
 
