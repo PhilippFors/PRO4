@@ -7,7 +7,7 @@ public class MultiplierManager : MonoBehaviour
 {
     //Lists are dynamic in size. Array would technically work too.
     private List<Multiplier> playerMultList = new List<Multiplier>();
-   
+
     //Singleton setup
     private static MultiplierManager _instance;
     public static MultiplierManager instance
@@ -31,15 +31,26 @@ public class MultiplierManager : MonoBehaviour
         playerMultList = StatInit.InitPlayerMultipliers();
     }
 
-    public void SetMultValues(MultiplierName name, float value, bool SkillActivated, float Skilltime = 0f){
-        foreach(EnemyBaseClass enemy in SpawnManager.instance.enemies){
+    public void SetAllMultValues(MultiplierName name, float value, bool SkillActivated, float Skilltime)
+    {
+        foreach (EnemyBaseClass enemy in SpawnManager.instance.enemies)
+        {
             enemy.SetMultValue(name, value);
         }
-        if(SkillActivated){
-            StartCoroutine(ResetTimer(Skilltime));
-        }
+
+        StartCoroutine(ResetTimer(Skilltime));
+
     }
-   
+
+    // public void SetSingleMultiplier(EnemyBaseClass enemy, MultiplierName name, float value)
+    // {
+    //     enemy.SetMultValue(name, value);
+    // }
+
+    // public float GetSingleMultiplier(EnemyBaseClass enemy, MultiplierName name)
+    // {
+    //     return enemy.GetMultValue(name);
+    // }
     public float GetPlayerMultValue(MultiplierName name)
     {
         if (playerMultList.Exists(x => x.GetName().Equals(name)))
@@ -61,7 +72,7 @@ public class MultiplierManager : MonoBehaviour
         yield return null;
     }
 
-    void ResetMultiplier()
+    public void ResetMultiplier()
     {
         //iterate over every mod with foreach
         foreach (EnemyBaseClass enemy in SpawnManager.instance.enemies)
