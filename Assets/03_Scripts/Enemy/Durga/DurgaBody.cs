@@ -11,6 +11,7 @@ public class DurgaBody : EnemyBaseClass
     private void Start()
     {
         statList = StatInit.InitEnemyStats(durgaTemplate);
+        multList = StatInit.InitEnemyMultipliers();
     }
 
    

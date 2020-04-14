@@ -6,7 +6,6 @@ using UnityEngine;
 public class MultiplierManager : MonoBehaviour
 {
     //Lists are dynamic in size. Array would technically work too.
-    private List<Multiplier> enemyMultList = new List<Multiplier>();
     private List<Multiplier> playerMultList = new List<Multiplier>();
    
     //Singleton setup
@@ -29,30 +28,24 @@ public class MultiplierManager : MonoBehaviour
 
     private void Start()
     {
-        enemyMultList = StatInit.InitEnemyMultipliers();
         playerMultList = StatInit.InitPlayerMultipliers();
     }
 
-    public float GetEnemyMultValue(MultiplierName name)
-    {
-        if (enemyMultList.Exists(x => x.GetName().Equals(name)))
-            return enemyMultList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1f : enemyMultList.Find(x => x.GetName().Equals(name)).GetValue();
-
-        return 1;
+    public void SetMultValues(MultiplierName name, float value, bool SkillActivated, float Skilltime = 0f){
+        foreach(EnemyBaseClass enemy in SpawnManager.instance.enemies){
+            enemy.SetMultValue(name, value);
+        }
+        if(SkillActivated){
+            StartCoroutine(ResetTimer(Skilltime));
+        }
     }
+   
     public float GetPlayerMultValue(MultiplierName name)
     {
         if (playerMultList.Exists(x => x.GetName().Equals(name)))
-            return playerMultList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1f : enemyMultList.Find(x => x.GetName().Equals(name)).GetValue();
+            return playerMultList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1.0f : playerMultList.Find(x => x.GetName().Equals(name)).GetValue();
 
         return 1;
-    }
-
-    public void SetEnemyMultValue(MultiplierName name, float value, float Skilltime)
-    {
-        enemyMultList.Find(x => x.GetName().Equals(name)).SetValue(value);
-        StartCoroutine(ResetTimer(Skilltime));
-        //Start Musik Filters
     }
 
     public void SetPlayerMultValue(MultiplierName name, float value)
@@ -71,9 +64,9 @@ public class MultiplierManager : MonoBehaviour
     void ResetMultiplier()
     {
         //iterate over every mod with foreach
-        foreach (Multiplier mult in enemyMultList)
+        foreach (EnemyBaseClass enemy in SpawnManager.instance.enemies)
         {
-            mult.ResetMod();
+            enemy.ResetMultipliers();
         }
     }
 }

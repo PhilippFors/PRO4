@@ -19,7 +19,6 @@ public class GameStatistics
     public GameStatistics(float value, StatName name){
         v = value;
         _name = name;
-
     }
 
     public void SetValue(float value)

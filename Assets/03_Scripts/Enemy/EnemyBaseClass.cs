@@ -6,11 +6,9 @@ using UnityEngine;
 public class EnemyBaseClass : MonoBehaviour
 {
     protected List<GameStatistics> statList;
+    protected List<Multiplier> multList;
     protected float deathTimer;
-    private void Update()
-    {
-        MultUpdate();
-    }
+
     protected virtual void OnDeath()
     {
         Debug.Log("I died!");
@@ -45,10 +43,22 @@ public class EnemyBaseClass : MonoBehaviour
     {
         return statList.Find(x => x.GetName().Equals(stat)).GetValue();
     }
-
-    void MultUpdate()
-    {
-        float speed = GetStatValue(StatName.speed);
-        SetStatValue(StatName.speed, speed * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.speedMod));
+    public void SetMultValue(MultiplierName name, float value){
+        multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
     }
+
+    public float GetMultValue(MultiplierName name){
+        return multList.Find(x => x.GetName().Equals(name)).GetValue();
+    }
+
+    public float GetCalculatedValue(StatName stat, MultiplierName mult){
+        return GetStatValue(stat) * GetMultValue(mult);
+    }
+
+    public void ResetMultipliers(){
+        foreach (Multiplier mult in multList){
+            mult.ResetMultiplier();
+        }
+    }
+
 }

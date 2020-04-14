@@ -4,9 +4,10 @@ using UnityEngine;
 public enum MultiplierName
 {
     defense,
-    damageMod,
-    speedMod,
+    damage,
+    speed,
 
+    health
 
 }
 public class Multiplier
@@ -22,7 +23,7 @@ public class Multiplier
     }
 
     //Adding functionality to the individual Modifiers can make using it easier
-    public void ResetMod()
+    public void ResetMultiplier()
     {
         v = RESET_VALUE;
     }

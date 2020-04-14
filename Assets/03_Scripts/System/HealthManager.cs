@@ -17,12 +17,13 @@ public class HealthManager : MonoBehaviour
         EventSystem.instance.AttackEnemy -= calcDmg;
         EventSystem.instance.AttackObstacle -= calcDmg;
     }
+    
     public void calcDmg(EnemyBaseClass enemy, float baseDmg)
     {
         float initHealth = enemy.GetStatValue(StatName.health);
-        float damage = baseDmg * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.damageMod);
+        float damage = baseDmg * enemy.GetMultValue(MultiplierName.damage);
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
-        damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStatValue(StatName.defense)));
+        damage = baseDmg * (baseDmg / (baseDmg + (enemy.GetStatValue(StatName.defense) * enemy.GetMultValue(MultiplierName.defense))));
 
         enemy.SetStatValue(StatName.health, initHealth - damage);
     }
@@ -39,6 +40,4 @@ public class HealthManager : MonoBehaviour
     {
         obstacle.ReceiveDamage(baseDmg);
     }
-
-
 }
