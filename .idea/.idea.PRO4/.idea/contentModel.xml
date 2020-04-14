@@ -46,17 +46,16 @@
               <e p="EnemyTestWeapon.cs" t="Include" />
               <e p="PlayerTestWeapon.cs" t="Include" />
             </e>
+            <e p="EnemyBaseClass.cs" t="Include" />
             <e p="EnemyStateMachine.cs" t="Include" />
-            <e p="EnemyStatistics.cs" t="Include" />
             <e p="EnemyTemplate.cs" t="Include" />
-            <e p="IEnemyBase.cs" t="Include" />
             <e p="ResetValues.cs" t="Include" />
           </e>
           <e p="Gapper.cs" t="Include" />
           <e p="Obstacles" t="Include">
             <e p="ARLaser.cs" t="Include" />
             <e p="DeathBlockTrigger.cs" t="Include" />
-            <e p="IObstacleBase.cs" t="Include" />
+            <e p="DestructableObstacleBase.cs" t="Include" />
           </e>
           <e p="Player" t="Include">
             <e p="CameraController.cs" t="Include" />
@@ -66,20 +65,32 @@
             <e p="PlayerAttack.cs" t="Include" />
             <e p="PlayerBody.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
+            <e p="PlayerTemplate.cs" t="Include" />
+            <e p="Skills.cs" t="Include" />
             <e p="WeaponTrigger.cs" t="Include" />
           </e>
           <e p="Reticle.cs" t="Include" />
           <e p="Shooting.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
           <e p="system" t="Include">
-            <e p="EventSystem.cs" t="Include" />
+            <e p="EventSystem" t="Include">
+              <e p="EventSystem.cs" t="Include" />
+            </e>
+            <e p="GameDataStructures" t="Include">
+              <e p="GameStatistics.cs" t="Include" />
+              <e p="Multiplier.cs" t="Include" />
+              <e p="StatInit.cs" t="Include" />
+            </e>
             <e p="HealthManager.cs" t="Include" />
-            <e p="Multiplier.cs" t="Include" />
             <e p="MultiplierManager.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
-            <e p="StatInit.cs" t="Include" />
+            <e p="SpawnSystem" t="Include">
+              <e p="LevelSpawn.cs" t="Include" />
+              <e p="SpawnManager.cs" t="Include" />
+              <e p="SpawnpointInfo.cs" t="Include" />
+            </e>
           </e>
           <e p="Teleport.cs" t="Include" />
           <e p="TimeStretch.cs" t="Include" />

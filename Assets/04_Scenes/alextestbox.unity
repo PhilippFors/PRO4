@@ -5681,7 +5681,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18376
+  m_Name: pb_Mesh18170
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7828,11 +7828,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52270e7ccfdefd6409bf802be2fc88d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximum: 0
-  current: 0
+  maximum: 6
+  current: 6
   image: {fileID: 671808840}
   player: {fileID: 1277148581}
   id: 0
+  skillObject: {fileID: 11400000, guid: e0d6513515d49db4686045a0a54155df, type: 2}
 --- !u!114 &671808840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7856,7 +7857,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: NaN
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -8264,11 +8265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c64cc1eaa9cca64e8d15b55386db2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _band1: 7
-  _band2: 0
+  _band: 0
   _startScale: 0
   _maxScale: 0
   _useBuffer: 1
+  _highIntensityLight: 0
 --- !u!108 &704023713
 Light:
   m_ObjectHideFlags: 0
@@ -9995,12 +9996,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 937564383}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1caa8337bf55ace4c8bb9af5990705cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 05ed0d625fe01e044ae544985846b58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  health: 50000
-  damage: 0
+  durgaTemplate: {fileID: 11400000, guid: 102e2de9d9373e0488d4755eb328faa8, type: 2}
 --- !u!54 &937564385
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15432,10 +15431,10 @@ MonoBehaviour:
   isDashing: 0
   dashTime: 0.2
   dashValue: 100
-  dashValueTime: 10
+  dashValueTime: 3
   maxDashValue: 100
   doubleTrue: 1
-  dashDistance: 300
+  dashDistance: 100
 --- !u!54 &1277148576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15527,6 +15526,7 @@ Transform:
   - {fileID: 1579438729}
   - {fileID: 475980315}
   - {fileID: 1063448295}
+  - {fileID: 1639617142}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15542,10 +15542,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc8c07edb82ce4aac592a5f21bd9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skills:
+  - {fileID: 11400000, guid: e0d6513515d49db4686045a0a54155df, type: 2}
+  - {fileID: 0}
   comboCounter: 0
   grenadePrefab: {fileID: 6223329378971152612, guid: e3470bae241c0b4459682b19069c0ccf,
     type: 3}
-  grenadeHitLoc: {fileID: 0}
+  grenadeHitLoc: {fileID: 4985590412454338710, guid: 6da2a39081ecba8439539761843c0939,
+    type: 3}
   moveSpeed: 5
   AudioPeer: {fileID: 525771210}
 --- !u!114 &1277148582
@@ -15756,7 +15760,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17780
+  m_Name: pb_Mesh17668
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16090,9 +16094,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximum: 0
   current: 0
-  image: {fileID: 671808840}
+  image: {fileID: 1358085093}
   player: {fileID: 1277148581}
   id: 2
+  skillObject: {fileID: 0}
 --- !u!114 &1358085093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20816,6 +20821,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1639617141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639617142}
+  - component: {fileID: 1639617143}
+  m_Layer: 0
+  m_Name: HurtBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639617142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639617141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1277148580}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1639617143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639617141}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1644381155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22647,9 +22696,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximum: 0
   current: 0
-  image: {fileID: 671808840}
+  image: {fileID: 1811423123}
   player: {fileID: 1277148581}
   id: 1
+  skillObject: {fileID: 0}
 --- !u!114 &1811423123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23271,7 +23321,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18114
+  m_Name: pb_Mesh17970
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -8,6 +8,9 @@ public class EventSystem : MonoBehaviour
     public event Action<EnemyBaseClass, float> AttackEnemy;
     public event Action<PlayerBody, float> AttackPlayer;
     public event Action<DestructableObstacleBase, float> AttackObstacle;
+    public event Action<MultiplierName, float, bool, float> ActivateSkill;
+
+    public event Action GrenadeAim;
 
     private static EventSystem _instance;
     public static EventSystem instance
@@ -40,4 +43,13 @@ public class EventSystem : MonoBehaviour
         AttackObstacle(obstacle, basedmg);
     }
 
+    public void OnSkill(MultiplierName name, float value, bool SkillActivated, float Skilltime = 0f)
+    {
+        ActivateSkill(name, value, SkillActivated, Skilltime);
+    }
+
+    public void OnGrenadeAim()
+    {
+        GrenadeAim();
+    }
 }
