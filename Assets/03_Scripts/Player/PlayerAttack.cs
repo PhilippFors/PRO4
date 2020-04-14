@@ -52,14 +52,10 @@ public class PlayerAttack : MonoBehaviour
 
         input.Gameplay.LeftAttack.performed += rt => LeftAttack();
         input.Gameplay.RightAttack.performed += rt => RightAttack();
-        input.Gameplay.GrenadeThrow.performed += rt => EventSystem.instance.OnGrenadeAim();
+        //input.Gameplay.GrenadeThrow.performed += rt => EventSystem.instance.OnGrenadeAim();
         input.Gameplay.Skill1.performed += rt => Skill(0);
 
-        foreach (Skills skill in skills)
-        {
-            skill.current = 0;
-        }
-
+        
     }
 
     private void Reset()
@@ -72,6 +68,11 @@ public class PlayerAttack : MonoBehaviour
         _child = gameObject.transform.GetChild(0).gameObject; //first child object of the player
 
         emitter = AudioPeer.GetComponent<FMODUnity.StudioEventEmitter>();
+        foreach (Skills skill in skills)
+        {
+            skill.current = 0;
+        }
+
     }
     
     public Skills SkillInit(string name, float current, float max, float timer)

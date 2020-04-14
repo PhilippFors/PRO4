@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Rotate.performed += rt => GamepadLook(rt.ReadValue<Vector2>());
         input.Gameplay.Look.performed += rt => MouseLook(rt.ReadValue<Vector2>());
         input.Gameplay.Dash.performed += ctx => DashActivator();
-        input.Gameplay.GrenadeThrow.performed += ctx => Aim();
+        //input.Gameplay.GrenadeThrow.performed += ctx => Aim();
         // input.Gameplay.Sprint.performed += ctx => Sprint();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
