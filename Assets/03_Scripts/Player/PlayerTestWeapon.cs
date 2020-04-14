@@ -11,6 +11,7 @@ public class PlayerTestWeapon : MonoBehaviour
         GameObject obj = other.gameObject;
         if (obj.GetComponent<EnemyBaseClass>() != null)
         {
+            GetComponentInParent<PlayerAttack>().comboCounter += 1;
             EventSystem.instance.OnAttack(obj.GetComponent<EnemyBaseClass>(), bsdmg);
         }
         else if (obj.GetComponent<DestructableObstacleBase>() != null)

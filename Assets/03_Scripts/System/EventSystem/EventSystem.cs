@@ -46,7 +46,6 @@ public class EventSystem : MonoBehaviour
         ActivateSkill(name, value, Skilltime);
     }
 
-    public void OnGrenadeAim()
-    {
-    }
+    
+    
 }
