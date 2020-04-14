@@ -5,8 +5,6 @@ using System;
 
 public class DurgaAI : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     public Transform Target { get; private set; }
     public DurgaBody durgaBody => GetComponent<DurgaBody>();
     public Animator animator;
