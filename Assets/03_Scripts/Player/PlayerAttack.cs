@@ -4,43 +4,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityScript.Lang;
 
-public class Skills:ScriptableObject
+[CreateAssetMenu(fileName = "New Skill", menuName = "Skills")]
+public class Skills : ScriptableObject
 {
-    public float current;
+    public string name;
+    public float current = 0;
     public float max;
     public float timer;
+    public bool isActive = false;
+    public float activeValue = 0.3f;
+    public float deactiveValue = 1f;
+
+    
 }
 
 
 public class PlayerAttack : MonoBehaviour
 {
     PlayerControls input;
-    
-    public Skills[] skill = new Skills[4];
+
+    [SerializeField] public List<Skills> skills = new List<Skills>();
 
     private GameObject _child; //the weapon object
     public float comboCounter = 0;
-    
+
     public GameObject grenadePrefab;
-    
+
     public GameObject grenadeHitLoc;
-    
+
     [SerializeField] private float moveSpeed = 5f;
-  //  public Vector3 currentDirection;
+    //  public Vector3 currentDirection;
 
 
     Vector3 forward, right;
     Vector3 moveVelocity;
     Vector3 pointToLook;
     Vector2 move = Vector3.zero;
-    
+
     public GameObject AudioPeer;
-    FMODUnity.StudioEventEmitter emitter;
+    public static FMODUnity.StudioEventEmitter emitter;
 
-    bool lowPassActive;
-    bool highPassActive;
-    bool active;
-
+    
     private void OnEnable()
     {
         input.Gameplay.Enable();
@@ -59,97 +63,74 @@ public class PlayerAttack : MonoBehaviour
         input.Gameplay.RightAttack.performed += rt => RightAttack();
         input.Gameplay.GrenadeThrow.performed += rt => GrenadeThrow();
         input.Gameplay.GrenadeThrow.performed += rt => GrenadeThrow();
-        input.Gameplay.Skill1.performed += rt => LowPassSkill();
-        input.Gameplay.Skill2.performed += rt => HighPassSkill();
-
-        skill[0] = SkillInit(0, 6, 5f);
-        skill[1] = SkillInit(0, 4, 5f);
-        skill[2] = SkillInit(0, 2, 5f);
-
+        input.Gameplay.Skill1.performed += rt => Skill(0);
 
     }
 
-    Skills SkillInit(float current, float max, float timer)
+    private void Reset()
     {
-        Skills skillTemp = ScriptableObject.CreateInstance<Skills>();
-        skillTemp.current = current;
-        skillTemp.max = max;
-        skillTemp.timer = timer;
-        return skillTemp;
+        
     }
-    
+
     void Start()
     {
         _child = gameObject.transform.GetChild(0).gameObject; //first child object of the player
-        lowPassActive = false;
-        highPassActive = false;
+
         emitter = AudioPeer.GetComponent<FMODUnity.StudioEventEmitter>();
-        
-        
+    }
+    
+    public Skills SkillInit(string name, float current, float max, float timer)
+    {
+        Skills skillTemp = ScriptableObject.CreateInstance<Skills>();
+        skillTemp.name = name;
+        skillTemp.current = current;
+        skillTemp.max = max;
+        skillTemp.timer = timer;
+
+        return skillTemp;
     }
 
-    void LowPassSkill()
+    void Skill(int id)
     {
-        if (!lowPassActive && skill[0].current == skill[0].max)
+        Skills temp = skills[id];
+        if (!temp.isActive && temp.current == temp.max)
         {
-            
-            StartCoroutine(nameof(LowPassSkillTimer));
+            StartCoroutine(Timer(temp));
         }
         else
         {
-            lowPassActive = false;
-            emitter.SetParameter("LowPass", 1f);
+            temp.isActive = false;
+            emitter.SetParameter(temp.name, temp.deactiveValue);
         }
     }
 
-    IEnumerator LowPassSkillTimer()
+    IEnumerator Timer(Skills temp)
     {
-        lowPassActive = true; 
-        emitter.SetParameter("LowPass", 0.3f);
-        yield return new WaitForSeconds(skill[0].timer);
-        lowPassActive = false;
-        emitter.SetParameter("LowPass", 1f);
-        skill[0].current = 0;
-    }
-    
-    void HighPassSkill()
-    {
+        temp.isActive = true;
+        emitter.SetParameter(temp.name, temp.activeValue);
+        temp.current = 0;
         
-        if (!highPassActive && skill[1].current == skill[1].max)
-        {
-            
-            StartCoroutine(nameof(HighPassSkillTimer));
-        }
-        else
-        {
-            highPassActive = false;
-            emitter.SetParameter("HighPass", 1f);
-        }
+        yield return new WaitForSeconds(temp.timer);
+        
+        temp.isActive = false;
+        emitter.SetParameter(temp.name, temp.deactiveValue);
+        
     }
 
-    
-    IEnumerator HighPassSkillTimer()
-    {
-        highPassActive = true;
-        emitter.SetParameter("HighPass", 0.5f);
-        yield return new WaitForSeconds(skill[1].timer);
-        highPassActive = false;
-        emitter.SetParameter("HighPass", 1f);
-    }
-    // Start is called before the first frame update
-    
 
-    // Update is called once per frame
+   
+
+
+    
     void Update()
     {
-        
     }
 
     public void GrenadeThrow()
     {
         GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
         GameObject hitLoc = Instantiate(grenadeHitLoc, transform.position, transform.rotation);
-        
+
         move = input.Gameplay.Movement.ReadValue<Vector2>();
         Vector3 direction = new Vector3(move.x, 0, move.y);
         moveVelocity = direction * moveSpeed * Time.deltaTime;
@@ -158,12 +139,10 @@ public class PlayerAttack : MonoBehaviour
         Vector3 vertikMovement = forward * moveVelocity.z;
         hitLoc.transform.position += horizMovement;
         hitLoc.transform.position += vertikMovement;
-
     }
-    
+
     public void HitMove()
     {
-        
         //currentDirection = horizMovement + vertikMovement;
     }
 

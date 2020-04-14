@@ -83,7 +83,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.24999999
+  m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.25000003
   m_HasExitTime: 0
@@ -229,7 +229,7 @@ AnimatorStateMachine:
     m_Position: {x: 420, y: -160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2147902717227497755}
-    m_Position: {x: 310, y: -40, z: 0}
+    m_Position: {x: 290, y: -40, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -290,11 +290,11 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 8210213289580772634}
+  - first: {fileID: 5572810013947940876}
     second: []
   - first: {fileID: 2367900828103817658}
     second: []
-  - first: {fileID: 5572810013947940876}
+  - first: {fileID: 8210213289580772634}
     second: []
   - first: {fileID: -4565519510354960257}
     second: []
@@ -578,7 +578,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 0538582bb813d614285b6ae1f53c7176, type: 2}
-  m_Tag: JustSomeSkill
+  m_Tag: Combo3
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -817,7 +817,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FastAttack2Wait
-  m_Speed: 0.5
+  m_Speed: 0.1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4467840265242904150}
@@ -1355,9 +1355,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0.016216272
-  m_ExitTime: 0.9898648
+  m_TransitionDuration: 0.18018013
+  m_TransitionOffset: 0
+  m_ExitTime: 0.7628378
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1633,7 +1633,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 0538582bb813d614285b6ae1f53c7176, type: 2}
-  m_Tag: HighPassSkill
+  m_Tag: Combo2
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -1855,7 +1855,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 0538582bb813d614285b6ae1f53c7176, type: 2}
-  m_Tag: LowPassSkill
+  m_Tag: Combo1
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -2182,7 +2182,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FastAttackWait
-  m_Speed: 0.5
+  m_Speed: 0.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3862025737858159624}
@@ -2670,9 +2670,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.19198203
   m_TransitionOffset: 0
-  m_ExitTime: 0.7
+  m_ExitTime: 0.77956754
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -2727,11 +2727,11 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
+  - first: {fileID: -2779934434302474790}
+    second: []
   - first: {fileID: -3698046132780583392}
     second: []
   - first: {fileID: -3071604831203327968}
-    second: []
-  - first: {fileID: -2779934434302474790}
     second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 290, y: 330, z: 0}
@@ -2885,7 +2885,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SlowAttack3Wait
-  m_Speed: 0.5
+  m_Speed: 0.1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5765627970467761765}

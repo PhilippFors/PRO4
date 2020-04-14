@@ -14,11 +14,14 @@ public class PlayerController : MonoBehaviour
     public Vector3 currentDirection;
 
 
+    RaycastHit hit;
+
+
     Vector3 forward, right;
     Vector3 moveVelocity;
     Vector3 pointToLook;
     Vector2 move = Vector3.zero;
-    
+
     private Vector3 dashFrom;
     private Vector3 dashTo;
     public bool isDashing = false;
@@ -55,7 +58,6 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    
 
     #region Update/Start/Awake
 
@@ -68,7 +70,6 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Dash.performed += ctx => DashActivator();
         // input.Gameplay.Sprint.performed += ctx => Sprint();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        
     }
 
     void Start()
@@ -97,7 +98,6 @@ public class PlayerController : MonoBehaviour
 
     void InputDebug()
     {
-        
         if (input.Gameplay.LeftAttack.triggered)
         {
             Debug.Log("Left is triggerd");
@@ -138,18 +138,28 @@ public class PlayerController : MonoBehaviour
         currentDirection = horizMovement + vertikMovement;
     }
 
+    #endregion
+
+    #region Dash
+
     public void DashActivator()
     {
         if (dashValue == maxDashValue)
         {
             timeStartDash = Time.time;
 
-        
+
             isDashing = true;
             dashFrom = transform.position;
-            dashTo = transform.position + currentDirection * dashDistance;
+            if (!Physics.Raycast(transform.position, currentDirection, out hit, dashDistance))
+            {
+                dashTo = transform.position + currentDirection * dashDistance;
+            }
+            else
+            {
+                dashTo = hit.point;
+            }
         }
-       
     }
 
     public Vector3 Dash(Vector3 start, Vector3 end, float timeStartDash, float dashTime)
@@ -158,7 +168,7 @@ public class PlayerController : MonoBehaviour
 
         float percentageComplete = timeSinceStarted / dashTime;
         _child.GetComponent<Animator>().SetBool("Dash", true);
-        
+
 
         return Vector3.Lerp(start, end, percentageComplete);
     }
@@ -168,26 +178,32 @@ public class PlayerController : MonoBehaviour
         if (isDashing)
         {
             transform.position = Dash(dashFrom, dashTo, timeStartDash, dashTime);
-            
+            gameObject.transform.GetChild(4).GetComponent<Collider>().enabled = false;
+
             if (transform.position == dashTo)
-            { 
+            {
                 dashValue = 0;
-               isDashing = false;
-               _child.GetComponent<Animator>().SetBool("Dash", false);
-               currentDashValueTime = Time.time; 
+                isDashing = false;
+                gameObject.transform.GetChild(4).GetComponent<Collider>().enabled = true;
+                _child.GetComponent<Animator>().SetBool("Dash", false);
+                currentDashValueTime = Time.time;
             }
         }
     }
 
     public void DashValueIncreaser()
     {
-
         float timeSinceDashEnded = Time.time - currentDashValueTime;
 
         float perc = timeSinceDashEnded / dashValueTime;
-        
+
         dashValue = Mathf.Lerp(0, maxDashValue, perc);
     }
+
+    #endregion
+
+    #region Sprint
+
     public void Sprint()
     {
         StartCoroutine(SprintCoroutine());

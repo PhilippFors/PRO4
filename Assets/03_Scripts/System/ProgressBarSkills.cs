@@ -8,7 +8,7 @@ public class ProgressBarSkills : ProgessBar
 {
     public PlayerAttack player;
 
-    public int id;
+    public int id = 0;
     public Skills skillObject;
     
     
@@ -16,7 +16,7 @@ public class ProgressBarSkills : ProgessBar
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
-        skillObject = player.skill[id];
+        skillObject = player.skills[id];
 
 
     }
@@ -30,11 +30,18 @@ public class ProgressBarSkills : ProgessBar
     
     public override void GetCurrentFill()
     {
-       
-      
+        if (id == null)
+        {
+            Debug.Log("Is null");
+        }
+        else
+        {
             maximum = (skillObject.max);
             current = (skillObject.current);
             base.GetCurrentFill();
+        }
+      
+           
         
        
     }
