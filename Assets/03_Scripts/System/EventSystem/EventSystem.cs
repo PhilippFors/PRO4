@@ -10,8 +10,6 @@ public class EventSystem : MonoBehaviour
     public event Action<DestructableObstacleBase, float> AttackObstacle;
     public event Action<MultiplierName, float, bool, float> ActivateSkill;
 
-    public event Action GrenadeAim;
-
     private static EventSystem _instance;
     public static EventSystem instance
     {
@@ -50,6 +48,5 @@ public class EventSystem : MonoBehaviour
 
     public void OnGrenadeAim()
     {
-        GrenadeAim();
     }
 }

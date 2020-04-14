@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyTestWeapon : MonoBehaviour
 {
-    float basedmg = 5.0f;
+    public float basedmg = 5.0f;
 
     private void OnTriggerEnter(Collider other)
     {
