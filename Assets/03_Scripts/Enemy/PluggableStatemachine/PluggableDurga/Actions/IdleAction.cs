@@ -6,6 +6,6 @@ using UnityEngine;
 public class IdleAction : Action
 {
     public override void Execute(StateMachineController controller){
-        controller.FindTarget();
+        controller.FindPlayer();
     }
 }
