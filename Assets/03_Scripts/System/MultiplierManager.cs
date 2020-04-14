@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,17 @@ public class MultiplierManager : MonoBehaviour
             return _instance;
         }
     }
+
+    private void OnEnable()
+    {
+        EventSystem.instance.ActivateSkill += SetMultValues;
+    }
+    
+    private void OnDisable()
+    {
+        EventSystem.instance.ActivateSkill -= SetMultValues;
+    }
+    
 
     private void Awake()
     {

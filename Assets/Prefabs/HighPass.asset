@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: LowPass
+  m_Name: HighPass
   m_EditorClassIdentifier: Assembly-CSharp::Skills
-  skillName: LowPass
-  current: 6
-  max: 6
-  timer: 3
+  skillName: 
+  current: 0
+  max: 4
+  timer: 5
   isActive: 0
   activeValue: 0.3
   deactiveValue: 1
-  decreaseMultValue: 0.8
-  increaseMultValue: 1.2
+  decreaseMultValue: 0
+  increaseMultValue: 0

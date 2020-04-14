@@ -2,21 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityScript.Lang;
 
-[CreateAssetMenu(fileName = "New Skill", menuName = "Skills")]
-public class Skills : ScriptableObject
-{
-    public string name;
-    public float current = 0;
-    public float max;
-    public float timer;
-    public bool isActive = false;
-    public float activeValue = 0.3f;
-    public float deactiveValue = 1f;
 
-    
-}
 
 
 public class PlayerAttack : MonoBehaviour
@@ -48,11 +37,13 @@ public class PlayerAttack : MonoBehaviour
     private void OnEnable()
     {
         input.Gameplay.Enable();
+        
     }
 
     private void OnDisable()
     {
         input.Gameplay.Disable();
+        
     }
 
     private void Awake()
@@ -61,9 +52,13 @@ public class PlayerAttack : MonoBehaviour
 
         input.Gameplay.LeftAttack.performed += rt => LeftAttack();
         input.Gameplay.RightAttack.performed += rt => RightAttack();
-        input.Gameplay.GrenadeThrow.performed += rt => GrenadeThrow();
-        input.Gameplay.GrenadeThrow.performed += rt => GrenadeThrow();
+        input.Gameplay.GrenadeThrow.performed += rt => EventSystem.instance.OnGrenadeAim();
         input.Gameplay.Skill1.performed += rt => Skill(0);
+
+        foreach (Skills skill in skills)
+        {
+            skill.current = 0;
+        }
 
     }
 
@@ -82,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
     public Skills SkillInit(string name, float current, float max, float timer)
     {
         Skills skillTemp = ScriptableObject.CreateInstance<Skills>();
-        skillTemp.name = name;
+        skillTemp.skillName = name;
         skillTemp.current = current;
         skillTemp.max = max;
         skillTemp.timer = timer;
@@ -95,33 +90,32 @@ public class PlayerAttack : MonoBehaviour
         Skills temp = skills[id];
         if (!temp.isActive && temp.current == temp.max)
         {
+            
             StartCoroutine(Timer(temp));
         }
         else
         {
             temp.isActive = false;
-            emitter.SetParameter(temp.name, temp.deactiveValue);
+            emitter.SetParameter(temp.skillName, temp.deactiveValue);
         }
     }
 
     IEnumerator Timer(Skills temp)
     {
         temp.isActive = true;
-        emitter.SetParameter(temp.name, temp.activeValue);
+        emitter.SetParameter(temp.skillName, temp.activeValue);
         temp.current = 0;
+        EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue, temp.isActive, temp.timer);
+        EventSystem.instance.OnSkill(MultiplierName.damage, temp.decreaseMultValue, temp.isActive, temp.timer);
         
         yield return new WaitForSeconds(temp.timer);
         
         temp.isActive = false;
-        emitter.SetParameter(temp.name, temp.deactiveValue);
+        emitter.SetParameter(temp.skillName, temp.deactiveValue);
         
     }
 
 
-   
-
-
-    
     void Update()
     {
     }
@@ -129,6 +123,11 @@ public class PlayerAttack : MonoBehaviour
     public void GrenadeThrow()
     {
         GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
+        
+    }
+
+    public void AimMove()
+    {
         GameObject hitLoc = Instantiate(grenadeHitLoc, transform.position, transform.rotation);
 
         move = input.Gameplay.Movement.ReadValue<Vector2>();
@@ -139,11 +138,6 @@ public class PlayerAttack : MonoBehaviour
         Vector3 vertikMovement = forward * moveVelocity.z;
         hitLoc.transform.position += horizMovement;
         hitLoc.transform.position += vertikMovement;
-    }
-
-    public void HitMove()
-    {
-        //currentDirection = horizMovement + vertikMovement;
     }
 
     public void LeftAttack()

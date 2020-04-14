@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     Vector3 pointToLook;
     Vector2 move = Vector3.zero;
 
+    private bool isAiming;
+
     private Vector3 dashFrom;
     private Vector3 dashTo;
     public bool isDashing = false;
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        
         input.Gameplay.Disable();
     }
 
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Rotate.performed += rt => GamepadLook(rt.ReadValue<Vector2>());
         input.Gameplay.Look.performed += rt => MouseLook(rt.ReadValue<Vector2>());
         input.Gameplay.Dash.performed += ctx => DashActivator();
+        input.Gameplay.GrenadeThrow.performed += ctx => Aim();
         // input.Gameplay.Sprint.performed += ctx => Sprint();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
@@ -109,6 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("both are Triggered");
         }
+        
     }
 
     #endregion
@@ -137,6 +142,12 @@ public class PlayerController : MonoBehaviour
 
         currentDirection = horizMovement + vertikMovement;
     }
+    
+    public void Aim()
+    {
+        isAiming = true;
+    }
+    
 
     #endregion
 
