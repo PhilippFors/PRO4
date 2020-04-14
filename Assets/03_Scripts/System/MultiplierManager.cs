@@ -24,12 +24,12 @@ public class MultiplierManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.instance.ActivateSkill += SetMultValues;
+        EventSystem.instance.ActivateSkill += SetAllMultValues;
     }
     
     private void OnDisable()
     {
-        EventSystem.instance.ActivateSkill -= SetMultValues;
+        EventSystem.instance.ActivateSkill -= SetAllMultValues;
     }
     
 

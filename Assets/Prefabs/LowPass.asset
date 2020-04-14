@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: e959f3e55fb6421e8979a2d6c959917f, type: 3}
   m_Name: LowPass
-  m_EditorClassIdentifier: Assembly-CSharp::Skills
+  m_EditorClassIdentifier: 
   skillName: LowPass
-  current: 6
+  current: 0
   max: 6
   timer: 3
-  isActive: 0
+  isActive: 1
   activeValue: 0.3
   deactiveValue: 1
-  decreaseMultValue: 0.8
-  increaseMultValue: 1.2
+  decreaseMultValue: 0
+  increaseMultValue: 0

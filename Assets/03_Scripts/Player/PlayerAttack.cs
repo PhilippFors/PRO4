@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
         
         temp.isActive = false;
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
-        
+        yield return null;
     }
 
 

@@ -49,6 +49,26 @@
             <e p="EnemyBaseClass.cs" t="Include" />
             <e p="EnemyStateMachine.cs" t="Include" />
             <e p="EnemyTemplate.cs" t="Include" />
+            <e p="PluggableStatemachine" t="Include">
+              <e p="Action.cs" t="Include" />
+              <e p="Decision.cs" t="Include" />
+              <e p="OnEnterState.cs" t="Include" />
+              <e p="OnExitState.cs" t="Include" />
+              <e p="PluggableDurga" t="Include">
+                <e p="Actions" t="Include">
+                  <e p="DurgaAttackAction.cs" t="Include" />
+                  <e p="DurgaChaseAction.cs" t="Include" />
+                  <e p="IdleAction.cs" t="Include" />
+                </e>
+                <e p="Decisions" t="Include">
+                  <e p="AttackDecision.cs" t="Include" />
+                  <e p="GetOutofIdleDecision.cs" t="Include" />
+                </e>
+              </e>
+              <e p="State.cs" t="Include" />
+              <e p="StateMachineController.cs" t="Include" />
+              <e p="Transition.cs" t="Include" />
+            </e>
             <e p="ResetValues.cs" t="Include" />
           </e>
           <e p="Gapper.cs" t="Include" />
