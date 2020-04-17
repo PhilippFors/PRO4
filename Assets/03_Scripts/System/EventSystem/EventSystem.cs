@@ -10,6 +10,7 @@ public class EventSystem : MonoBehaviour
     public event Action<DestructableObstacleBase, float> AttackObstacle;
     public event Action<MultiplierName, float, float> ActivateSkill;
 
+
     private static EventSystem _instance;
     public static EventSystem instance
     {

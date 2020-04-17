@@ -8,8 +8,8 @@ public class State : ScriptableObject
     public Action[] actions;
     public Transition[] transitions;
 
-    public OnExitState exitState;
-    public OnEnterState enterState;
+    public OnExitState onExitState;
+    public OnEnterState onEnterState;
 
     public void StateUpdate(StateMachineController controller)
     {
@@ -30,7 +30,7 @@ public class State : ScriptableObject
     {
         foreach (Transition transition in transitions)
         {
-            if (transition.decision.ExecuteDecision(controller))
+            if (transition.decision.Execute(controller))
             {
                 controller.SwitchStates(transition.trueState);
             }
@@ -42,19 +42,19 @@ public class State : ScriptableObject
         }
 
     }
-    public virtual void StateExit(StateMachineController controller)
+    public void StateExit(StateMachineController controller)
     {
-        if (exitState == null)
+        if (onExitState == null)
             return;
 
-        exitState.Execute(controller);
+        onExitState.Execute(controller);
     }
 
-    public virtual void StateEnter(StateMachineController controller)
+    public void StateEnter(StateMachineController controller)
     {
-        if (enterState == null)
+        if (onEnterState == null)
             return;
 
-        enterState.Execute(controller);
+        onEnterState.Execute(controller);
     }
 }

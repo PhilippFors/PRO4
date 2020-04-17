@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PluggableAI/Durga/Decision/ChaseOrAttack")]
 public class AttackDecision : Decision
 {
-    public override bool ExecuteDecision(StateMachineController controller)
+    public override bool Execute(StateMachineController controller)
     {
         return CheckForPlayer(controller);
     }
