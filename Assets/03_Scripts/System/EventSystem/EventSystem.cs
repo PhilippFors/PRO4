@@ -5,10 +5,13 @@ using System;
 
 public class EventSystem : MonoBehaviour
 {
+    
+    public event System.Action ResetMult;
     public event Action<EnemyBaseClass, float> AttackEnemy;
     public event Action<PlayerBody, float> AttackPlayer;
     public event Action<DestructableObstacleBase, float> AttackObstacle;
-    public event Action<MultiplierName, float, bool, float> ActivateSkill;
+    public event Action<MultiplierName, float> ActivateSkill;
+   
     
 
     private static EventSystem _instance;
@@ -42,11 +45,13 @@ public class EventSystem : MonoBehaviour
         AttackObstacle(obstacle, basedmg);
     }
 
-    public void OnSkill(MultiplierName name, float value, bool SkillActivated, float Skilltime = 0f)
+    public void OnSkill(MultiplierName multiplierName, float value)
     {
-        ActivateSkill(name, value, SkillActivated, Skilltime);
+        ActivateSkill(multiplierName, value);
     }
 
-    
-    
+    public void OnSkill()
+    {
+        ResetMult();
+    }
 }
