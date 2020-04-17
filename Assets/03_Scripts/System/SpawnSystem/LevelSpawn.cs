@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSpawn : MonoBehaviour
+public class LevelSpawnpoints : MonoBehaviour
 {
     public int lvlID;
-    public SpawnPointInfo[] SpawnPoints;
+    public SpawnPoint[] SpawnPoints;
 }

@@ -7,42 +7,24 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
-
+    PlayerControls input;
+    [HideInInspector] public Camera mainCam => GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
-    [SerializeField] private Camera mainCam;
-    public Vector3 currentDirection;
+    // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
 
-
-    RaycastHit hit;
-
-
-    Vector3 forward, right;
-    Vector3 moveVelocity;
-    Vector3 pointToLook;
-    Vector2 move = Vector3.zero;
+    public Vector3 currentMoveDirection, currentLookDirection;
+    private Vector3 forward, right, moveVelocity, pointToLook, dashFrom, dashTo;
 
     private bool isAiming;
-
-    private Vector3 dashFrom;
-    private Vector3 dashTo;
-    public bool isDashing = false;
-    private float timeStartDash;
-    public float dashTime;
-    public float dashValue;
-    public float dashValueTime;
-    public float maxDashValue;
-    private float currentDashValueTime;
-    private GameObject _child;
-
     public bool doubleTrue = false;
-    public float dashDistance = 500f;
+    public bool isDashing = false;
+    private float timeStartDash, currentDashValueTime;
+    public float dashTime, dashValue, dashValueTime, maxDashValue;
+    public float dashDistance = 7f;
 
+    private GameObject _child;
     Plane groundPlane;
-
-    PlayerControls input;
-
-    private RaycastHit rayCastHit;
+    private RaycastHit rayCastHit, hit;
 
     #endregion
 
@@ -55,12 +37,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        
+
         input.Gameplay.Disable();
     }
 
     #endregion
-
 
     #region Update/Start/Awake
 
@@ -73,7 +54,6 @@ public class PlayerController : MonoBehaviour
         input.Gameplay.Dash.performed += ctx => DashActivator();
         //input.Gameplay.GrenadeThrow.performed += ctx => Aim();
         // input.Gameplay.Sprint.performed += ctx => Sprint();
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void Start()
@@ -90,14 +70,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // if (GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        // {
         DashValueIncreaser();
         UpdateLookDirection();
         Move();
         DashUpdate();
-        InputDebug();
-        //  }
+        // InputDebug();
     }
 
     void InputDebug()
@@ -113,7 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("both are Triggered");
         }
-        
+
     }
 
     #endregion
@@ -130,24 +107,24 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-        move = input.Gameplay.Movement.ReadValue<Vector2>();
-        //Debug.Log(move);
+        Vector2 move = input.Gameplay.Movement.ReadValue<Vector2>();
         Vector3 direction = new Vector3(move.x, 0, move.y);
+
         moveVelocity = direction * moveSpeed * Time.deltaTime;
-        moveVelocity.y = 0;
         Vector3 horizMovement = right * moveVelocity.x;
         Vector3 vertikMovement = forward * moveVelocity.z;
+
         transform.position += horizMovement;
         transform.position += vertikMovement;
 
-        currentDirection = horizMovement + vertikMovement;
+        currentMoveDirection = horizMovement + vertikMovement;
     }
-    
+
     public void Aim()
     {
         isAiming = true;
     }
-    
+
 
     #endregion
 
@@ -162,9 +139,9 @@ public class PlayerController : MonoBehaviour
 
             isDashing = true;
             dashFrom = transform.position;
-            if (!Physics.Raycast(transform.position, currentDirection, out hit, dashDistance))
+            if (!Physics.Raycast(transform.position, currentMoveDirection, out hit, dashDistance))
             {
-                dashTo = transform.position + currentDirection * dashDistance;
+                dashTo = transform.position + currentMoveDirection * dashDistance;
             }
             else
             {
@@ -189,13 +166,13 @@ public class PlayerController : MonoBehaviour
         if (isDashing)
         {
             transform.position = Dash(dashFrom, dashTo, timeStartDash, dashTime);
-            gameObject.transform.GetChild(4).GetComponent<Collider>().enabled = false;
+            gameObject.transform.GetChild(3).GetComponent<Collider>().enabled = false;
 
             if (transform.position == dashTo)
             {
                 dashValue = 0;
                 isDashing = false;
-                gameObject.transform.GetChild(4).GetComponent<Collider>().enabled = true;
+                gameObject.transform.GetChild(3).GetComponent<Collider>().enabled = true;
                 _child.GetComponent<Animator>().SetBool("Dash", false);
                 currentDashValueTime = Time.time;
             }
@@ -233,8 +210,7 @@ public class PlayerController : MonoBehaviour
 
     public void GamepadLook(Vector2 rotate)
     {
-        Vector3 input = new Vector3(rotate.x, 0, rotate.y);
-        var lookRot = mainCam.transform.TransformDirection(input);
+        var lookRot = mainCam.transform.TransformDirection(new Vector3(rotate.x, 0, rotate.y));
         pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
     }
 
@@ -257,10 +233,12 @@ public class PlayerController : MonoBehaviour
     void UpdateLookDirection()
     {
         pointToLook.y = 0;
+
         if (pointToLook != Vector3.zero)
         {
             Quaternion newRot = Quaternion.LookRotation(pointToLook);
             transform.rotation = newRot;
+            currentLookDirection = newRot.eulerAngles;
             //Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * rotationSpeed);
         }
     }
