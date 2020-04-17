@@ -6,8 +6,8 @@ public class SpawnManager : MonoBehaviour
 {
     int level = 1;
     public List<EnemyBaseClass> enemies = new List<EnemyBaseClass>();
-    public DestructableObstacleBase[] destructableObstacles => FindObjectsOfType<DestructableObstacleBase>();
-    public LevelSpawn[] levelArray;
+    public DestructableObstacleBase[] destructableObstacles;
+    public LevelSpawnpoints[] levelArray;
     public void AddEnemy(EnemyBaseClass enemy)
     {
         enemies.Add(enemy);
@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
             {
                 if (levelArray[i].SpawnPoints != null)
                 {
-                    foreach (SpawnPointInfo info in levelArray[i].SpawnPoints)
+                    foreach (SpawnPoint info in levelArray[i].SpawnPoints)
                     {
                         Instantiate(info.prefab, info.Spawnpoint.position, Quaternion.Euler(info.Spawnpoint.forward));
                         AddEnemy(info.enemy);

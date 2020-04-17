@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPointInfo : ScriptableObject
+public class SpawnPoint : ScriptableObject
 {
     public GameObject prefab;
     public Transform Spawnpoint;

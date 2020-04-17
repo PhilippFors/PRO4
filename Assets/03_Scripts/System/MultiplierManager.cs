@@ -7,7 +7,7 @@ using UnityEngine;
 public class MultiplierManager : MonoBehaviour
 {
     //Lists are dynamic in size. Array would technically work too.
-    private List<Multiplier> playerMultList = new List<Multiplier>();
+
 
     //Singleton setup
     private static MultiplierManager _instance;
@@ -34,7 +34,6 @@ public class MultiplierManager : MonoBehaviour
         EventSystem.instance.ResetMult -= ResetMultiplier;
     }
     
-
     private void Awake()
     {
         _instance = this;
@@ -42,7 +41,7 @@ public class MultiplierManager : MonoBehaviour
 
     private void Start()
     {
-        playerMultList = StatInit.InitPlayerMultipliers();
+        
     }
 
     public void SetAllMultValues(MultiplierName multiplierName, float value)
@@ -63,18 +62,6 @@ public class MultiplierManager : MonoBehaviour
     // {
     //     return enemy.GetMultValue(name);
     // }
-    public float GetPlayerMultValue(MultiplierName name)
-    {
-        if (playerMultList.Exists(x => x.GetName().Equals(name)))
-            return playerMultList.Find(x => x.GetName().Equals(name)).GetValue() == 0 ? 1.0f : playerMultList.Find(x => x.GetName().Equals(name)).GetValue();
-
-        return 1;
-    }
-
-    public void SetPlayerMultValue(MultiplierName name, float value)
-    {
-        playerMultList.Find(x => x.GetName().Equals(name)).SetValue(value);
-    }
 
     IEnumerator ResetTimer(float Skilltime)
     {

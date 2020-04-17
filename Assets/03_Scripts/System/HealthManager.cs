@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-
     private void Start()
     {
         EventSystem.instance.AttackPlayer += calcDmg;
         EventSystem.instance.AttackEnemy += calcDmg;
         EventSystem.instance.AttackObstacle += calcDmg;
     }
+    
     private void OnDisable()
     {
         EventSystem.instance.AttackPlayer -= calcDmg;

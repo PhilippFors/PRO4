@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class StateMachineController : MonoBehaviour
 {
+    public string playertag = "Player";
     [HideInInspector] public EnemyBaseClass enemystats => GetComponent<EnemyBaseClass>();
     public State currentState;
     public State remainState;
     public State startState;
     public bool aiActive;
     public Transform target { get; private set; }
-    [HideInInspector] public Transform self => GetComponent<Transform>();
     public Animator animator;
 
     void Start()
@@ -39,8 +39,13 @@ public class StateMachineController : MonoBehaviour
         }
     }
 
-    public void FindTarget()
+    public void FindPlayer()
     {
-        target = FindObjectOfType<PlayerBody>().GetComponent<Transform>();
+        if (FindObjectOfType<PlayerBody>() != null)
+            target = FindObjectOfType<PlayerBody>().GetComponent<Transform>();
+        else if (GameObject.FindGameObjectWithTag(playertag) != null)
+            target = GameObject.FindGameObjectWithTag(playertag).GetComponent<Transform>();
+        else
+            Debug.LogError("Could not find Player!");
     }
 }
