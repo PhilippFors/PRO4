@@ -25,11 +25,13 @@ public class MultiplierManager : MonoBehaviour
     private void OnEnable()
     {
         EventSystem.instance.ActivateSkill += SetAllMultValues;
+        EventSystem.instance.ResetMult += ResetMultiplier;
     }
     
     private void OnDisable()
     {
         EventSystem.instance.ActivateSkill -= SetAllMultValues;
+        EventSystem.instance.ResetMult -= ResetMultiplier;
     }
     
     private void Awake()
@@ -42,13 +44,13 @@ public class MultiplierManager : MonoBehaviour
         
     }
 
-    public void SetAllMultValues(MultiplierName name, float value, float Skilltime)
+    public void SetAllMultValues(MultiplierName multiplierName, float value)
     {
         foreach (EnemyBaseClass enemy in SpawnManager.instance.enemies)
         {
-            enemy.SetMultValue(name, value);
+            enemy.SetMultValue(multiplierName, value);
         }
-        StartCoroutine(ResetTimer(Skilltime));
+
     }
 
     // public void SetSingleMultiplier(EnemyBaseClass enemy, MultiplierName name, float value)

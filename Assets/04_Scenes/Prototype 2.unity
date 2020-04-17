@@ -3228,6 +3228,8 @@ GameObject:
   - component: {fileID: 279536753}
   - component: {fileID: 279536752}
   - component: {fileID: 279536751}
+  - component: {fileID: 279536757}
+  - component: {fileID: 279536756}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -3297,6 +3299,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279536756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279536750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3da4943032ea546ae463e702b07cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lvlID: 0
+  SpawnPoints: []
+--- !u!114 &279536757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279536750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3387fdcfca2f31144b6c0ec22f2ade3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 1077968377}
+  levelArray: []
 --- !u!1001 &303025678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15014,6 +15045,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1060954284}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1077968377 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7193853053534102123, guid: f3961eff788953f4d98ffcd2bebef82d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1407022577}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ed0d625fe01e044ae544985846b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1084536655
 PrefabInstance:
   m_ObjectHideFlags: 0

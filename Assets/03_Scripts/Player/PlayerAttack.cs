@@ -6,8 +6,6 @@ using UnityEngine.PlayerLoop;
 using UnityScript.Lang;
 
 
-
-
 public class PlayerAttack : MonoBehaviour
 {
     PlayerControls input;
@@ -33,17 +31,15 @@ public class PlayerAttack : MonoBehaviour
     public GameObject AudioPeer;
     public static FMODUnity.StudioEventEmitter emitter;
 
-    
+
     private void OnEnable()
     {
         input.Gameplay.Enable();
-        
     }
 
     private void OnDisable()
     {
         input.Gameplay.Disable();
-        
     }
 
     private void Awake()
@@ -54,13 +50,10 @@ public class PlayerAttack : MonoBehaviour
         input.Gameplay.RightAttack.performed += rt => RightAttack();
         //input.Gameplay.GrenadeThrow.performed += rt => EventSystem.instance.OnGrenadeAim();
         input.Gameplay.Skill1.performed += rt => Skill(0);
-
-        
     }
 
     private void Reset()
     {
-        
     }
 
     void Start()
@@ -72,9 +65,8 @@ public class PlayerAttack : MonoBehaviour
         {
             skill.current = 0;
         }
-
     }
-    
+
     public Skills SkillInit(string name, float current, float max, float timer)
     {
         Skills skillTemp = ScriptableObject.CreateInstance<Skills>();
@@ -91,8 +83,7 @@ public class PlayerAttack : MonoBehaviour
         Skills temp = skills[id];
         if (!temp.isActive && temp.current == temp.max)
         {
-            
-            StartCoroutine(Timer(temp));
+            StartCoroutine(Timer(temp, id));
         }
         else
         {
@@ -101,17 +92,19 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    IEnumerator Timer(Skills temp)
+    IEnumerator Timer(Skills temp, int id)
     {
         temp.isActive = true;
         emitter.SetParameter(temp.skillName, temp.activeValue);
         temp.current = 0;
-        EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue, temp.timer);
-        EventSystem.instance.OnSkill(MultiplierName.damage, temp.decreaseMultValue, temp.timer);
-        
+        //EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue);
+        //EventSystem.instance.OnSkill(MultiplierName.speed, temp.decreaseMultValue);
+
         yield return new WaitForSeconds(temp.timer);
-        
+
+        //EventSystem.instance.OnSkill();
         temp.isActive = false;
+        Debug.Log("hi");
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }
@@ -124,7 +117,6 @@ public class PlayerAttack : MonoBehaviour
     public void GrenadeThrow()
     {
         GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
-        
     }
 
     public void AimMove()
