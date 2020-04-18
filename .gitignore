@@ -2,7 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-[Ll]ibrary/
+/[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
@@ -61,11 +61,17 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Packed Addressables
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Temporary auto-generated Android Assets
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
 PRO4/Temp/UnityLockfile
 PRO4/Library
 fmod_editor.log
 Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
-Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
-fmod_editor.log
-Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
+
 fmod_editor.log
