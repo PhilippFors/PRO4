@@ -123,11 +123,11 @@ public class playerController_prototype : MonoBehaviour
     #region Dash
     public void Dash()
     {
-        RaycastHit hit;
+        
         if (dashValue < 100)
             return;
 
-
+        RaycastHit hit; 
         isDashing = true;
         dashValue = 0f;
         if (Physics.Raycast(transform.position, currentMoveDirection, out hit, dashDistance))
@@ -215,7 +215,6 @@ public class playerController_prototype : MonoBehaviour
             }
             UpdateLookDirection();
         }
-
     }
 
     void UpdateLookDirection()

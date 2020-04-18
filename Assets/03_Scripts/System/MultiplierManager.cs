@@ -22,26 +22,22 @@ public class MultiplierManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        EventSystem.instance.ActivateSkill += SetAllMultValues;
-        EventSystem.instance.ResetMult += ResetMultiplier;
-    }
-    
     private void OnDisable()
     {
         EventSystem.instance.ActivateSkill -= SetAllMultValues;
         EventSystem.instance.ResetMult -= ResetMultiplier;
     }
-    
+
     private void Awake()
     {
+
         _instance = this;
     }
 
     private void Start()
     {
-        
+        EventSystem.instance.ActivateSkill += SetAllMultValues;
+        EventSystem.instance.ResetMult += ResetMultiplier;
     }
 
     public void SetAllMultValues(MultiplierName multiplierName, float value)
