@@ -9,7 +9,7 @@ public class playerController_prototype : MonoBehaviour
 
     #region __________Vector 3__________
 
-    public Vector3 currentMoveDirection, currentLookDirection, velocity;
+    public Vector3 currentMoveDirection, currentLookDirection, velocity, posBeforDash, posAfterDash, rbVelocity;
     private Vector3 forward, right, moveVelocity, pointToLook;
 
     #endregion
@@ -18,6 +18,8 @@ public class playerController_prototype : MonoBehaviour
 
     private bool isAiming, mouseused, gamepadused;
     public bool isDashing = false;
+    public bool checkforExit, checkEnemy = false;
+    public bool inObject = false;
 
     #endregion
 
@@ -29,6 +31,8 @@ public class playerController_prototype : MonoBehaviour
     public float dashTime, dashValue, dashValueTime, maxDashValue, dashForce = 1.0f;
     public float dashDistance = 7f;
 
+    private float timeSinceDashEnd;
+
     #endregion
 
     #region __________others__________
@@ -38,6 +42,9 @@ public class playerController_prototype : MonoBehaviour
     Plane groundPlane;
     private Rigidbody rb => GetComponent<Rigidbody>();
 
+    LayerMask enemyMask => LayerMask.GetMask("Enemy");
+
+    GameObject dashTarget;
     #endregion
 
 
@@ -75,7 +82,7 @@ public class playerController_prototype : MonoBehaviour
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         Cursor.visible = true;
-    
+
     }
 
 
@@ -88,18 +95,23 @@ public class playerController_prototype : MonoBehaviour
         {
             case false:
                 Move();
+                if (!checkforExit)
+                    break;
+                CheckForExit();
                 break;
             case true:
+
                 DashUpdate();
                 break;
         }
 
         DashCoolDown();
+        rbVelocity = rb.velocity;
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + currentMoveDirection * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + currentMoveDirection * Time.fixedDeltaTime);
     }
 
     #endregion
@@ -119,53 +131,98 @@ public class playerController_prototype : MonoBehaviour
     }
 
     #endregion
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(posBeforDash, 0.2f);
+        Gizmos.DrawWireSphere(posAfterDash, 0.2f);
+    }
     #region Dash
     public void Dash()
     {
-        
-        if (dashValue < 100)
+
+        if (dashValue < 100 || currentMoveDirection == Vector3.zero)
             return;
 
-        RaycastHit hit; 
-        isDashing = true;
-        dashValue = 0f;
-        if (Physics.Raycast(transform.position, currentMoveDirection, out hit, dashDistance))
-        {
-            if (hit.transform.GetComponent<EnemyBaseClass>() != null)
-            {
-                gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                rb.useGravity = false;
-            }
-        }
 
+        isDashing = true;
+        checkEnemy = true;
+        dashValue = 0f;
+        CheckForEnemy();
         velocity = Vector3.Scale(currentMoveDirection.normalized, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime),
                                                                                               transform.position.y,
                                                                                              (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
 
+        posBeforDash = transform.position;
         rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
-        
     }
 
     public void DashUpdate()
     {
         frametime += Time.deltaTime;
+
         if (frametime >= 0.2f)
         {
+            posAfterDash = transform.position;
             frametime = 0f;
             currentDashValueTime = Time.time;
             isDashing = false;
+            checkEnemy = false;
+            checkforExit = true;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void CheckForEnemy()
     {
-        if (other.gameObject.GetComponent<EnemyBaseClass>() != null)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, currentMoveDirection.normalized, out hit, dashDistance - 1f, enemyMask, QueryTriggerInteraction.Collide))
         {
-            gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            rb.useGravity = true;
+            if (hit.transform.gameObject.GetComponent<EnemyBaseClass>() != null)
+            {
+                dashTarget = hit.transform.gameObject;
+                dashTarget.GetComponent<CapsuleCollider>().isTrigger = true;
+            }
+        }
+        else if (Physics.OverlapSphere(transform.position + currentMoveDirection.normalized, 2f) != null)
+        {
+            Collider[] col = Physics.OverlapSphere(transform.position + currentMoveDirection.normalized, 2f);
+            foreach (Collider co in col)
+            {
+                if (co.gameObject.GetComponent<EnemyBaseClass>() != null)
+                {
+                    dashTarget = co.gameObject;
+                    co.gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
+                }
+            }
         }
     }
+    public void CheckForExit()
+    {
+        timeSinceDashEnd += Time.deltaTime;
+        if (timeSinceDashEnd >= 0.4f)
+        {
+            if (dashTarget != null)
+                dashTarget.GetComponent<CapsuleCollider>().isTrigger = false;
+
+            timeSinceDashEnd = 0f;
+            checkforExit = false;
+        }
+    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.tag.Equals("Obstacle"))
+    //     {
+    //         inObject = true;
+    //         if (checkforExit)
+    //         {
+    //             rb.AddForce(-currentMoveDirection * 3, ForceMode.VelocityChange);
+    //         }
+    //     }
+    // }
+
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     inObject = false;
+    // }
 
     public void DashCoolDown()
     {
