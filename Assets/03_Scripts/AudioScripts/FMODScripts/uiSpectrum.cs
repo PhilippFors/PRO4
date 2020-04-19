@@ -24,7 +24,7 @@ public class uiSpectrum : MonoBehaviour
     void Update()
     {
 
-        transform.localScale = new Vector3(transform.localScale.x, (FMODAudioPeer._audioBandBuffer32[_fqBand]*scale) + 0.01f , transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, (FMODAudioPeer._instance.getFqBandBuffer32(_fqBand)*scale) + 0.01f , transform.localScale.z);
         
     }
 }

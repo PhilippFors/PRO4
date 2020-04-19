@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 
 
 [RequireComponent(typeof(FMODUnity.StudioEventEmitter))]
-class FMODAudioPeer : MonoBehaviour
+class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 {
     //BPM Variables
-    private static FMODAudioPeer _fmodAudioPeerInstance;
+    public static FMODAudioPeer _instance = null;
     public float _bpm;
     private float _beatInterval, _beatTimer, _beatIntervalD8, _beatTimerD8;
-    public static bool _beatFull, _beatD8;
+    public static bool _beatFull, _beatD8, _beatBar;
     public static int _beatCountFull, _beatCountD8;
 
 
@@ -59,8 +59,18 @@ class FMODAudioPeer : MonoBehaviour
     public _channel channel = new _channel();
 
 
-
-
+    
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
     void Start()
@@ -75,7 +85,7 @@ class FMODAudioPeer : MonoBehaviour
 
         AudioProfile(8, _audioProfile);
 
-        //fetch the musicEvent
+        //fetch the musicEvent from the EventEmitter
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
         musicInstance = emitter.getEvent();
 
@@ -233,36 +243,51 @@ class FMODAudioPeer : MonoBehaviour
     //die id gibt dabei an welches Band man will
     // 0 - 7, je höher die Nummer desto höhere Frequenzen beherbergt das Band
     //will man denn Bass so nimmt man die 0, die Höhen bei 6 - 7
-    public static float getFqBandBuffer8(int id)
+    public float getFqBandBuffer8(int id)
     {
 
         return _audioBandBuffer8[id];
     }
 
-    public static float getFqBand8(int id)
+    public float getFqBand8(int id)
     {
         return _audioBand8[id];
     }
 
-    public static float getAmplitudeBuffer()
+    public float getAmplitudeBuffer()
     {
         return _amplitudeBuffer;
     }
 
-    public static float getFqBandBuffer32(int id)
+    public float getFqBandBuffer32(int id)
     {
         return _audioBandBuffer32[id];
     }
 
-    public static float getFqBand32(int id)
+    public float getFqBand32(int id)
     {
         return _audioBand32[id];
     }
 
+    public float getBPM()
+    {
+        return _bpm;
+    }
+
+    public bool getBeatFull()
+    {
+        return _beatBar;
+    }
+
+    public bool getBeatD8()
+    {
+        return _beatD8;
+    }
 
     void BeatDetection()
     {
         //full beat count
+        _beatBar = false;
         _beatFull = false;
         _beatInterval = 60 / _bpm;
         _beatTimer += Time.deltaTime;
@@ -274,11 +299,10 @@ class FMODAudioPeer : MonoBehaviour
             // Debug.Log("Full");
             if (_beatCountFull % 4 == 0)
             {
-                // Debug.Log("FullBar");
+                 Debug.Log("FullBar");
+                _beatBar = true;
             }
         }
-
-
 
         //divided beat count
         _beatD8 = false;

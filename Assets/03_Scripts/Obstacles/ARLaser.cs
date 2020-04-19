@@ -9,6 +9,10 @@ public class ARLaser : MonoBehaviour
     public float _scale;
     public float _threshold;
 
+    Vector3 startScale = new Vector3(1f, 1f, 1f);
+    Vector3 newScale = new Vector3(1f, 10f, 1f);
+    float speed = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +22,17 @@ public class ARLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float fqValueHard = FMODAudioPeer.getFqBand8(_fqBand);
-        float fqValueBuffer = FMODAudioPeer.getFqBandBuffer8(_fqBand);
-        if (fqValueHard > _threshold)
+        float fqValueHard = 0;
+        float fqValueBuffer = 0;
+        bool beatFull = FMODAudioPeer._instance.getBeatFull();
+        if (beatFull)
         {
-            transform.localScale = new Vector3(transform.localScale.x, (fqValueBuffer * _scale) + 0.01f, transform.localScale.z);
+            transform.localScale = Vector3.Lerp(startScale, newScale, 1000* Time.deltaTime);
+            Debug.Log("BARFULL");
         }
         else
         {
-            transform.localScale = new Vector3(transform.localScale.x, fqValueBuffer * (_scale/(_scale/4)), transform.localScale.z);
+            transform.localScale = Vector3.Lerp(newScale, startScale, 1000 * Time.deltaTime);
         }
         //Debug.Log("FQVALUE" + fqValueHard);
     }
