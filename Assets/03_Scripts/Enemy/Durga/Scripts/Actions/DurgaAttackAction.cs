@@ -5,11 +5,13 @@ using UnityEngine;
 public class DurgaAttackAction : Action
 {
     public override void Execute(StateMachineController controller){
-        controller.animator.SetInteger("Sequenz1", 1);
+        
+        Attack(controller);
     }
 
     private void Attack(StateMachineController controller)
     {
+        controller.weapon.isAttacking = true;
         controller.animator.SetInteger("Sequenz1", 1);
     }
 

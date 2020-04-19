@@ -5,17 +5,22 @@ using UnityEngine;
 public class EnemyTestWeapon : MonoBehaviour
 {
     public float basedmg = 5.0f;
+    public bool isAttacking = false;
 
     private void OnTriggerEnter(Collider other)
     {
         GameObject obj = other.gameObject;
-        if (obj.GetComponent<PlayerBody>() != null)
+        if (isAttacking)
         {
-            EventSystem.instance.OnAttack(obj.GetComponent<PlayerBody>(), basedmg);
+            if (obj.GetComponent<PlayerBody>() != null)
+            {
+                EventSystem.instance.OnAttack(obj.GetComponent<PlayerBody>(), basedmg);
+            }
+            else if (obj.GetComponent<DestructableObstacleBase>() != null)
+            {
+                EventSystem.instance.OnAttack(obj.GetComponent<DestructableObstacleBase>(), basedmg);
+            }
         }
-        else if (obj.GetComponent<DestructableObstacleBase>() != null)
-        {
-            EventSystem.instance.OnAttack(obj.GetComponent<DestructableObstacleBase>(), basedmg);
-        }
+
     }
 }

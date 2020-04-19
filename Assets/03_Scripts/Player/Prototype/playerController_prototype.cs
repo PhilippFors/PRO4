@@ -29,6 +29,7 @@ public class playerController_prototype : MonoBehaviour
     public float reenableColliderTime = 0.4f;
     private float timeStartDash, currentDashValueTime, frametime = 0.0f, timeSinceStarted, delayCountdown;
     public float dashValue, dashValueTime, maxDashValue;
+    float actualDistance;
 
     private float timeSinceDashEnd;
 
@@ -44,6 +45,12 @@ public class playerController_prototype : MonoBehaviour
 
     LayerMask enemyMask => LayerMask.GetMask("Enemy");
     LayerMask groundMask => LayerMask.GetMask("Ground");
+
+    public Transform RayEmitter;
+    public Transform Ray1;
+    public Transform Ray2;
+    public Transform Ray3;
+
 
     GameObject dashTarget;
     #endregion
@@ -92,22 +99,25 @@ public class playerController_prototype : MonoBehaviour
     {
         GamepadLook();
         MouseLook();
-
+        Debug.DrawRay(transform.position + new Vector3(0.5f, 0, 0), currentMoveDirection, Color.red);
+        Debug.DrawRay(transform.position + new Vector3(-0.5f, 0, 0), currentMoveDirection, Color.red);
+        Debug.DrawRay(transform.position, currentMoveDirection, Color.red);
         switch (isDashing)
         {
             case false:
-
                 Move();
-                if (!checkforExit)
-                    break;
-                CheckForExit();
                 break;
             case true:
                 DashUpdate();
                 break;
         }
-
         DashCoolDown();
+
+        if (!checkforExit)
+            return;
+        CheckForExit();
+
+
     }
 
     private void FixedUpdate()
@@ -121,7 +131,7 @@ public class playerController_prototype : MonoBehaviour
 
     #region Movement
 
-    public void Move()
+    void Move()
     {
         IsGrounded();
         Vector2 move = input.Gameplay.Movement.ReadValue<Vector2>();
@@ -131,10 +141,9 @@ public class playerController_prototype : MonoBehaviour
         Vector3 vertikMovement = forward * direction.z;
 
         currentMoveDirection = horizMovement + vertikMovement;
-
     }
 
-    private void IsGrounded()
+    void IsGrounded()
     {
         if (Physics.CheckSphere(transform.position, 1.1f, groundMask, QueryTriggerInteraction.Ignore))
         {
@@ -156,9 +165,8 @@ public class playerController_prototype : MonoBehaviour
     //     Gizmos.DrawWireSphere(transform.position + currentMoveDirection + ((velocity + velocity) / 2) * startDashTime, 0.4f);
     // }
     #region Dash
-    public void Dash()
+    void Dash()
     {
-
         if (dashValue < 100 || currentMoveDirection == Vector3.zero)
             return;
 
@@ -173,17 +181,18 @@ public class playerController_prototype : MonoBehaviour
 
         CheckForEnemy();
         posBeforDash = transform.position;
-        //disabel Hurtbox
+        //disable Hurtbox
         // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
-
     }
 
-    public void DashUpdate()
+    void DashUpdate()
     {
 
         rb.velocity = velocity * dashForce;
         velocity.x /= 1 + rb.drag * Time.deltaTime;
         velocity.z /= 1 + rb.drag * Time.deltaTime;
+
+        //invincible while frametime not zero
         if (frametime <= 0 && !dashDelayOn)
         {
             //enable Hurtbox
@@ -215,31 +224,40 @@ public class playerController_prototype : MonoBehaviour
 
     void CheckForEnemy()
     {
-        float actualDistance = Vector3.Distance(transform.position, transform.position + currentMoveDirection + ((velocity + velocity) / 2) * dashDuration);
+        RayEmitter.forward = currentMoveDirection;
+        actualDistance = Vector3.Distance(transform.position, transform.position + currentMoveDirection + ((velocity + velocity) / 2) * dashDuration);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, currentMoveDirection.normalized, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(Ray1.position, Ray1.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore) ||
+        Physics.Raycast(Ray2.position, Ray2.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore) ||
+        Physics.Raycast(Ray3.position, Ray3.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore))
         {
             if (hit.transform.gameObject.GetComponent<EnemyBaseClass>() != null)
             {
                 dashTarget = hit.transform.gameObject;
+                // dashTarget.GetComponent<CharacterController>().detectCollisions = false;
                 dashTarget.GetComponent<CapsuleCollider>().isTrigger = true;
+                dashTarget.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             }
         }
     }
-    public void CheckForExit()
+    void CheckForExit()
     {
         timeSinceDashEnd += Time.deltaTime;
         if (timeSinceDashEnd >= reenableColliderTime)
         {
             if (dashTarget != null)
+            {
+                // dashTarget.GetComponent<CharacterController>().detectCollisions = true;
                 dashTarget.GetComponent<CapsuleCollider>().isTrigger = false;
-
+                dashTarget.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                dashTarget.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            }
             timeSinceDashEnd = 0f;
             checkforExit = false;
         }
     }
 
-    public void DashCoolDown()
+    void DashCoolDown()
     {
         float timeSinceDashEnded = Time.time - currentDashValueTime;
 
@@ -252,7 +270,7 @@ public class playerController_prototype : MonoBehaviour
 
     #region Look direction
 
-    public void GamepadLook()
+    void GamepadLook()
     {
         if (input.Gameplay.Rotate.triggered || gamepadused)
         {
@@ -263,10 +281,9 @@ public class playerController_prototype : MonoBehaviour
             pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
             UpdateLookDirection();
         }
-
     }
 
-    public void MouseLook()
+    void MouseLook()
     {
         if (input.Gameplay.Look.triggered || mouseused)
         {

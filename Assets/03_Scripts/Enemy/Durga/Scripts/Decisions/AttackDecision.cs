@@ -14,9 +14,12 @@ public class AttackDecision : Decision
         if (Vector3.Distance(controller.target.position, controller.transform.position) > controller.enemystats.GetStatValue(StatName.range))
         {
             controller.animator.SetTrigger("cancel");
+            controller.weapon.isAttacking = false;
+            controller.agent.isStopped = false;
             return false;
 
         }
+        controller.agent.isStopped = true;
         return true;
     }
 }
