@@ -6,16 +6,31 @@ using System.Runtime.InteropServices;
 [RequireComponent(typeof(FMODUnity.StudioEventEmitter))]
 class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 {
-    //BPM Variables
+
+    //BEATSYSTEM
+    [StructLayout(LayoutKind.Sequential)]
+    class TimelineInfo
+    {
+        public int currentMusicBeat = 0;
+        public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
+    }
+
+
+    TimelineInfo timelineInfo;
+    GCHandle timelineHandle;
+
+    FMOD.Studio.EVENT_CALLBACK beatCallback;
+
+    public  int beat;
+    public  string marker;
+    public  int bar;
     public static FMODAudioPeer _instance = null;
-    public float _bpm;
-    private float _beatInterval, _beatTimer, _beatIntervalD8, _beatTimerD8;
-    public static bool _beatFull, _beatD8, _beatBar;
-    public static int _beatCountFull, _beatCountD8;
 
 
     FMODUnity.StudioEventEmitter emitter;
     FMOD.Studio.EventInstance musicInstance;
+    
+    //---SPECTRUM ANALYZER---
     FMOD.DSP fft;
     FMOD.ChannelGroup channelGroup;
 
@@ -58,8 +73,37 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     public enum _channel { Stereo, Left, Right };
     public _channel channel = new _channel();
 
+    //GETTER
 
-    
+    //returned das fqBand mit Bufferfunkiont -> smoothed die werte
+    //die id gibt dabei an welches Band man will
+    // 0 - 7, je höher die Nummer desto höhere Frequenzen beherbergt das Band
+    //will man denn Bass so nimmt man die 0, die Höhen bei 6 - 7
+    public float getFqBandBuffer8(int id)
+    {
+        return _audioBandBuffer8[id];
+    }
+
+    public float getFqBand8(int id)
+    {
+        return _audioBand8[id];
+    }
+
+    public float getAmplitudeBuffer()
+    {
+        return _amplitudeBuffer;
+    }
+
+    public float getFqBandBuffer32(int id)
+    {
+        return _audioBandBuffer32[id];
+    }
+
+    public float getFqBand32(int id)
+    {
+        return _audioBand32[id];
+    }
+
     void Awake()
     {
         if(_instance == null)
@@ -71,7 +115,6 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
             Destroy(gameObject);
         }
     }
-
 
     void Start()
     {
@@ -96,15 +139,14 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
         //assign the dsp to a channel
         musicInstance.getChannelGroup(out channelGroup);
+        AssignBeatEvent(musicInstance);
 
     }
-
-
 
     void Update()
     {
         //BPM Calculation Methods
-        BeatDetection();
+      
 
 
         if (!ready)
@@ -122,6 +164,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
         if (ready)
         {
+         
             //Creating the spectrum with 512 samples
             IntPtr unmanagedData;
             uint length;
@@ -239,85 +282,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
     }
 
-    //returned das fqBand mit Bufferfunkiont -> smoothed die werte
-    //die id gibt dabei an welches Band man will
-    // 0 - 7, je höher die Nummer desto höhere Frequenzen beherbergt das Band
-    //will man denn Bass so nimmt man die 0, die Höhen bei 6 - 7
-    public float getFqBandBuffer8(int id)
-    {
-
-        return _audioBandBuffer8[id];
-    }
-
-    public float getFqBand8(int id)
-    {
-        return _audioBand8[id];
-    }
-
-    public float getAmplitudeBuffer()
-    {
-        return _amplitudeBuffer;
-    }
-
-    public float getFqBandBuffer32(int id)
-    {
-        return _audioBandBuffer32[id];
-    }
-
-    public float getFqBand32(int id)
-    {
-        return _audioBand32[id];
-    }
-
-    public float getBPM()
-    {
-        return _bpm;
-    }
-
-    public bool getBeatFull()
-    {
-        return _beatBar;
-    }
-
-    public bool getBeatD8()
-    {
-        return _beatD8;
-    }
-
-    void BeatDetection()
-    {
-        //full beat count
-        _beatBar = false;
-        _beatFull = false;
-        _beatInterval = 60 / _bpm;
-        _beatTimer += Time.deltaTime;
-        if (_beatTimer >= _beatInterval)
-        {
-            _beatTimer -= _beatInterval;
-            _beatFull = true;
-            _beatCountFull++;
-            // Debug.Log("Full");
-            if (_beatCountFull % 4 == 0)
-            {
-                 Debug.Log("FullBar");
-                _beatBar = true;
-            }
-        }
-
-        //divided beat count
-        _beatD8 = false;
-        _beatIntervalD8 = _beatInterval / 8;
-        _beatTimerD8 += Time.deltaTime;
-        if (_beatTimerD8 >= _beatIntervalD8)
-        {
-            _beatTimerD8 -= _beatIntervalD8;
-            _beatD8 = true;
-            _beatCountD8++;
-            // Debug.Log("D8");
-        }
-    }
-
-
+  
     //normalisiert die 8 Frequenzbänder
     //damit erhalten wir Werte zwischen 0 und 1 für jedes Frequenzband
     void CreateAudioBands8()
@@ -413,6 +378,69 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
         {
             _freqBandHighest8[i] = audioProfile;
         }
+    }
+
+
+
+    //---BEATDETECTION---
+     void AssignBeatEvent(FMOD.Studio.EventInstance instance)
+    {
+        timelineInfo = new TimelineInfo();
+        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
+        beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
+        instance.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        instance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+    }
+
+     void StopAndClear(FMOD.Studio.EventInstance instance)
+    {
+        instance.setUserData(IntPtr.Zero);
+        instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance.release();
+        timelineHandle.Free();
+    }
+
+    [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
+     FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, FMOD.Studio.EventInstance instance, IntPtr parameterPtr)
+    {
+        IntPtr timelineInfoPtr;
+        FMOD.RESULT result = instance.getUserData(out timelineInfoPtr);
+        if (result != FMOD.RESULT.OK)
+        {
+            Debug.LogError("Timeline Callback error: " + result);
+        }
+        else if (timelineInfoPtr != IntPtr.Zero)
+        {
+            GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
+            TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
+
+            switch (type)
+            {
+                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
+                    {
+                        var parameter = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
+                        timelineInfo.currentMusicBeat = parameter.beat;
+                        beat = timelineInfo.currentMusicBeat;
+                        //Debug.Log("BEAT: " + beat);
+                        bar++;
+                        if (bar == 4)
+                        {
+                            //Debug.Log("FULLBAR");
+                            bar = 0;
+                        }
+                    }
+                    break;
+                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
+                    {
+                        var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+                        timelineInfo.lastMarker = parameter.name;
+                        marker = timelineInfo.lastMarker;
+                        Debug.Log(marker);
+                    }
+                    break;
+            }
+        }
+        return FMOD.RESULT.OK;
     }
 }
 

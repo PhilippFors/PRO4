@@ -20,10 +20,5 @@ public interface IAudioSpectrum
 
 
     //BPM
-    float getBPM();
-
-    bool getBeatFull();
-
-    bool getBeatD8();
 
 }
