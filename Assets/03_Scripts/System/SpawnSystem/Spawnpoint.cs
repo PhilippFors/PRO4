@@ -7,5 +7,5 @@ public class SpawnPoint : ScriptableObject
     public GameObject prefab;
     public Transform Spawnpoint;
 
-    [HideInInspector] public EnemyBaseClass enemy => prefab.GetComponent<EnemyBaseClass>();
+    [HideInInspector] public EnemyBody enemy => prefab.GetComponent<EnemyBody>();
 }
