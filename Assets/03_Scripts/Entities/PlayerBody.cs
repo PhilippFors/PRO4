@@ -7,6 +7,10 @@ public class PlayerBody : MonoBehaviour, IStats
     public List<GameStatistics> statList { get; set; }
 
     public PlayerTemplate template;
+    private void Awake()
+    {
+        InitStats();
+    }
     public void InitStats()
     {
        statList = StatInit.InitPlayerStats(template);
@@ -27,6 +31,7 @@ public class PlayerBody : MonoBehaviour, IStats
         //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
         float newDamage = damage * damage / (damage + GetStatValue(StatName.defense));
         SetStatValue(StatName.health, GetStatValue(StatName.health) - damage);
+        Debug.Log(gameObject.name + " just took " + newDamage + " damage.");
     }
 
     public void OnDeath()

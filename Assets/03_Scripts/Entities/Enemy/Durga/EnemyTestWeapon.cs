@@ -14,7 +14,6 @@ public class EnemyTestWeapon : MonoBehaviour
         {
             if (obj.GetComponent<IHasHealth>() != null)
             {
-                obj.GetComponent<IHasHealth>().CalculateHealth(basedmg);
                 EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
             }
         }
