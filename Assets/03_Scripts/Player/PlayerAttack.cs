@@ -97,12 +97,12 @@ public class PlayerAttack : MonoBehaviour
         temp.isActive = true;
         emitter.SetParameter(temp.skillName, temp.activeValue);
         temp.current = 0;
-        //EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue);
-        //EventSystem.instance.OnSkill(MultiplierName.speed, temp.decreaseMultValue);
+        EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue);
+        EventSystem.instance.OnSkill(MultiplierName.speed, temp.decreaseMultValue);
 
         yield return new WaitForSeconds(temp.timer);
 
-        //EventSystem.instance.OnSkill();
+        EventSystem.instance.OnSkill();
         temp.isActive = false;
         Debug.Log("hi");
         emitter.SetParameter(temp.skillName, temp.deactiveValue);

@@ -49,10 +49,14 @@
             <e p="EnemyStateMachine.cs" t="Include" />
             <e p="EnemyTemplate.cs" t="Include" />
             <e p="PluggableStatemachine" t="Include">
-              <e p="Action.cs" t="Include" />
-              <e p="Decision.cs" t="Include" />
-              <e p="OnEnterState.cs" t="Include" />
-              <e p="OnExitState.cs" t="Include" />
+              <e p="BaseScripts" t="Include">
+                <e p="Action.cs" t="Include" />
+                <e p="Decision.cs" t="Include" />
+                <e p="OnEnterState.cs" t="Include" />
+                <e p="OnExitState.cs" t="Include" />
+                <e p="State.cs" t="Include" />
+                <e p="Transition.cs" t="Include" />
+              </e>
               <e p="PluggableDurga" t="Include">
                 <e p="Actions" t="Include">
                   <e p="DurgaAttackAction.cs" t="Include" />
@@ -64,9 +68,7 @@
                   <e p="GetOutofIdleDecision.cs" t="Include" />
                 </e>
               </e>
-              <e p="State.cs" t="Include" />
               <e p="StateMachineController.cs" t="Include" />
-              <e p="Transition.cs" t="Include" />
             </e>
             <e p="ResetValues.cs" t="Include" />
           </e>
@@ -86,11 +88,13 @@
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerTemplate.cs" t="Include" />
             <e p="PlayerTestWeapon.cs" t="Include" />
+            <e p="Prototype" t="Include">
+              <e p="playerController_prototype.cs" t="Include" />
+              <e p="Triggerscript.cs" t="Include" />
+            </e>
             <e p="Skills.cs" t="Include" />
-            <e p="WeaponTrigger.cs" t="Include" />
           </e>
           <e p="Reticle.cs" t="Include" />
-          <e p="Shooting.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
           <e p="system" t="Include">
             <e p="EventSystem" t="Include">
@@ -109,7 +113,7 @@
             <e p="SpawnSystem" t="Include">
               <e p="LevelSpawn.cs" t="Include" />
               <e p="SpawnManager.cs" t="Include" />
-              <e p="SpawnpointInfo.cs" t="Include" />
+              <e p="Spawnpoint.cs" t="Include" />
             </e>
           </e>
           <e p="Teleport.cs" t="Include" />
