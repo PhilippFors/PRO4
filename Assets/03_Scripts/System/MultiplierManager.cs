@@ -22,19 +22,15 @@ public class MultiplierManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        
-    }
-    
     private void OnDisable()
     {
         EventSystem.instance.ActivateSkill -= SetAllMultValues;
         EventSystem.instance.ResetMult -= ResetMultiplier;
     }
-    
+
     private void Awake()
     {
+
         _instance = this;
     }
 

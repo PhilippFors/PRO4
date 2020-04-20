@@ -9,25 +9,30 @@ public class playerController_prototype : MonoBehaviour
 
     #region __________Vector 3__________
 
-    public Vector3 currentMoveDirection, currentLookDirection, velocity;
-    private Vector3 forward, right, moveVelocity, pointToLook;
+    public Vector3 currentMoveDirection, currentLookDirection, posBeforDash, posAfterDash;
+    private Vector3 forward, right, velocity, pointToLook;
 
     #endregion
 
     #region __________bool__________
 
     private bool isAiming, mouseused, gamepadused;
-    public bool isDashing = false;
+    public bool isDashing = false, isGrounded = true, dashDelayOn = false;
+    public bool checkforExit, checkEnemy = false;
 
     #endregion
 
     #region __________float__________
 
     // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
-    [SerializeField] private float moveSpeed = 5.0f;
-    private float timeStartDash, currentDashValueTime, frametime = 0.0f;
-    public float dashTime, dashValue, dashValueTime, maxDashValue, dashForce = 1.0f;
-    public float dashDistance = 7f;
+    [SerializeField] private float moveSpeed = 5.0f, dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
+    public float reenableColliderTime = 0.4f;
+    private float timeStartDash, currentDashValueTime, frametime = 0.0f, timeSinceStarted, delayCountdown;
+    public float dashValue, dashValueTime, maxDashValue;
+    float actualDistance;
+
+    private float timeSinceDashEnd;
+
 
     #endregion
 
@@ -38,6 +43,16 @@ public class playerController_prototype : MonoBehaviour
     Plane groundPlane;
     private Rigidbody rb => GetComponent<Rigidbody>();
 
+    LayerMask enemyMask => LayerMask.GetMask("Enemy");
+    LayerMask groundMask => LayerMask.GetMask("Ground");
+
+    public Transform RayEmitter;
+    public Transform Ray1;
+    public Transform Ray2;
+    public Transform Ray3;
+
+
+    GameObject dashTarget;
     #endregion
 
 
@@ -75,7 +90,8 @@ public class playerController_prototype : MonoBehaviour
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         Cursor.visible = true;
-    
+        frametime = dashDuration;
+        delayCountdown = delayTime;
     }
 
 
@@ -83,7 +99,9 @@ public class playerController_prototype : MonoBehaviour
     {
         GamepadLook();
         MouseLook();
-
+        Debug.DrawRay(transform.position + new Vector3(0.5f, 0, 0), currentMoveDirection, Color.red);
+        Debug.DrawRay(transform.position + new Vector3(-0.5f, 0, 0), currentMoveDirection, Color.red);
+        Debug.DrawRay(transform.position, currentMoveDirection, Color.red);
         switch (isDashing)
         {
             case false:
@@ -93,81 +111,153 @@ public class playerController_prototype : MonoBehaviour
                 DashUpdate();
                 break;
         }
-
         DashCoolDown();
+
+        if (!checkforExit)
+            return;
+        CheckForExit();
+
+
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + currentMoveDirection * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + currentMoveDirection.normalized * moveSpeed * Time.fixedDeltaTime);
+        if (isDashing)
+            frametime -= Time.fixedDeltaTime;
     }
 
     #endregion
 
     #region Movement
 
-    public void Move()
+    void Move()
     {
+        IsGrounded();
         Vector2 move = input.Gameplay.Movement.ReadValue<Vector2>();
         Vector3 direction = new Vector3(move.x, 0, move.y);
 
-        moveVelocity = direction * moveSpeed;
-        Vector3 horizMovement = right * moveVelocity.x;
-        Vector3 vertikMovement = forward * moveVelocity.z;
+        Vector3 horizMovement = right * direction.x;
+        Vector3 vertikMovement = forward * direction.z;
 
         currentMoveDirection = horizMovement + vertikMovement;
     }
 
-    #endregion
-
-    #region Dash
-    public void Dash()
+    void IsGrounded()
     {
-        RaycastHit hit;
-        if (dashValue < 100)
+        if (Physics.CheckSphere(transform.position, 1.1f, groundMask, QueryTriggerInteraction.Ignore))
+        {
+            rb.drag = drag;
+            isGrounded = true;
+        }
+        else
+        {
+            rb.drag = 0;
+            isGrounded = false;
+        }
+    }
+
+    #endregion
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.DrawWireSphere(posBeforDash, 0.2f);
+    //     Gizmos.DrawWireSphere(posAfterDash, 0.2f);
+    //     Gizmos.DrawWireSphere(transform.position + currentMoveDirection + ((velocity + velocity) / 2) * startDashTime, 0.4f);
+    // }
+    #region Dash
+    void Dash()
+    {
+        if (dashValue < 100 || currentMoveDirection == Vector3.zero)
             return;
 
-
         isDashing = true;
+        checkEnemy = true;
         dashValue = 0f;
-        if (Physics.Raycast(transform.position, currentMoveDirection, out hit, dashDistance))
+
+        velocity = Vector3.Scale(currentMoveDirection.normalized, dashDistance * new Vector3((Mathf.Log
+        (1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime),
+        transform.position.y,
+        (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+
+        CheckForEnemy();
+        posBeforDash = transform.position;
+        //disable Hurtbox
+        // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
+    }
+
+    void DashUpdate()
+    {
+
+        rb.velocity = velocity * dashForce;
+        velocity.x /= 1 + rb.drag * Time.deltaTime;
+        velocity.z /= 1 + rb.drag * Time.deltaTime;
+
+        //invincible while frametime not zero
+        if (frametime <= 0 && !dashDelayOn)
         {
-            if (hit.transform.GetComponent<EnemyBaseClass>() != null)
+            //enable Hurtbox
+            frametime = dashDuration;
+            dashDelayOn = true;
+            checkEnemy = false;
+            checkforExit = true;
+            currentDashValueTime = Time.time;
+        }
+
+        if (!dashDelayOn)
+            return;
+
+        DashDelay();
+    }
+
+    void DashDelay()
+    {
+        delayCountdown -= Time.deltaTime;
+        currentMoveDirection = Vector3.zero;
+        if (delayCountdown <= 0)
+        {
+            velocity = Vector3.zero;
+            delayCountdown = delayTime;
+            isDashing = false;
+            dashDelayOn = false;
+        }
+    }
+
+    void CheckForEnemy()
+    {
+        RayEmitter.forward = currentMoveDirection;
+        actualDistance = Vector3.Distance(transform.position, transform.position + currentMoveDirection + ((velocity + velocity) / 2) * dashDuration);
+        RaycastHit hit;
+        if (Physics.Raycast(Ray1.position, Ray1.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore) ||
+        Physics.Raycast(Ray2.position, Ray2.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore) ||
+        Physics.Raycast(Ray3.position, Ray3.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore))
+        {
+            if (hit.transform.gameObject.GetComponent<EnemyBaseClass>() != null)
             {
-                gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                rb.useGravity = false;
+                dashTarget = hit.transform.gameObject;
+                // dashTarget.GetComponent<CharacterController>().detectCollisions = false;
+                dashTarget.GetComponent<CapsuleCollider>().isTrigger = true;
+                dashTarget.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             }
         }
-
-        velocity = Vector3.Scale(currentMoveDirection.normalized, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime),
-                                                                                              transform.position.y,
-                                                                                             (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-
-        rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
-        
     }
-
-    public void DashUpdate()
+    void CheckForExit()
     {
-        frametime += Time.deltaTime;
-        if (frametime >= 0.2f)
+        timeSinceDashEnd += Time.deltaTime;
+        if (timeSinceDashEnd >= reenableColliderTime)
         {
-            frametime = 0f;
-            currentDashValueTime = Time.time;
-            isDashing = false;
+            if (dashTarget != null)
+            {
+                // dashTarget.GetComponent<CharacterController>().detectCollisions = true;
+                dashTarget.GetComponent<CapsuleCollider>().isTrigger = false;
+                dashTarget.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                dashTarget.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            }
+            timeSinceDashEnd = 0f;
+            checkforExit = false;
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<EnemyBaseClass>() != null)
-        {
-            gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            rb.useGravity = true;
-        }
-    }
-
-    public void DashCoolDown()
+    void DashCoolDown()
     {
         float timeSinceDashEnded = Time.time - currentDashValueTime;
 
@@ -180,7 +270,7 @@ public class playerController_prototype : MonoBehaviour
 
     #region Look direction
 
-    public void GamepadLook()
+    void GamepadLook()
     {
         if (input.Gameplay.Rotate.triggered || gamepadused)
         {
@@ -191,10 +281,9 @@ public class playerController_prototype : MonoBehaviour
             pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
             UpdateLookDirection();
         }
-
     }
 
-    public void MouseLook()
+    void MouseLook()
     {
         if (input.Gameplay.Look.triggered || mouseused)
         {
@@ -215,7 +304,6 @@ public class playerController_prototype : MonoBehaviour
             }
             UpdateLookDirection();
         }
-
     }
 
     void UpdateLookDirection()

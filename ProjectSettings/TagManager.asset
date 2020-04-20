@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Weapon
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -15,10 +15,10 @@ TagManager:
   - UI
   - 
   - 
+  - PostProcessing
+  - Enemy
   - Ground
   - Player
-  - 
-  - 
   - 
   - 
   - 
@@ -42,7 +42,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Crosshair
-    uniqueID: 2207070273
     locked: 0

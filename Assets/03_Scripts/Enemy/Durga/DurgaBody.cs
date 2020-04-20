@@ -14,5 +14,4 @@ public class DurgaBody : EnemyBaseClass
         multList = StatInit.InitEnemyMultipliers();
     }
 
-   
 }
