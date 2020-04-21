@@ -9,6 +9,10 @@ public class EventSystem : MonoBehaviour
     public event Action<IHasHealth, float> Attack;
     public event Action<MultiplierName, float> ActivateSkill;
 
+    //Events die von der Musik ausgelöst werden
+    public event System.Action Kick;
+    public event System.Action Bass;
+
 
     public static EventSystem instance;
 
@@ -30,5 +34,33 @@ public class EventSystem : MonoBehaviour
     public void OnSkill()
     {
         ResetMult();
+    }
+
+
+    public void OnKick()
+    {
+        if (Kick == null)
+        {
+            Debug.Log("KickEvent has no subscriber");
+        }
+        else
+        {
+            Kick();
+        }
+
+        //WHY THIS SHORTHAND SYNTAX NICHT WORKING?
+        //Kick == null ? Debug.Log("KickEvent is empty") : Kick();
+    }
+
+    public void OnBass()
+    {
+        if (Bass == null)
+        {
+            Debug.Log("BassEvent has no subscriber");
+        }
+        else
+        {
+            Bass();
+        }
     }
 }
