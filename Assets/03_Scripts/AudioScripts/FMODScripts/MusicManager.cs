@@ -3,25 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicEventManager : MonoBehaviour
+public class MusicManager : MonoBehaviour
 {
-
-
-    private static MusicEventManager _instance;
-    public static MusicEventManager instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("null");
-
-            return _instance;
-        }
-    }
-    private void Awake()
-    {
-        _instance = this;
-    }
 
 
     // Start is called before the first frame update

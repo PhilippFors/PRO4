@@ -4,9 +4,6 @@ using UnityEngine;
 
 public interface IAudioSpectrum
 {
-
-
-
     //Frequenices
     float getFqBandBuffer8(int id);
 
@@ -17,8 +14,5 @@ public interface IAudioSpectrum
     float getFqBandBuffer32(int id);
 
     float getFqBand32(int id);
-
-
-    //BPM
 
 }

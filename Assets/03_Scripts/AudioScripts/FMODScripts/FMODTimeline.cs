@@ -16,7 +16,7 @@ public class FMODTimeline : MonoBehaviour
     }
 
     public static FMODTimeline _instance;
-
+    MusicManager musicManager;
 
     public int beat;
     public string marker;
@@ -52,6 +52,7 @@ public class FMODTimeline : MonoBehaviour
         _emitter = GetComponent<FMODUnity.StudioEventEmitter>();
         _musicInstance = _emitter.getEvent();
         AssignBeatEvent(_musicInstance);
+        musicManager = GetComponent<MusicManager>();
     }
 
     // Update is called once per frame
@@ -114,14 +115,8 @@ public class FMODTimeline : MonoBehaviour
                         var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
                         timelineInfo.lastMarker = parameter.name;
                         marker = timelineInfo.lastMarker;
-                        if (MusicEventManager.instance == null)
-                        {
-                            Debug.Log("EMPTY");
-                        }
-                        else
-                        {
-                            MusicEventManager.instance.parseMarkerString(marker);
-                        }
+                        musicManager.parseMarkerString(marker);
+
 
                     }
                     break;

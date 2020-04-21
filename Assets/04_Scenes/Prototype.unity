@@ -745,7 +745,6 @@ GameObject:
   - component: {fileID: 324960999}
   - component: {fileID: 324960998}
   - component: {fileID: 324960997}
-  - component: {fileID: 324960996}
   m_Layer: 0
   m_Name: MusicEventManager
   m_TagString: Untagged
@@ -753,18 +752,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &324960996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324960995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650cf0ed54447d6428293aab65094aa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &324960997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4433,6 +4420,7 @@ GameObject:
   - component: {fileID: 1260451982}
   - component: {fileID: 1260451984}
   - component: {fileID: 1260451985}
+  - component: {fileID: 1260451986}
   m_Layer: 0
   m_Name: FMODAudioPeer
   m_TagString: Untagged
@@ -4507,6 +4495,18 @@ MonoBehaviour:
   marker: 
   fullBar: 0
   barCounter: 0
+--- !u!114 &1260451986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260451981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650cf0ed54447d6428293aab65094aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1320424465
 GameObject:
   m_ObjectHideFlags: 0
