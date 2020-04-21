@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DisableCols : MonoBehaviour
 {
-    float timeSinceDashEnd;
+    float enableCountdown;
     public float reenableColliderTime;
     public bool checkForExit = false;
+
     private void Update()
     {
 
@@ -14,6 +15,10 @@ public class DisableCols : MonoBehaviour
             return;
 
         CheckForExit();
+    }
+    private void Start()
+    {
+        enableCountdown = reenableColliderTime;
     }
     public void Disable()
     {
@@ -24,14 +29,14 @@ public class DisableCols : MonoBehaviour
 
     void CheckForExit()
     {
-        timeSinceDashEnd += Time.deltaTime;
-        if (timeSinceDashEnd >= reenableColliderTime)
+        enableCountdown -= Time.deltaTime;
+        if (enableCountdown <= 0)
         {
             GetComponent<CapsuleCollider>().isTrigger = false;
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
-            timeSinceDashEnd = 0f;
+            enableCountdown = reenableColliderTime;
             checkForExit = false;
         }
     }

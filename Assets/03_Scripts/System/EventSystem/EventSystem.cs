@@ -9,21 +9,12 @@ public class EventSystem : MonoBehaviour
     public event Action<IHasHealth, float> Attack;
     public event Action<MultiplierName, float> ActivateSkill;
 
-    private static EventSystem _instance;
-    public static EventSystem instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("null");
 
-            return _instance;
-        }
-    }
+    public static EventSystem instance;
 
     private void Awake()
     {
-        _instance = this;
+        instance = this;
     }
 
     public void OnAttack(IHasHealth entity, float basedmg)

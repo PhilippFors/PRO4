@@ -16,10 +16,11 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void CalculateHealth(float damage)
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
-        // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
         calcDamage = damage * (damage / (damage + (GetStatValue(StatName.defense) * GetMultValue(MultiplierName.defense))));
         SetStatValue(StatName.health, (GetStatValue(StatName.health) - calcDamage));
         Debug.Log(gameObject.name + " just took " + calcDamage + " damage.");
+
+        // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
     public virtual void OnDeath(){
         Destroy(gameObject);

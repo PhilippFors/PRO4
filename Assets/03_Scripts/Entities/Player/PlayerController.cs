@@ -32,8 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5.0f, dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
     private float timeStartDash, currentDashValueTime, frametime = 0.0f, timeSinceStarted, delayCountdown;
     public float dashValue, dashValueTime, maxDashValue;
-    float actualDistance;
-
+    float actualDashDistance;
 
     #endregion
 
@@ -46,12 +45,7 @@ public class PlayerController : MonoBehaviour
 
     LayerMask enemyMask => LayerMask.GetMask("Enemy");
     LayerMask groundMask => LayerMask.GetMask("Ground");
-
     public Transform RayEmitter;
-    public Transform Ray1;
-    public Transform Ray2;
-    public Transform Ray3;
-
     GameObject dashTarget;
     #endregion
 
@@ -76,8 +70,6 @@ public class PlayerController : MonoBehaviour
     {
         input = new PlayerControls();
         input.Gameplay.Dash.performed += ctx => Dash();
-        // input.Gameplay.Movement.performed += ctx => move = ctx.ReadValue<Vector2>();
-        // input.Gameplay.Movement.canceled += ctx => move = Vector2.zero;
         input.Gameplay.Rotate.performed += ctx => GamepadLook(ctx.ReadValue<Vector2>());
         input.Gameplay.Look.performed += ctx => MouseLook(ctx.ReadValue<Vector2>());
     }
@@ -92,9 +84,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = true;
         frametime = dashDuration;
         delayCountdown = delayTime;
-
     }
-
 
     private void Update()
     {
@@ -158,7 +148,6 @@ public class PlayerController : MonoBehaviour
     #region Dash
     public void Dash()
     {
-
         if (dashValue < 100 || currentMoveDirection == Vector3.zero)
             return;
 
@@ -171,12 +160,10 @@ public class PlayerController : MonoBehaviour
         transform.position.y,
         (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
 
-        CheckForEnemy();
+        CheckDashPathForEnemys();
         //disable Hurtbox
         // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
     }
-
-
 
     void DashUpdate()
     {
@@ -214,20 +201,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void CheckForEnemy()
+    void CheckDashPathForEnemys()
     {
-        RayEmitter.forward = currentMoveDirection;
-        actualDistance = Vector3.Distance(transform.position, transform.position + currentMoveDirection + ((velocity + velocity) / 2) * dashDuration);
-        RaycastHit hit;
-        if (Physics.Raycast(Ray1.position, Ray1.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore) ||
-        Physics.Raycast(Ray2.position, Ray2.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore) ||
-        Physics.Raycast(Ray3.position, Ray3.forward, out hit, actualDistance - 1f, enemyMask, QueryTriggerInteraction.Ignore))
+        RayEmitter.forward = currentMoveDirection.normalized;
+        actualDashDistance = Vector3.Distance(transform.position, transform.position + currentMoveDirection + ((velocity + velocity) / 2) * dashDuration);
+
+        RaycastHit[] cols = Physics.SphereCastAll(RayEmitter.position, 2f, RayEmitter.forward, actualDashDistance, enemyMask, QueryTriggerInteraction.Ignore);
+        if (cols != null)
         {
-            if (hit.transform.gameObject.GetComponent<EnemyBody>() != null)
+            foreach (RaycastHit hits in cols)
             {
-                dashTarget = hit.transform.gameObject;
-                dashTarget.GetComponent<DisableCols>().Disable();
+                if (hits.transform.gameObject.GetComponent<EnemyBody>() != null)
+                {
+                    dashTarget = hits.transform.gameObject;
+                    dashTarget.GetComponent<DisableCols>().Disable();
+                }
             }
+        }else{
+            Debug.Log("No enemie in sight!");
         }
     }
 

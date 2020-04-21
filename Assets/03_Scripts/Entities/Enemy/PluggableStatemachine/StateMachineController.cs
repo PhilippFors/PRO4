@@ -58,7 +58,6 @@ public class StateMachineController : MonoBehaviour
         }
 
         transform.position += velocity;
-        
     }
 
     public void SwitchStates(State nextState)

@@ -6,22 +6,9 @@ using UnityEngine;
 
 public class MultiplierManager : MonoBehaviour
 {
-    //Lists are dynamic in size. Array would technically work too.
-
-
     //Singleton setup
-    private static MultiplierManager _instance;
-    public static MultiplierManager instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("null");
 
-            return _instance;
-        }
-    }
-
+    public static MultiplierManager instance;
     private void OnDisable()
     {
         EventSystem.instance.ActivateSkill -= SetAllMultValues;
@@ -30,8 +17,7 @@ public class MultiplierManager : MonoBehaviour
 
     private void Awake()
     {
-
-        _instance = this;
+        instance = this;
     }
 
     private void Start()
@@ -46,18 +32,7 @@ public class MultiplierManager : MonoBehaviour
         {
             enemy.SetMultValue(multiplierName, value);
         }
-
     }
-
-    // public void SetSingleMultiplier(EnemyBaseClass enemy, MultiplierName name, float value)
-    // {
-    //     enemy.SetMultValue(name, value);
-    // }
-
-    // public float GetSingleMultiplier(EnemyBaseClass enemy, MultiplierName name)
-    // {
-    //     return enemy.GetMultValue(name);
-    // }
 
     IEnumerator ResetTimer(float Skilltime)
     {
