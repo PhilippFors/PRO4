@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346292512}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ray3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1749370634}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ray1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1848004929}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ray2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,9 +103,9 @@ GameObject:
   - component: {fileID: 7569135990521421464}
   - component: {fileID: 7569135990521421467}
   - component: {fileID: 7569135990521421466}
-  - component: {fileID: 8738496700265742872}
-  - component: {fileID: 7569135990521421461}
-  m_Layer: 0
+  - component: {fileID: 9025464580733044659}
+  - component: {fileID: 5213049552223496863}
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &8738496700265742872
+--- !u!114 &9025464580733044659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,33 +213,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7569135990521421468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c5f65d52686324eaf1a8462cc5056f, type: 3}
+  m_Script: {fileID: 11500000, guid: 32dc352d684cb89448f2bbf3120ba6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentMoveDirection: {x: 0, y: 0, z: 0}
   currentLookDirection: {x: 0, y: 0, z: 0}
-  posBeforDash: {x: 0, y: 0, z: 0}
-  posAfterDash: {x: 0, y: 0, z: 0}
   isDashing: 0
   isGrounded: 1
   dashDelayOn: 0
-  checkforExit: 0
   checkEnemy: 0
-  moveSpeed: 7
-  dashForce: 1.5
-  dashDuration: 0.2
-  dashDistance: 6
+  moveSpeed: 8
+  dashForce: 1
+  dashDuration: 0.3
+  dashDistance: 8
   drag: 5
-  delayTime: 0.5
-  reenableColliderTime: 0.4
+  delayTime: 0.6
   dashValue: 0
-  dashValueTime: 0.5
+  dashValueTime: 0.2
   maxDashValue: 100
   RayEmitter: {fileID: 7569135991761976324}
   Ray1: {fileID: 1749370634}
   Ray2: {fileID: 1848004929}
   Ray3: {fileID: 1346292512}
---- !u!114 &7569135990521421461
+--- !u!114 &5213049552223496863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,9 +244,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7569135990521421468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea305eda160c7c4d805eb0a36d2f1e4, type: 3}
+  m_Script: {fileID: 11500000, guid: de527f503ac3184429180d9e84ee55f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  template: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
 --- !u!1 &7569135990612716630
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +259,7 @@ GameObject:
   - component: {fileID: 7569135990612716631}
   - component: {fileID: 7569135990612716626}
   - component: {fileID: 7569135990612716629}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7569135991761976324}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RayEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
