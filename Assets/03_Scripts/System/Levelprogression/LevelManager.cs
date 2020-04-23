@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int currentArea = 0;
     [SerializeField] private Level[] levels;
 
-
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
@@ -22,6 +21,7 @@ public class LevelManager : MonoBehaviour
     {
         LevelEventSystem.instance.areaEntry -= StartArea;
         LevelEventSystem.instance.nextWave -= StartNextWave;
+        LevelEventSystem.instance.areaExit -= AreaFinsihed;
     }
 
     bool HasNextWave()
@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
 
     public void Spawn()
     {
-        SpawnManager.instance.SpawnEnemies(levels[currentLevel].areas[currentArea].waves[currentWave]);
+        SpawnManager.instance.SpawnEnemies(levels[currentLevel].areas[currentArea].waves[currentWave], currentWave);
     }
 
 }

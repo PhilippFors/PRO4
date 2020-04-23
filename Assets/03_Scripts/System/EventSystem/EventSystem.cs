@@ -14,10 +14,9 @@ public class EventSystem : MonoBehaviour
     public event System.Action Bass;
 
     //Events for Enemy managment
-    public event Action<EnemyBody> addToAIManager;
     public event Action<EnemyBody> onEnemyDeath;
-    public static EventSystem instance;
 
+    public static EventSystem instance;
     private void Awake()
     {
         instance = this;
@@ -68,12 +67,6 @@ public class EventSystem : MonoBehaviour
         {
             Bass();
         }
-    }
-
-    public void AddToAIMAnager(EnemyBody enemy)
-    {
-        if (addToAIManager != null)
-            addToAIManager(enemy);
     }
 
     public void OnEnemyDeath(EnemyBody enemy)
