@@ -17,6 +17,5 @@ public class EnemyTestWeapon : MonoBehaviour
                 EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
             }
         }
-
     }
 }

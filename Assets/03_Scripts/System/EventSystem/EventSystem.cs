@@ -13,7 +13,9 @@ public class EventSystem : MonoBehaviour
     public event System.Action Kick;
     public event System.Action Bass;
 
-
+    //Events for Enemy managment
+    public event Action<EnemyBody> addToAIManager;
+    public event Action<EnemyBody> onEnemyDeath;
     public static EventSystem instance;
 
     private void Awake()
@@ -23,17 +25,20 @@ public class EventSystem : MonoBehaviour
 
     public void OnAttack(IHasHealth entity, float basedmg)
     {
-        Attack(entity, basedmg);
+        if (Attack != null)
+            Attack(entity, basedmg);
     }
 
     public void OnSkill(MultiplierName multiplierName, float value)
     {
-        ActivateSkill(multiplierName, value);
+        if (ActivateSkill != null)
+            ActivateSkill(multiplierName, value);
     }
 
     public void OnSkill()
     {
-        ResetMult();
+        if (ResetMult != null)
+            ResetMult();
     }
 
 
@@ -50,6 +55,7 @@ public class EventSystem : MonoBehaviour
 
         //WHY THIS SHORTHAND SYNTAX NICHT WORKING?
         //Kick == null ? Debug.Log("KickEvent is empty") : Kick();
+        //No idea but du not brauchen it -P
     }
 
     public void OnBass()
@@ -62,5 +68,17 @@ public class EventSystem : MonoBehaviour
         {
             Bass();
         }
+    }
+
+    public void AddToAIMAnager(EnemyBody enemy)
+    {
+        if (addToAIManager != null)
+            addToAIManager(enemy);
+    }
+
+    public void OnEnemyDeath(EnemyBody enemy)
+    {
+        if (onEnemyDeath != null)
+            onEnemyDeath(enemy);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         EventSystem.instance.Attack += DoDamage;
     }

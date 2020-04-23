@@ -4,45 +4,56 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    int level = 1;
     public List<EnemyBody> enemies = new List<EnemyBody>();
-    public ObstacleBody[] destructableObstacles;
-    public LevelSpawnpoints[] levelArray;
-    public void AddEnemy(EnemyBody enemy)
-    {
-        enemies.Add(enemy);
-    }
-
+    // public ObstacleBody[] destructableObstacles;
     public static SpawnManager instance;
     private void Awake()
     {
         instance = this;
+        
     }
-    
-    public void SpawnEnemies()
+    private void Start()
     {
-        if (levelArray == null)
-        {
-            Debug.LogError("There are no spawnpoints");
-            return;
-        }
+        EventSystem.instance.onEnemyDeath += RemoveEnemy;
+    }
 
-        for (int i = 0; i < levelArray.Length; i++)
+    private void OnDisable()
+    {
+        EventSystem.instance.onEnemyDeath -= RemoveEnemy;
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    void CountEnemies()
+    {
+        if (enemies.Count == 0)
         {
-            if (levelArray[i].lvlID == level)
-            {
-                if (levelArray[i].SpawnPoints != null)
-                {
-                    foreach (SpawnPoint info in levelArray[i].SpawnPoints)
-                    {
-                        Instantiate(info.prefab, info.Spawnpoint.position, Quaternion.Euler(info.Spawnpoint.forward));
-                        AddEnemy(info.enemy);
-                    }
-                }
-                return;
-            }
+            LevelEventSystem.instance.NextWave();
         }
-        //will be done in level progression manager later
-        level++;
+    }
+
+    void RemoveEnemy(EnemyBody enemy)
+    {
+        int toRemoveIndex = enemies.FindIndex(x => x.gameObject.name.Equals(enemy.gameObject.name));
+        enemies.RemoveAt(toRemoveIndex);
+        CountEnemies();
+    }
+
+    void AddEnemy(EnemyBody enemy)
+    {
+        enemies.Add(enemy);
+        EventSystem.instance.AddToAIMAnager(enemy);
+    }
+
+    public void SpawnEnemies(Wave wave)
+    {
+        for(int i = 0; i<wave.spawnPoints.Length; i++)
+        {
+            Instantiate(wave.spawnPoints[i].prefab, wave.spawnPoints[i].point.position, Quaternion.Euler(wave.spawnPoints[i].point.forward));
+            AddEnemy(wave.spawnPoints[i].enemy);
+        }
     }
 }
