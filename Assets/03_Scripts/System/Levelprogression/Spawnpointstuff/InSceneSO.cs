@@ -5,10 +5,10 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class InSceneSO : MonoBehaviour
 {
-  public Level level;
+     public Level levelInfo;
     public void OnEnable()
     {
-        if (level == null)
-            level = ScriptableObject.CreateInstance<Level>();
+        if (levelInfo == null)
+            levelInfo = ScriptableObject.CreateInstance<Level>();
     }
 }

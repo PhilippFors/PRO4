@@ -10,7 +10,7 @@ public class StateMachineController : MonoBehaviour
     public State currentState;
     public State remainState;
     public State startState;
-    public bool aiActive;
+    [SerializeField] private bool aiActive = false;
     public Transform target { get; private set; }
     public Animator animator;
     public bool isGrounded = true;
@@ -21,11 +21,6 @@ public class StateMachineController : MonoBehaviour
     public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     public EnemyTestWeapon weapon;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {   
         deltaTime = Time.deltaTime;
@@ -34,7 +29,6 @@ public class StateMachineController : MonoBehaviour
             return;
         }
             
-
         if (currentState == null)
             currentState = startState;
 
@@ -43,7 +37,13 @@ public class StateMachineController : MonoBehaviour
         IsGrounded();
     }
 
-
+    private void OnEnable()
+    {
+        aiActive =false;
+    }
+    public void SetAI(bool active){
+        aiActive = active;
+    }
     void IsGrounded()
     {
         if (Physics.CheckSphere(transform.position + new Vector3(0, -0.005f, 0),1f, groundMask, QueryTriggerInteraction.Ignore))

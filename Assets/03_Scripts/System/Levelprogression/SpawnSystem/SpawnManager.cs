@@ -5,9 +5,9 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [HideInInspector] public SpawnProcess spawnProcess => GetComponent<SpawnProcess>();
-    public List<EnemyBody> enemyCollection = new List<EnemyBody>();
-    public List<EnemyBody> durga = new List<EnemyBody>();
-    public List<EnemyBody> igner = new List<EnemyBody>();
+    [SerializeField] public List<EnemyBody> enemyCollection = new List<EnemyBody>();
+    [SerializeField] public List<EnemyBody> durga = new List<EnemyBody>();
+    [SerializeField] public List<EnemyBody> igner = new List<EnemyBody>();
 
     public static SpawnManager instance;
     private void Awake()
@@ -24,7 +24,23 @@ public class SpawnManager : MonoBehaviour
     {
         EventSystem.instance.onEnemyDeath -= RemoveEnemyFromList;
     }
-
+    public void AddEnemyToList(EnemyBody enemy)
+    {
+        SpawnManager.instance.enemyCollection.Add(enemy);
+        string tag = enemy.gameObject.tag;
+        switch (tag)
+        {
+            case "Durga":
+                SpawnManager.instance.durga.Add(enemy);
+                break;
+            case "Igner":
+                SpawnManager.instance.igner.Add(enemy);
+                break;
+            case "Untagged":
+                Debug.Log("No tag found on " + enemy.gameObject.name);
+                break;
+        }
+    }
     void RemoveEnemyFromList(EnemyBody enemy)
     {
         int toRemoveIndex;
@@ -49,6 +65,7 @@ public class SpawnManager : MonoBehaviour
         CountEnemies();
     }
 
+
     void CountEnemies()
     {
         if (enemyCollection.Count == 0)
@@ -57,39 +74,19 @@ public class SpawnManager : MonoBehaviour
         }
     }
     
-    void AddEnemyToList(EnemyBody enemy)
-    {
-        enemyCollection.Add(enemy);
-        string tag = enemy.gameObject.tag;
-        switch (tag)
-        {
-            case "Durga":
-                durga.Add(enemy);
-                break;
-            case "Igner":
-                igner.Add(enemy);
-                break;
-            case "Untagged":
-                Debug.Log("No tag found on " + enemy.gameObject.name);
-                break;
-        }
-    }
-
     public void SpawnEnemies(Wave wave, int waveIndex)
     {
-        for (int i = 0; i < wave.spawnPoints.Length; i++)
-            AddEnemyToList(wave.spawnPoints[i].enemy);
 
         if (waveIndex == 0)
-            StartCoroutine(SpawnDelay(wave, waveIndex));
+            StartCoroutine(SpawnDelay(wave));
         else
-            StartCoroutine(SpawnDelay(wave, waveIndex, 2f));
+            StartCoroutine(SpawnDelay(wave, 2f));
     }
 
-    IEnumerator SpawnDelay(Wave wave, int waveIndex, float wait = 0)
+    IEnumerator SpawnDelay(Wave wave, float wait = 0)
     {
         yield return new WaitForSeconds(wait);
-        spawnProcess.StartSpawnAnim(wave, waveIndex);
+        spawnProcess.StartSpawnAnim(wave);
     }
 
 }

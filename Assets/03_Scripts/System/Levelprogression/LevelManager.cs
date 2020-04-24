@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private int currentWave = 0;
     [SerializeField] private int currentArea = 0;
+    public InSceneSO level0;
     [SerializeField] private Level[] levels;
 
     private void Start()
@@ -14,6 +15,7 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaEntry += StartArea;
         LevelEventSystem.instance.nextWave += StartNextWave;
         LevelEventSystem.instance.areaExit += AreaFinsihed;
+        levels[0] = level0.levelInfo;
         // LevelEventSystem.instance.levelExit += LevelFinished;
     }
 
