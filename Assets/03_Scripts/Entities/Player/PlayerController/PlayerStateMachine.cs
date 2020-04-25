@@ -33,9 +33,7 @@ public class PlayerStateMachine : MonoBehaviour
     // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
     [HideInInspector] public float deltaTime;
     [HideInInspector] public float time;
-    public float moveSpeed = 5.0f;
-
-    public float dashValue, dashValueTime, maxDashValue;
+    public float moveSpeed = 5.0f, dashValue, dashValueTime, maxDashValue;
     public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
 
     #endregion
@@ -46,7 +44,6 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public PlayerControls input;
-    
     public Transform RayEmitter;
     PlayerMovmentSate currentState;
     PlayerMovementController standardMovement;
@@ -71,7 +68,6 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         SetState(PlayerMovmentSate.standard);
-
     }
     void Update()
     {

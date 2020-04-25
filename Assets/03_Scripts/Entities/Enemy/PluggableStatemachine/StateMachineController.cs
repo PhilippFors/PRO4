@@ -16,19 +16,20 @@ public class StateMachineController : MonoBehaviour
     public bool isGrounded = true;
     Vector3 velocity;
     LayerMask groundMask => LayerMask.GetMask("Ground");
-    
+
     public float deltaTime;
     public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     public EnemyTestWeapon weapon;
 
-    void Update()
-    {   
+    public void Tick()
+    {
         deltaTime = Time.deltaTime;
-        if (!aiActive){
+        if (!aiActive)
+        {
             agent.isStopped = true;
             return;
         }
-            
+
         if (currentState == null)
             currentState = startState;
 
@@ -37,16 +38,33 @@ public class StateMachineController : MonoBehaviour
         IsGrounded();
     }
 
+    // void Update()
+    // {   
+    //     deltaTime = Time.deltaTime;
+    //     if (!aiActive){
+    //         agent.isStopped = true;
+    //         return;
+    //     }
+
+    //     if (currentState == null)
+    //         currentState = startState;
+
+    //     currentState.StateUpdate(this);
+
+    //     IsGrounded();
+    // }
+
     private void OnEnable()
     {
-        aiActive =false;
+        aiActive = false;
     }
-    public void SetAI(bool active){
+    public void SetAI(bool active)
+    {
         aiActive = active;
     }
     void IsGrounded()
     {
-        if (Physics.CheckSphere(transform.position + new Vector3(0, -0.005f, 0),1f, groundMask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(transform.position + new Vector3(0, -0.005f, 0), 1f, groundMask, QueryTriggerInteraction.Ignore))
         {
             isGrounded = true;
             velocity = Vector3.zero;

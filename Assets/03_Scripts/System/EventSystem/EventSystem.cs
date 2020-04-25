@@ -15,6 +15,7 @@ public class EventSystem : MonoBehaviour
 
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
+    public event Action<EnemyBody> addToStatemachineList;
 
     public static EventSystem instance;
     private void Awake()
@@ -73,5 +74,10 @@ public class EventSystem : MonoBehaviour
     {
         if (onEnemyDeath != null)
             onEnemyDeath(enemy);
+    }
+
+    public void AddToStatemachineList(EnemyBody enemy){
+        if(addToStatemachineList != null)
+            addToStatemachineList(enemy);
     }
 }

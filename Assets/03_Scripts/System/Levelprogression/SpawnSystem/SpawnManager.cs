@@ -37,6 +37,7 @@ public class SpawnManager : MonoBehaviour
     public void AddEnemyToList(EnemyBody enemy)
     {
         SpawnManager.instance.enemyCollection.Add(enemy);
+        EventSystem.instance.AddToStatemachineList(enemy);
         string tag = enemy.gameObject.tag;
         switch (tag)
         {
