@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 999526307599269462}
   - component: {fileID: 999526307599269461}
   - component: {fileID: 999526307599269460}
-  - component: {fileID: 999526307599269483}
   - component: {fileID: 999526307599269457}
+  - component: {fileID: 225177901591773363}
+  - component: {fileID: 300712706792118525}
+  - component: {fileID: 8016888125942965433}
   m_Layer: 0
   m_Name: Player with Weapon
   m_TagString: Player
@@ -116,34 +118,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &999526307599269483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999526307599269480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32dc352d684cb89448f2bbf3120ba6fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMoveDirection: {x: 0, y: 0, z: 0}
-  currentLookDirection: {x: 0, y: 0, z: 0}
-  isDashing: 0
-  isGrounded: 1
-  dashDelayOn: 0
-  checkEnemy: 0
-  moveSpeed: 8
-  dashForce: 1
-  dashDuration: 0.3
-  dashDistance: 5
-  drag: 5
-  delayTime: 0.6
-  dashValue: 100
-  dashValueTime: 3
-  maxDashValue: 100
-  RayEmitter: {fileID: 999526308945715695}
 --- !u!114 &999526307599269457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +142,64 @@ MonoBehaviour:
     type: 3}
   moveSpeed: 5
   AudioPeer: {fileID: 0}
+--- !u!114 &225177901591773363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999526307599269480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536b4c3a75c44544d96ba63bcf6e3cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMoveDirection: {x: 0, y: 0, z: 0}
+  currentLookDirection: {x: 0, y: 0, z: 0}
+  isAiming: 0
+  mouseused: 0
+  gamepadused: 0
+  isGrounded: 1
+  checkEnemy: 0
+  moveSpeed: 8
+  dashValue: 0
+  dashValueTime: 0
+  maxDashValue: 100
+  dashForce: 1
+  dashDuration: 0.3
+  dashDistance: 7
+  drag: 5
+  delayTime: 0
+  frametime: 0
+  delayCountdown: 0
+  dashTarget: {fileID: 0}
+  RayEmitter: {fileID: 999526308945715695}
+--- !u!114 &300712706792118525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999526307599269480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bcd625bbe0c0b45a406dcda61a5aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDashing: 0
+  dashDelayOn: 0
+--- !u!114 &8016888125942965433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999526307599269480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb7d02510d601e345a5688191867e3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &999526307961868673
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999526308945715694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.51666665}
+  m_LocalPosition: {x: 0, y: 0, z: -0.004}
   m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
   m_Children: []
   m_Father: {fileID: 999526307599269456}

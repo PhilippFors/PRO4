@@ -10,6 +10,7 @@ public class SpawnProcess : MonoBehaviour
     private List<SpawnPoint> Spawnpoints = new List<SpawnPoint>();
     public void StartSpawnAnim(Wave w)
     {
+        wave = null;
         Spawnpoints.Clear();
         SpawnIndex = 0;
         wave = w;
@@ -20,7 +21,6 @@ public class SpawnProcess : MonoBehaviour
             Spawnpoints.Add(spawnPoint);
         }
     }
-
 
     public void Spawn()
     {

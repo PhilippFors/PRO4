@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProgessBarDash : ProgessBar
 {
     
-    public PlayerController dash;
+    public PlayerStateMachine dash;
     // Start is called before the first frame update
     void Start()
     {

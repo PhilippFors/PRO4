@@ -92,30 +92,37 @@ public class SpawnManager : MonoBehaviour
     public void SpawnEnemies(List<Wave> waves, int waveIndex)
     {
         if (waveIndex == 0)
-            StartCoroutine(SpawnDelay(waves, SpawnWaitTime));
+            StartCoroutine(SpawnDelay(waves));
         else
-            StartCoroutine(SpawnDelay(waves, SpawnWaitTime, 1f));
+            StartCoroutine(SpawnDelay(waves, 1.5f));
     }
 
-    IEnumerator SpawnDelay(List<Wave> waves, float spawnWaitTime, float wait = 0.5f)
+    IEnumerator SpawnDelay(List<Wave> waves, float wait = 0.5f)
     {
         isSpawning = true;
         yield return new WaitForSeconds(wait);
 
         if (waves.Count > 1)
         {
-            foreach (Wave wave in waves)
+            int i = 0;
+            while (i < waves.Count)
             {
-                spawnProcess.StartSpawnAnim(wave);
-                yield return new WaitForSeconds(spawnWaitTime);
+                Debug.Log(i + " ," + waves.Count);
+                spawnProcess.StartSpawnAnim(waves[i]);
+                Debug.Log("Spawn");
+                yield return new WaitForSeconds(SpawnWaitTime);
+                Debug.Log("Wait is over");
+                i++;
             }
+            isSpawning = false;
+            yield break;
         }
         else
         {
             spawnProcess.StartSpawnAnim(waves[0]);
+            isSpawning = false;
+            yield break;
         }
-
-        isSpawning = false;
     }
 
 }

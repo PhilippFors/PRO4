@@ -2295,17 +2295,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player with Weapon
       objectReference: {fileID: 0}
-    - target: {fileID: 999526307599269483, guid: ed76753b6f7cc374f8afc3852c59a4b2,
-        type: 3}
-      propertyPath: dashDistance
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 999526307599269483, guid: ed76753b6f7cc374f8afc3852c59a4b2,
-        type: 3}
-      propertyPath: delayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2268975293233660951, guid: ed76753b6f7cc374f8afc3852c59a4b2, type: 3}
+    - {fileID: 1015985442836984603, guid: ed76753b6f7cc374f8afc3852c59a4b2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ed76753b6f7cc374f8afc3852c59a4b2, type: 3}
 --- !u!1001 &3016386617470237449
 PrefabInstance:
@@ -2382,7 +2374,7 @@ PrefabInstance:
     - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: SpawnWaitTime
-      value: 4.6
+      value: 4.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}

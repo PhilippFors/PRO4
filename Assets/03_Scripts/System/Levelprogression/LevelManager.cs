@@ -79,9 +79,9 @@ public class LevelManager : MonoBehaviour
             Spawn(wavesToSpawn);
             return;
         }
-        while (true)
+        while(true)
         {
-            if (!levels[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly || i >= levels[currentLevel].areas[currentArea].waves.Length)
+            if (i >= levels[currentLevel].areas[currentArea].waves.Length || !levels[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
             {
                 Spawn(wavesToSpawn);
                 Debug.Log(wavesToSpawn.Count);
