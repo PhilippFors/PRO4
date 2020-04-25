@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementController :MonoBehaviour
+public class PlayerMovementController
 
 {
     private Plane groundPlane;

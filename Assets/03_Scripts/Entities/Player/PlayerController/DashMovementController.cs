@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashMovementController : MonoBehaviour
+public class DashMovementController
 {
-    private float timeStartDash, currentDashValueTime,  timeSinceStarted,  actualDashDistance;
+    private float timeStartDash, currentDashValueTime, timeSinceStarted, actualDashDistance, frametime = 0.0f, delayCountdown;
     public bool isDashing = false, dashDelayOn = false;
-    
+
 
     private Vector3 velocity;
-
+    public DashMovementController(PlayerStateMachine controller)
+    {
+        frametime = controller.dashDuration;
+        delayCountdown = controller.delayTime;
+    }
     public void Tick(PlayerStateMachine controller)
     {
         DashUpdate(controller);
-        controller.frametime -= Time.deltaTime;
+        frametime -= controller.deltaTime;
     }
     public void DashInit(PlayerStateMachine controller)
     {
@@ -25,9 +29,9 @@ public class DashMovementController : MonoBehaviour
         controller.dashValue = 0f;
 
         velocity = Vector3.Scale(controller.currentMoveDirection.normalized, controller.dashDistance * new Vector3((Mathf.Log
-        (1f / (Time.deltaTime * controller.rb.drag + 1)) / -Time.deltaTime),
+        (1f / (controller.deltaTime * controller.rb.drag + 1)) / -controller.deltaTime),
         controller.transform.position.y,
-        (Mathf.Log(1f / (Time.deltaTime * controller.rb.drag + 1)) / -Time.deltaTime)));
+        (Mathf.Log(1f / (controller.deltaTime * controller.rb.drag + 1)) / -controller.deltaTime)));
 
         CheckDashPathForEnemys(controller);
         //disable Hurtbox
@@ -38,14 +42,14 @@ public class DashMovementController : MonoBehaviour
     {
 
         controller.rb.velocity = velocity * controller.dashForce;
-        velocity.x /= 1 + controller.rb.drag * Time.deltaTime;
-        velocity.z /= 1 + controller.rb.drag * Time.deltaTime;
+        velocity.x /= 1 + controller.rb.drag * controller.deltaTime;
+        velocity.z /= 1 + controller.rb.drag * controller.deltaTime;
 
         //invincible while frametime not zero
-        if (controller.frametime <= 0 && !dashDelayOn)
+        if (frametime <= 0 && !dashDelayOn)
         {
             //enable Hurtbox
-            controller.frametime = controller.dashDuration;
+            frametime = controller.dashDuration;
             dashDelayOn = true;
             controller.checkEnemy = false;
             currentDashValueTime = Time.time;
@@ -59,12 +63,12 @@ public class DashMovementController : MonoBehaviour
 
     void DashDelay(PlayerStateMachine controller)
     {
-        controller.delayCountdown -= Time.deltaTime;
+        delayCountdown -= controller.deltaTime;
         controller.currentMoveDirection = Vector3.zero;
-        if (controller.delayCountdown <= 0)
+        if (delayCountdown <= 0)
         {
             velocity = Vector3.zero;
-            controller.delayCountdown = controller.delayTime; ;
+            delayCountdown = controller.delayTime; ;
             dashDelayOn = false;
             controller.SetState(PlayerMovmentSate.standard);
         }
@@ -95,7 +99,7 @@ public class DashMovementController : MonoBehaviour
 
     public void DashCooldown(PlayerStateMachine controller)
     {
-        float timeSinceDashEnded = Time.time - currentDashValueTime;
+        float timeSinceDashEnded = controller.time - currentDashValueTime;
 
         float perc = timeSinceDashEnded / controller.dashValueTime;
 

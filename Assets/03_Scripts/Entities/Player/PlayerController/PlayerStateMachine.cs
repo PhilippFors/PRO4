@@ -12,7 +12,7 @@ public enum PlayerMovmentSate
 public class PlayerStateMachine : MonoBehaviour
 {
 
-    #region __________Vector 3/2__________
+    #region __________Vector 2&3__________
 
     [HideInInspector] public Vector3 currentMoveDirection, currentLookDirection;
     public Vector2 move;
@@ -31,10 +31,12 @@ public class PlayerStateMachine : MonoBehaviour
     #region __________float__________
 
     // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
+    [HideInInspector] public float deltaTime;
+    [HideInInspector] public float time;
     public float moveSpeed = 5.0f;
 
     public float dashValue, dashValueTime, maxDashValue;
-    public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime, frametime = 0.0f, delayCountdown;
+    public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
 
     #endregion
 
@@ -44,16 +46,18 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public PlayerControls input;
-
+    
     public Transform RayEmitter;
     PlayerMovmentSate currentState;
-    PlayerMovementController standardMovement => GetComponent<PlayerMovementController>();
-    DashMovementController dashController => GetComponent<DashMovementController>();
+    PlayerMovementController standardMovement;
+    DashMovementController dashController;
     #endregion
 
     private void Awake()
     {
         input = new PlayerControls();
+        standardMovement = new PlayerMovementController();
+        dashController = new DashMovementController(this);
         input.Gameplay.Dash.performed += ctx => StartDash();
     }
     private void OnEnable()
@@ -67,11 +71,12 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         SetState(PlayerMovmentSate.standard);
-        frametime = dashDuration;
-        delayCountdown = delayTime;
+
     }
     void Update()
     {
+        time = Time.time;
+        deltaTime = Time.deltaTime;
         GetInputValues();
         switch (currentState)
         {

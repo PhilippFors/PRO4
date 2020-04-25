@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 999526307599269460}
   - component: {fileID: 999526307599269457}
   - component: {fileID: 225177901591773363}
-  - component: {fileID: 300712706792118525}
-  - component: {fileID: 8016888125942965433}
   m_Layer: 0
   m_Name: Player with Weapon
   m_TagString: Player
@@ -156,11 +154,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMoveDirection: {x: 0, y: 0, z: 0}
   currentLookDirection: {x: 0, y: 0, z: 0}
+  move: {x: 0, y: 0}
+  gamepadRotate: {x: 0, y: 0}
+  mouseLook: {x: 0, y: 0}
   isAiming: 0
   mouseused: 0
   gamepadused: 0
   isGrounded: 1
   checkEnemy: 0
+  deltaTime: 0
   moveSpeed: 8
   dashValue: 0
   dashValueTime: 0
@@ -174,32 +176,6 @@ MonoBehaviour:
   delayCountdown: 0
   dashTarget: {fileID: 0}
   RayEmitter: {fileID: 999526308945715695}
---- !u!114 &300712706792118525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999526307599269480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42bcd625bbe0c0b45a406dcda61a5aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDashing: 0
-  dashDelayOn: 0
---- !u!114 &8016888125942965433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999526307599269480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb7d02510d601e345a5688191867e3db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &999526307961868673
 GameObject:
   m_ObjectHideFlags: 0
