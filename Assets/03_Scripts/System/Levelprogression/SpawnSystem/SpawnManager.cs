@@ -5,10 +5,14 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [HideInInspector] public SpawnProcess spawnProcess => GetComponent<SpawnProcess>();
-    [SerializeField] public List<EnemyBody> enemyCollection = new List<EnemyBody>();
-    [SerializeField] public List<EnemyBody> durga = new List<EnemyBody>();
-    [SerializeField] public List<EnemyBody> igner = new List<EnemyBody>();
+    public float SpawnWaitTime = 4.8f;
+    public List<EnemyBody> enemyCollection = new List<EnemyBody>();
+    public List<EnemyBody> durga = new List<EnemyBody>();
+    public List<EnemyBody> igner = new List<EnemyBody>();
 
+    public bool isSpawning = false;
+    public bool areaStarted = false;
+    public bool count = false;
     public static SpawnManager instance;
     private void Awake()
     {
@@ -24,6 +28,12 @@ public class SpawnManager : MonoBehaviour
     {
         EventSystem.instance.onEnemyDeath -= RemoveEnemyFromList;
     }
+
+    private void Update()
+    {
+        CountEnemies();
+    }
+
     public void AddEnemyToList(EnemyBody enemy)
     {
         SpawnManager.instance.enemyCollection.Add(enemy);
@@ -43,50 +53,69 @@ public class SpawnManager : MonoBehaviour
     }
     void RemoveEnemyFromList(EnemyBody enemy)
     {
-        int toRemoveIndex;
+        int toRemoveIndex = 0;
         string tag = enemy.gameObject.tag;
         switch (tag)
         {
             case "Durga":
-                toRemoveIndex = durga.FindIndex(x => x.gameObject.name.Equals(enemy.gameObject.name));
+                toRemoveIndex = durga.FindIndex(x => x.GetComponent<EnemyBody>() == enemy);
                 durga.RemoveAt(toRemoveIndex);
                 break;
             case "Igner":
-                toRemoveIndex = igner.FindIndex(x => x.gameObject.name.Equals(enemy.gameObject.name));
+                toRemoveIndex = igner.FindIndex(x => x.GetComponent<EnemyBody>() == enemy);
                 igner.RemoveAt(toRemoveIndex);
                 break;
             case "Untagged":
                 Debug.Log("No tag found on " + enemy.gameObject.name);
                 break;
         }
-        toRemoveIndex = enemyCollection.FindIndex(x => x.gameObject.name.Equals(enemy.gameObject.name));
+        toRemoveIndex = enemyCollection.FindIndex(x => x.GetComponent<EnemyBody>() == enemy);
         enemyCollection.RemoveAt(toRemoveIndex);
 
-        CountEnemies();
     }
-
 
     void CountEnemies()
     {
-        if (enemyCollection.Count == 0)
+        if (enemyCollection.Count == 0 & count)
         {
-            LevelEventSystem.instance.NextWave();
+            if (areaStarted)
+            {
+                if (!isSpawning)
+                {
+                    LevelEventSystem.instance.NextWave();
+                    count = false;
+                }
+            }
         }
     }
-    
-    public void SpawnEnemies(Wave wave, int waveIndex)
-    {
 
+    public void SpawnEnemies(List<Wave> waves, int waveIndex)
+    {
         if (waveIndex == 0)
-            StartCoroutine(SpawnDelay(wave));
+            StartCoroutine(SpawnDelay(waves, SpawnWaitTime));
         else
-            StartCoroutine(SpawnDelay(wave, 2f));
+            StartCoroutine(SpawnDelay(waves, SpawnWaitTime, 1f));
     }
 
-    IEnumerator SpawnDelay(Wave wave, float wait = 0)
+    IEnumerator SpawnDelay(List<Wave> waves, float spawnWaitTime, float wait = 0.5f)
     {
+        isSpawning = true;
         yield return new WaitForSeconds(wait);
-        spawnProcess.StartSpawnAnim(wave);
+
+        if (waves.Count > 1)
+        {
+            foreach (Wave wave in waves)
+            {
+                spawnProcess.StartSpawnAnim(wave);
+                yield return new WaitForSeconds(spawnWaitTime);
+            }
+        }
+        else
+        {
+            spawnProcess.StartSpawnAnim(waves[0]);
+        }
+
+        isSpawning = false;
     }
 
 }

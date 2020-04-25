@@ -8,6 +8,8 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public List<Multiplier> multList { get; set; }
     public EnemyTemplate template;
 
+    public GameObject parent;
+
     private void Awake()
     {
         InitStats();
@@ -30,10 +32,10 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
 
-    public virtual void OnDeath()
+    public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
-        Destroy(GetComponentInParent<Transform>().gameObject);
+        Destroy(parent);
     }
     #endregion
 
