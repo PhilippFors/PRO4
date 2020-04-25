@@ -16,7 +16,8 @@ public class DurgaChaseAction : Action
 (controller.enemystats.GetStatValue(StatName.speed) *
 controller.enemystats.GetMultValue(MultiplierName.speed)) *
 controller.deltaTime;
-        controller.agent.Move(moveTo);
+        controller.nextMovePosition = moveTo;
+        // controller.agent.Move(moveTo);
 
         if (Vector3.Distance(controller.target.position, controller.transform.position) < 4f)
         {

@@ -10,6 +10,15 @@ public class PlayerMovementController
     private Camera mainCam => GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     #region Update/Start/Awake
 
+    public PlayerMovementController()
+    {
+        //Set up for the movement
+        forward = mainCam.transform.forward;
+        forward.y = 0;
+        forward = Vector3.Normalize(forward);
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        Cursor.visible = true;
+    }
     public void Tick(PlayerStateMachine controller)
     {
         Move(controller);
@@ -17,15 +26,7 @@ public class PlayerMovementController
         MouseLook(controller);
     }
 
-    private void Start()
-    {
-        //Set up for the movement
-        forward = Camera.main.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-        Cursor.visible = true;
-    }
+
 
     #endregion
 

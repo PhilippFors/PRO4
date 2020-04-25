@@ -16,7 +16,7 @@ public class StateMachineController : MonoBehaviour
     public bool isGrounded = true;
     Vector3 velocity;
     LayerMask groundMask => LayerMask.GetMask("Ground");
-
+    public Vector3 nextMovePosition;
     public float deltaTime;
     public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     public EnemyTestWeapon weapon;
