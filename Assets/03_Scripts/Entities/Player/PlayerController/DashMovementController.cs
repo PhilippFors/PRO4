@@ -21,6 +21,8 @@ public class DashMovementController
     }
     public void DashInit(PlayerStateMachine controller)
     {
+        
+        GetCurrentMovedirection(controller);
 
         if (controller.dashValue < 100 || controller.currentMoveDirection == Vector3.zero)
             return;
@@ -38,6 +40,16 @@ public class DashMovementController
         // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
 
     }
+
+    void GetCurrentMovedirection(PlayerStateMachine controller)
+    {
+        Vector2 move = controller.input.Gameplay.Movement.ReadValue<Vector2>();
+        Vector3 direction = new Vector3(move.x, 0, move.y);
+        Vector3 horizMovement = controller.right * direction.x;
+        Vector3 vertikMovement = controller.forward * direction.z;
+        controller.currentMoveDirection = horizMovement + vertikMovement;
+    }
+
     void DashUpdate(PlayerStateMachine controller)
     {
 

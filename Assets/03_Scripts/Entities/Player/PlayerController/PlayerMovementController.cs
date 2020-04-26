@@ -6,17 +6,17 @@ public class PlayerMovementController
 
 {
     private Plane groundPlane;
-    private Vector3 forward, right, pointToLook;
+
     private Camera mainCam => GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     #region Update/Start/Awake
 
-    public PlayerMovementController()
+    public PlayerMovementController(PlayerStateMachine controller)
     {
         //Set up for the movement
-        forward = mainCam.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        controller.forward = mainCam.transform.forward;
+        controller.forward.y = 0;
+        controller.forward = Vector3.Normalize(controller.forward);
+        controller.right = Quaternion.Euler(new Vector3(0, 90, 0)) * controller.forward;
         Cursor.visible = true;
     }
     public void Tick(PlayerStateMachine controller)
@@ -38,8 +38,8 @@ public class PlayerMovementController
         Vector2 move = controller.move;
         Vector3 direction = new Vector3(move.x, 0, move.y);
 
-        Vector3 horizMovement = right * direction.x;
-        Vector3 vertikMovement = forward * direction.z;
+        Vector3 horizMovement = controller.right * direction.x;
+        Vector3 vertikMovement = controller.forward * direction.z;
 
         controller.currentMoveDirection = horizMovement + vertikMovement;
     }
@@ -70,7 +70,7 @@ public class PlayerMovementController
             controller.mouseused = false;
             Vector2 v = controller.gamepadRotate;
             var lookRot = mainCam.transform.TransformDirection(new Vector3(v.x, 0, v.y));
-            pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
+            controller.pointToLook = Vector3.ProjectOnPlane(lookRot, Vector3.up);
             UpdateLookDirection(controller);
         }
     }
@@ -92,7 +92,7 @@ public class PlayerMovementController
             {
                 Vector3 rayPoint = cameraRay.GetPoint(rayLength);
                 //Debug.DrawLine(cameraRay.origin, rayPoint);
-                pointToLook = rayPoint - controller.transform.position;
+                controller.pointToLook = rayPoint - controller.transform.position;
             }
             UpdateLookDirection(controller);
         }
@@ -100,10 +100,10 @@ public class PlayerMovementController
 
     void UpdateLookDirection(PlayerStateMachine controller)
     {
-        pointToLook.y = 0;
-        if (pointToLook != Vector3.zero)
+        controller.pointToLook.y = 0;
+        if (controller.pointToLook != Vector3.zero)
         {
-            Quaternion newRot = Quaternion.LookRotation(pointToLook);
+            Quaternion newRot = Quaternion.LookRotation(controller.pointToLook);
             controller.transform.rotation = newRot;
             controller.currentLookDirection = newRot.eulerAngles;
             //Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * rotationSpeed);

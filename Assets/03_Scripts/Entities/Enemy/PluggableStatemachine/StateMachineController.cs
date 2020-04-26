@@ -21,11 +21,10 @@ public class StateMachineController : MonoBehaviour
     public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     public EnemyTestWeapon weapon;
 
-    public void Tick()
-    {
+    void Update()
+    {   
         deltaTime = Time.deltaTime;
-        if (!aiActive)
-        {
+        if (!aiActive){
             agent.isStopped = true;
             return;
         }
@@ -37,22 +36,6 @@ public class StateMachineController : MonoBehaviour
 
         IsGrounded();
     }
-
-    // void Update()
-    // {   
-    //     deltaTime = Time.deltaTime;
-    //     if (!aiActive){
-    //         agent.isStopped = true;
-    //         return;
-    //     }
-
-    //     if (currentState == null)
-    //         currentState = startState;
-
-    //     currentState.StateUpdate(this);
-
-    //     IsGrounded();
-    // }
 
     private void OnEnable()
     {

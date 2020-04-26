@@ -27,8 +27,7 @@ public class EventSystem : MonoBehaviour
 
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
-    public event Action<EnemyBody> addToStatemachineList;
-
+    public event Action<EnemyBody> activateAI;
     public static EventSystem instance;
     private void Awake()
     {
@@ -88,9 +87,9 @@ public class EventSystem : MonoBehaviour
             onEnemyDeath(enemy);
     }
 
-    public void AddToStatemachineList(EnemyBody enemy){
-        if(addToStatemachineList != null)
-            addToStatemachineList(enemy);
+    public void ActivateAI(EnemyBody enemy){
+        if(activateAI != null)
+            activateAI(enemy);
     }
 
     public void OnGrenadeAim()

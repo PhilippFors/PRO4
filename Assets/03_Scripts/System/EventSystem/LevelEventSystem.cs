@@ -9,7 +9,7 @@ public class LevelEventSystem : MonoBehaviour
     public event System.Action nextWave;
     public event System.Action levelEntry;
     public event System.Action levelExit;
-
+    
     public static LevelEventSystem instance;
 
     private void Awake()
