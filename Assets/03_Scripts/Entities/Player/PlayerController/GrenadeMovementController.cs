@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrenadeMovementController : MonoBehaviour
+public class GrenadeMovementController
 {
+    public GrenadeMovementController(PlayerStateMachine controller)
+    {
+        
+    }
+
+    public void Tick(PlayerStateMachine controller)
+    {
+        
+    }
     // Start is called before the first frame update
     void Start()
     {

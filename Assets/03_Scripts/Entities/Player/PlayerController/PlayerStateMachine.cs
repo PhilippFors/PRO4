@@ -48,6 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerMovmentSate currentState;
     PlayerMovementController standardMovement;
     DashMovementController dashController;
+    GrenadeMovementController grenadeController;
     #endregion
 
     private void Awake()
@@ -55,7 +56,9 @@ public class PlayerStateMachine : MonoBehaviour
         input = new PlayerControls();
         standardMovement = new PlayerMovementController();
         dashController = new DashMovementController(this);
+        grenadeController = new GrenadeMovementController(this);
         input.Gameplay.Dash.performed += ctx => StartDash();
+        input.Gameplay.G
     }
     private void OnEnable()
     {
@@ -82,6 +85,10 @@ public class PlayerStateMachine : MonoBehaviour
             case PlayerMovmentSate.dash:
                 dashController.Tick(this);
                 break;
+            case PlayerMovmentSate.grenade:
+                grenadeController.Tick(this);
+                break;
+                
         }
         dashController.DashCooldown(this);
     }

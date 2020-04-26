@@ -11,23 +11,22 @@
       <e p="Assets" t="Include">
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
-            <e p="AudioBullet.cs" t="Include" />
-            <e p="AudioLight.cs" t="Include" />
-            <e p="AudioListenerPeer.cs" t="Include" />
-            <e p="AudioPeer.cs" t="Include" />
-            <e p="AudioPlayer.cs" t="Include" />
-            <e p="AudioWireframe.cs" t="Include" />
+            <e p="AR_Light.cs" t="Include" />
             <e p="FMODScripts" t="Include">
               <e p="AR_AudioEmission.cs" t="Include" />
               <e p="AudioCube.cs" t="Include" />
               <e p="FMODAudioPeer.cs" t="Include" />
+              <e p="FMODTimeline.cs" t="Include" />
               <e p="IAudioSpectrum.cs" t="Include" />
+              <e p="MusicManager.cs" t="Include" />
               <e p="uiSpectrum.cs" t="Include" />
             </e>
+            <e p="TestCubeAudioMove.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
             <e p="Enemy" t="Include">
               <e p="AIManager.cs" t="Include" />
+              <e p="DisableCols.cs" t="Include" />
               <e p="Durga" t="Include">
                 <e p="EnemyTestWeapon.cs" t="Include" />
                 <e p="MoveObstacle.cs" t="Include" />
@@ -69,6 +68,12 @@
               <e p="Grenade.cs" t="Include" />
               <e p="IncreasingSkillMeter.cs" t="Include" />
               <e p="PlayerAttack.cs" t="Include" />
+              <e p="PlayerController" t="Include">
+                <e p="DashMovementController.cs" t="Include" />
+                <e p="GrenadeMovementController.cs" t="Include" />
+                <e p="PlayerMovementController.cs" t="Include" />
+                <e p="PlayerStateMachine.cs" t="Include" />
+              </e>
               <e p="PlayerController.cs" t="Include" />
               <e p="PlayerTemplate.cs" t="Include" />
               <e p="PlayerTestWeapon.cs" t="Include" />
@@ -97,6 +102,7 @@
           <e p="system" t="Include">
             <e p="EventSystem" t="Include">
               <e p="EventSystem.cs" t="Include" />
+              <e p="LevelEventSystem.cs" t="Include" />
             </e>
             <e p="GameDataStructures" t="Include">
               <e p="GameStatistics.cs" t="Include" />
@@ -104,15 +110,30 @@
               <e p="StatInit.cs" t="Include" />
             </e>
             <e p="HealthManager.cs" t="Include" />
+            <e p="Levelprogression" t="Include">
+              <e p="LevelManager.cs" t="Include" />
+              <e p="Spawnpointstuff" t="Include">
+                <e p="Area.cs" t="Include" />
+                <e p="InSceneSO.cs" t="Include" />
+                <e p="Level.cs" t="Include" />
+                <e p="Spawnpoint.cs" t="Include" />
+                <e p="Wave.cs" t="Include" />
+              </e>
+              <e p="SpawnSystem" t="Include">
+                <e p="SpawnManager.cs" t="Include" />
+                <e p="SpawnProcess.cs" t="Include" />
+              </e>
+              <e p="Trigger" t="Include">
+                <e p="AreaEntry.cs" t="Include" />
+                <e p="AreaExit.cs" t="Include" />
+                <e p="LevelEntry.cs" t="Include" />
+                <e p="LevelExit.cs" t="Include" />
+              </e>
+            </e>
             <e p="MultiplierManager.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
-            <e p="SpawnSystem" t="Include">
-              <e p="LevelSpawn.cs" t="Include" />
-              <e p="SpawnManager.cs" t="Include" />
-              <e p="Spawnpoint.cs" t="Include" />
-            </e>
           </e>
         </e>
         <e p="07_NavMeshComponents" t="Include">
@@ -131,7 +152,6 @@
           </e>
         </e>
         <e p="Attack.cs" t="Include" />
-        <e p="DisableCols.cs" t="Include" />
         <e p="PlayerControls.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="FMOD" t="Include">
@@ -202,6 +222,7 @@
             </e>
           </e>
         </e>
+        <e p="RestartArea.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
