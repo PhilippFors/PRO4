@@ -8,15 +8,11 @@ public class uiSpectrum : MonoBehaviour
    Transform[] transformObj;
 
     public int _fqBand;
-
-    private FMODAudioPeer _audioPeer;
     private float scale = 3f;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject gameObj = GameObject.Find("FMODAudioPeer");
-        _audioPeer = gameObj.GetComponent<FMODAudioPeer>();
 
     }
 

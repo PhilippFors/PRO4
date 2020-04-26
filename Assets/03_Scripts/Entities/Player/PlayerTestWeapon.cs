@@ -8,11 +8,15 @@ public class PlayerTestWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameObject obj = other.gameObject;
-        if (obj.GetComponent<IHasHealth>() != null)
+        
+        if (other.gameObject.GetComponent<EnemyBody>() != null)
         {
             GetComponentInParent<PlayerAttack>().comboCounter += 1;
-            EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), bsdmg);
+            EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
+        }
+        else if (other.gameObject.GetComponent<ObstacleBody>())
+        {
+            EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
         }
     }
 }

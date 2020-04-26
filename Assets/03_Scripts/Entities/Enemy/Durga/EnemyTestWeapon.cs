@@ -12,11 +12,10 @@ public class EnemyTestWeapon : MonoBehaviour
         GameObject obj = other.gameObject;
         if (isAttacking)
         {
-            if (obj.GetComponent<IHasHealth>() != null)
+            if (obj.GetComponent<EnemyBody>() == null && obj.GetComponent<IHasHealth>() != null)
             {
                 EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
             }
         }
-
     }
 }

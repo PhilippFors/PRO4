@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Runtime.InteropServices;
 
 
@@ -7,28 +10,17 @@ using System.Runtime.InteropServices;
 class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 {
 
-    //BEATSYSTEM
-    [StructLayout(LayoutKind.Sequential)]
-    class TimelineInfo
-    {
-        public int currentMusicBeat = 0;
-        public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
-    }
-
-
-    TimelineInfo timelineInfo;
-    GCHandle timelineHandle;
-
-    FMOD.Studio.EVENT_CALLBACK beatCallback;
-
-    public  int beat;
-    public  string marker;
-    public  int bar;
-    public static FMODAudioPeer _instance = null;
+    public static FMODAudioPeer _instance;
 
 
     FMODUnity.StudioEventEmitter emitter;
     FMOD.Studio.EventInstance musicInstance;
+
+
+
+    public event System.Action myAction;
+
+
     
     //---SPECTRUM ANALYZER---
     FMOD.DSP fft;
@@ -104,6 +96,13 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
         return _audioBand32[id];
     }
 
+
+
+    public FMOD.Studio.EventInstance getMusicInstance()
+    {
+        return musicInstance;
+    }
+
     void Awake()
     {
         if(_instance == null)
@@ -139,7 +138,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
         //assign the dsp to a channel
         musicInstance.getChannelGroup(out channelGroup);
-        AssignBeatEvent(musicInstance);
+        
 
     }
 
@@ -283,6 +282,9 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     }
 
   
+
+    
+
     //normalisiert die 8 Frequenzbänder
     //damit erhalten wir Werte zwischen 0 und 1 für jedes Frequenzband
     void CreateAudioBands8()
@@ -382,66 +384,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
 
 
-    //---BEATDETECTION---
-     void AssignBeatEvent(FMOD.Studio.EventInstance instance)
-    {
-        timelineInfo = new TimelineInfo();
-        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
-        beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
-        instance.setUserData(GCHandle.ToIntPtr(timelineHandle));
-        instance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
-    }
 
-     void StopAndClear(FMOD.Studio.EventInstance instance)
-    {
-        instance.setUserData(IntPtr.Zero);
-        instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        instance.release();
-        timelineHandle.Free();
-    }
-
-    [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
-     FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, FMOD.Studio.EventInstance instance, IntPtr parameterPtr)
-    {
-        IntPtr timelineInfoPtr;
-        FMOD.RESULT result = instance.getUserData(out timelineInfoPtr);
-        if (result != FMOD.RESULT.OK)
-        {
-            Debug.LogError("Timeline Callback error: " + result);
-        }
-        else if (timelineInfoPtr != IntPtr.Zero)
-        {
-            GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
-            TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
-
-            switch (type)
-            {
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
-                    {
-                        var parameter = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
-                        timelineInfo.currentMusicBeat = parameter.beat;
-                        beat = timelineInfo.currentMusicBeat;
-                        //Debug.Log("BEAT: " + beat);
-                        bar++;
-                        if (bar == 4)
-                        {
-                            //Debug.Log("FULLBAR");
-                            bar = 0;
-                        }
-                    }
-                    break;
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
-                    {
-                        var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
-                        timelineInfo.lastMarker = parameter.name;
-                        marker = timelineInfo.lastMarker;
-                        Debug.Log(marker);
-                    }
-                    break;
-            }
-        }
-        return FMOD.RESULT.OK;
-    }
 }
 
 

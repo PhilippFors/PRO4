@@ -9,6 +9,9 @@ public class EventSystem : MonoBehaviour
     public event Action<IHasHealth, float> Attack;
     public event Action<MultiplierName, float> ActivateSkill;
 
+    //Events die von der Musik ausgelöst werden
+    public event System.Action Kick;
+    public event System.Action Bass;
     public event System.Action AimGrenade;
     public event System.Action Explode;
 
@@ -20,28 +23,72 @@ public class EventSystem : MonoBehaviour
             if (_instance == null)
                 Debug.LogError("null");
 
-            return _instance;
-        }
-    }
+    //Events for Enemy managment
+    public event Action<EnemyBody> onEnemyDeath;
+    public event Action<EnemyBody> addToStatemachineList;
 
+    public static EventSystem instance;
     private void Awake()
     {
-        _instance = this;
+        instance = this;
     }
 
     public void OnAttack(IHasHealth entity, float basedmg)
     {
-        Attack(entity, basedmg);
+        if (Attack != null)
+            Attack(entity, basedmg);
     }
 
     public void OnSkill(MultiplierName multiplierName, float value)
     {
-        ActivateSkill(multiplierName, value);
+        if (ActivateSkill != null)
+            ActivateSkill(multiplierName, value);
     }
 
     public void OnSkill()
     {
-        ResetMult();
+        if (ResetMult != null)
+            ResetMult();
+    }
+
+
+    public void OnKick()
+    {
+        if (Kick == null)
+        {
+            Debug.Log("KickEvent has no subscriber");
+        }
+        else
+        {
+            Kick();
+        }
+
+        //WHY THIS SHORTHAND SYNTAX NICHT WORKING?
+        //Kick == null ? Debug.Log("KickEvent is empty") : Kick();
+        //No idea but du not brauchen it -P
+    }
+
+    public void OnBass()
+    {
+        if (Bass == null)
+        {
+            Debug.Log("BassEvent has no subscriber");
+        }
+        else
+        {
+            Bass();
+        }
+    }
+
+    public void OnEnemyDeath(EnemyBody enemy)
+    {
+        if (onEnemyDeath != null)
+            onEnemyDeath(enemy);
+    }
+
+    public void AddToStatemachineList(EnemyBody enemy){
+        if(addToStatemachineList != null)
+            addToStatemachineList(enemy);
     }
 
     public void OnGrenadeAim()
