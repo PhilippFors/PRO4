@@ -7,51 +7,19 @@ using UnityEngine.Jobs;
 using UnityEngine.AI;
 public class AIManager : MonoBehaviour
 {
-    public List<StateMachineController> stateMachineList = new List<StateMachineController>();
-
-    public bool useJobs = false;
     private void Start()
     {
-        EventSystem.instance.addToStatemachineList += AddStateMachine;
-        EventSystem.instance.onEnemyDeath += RemoveSateMachine;
+        EventSystem.instance.activateAI += SetAIActive;
     }
 
-    private void OnDisable()
-    {
-        EventSystem.instance.onEnemyDeath -= RemoveSateMachine;
-        EventSystem.instance.addToStatemachineList -= AddStateMachine;
-    }
-    private void Update()
-    {
-        float time = Time.realtimeSinceStartup;
-        UpdatStateMachines();
-        Debug.Log(((Time.realtimeSinceStartup - time)*1000f) + " ms");
+    private void OnDisable() {
+        EventSystem.instance.activateAI -= SetAIActive;
     }
 
-    void UpdatStateMachines()
+    public void SetAIActive(EnemyBody enemy)
     {
-        if (stateMachineList.Count != 0)
-            foreach (StateMachineController stateMachine in stateMachineList)
-                stateMachine.Tick();
+        enemy.GetComponent<StateMachineController>().SetAI(true);
 
-    }
-
-    void RemoveSateMachine(EnemyBody enemy)
-    {
-        StateMachineController controller = enemy.gameObject.GetComponent<StateMachineController>();
-        int toRemoveIndex = stateMachineList.FindIndex(x => x.GetComponent<StateMachineController>() == controller);
-        stateMachineList.RemoveAt(toRemoveIndex);
-    }
-    void AddStateMachine(EnemyBody enemy)
-    {
-        stateMachineList.Add(enemy.gameObject.GetComponent<StateMachineController>());
-    }
-    public void SetAIActive()
-    {
-        foreach (EnemyBody enemy in SpawnManager.instance.enemyCollection)
-        {
-            enemy.GetComponent<StateMachineController>().SetAI(true);
-        }
     }
 
 }

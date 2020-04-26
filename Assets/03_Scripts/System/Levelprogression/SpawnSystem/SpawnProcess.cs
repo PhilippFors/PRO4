@@ -27,8 +27,19 @@ public class SpawnProcess : MonoBehaviour
         EnemyBody enemy = Instantiate(Spawnpoints[SpawnIndex].prefab, Spawnpoints[SpawnIndex].point.position, Spawnpoints[SpawnIndex].point.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
         enemy.GetComponent<Animation>().Play("Entry");
         SpawnManager.instance.AddEnemyToList(enemy);
+        StartCoroutine(WaitForAnimation(enemy));
         SpawnIndex++;
-        SpawnManager.instance.count = true;
+        if (!SpawnManager.instance.count)
+            SpawnManager.instance.count = true;
     }
 
+    IEnumerator WaitForAnimation(EnemyBody enemy)
+    {
+        while (enemy.gameObject.GetComponent<Animation>().isPlaying)
+        {
+            yield return null;
+        }
+        EventSystem.instance.ActivateAI(enemy);
+        yield break;
+    }
 }

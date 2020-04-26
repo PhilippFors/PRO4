@@ -15,6 +15,7 @@ public class PlayerStateMachine : MonoBehaviour
     #region __________Vector 2&3__________
 
     [HideInInspector] public Vector3 currentMoveDirection, currentLookDirection;
+    [HideInInspector] public Vector3 forward, right, pointToLook;
     public Vector2 move;
     public Vector2 gamepadRotate;
     public Vector2 mouseLook;
@@ -50,25 +51,20 @@ public class PlayerStateMachine : MonoBehaviour
     DashMovementController dashController;
     GrenadeMovementController grenadeController;
     private AttackState attackController;
-    
-    
-    
+
     #endregion
 
     private void Awake()
     {
         input = new PlayerControls();
-        standardMovement = new PlayerMovementController();
+        standardMovement = new PlayerMovementController(this);
         dashController = new DashMovementController(this);
         attackController = new AttackState(this);
         grenadeController = new GrenadeMovementController(this);
-        
-        input.Gameplay.Dash.performed += ctx => StartDash();
-        
-        
+
+        input.Gameplay.Dash.performed += ctx => SetState(PlayerMovmentSate.dash);
     }
 
-   
     private void OnEnable()
     {
         input.Enable();
@@ -100,7 +96,7 @@ public class PlayerStateMachine : MonoBehaviour
             case PlayerMovmentSate.attack:
                 attackController.Tick(this);
                 break;
-                
+
         }
         dashController.DashCooldown(this);
     }
@@ -119,13 +115,26 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void SetState(PlayerMovmentSate state)
     {
+        switch (state)
+        {
+            case PlayerMovmentSate.attack:
+                Attack();
+                break;
+            case PlayerMovmentSate.dash:
+                StartDash();
+                break;
+        }
         currentState = state;
     }
 
     public void StartDash()
     {
         dashController.DashInit(this);
-        SetState(PlayerMovmentSate.dash);
     }
-    
+
+    public void Attack()
+    {
+        attackController.StopMovement(this);
+    }
+
 }

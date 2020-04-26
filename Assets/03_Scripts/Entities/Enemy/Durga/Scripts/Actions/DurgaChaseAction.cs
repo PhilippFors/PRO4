@@ -17,12 +17,13 @@ public class DurgaChaseAction : Action
 controller.enemystats.GetMultValue(MultiplierName.speed)) *
 controller.deltaTime;
         controller.nextMovePosition = moveTo;
-        // controller.agent.Move(moveTo);
+        controller.agent.Move(moveTo);
 
-        if (Vector3.Distance(controller.target.position, controller.transform.position) < 4f)
+        if (Vector3.Distance(controller.target.position, controller.transform.position) < controller.enemystats.GetStatValue(StatName.range))
         {
             Quaternion look = Quaternion.LookRotation(dir);
             controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, look, controller.deltaTime * controller.enemystats.GetStatValue(StatName.turnSpeed));
+
         }
         // controller.transform.position += controller.transform.forward * controller.enemystats.GetCalculatedValue(StatName.speed, MultiplierName.speed) * Time.deltaTime;
     }
