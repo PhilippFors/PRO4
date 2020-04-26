@@ -42,7 +42,7 @@ public class MultiplierManager : MonoBehaviour
 
     public void SetAllMultValues(MultiplierName multiplierName, float value)
     {
-        foreach (EnemyBaseClass enemy in SpawnManager.instance.enemies)
+        foreach (EnemyBody enemy in SpawnManager.instance.enemies)
         {
             enemy.SetMultValue(multiplierName, value);
         }
@@ -70,7 +70,7 @@ public class MultiplierManager : MonoBehaviour
     public void ResetMultiplier()
     {
         //iterate over every mod with foreach
-        foreach (EnemyBaseClass enemy in SpawnManager.instance.enemies)
+        foreach (EnemyBody enemy in SpawnManager.instance.enemies)
         {
             enemy.ResetMultipliers();
         }

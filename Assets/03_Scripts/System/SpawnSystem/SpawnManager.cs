@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     int level = 1;
-    public List<EnemyBaseClass> enemies = new List<EnemyBaseClass>();
-    public DestructableObstacleBase[] destructableObstacles;
+    public List<EnemyBody> enemies = new List<EnemyBody>();
+    public ObstacleBody[] destructableObstacles;
     public LevelSpawnpoints[] levelArray;
-    public void AddEnemy(EnemyBaseClass enemy)
+    public void AddEnemy(EnemyBody enemy)
     {
         enemies.Add(enemy);
     }

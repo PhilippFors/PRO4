@@ -14,12 +14,15 @@ public class ProgressBarSkills : ProgessBar
     
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        
         player = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
         skillObject = player.skills[id];
-
-
+        
+        
+        
     }
+    
 
     // Update is called once per frame
     void Update()
