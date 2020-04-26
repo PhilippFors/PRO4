@@ -29,7 +29,7 @@ public class Grenade : MonoBehaviour
         Explode();
     }
 
-    void Explode()
+    public void Explode()
     {
        // Instantiate(explosionEffect, transform.position, transform.rotation);
 

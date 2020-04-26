@@ -17,9 +17,9 @@ public class PlayerAttack : MonoBehaviour
 
     public GameObject grenadePrefab;
 
-    public GameObject grenadeHitLoc;
+    public GameObject targetPrefab;
 
-    public GameObject hitLoc;
+    public GameObject target;
     
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
@@ -29,15 +29,11 @@ public class PlayerAttack : MonoBehaviour
     //  public Vector3 currentDirection;
 
 
-    Vector3 forward, right;
-    Vector3 moveVelocity;
-    Vector3 pointToLook;
-    Vector2 hitLocMove = Vector3.zero;
-
+   
     public GameObject AudioPeer;
     public static FMODUnity.StudioEventEmitter emitter;
 
-    private bool hold;
+   
 
 
     private void OnEnable()
@@ -54,16 +50,14 @@ public class PlayerAttack : MonoBehaviour
     {
         input = new PlayerControls();
 
-        input.Gameplay.LeftAttack.performed += rt => LeftAttack();
-        input.Gameplay.RightAttack.performed += rt => RightAttack();
+        input.Gameplay.LeftAttack.performed += rt => Attack(0);
+        input.Gameplay.RightAttack.performed += rt => Attack(1);
         input.Gameplay.GrenadeThrow.performed += rt => AimMove();
         input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
         input.Gameplay.Skill1.performed += rt => Skill(0);
         input.Gameplay.Skill2.performed += rt => Skill(1);
         input.Gameplay.Skill3.performed += rt => Skill(2);
         
-        input.Gameplay.GrenadeAim.performed += ctx => hitLocMove = ctx.ReadValue<Vector2>();
-        input.Gameplay.GrenadeAim.canceled += ctx => hitLocMove = Vector2.zero;
     }
 
     private void Reset()
@@ -73,7 +67,7 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         _child = gameObject.transform.GetChild(0).gameObject; //first child object of the player
-        EventSystem.instance.AimGrenade += AimMove;
+        //EventSystem.instance.AimGrenade += AimMove;
         
 
         emitter = AudioPeer.GetComponent<FMODUnity.StudioEventEmitter>();
@@ -82,10 +76,7 @@ public class PlayerAttack : MonoBehaviour
             skill.current = 0;
         }
         
-        forward = Camera.main.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+      
     }
 
     public Skills SkillInit(string name, float current, float max, float timer)
@@ -134,33 +125,21 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         
-        if (hold)
-        {
-           
-            hitLocMove = input.Gameplay.GrenadeAim.ReadValue<Vector2>();
-            Vector3 direction = new Vector3(hitLocMove.x, 0, hitLocMove.y);
-            moveVelocity = direction * moveSpeed * Time.deltaTime;
-            moveVelocity.y = 0;
-            Vector3 horizMovement = right * moveVelocity.x;
-            Vector3 vertikMovement = forward * moveVelocity.z;
-            hitLoc.transform.position += horizMovement;
-            hitLoc.transform.position += vertikMovement;
-        }
     }
 
     public void GrenadeThrow()
     {
-        hold = false;
+        
         GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
         StartCoroutine(SimulateProjectile(grenade));
-      
+        EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
         
     }
 
     public void AimMove()
     {
-        hold = true;
-        hitLoc = Instantiate(grenadeHitLoc, new Vector3(transform.position.x, 1.5f, transform.position.z), transform.rotation);
+        EventSystem.instance.OnSetState(PlayerMovmentSate.grenade);
+        target = Instantiate(targetPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z), transform.rotation);
     }
     
     IEnumerator SimulateProjectile(GameObject grenade)
@@ -172,7 +151,7 @@ public class PlayerAttack : MonoBehaviour
         //grenade.transform.position = myTransform.position + new Vector3(0, 0.0f, 0);
        
         // Calculate distance to target
-        float target_Distance = Vector3.Distance(grenade.transform.position, hitLoc.transform.position);
+        float target_Distance = Vector3.Distance(grenade.transform.position, target.transform.position);
  
         // Calculate the velocity needed to throw the object to the target at specified angle.
         float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
@@ -185,7 +164,7 @@ public class PlayerAttack : MonoBehaviour
         float flightDuration = target_Distance / Vx;
    
         // Rotate projectile to face the target.
-        grenade.transform.rotation = Quaternion.LookRotation(hitLoc.transform.position - grenade.transform.position);
+        grenade.transform.rotation = Quaternion.LookRotation(target.transform.position - grenade.transform.position);
        
         float elapseTime = 0;
  
@@ -204,29 +183,31 @@ public class PlayerAttack : MonoBehaviour
 
         if (elapseTime >= flightDuration || grenade == null)
         {
-            Destroy(hitLoc);
+            Destroy(target);
             EventSystem.instance.OnExplode();
             yield return null;
         }
     }   
 
-    public void LeftAttack()
+    public void Attack(int attack)
     {
         if (_child.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Wait"))
         {
+           
+            EventSystem.instance.OnSetState(PlayerMovmentSate.attack);
+            switch (attack)
             {
-                _child.GetComponent<Animator>().SetTrigger("FastAttack");
+                case 0:
+                    _child.GetComponent<Animator>().SetTrigger("FastAttack");
+                    break;
+                case 1:
+                    _child.GetComponent<Animator>().SetTrigger("SlowAttack");
+                    break;
             }
+            
         }
+        
     }
-
-    public void RightAttack()
-    {
-        if (_child.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Wait"))
-        {
-            {
-                _child.GetComponent<Animator>().SetTrigger("SlowAttack");
-            }
-        }
-    }
+    
+    
 }

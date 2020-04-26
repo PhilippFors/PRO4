@@ -9,6 +9,8 @@ public class EventSystem : MonoBehaviour
     public event Action<IHasHealth, float> Attack;
     public event Action<MultiplierName, float> ActivateSkill;
 
+    public event Action<PlayerMovmentSate> SetState;
+
     //Events die von der Musik ausgelöst werden
     public event System.Action Kick;
     public event System.Action Bass;
@@ -99,5 +101,10 @@ public class EventSystem : MonoBehaviour
     public void OnExplode()
     {
         Explode();
+    }
+
+    public void OnSetState(PlayerMovmentSate state)
+    {
+        SetState(state);
     }
 }

@@ -49,6 +49,10 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerMovementController standardMovement;
     DashMovementController dashController;
     GrenadeMovementController grenadeController;
+    private AttackState attackController;
+    
+    
+    
     #endregion
 
     private void Awake()
@@ -56,10 +60,15 @@ public class PlayerStateMachine : MonoBehaviour
         input = new PlayerControls();
         standardMovement = new PlayerMovementController();
         dashController = new DashMovementController(this);
+        attackController = new AttackState(this);
         grenadeController = new GrenadeMovementController(this);
+        
         input.Gameplay.Dash.performed += ctx => StartDash();
-        input.Gameplay.G
+        
+        
     }
+
+   
     private void OnEnable()
     {
         input.Enable();
@@ -71,6 +80,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         SetState(PlayerMovmentSate.standard);
+        EventSystem.instance.SetState += SetState;
     }
     void Update()
     {
@@ -86,7 +96,9 @@ public class PlayerStateMachine : MonoBehaviour
                 dashController.Tick(this);
                 break;
             case PlayerMovmentSate.grenade:
-                grenadeController.Tick(this);
+                break;
+            case PlayerMovmentSate.attack:
+                attackController.Tick(this);
                 break;
                 
         }
@@ -115,4 +127,5 @@ public class PlayerStateMachine : MonoBehaviour
         dashController.DashInit(this);
         SetState(PlayerMovmentSate.dash);
     }
+    
 }
