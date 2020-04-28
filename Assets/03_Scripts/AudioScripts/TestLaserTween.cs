@@ -80,7 +80,6 @@ public class TestLaserTween : MonoBehaviour
             .SetEase(ease);
         }
 
-
         else
         {
             DOTween.Sequence()
@@ -95,7 +94,7 @@ public class TestLaserTween : MonoBehaviour
         float duration = 0.05f;
         DOTween.Sequence()
             .Append(laserTrans.transform.DOScaleY(10, duration))
-            .Append(laserTrans.transform.DOScaleY(1, duration));
+            .Append(laserTrans.transform.DOScaleY(0.5f, duration));
     }
 
 
