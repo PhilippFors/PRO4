@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class TestCubeAudioMove : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class TestCubeAudioMove : MonoBehaviour
   
         }
 
+
     }
 
     // Update is called once per frame
@@ -34,18 +36,25 @@ public class TestCubeAudioMove : MonoBehaviour
         switch (id)
         {
             case 0:
-                transform.Translate(new Vector3(0, 0, 5));
+                transform.DOLocalMoveZ(2, 0.5f);
+                //transform.Translate(new Vector3(0, 0, 5));
                 break;
             case 1:
-                transform.Translate(new Vector3(-5, 0, 0));
+                transform.DOLocalMoveX(-2, 0.5f);
+                //transform.Translate(new Vector3(-5, 0, 0));
                 break;
             case 2:
-                transform.Translate(new Vector3(0, 0, -5));
+                transform.DOLocalMoveZ(-2, 0.5f);
+                //transform.Translate(new Vector3(0, 0, -5));
                 break;
             case 3:
-                transform.Translate(new Vector3(5, 0, 0));
+                transform.DOLocalMoveX(2, 0.5f);
+                //transform.Translate(new Vector3(5, 0, 0));
                 break;
+
         }
+
+       
     }
 
     void test()

@@ -34,7 +34,7 @@ public class MusicManager : MonoBehaviour
                 switch (marker[i])
                 {
                     case 'K':
-                        Debug.Log("Parsed: Kick");
+                        //Debug.Log("Parsed: Kick");
                         if(EventSystem.instance == null)
                         {
                             Debug.Log("EventSystem is empty");
@@ -46,7 +46,7 @@ public class MusicManager : MonoBehaviour
                         break;
 
                     case 'B':
-                        Debug.Log("Parsed: Bass");
+                       // Debug.Log("Parsed: Bass");
                         if (EventSystem.instance == null)
                         {
                             Debug.Log("EventSystem is empty");
