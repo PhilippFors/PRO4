@@ -33,7 +33,7 @@ public class ProgressBarSkills : ProgessBar
     
     public override void GetCurrentFill()
     {
-        if (id == null)
+        if (id == 0)
         {
             Debug.Log("Is null");
         }

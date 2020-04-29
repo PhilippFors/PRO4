@@ -92,6 +92,7 @@ public class PlayerStateMachine : MonoBehaviour
                 dashController.Tick(this);
                 break;
             case PlayerMovmentSate.grenade:
+                grenadeController.Tick(this);
                 break;
             case PlayerMovmentSate.attack:
                 attackController.Tick(this);
