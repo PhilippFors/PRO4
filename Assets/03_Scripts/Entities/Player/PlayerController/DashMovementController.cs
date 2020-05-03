@@ -6,8 +6,6 @@ public class DashMovementController
 {
     private float timeStartDash, currentDashValueTime, timeSinceStarted, actualDashDistance, frametime = 0.0f, delayCountdown;
     public bool isDashing = false, dashDelayOn = false;
-
-
     private Vector3 velocity;
     public DashMovementController(PlayerStateMachine controller)
     {
@@ -38,7 +36,6 @@ public class DashMovementController
         CheckDashPathForEnemys(controller);
         //disable Hurtbox
         // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
-
     }
 
     void GetCurrentMovedirection(PlayerStateMachine controller)
@@ -63,7 +60,7 @@ public class DashMovementController
             //enable Hurtbox
             frametime = controller.dashDuration;
             dashDelayOn = true;
-            controller.checkEnemy = false;
+            
             currentDashValueTime = Time.time;
         }
 
@@ -91,7 +88,7 @@ public class DashMovementController
         controller.RayEmitter.forward = controller.currentMoveDirection.normalized;
         actualDashDistance = Vector3.Distance(controller.transform.position, controller.transform.position + controller.currentMoveDirection + ((velocity + velocity) / 2) * controller.dashDuration);
 
-        RaycastHit[] cols = Physics.SphereCastAll(controller.RayEmitter.position, 2f, controller.RayEmitter.forward, actualDashDistance, controller.enemyMask, QueryTriggerInteraction.Ignore);
+        RaycastHit[] cols = Physics.SphereCastAll(controller.RayEmitter.position,2f, controller.RayEmitter.forward, actualDashDistance, controller.enemyMask, QueryTriggerInteraction.Ignore);
         if (cols != null)
         {
             foreach (RaycastHit hits in cols)
@@ -103,10 +100,7 @@ public class DashMovementController
                 }
             }
         }
-        else
-        {
-            Debug.Log("No enemie in sight!");
-        }
+        controller.checkEnemy = false;
     }
 
     public void DashCooldown(PlayerStateMachine controller)

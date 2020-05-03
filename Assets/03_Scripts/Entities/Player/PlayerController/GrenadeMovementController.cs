@@ -6,14 +6,10 @@ using UnityEngine;
 public class GrenadeMovementController
 {
   
-
-
     public GrenadeMovementController(PlayerStateMachine controller)
     {
 
     }
-
-    
-    
+  
     
 }

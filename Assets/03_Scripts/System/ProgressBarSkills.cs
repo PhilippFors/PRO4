@@ -19,8 +19,6 @@ public class ProgressBarSkills : ProgessBar
         player = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
         skillObject = player.skills[id];
         
-        
-        
     }
     
 
@@ -33,7 +31,7 @@ public class ProgressBarSkills : ProgessBar
     
     public override void GetCurrentFill()
     {
-        if (id == null)
+        if (id == 0)
         {
             Debug.Log("Is null");
         }
