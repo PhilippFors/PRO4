@@ -93,9 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3016386617398075702}
   - component: {fileID: 3016386617398075701}
-  - component: {fileID: 3016386617398075699}
   - component: {fileID: 3016386617398075697}
   - component: {fileID: 3016386617398075721}
+  - component: {fileID: 84565653644464121}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -129,18 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0330600002066314b908e0d91b366954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3016386617398075699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016386617398075710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53325dd7d720c5643be3ac4f425c12b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3016386617398075697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5dabe0d4bd4434fb6c328f1a62fba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyList: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
+  durgaList: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878, type: 2}
+  ignerList: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d, type: 2}
 --- !u!114 &3016386617398075721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +173,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &84565653644464121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016386617398075710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947154799dbf1c846807ceb97aed81f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyList: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
 --- !u!1 &3016386617689796663
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,9 +231,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3387fdcfca2f31144b6c0ec22f2ade3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCollection: []
-  durga: []
-  igner: []
+  SpawnWaitTime: 4.8
+  _enemyCollection: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
+  _durga: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878, type: 2}
+  _igner: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d, type: 2}
+  isSpawning: 0
+  areaStarted: 0
+  count: 0
 --- !u!114 &3016386617689796681
 MonoBehaviour:
   m_ObjectHideFlags: 0

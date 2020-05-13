@@ -350,7 +350,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3016386617470237449}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3016386617470237450}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
@@ -4327,8 +4327,46 @@ PrefabInstance:
       propertyPath: SpawnWaitTime
       value: 4.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: _enemyCollection
+      value: 
+      objectReference: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87,
+        type: 2}
+    - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: _igner
+      value: 
+      objectReference: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d,
+        type: 2}
+    - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: _durga
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878,
+        type: 2}
+    m_RemovedComponents:
+    - {fileID: 3016386617398075699, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
+--- !u!1 &3016386617470237450 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3016386617398075710, guid: 7ab2ec0b09864e046aba10e445d9af44,
+    type: 3}
+  m_PrefabInstance: {fileID: 3016386617470237449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3016386617470237451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016386617470237450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947154799dbf1c846807ceb97aed81f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyList: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
 --- !u!1001 &5706513654110668790
 PrefabInstance:
   m_ObjectHideFlags: 0
