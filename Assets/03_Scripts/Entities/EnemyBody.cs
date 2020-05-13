@@ -9,11 +9,13 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public StatTemplate statTemplate;
     public StatTemplate multTemplate;
     public GameObject parent;
+    public EnemySet set;
     [SerializeField] private float currentHealth;
     private void Awake()
     {
         InitStats();
         InitMultiplier();
+
     }
     #region health
     void CheckHealth()

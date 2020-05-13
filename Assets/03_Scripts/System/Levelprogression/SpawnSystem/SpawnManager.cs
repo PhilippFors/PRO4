@@ -6,10 +6,14 @@ public class SpawnManager : MonoBehaviour
 {
     [HideInInspector] public SpawnProcess spawnProcess => GetComponent<SpawnProcess>();
     public float SpawnWaitTime = 4.8f;
-    public List<EnemyBody> enemyCollection = new List<EnemyBody>();
-    public List<EnemyBody> durga = new List<EnemyBody>();
-    public List<EnemyBody> igner = new List<EnemyBody>();
+    // public List<EnemyBody> enemyCollection = new List<EnemyBody>();
+    // public List<EnemyBody> durga = new List<EnemyBody>();
+    // public List<EnemyBody> igner = new List<EnemyBody>();
 
+    public EnemySet enemyCollection;
+    public EnemySet durga;
+    public EnemySet igner;
+    
     public bool isSpawning = false;
     public bool areaStarted = false;
     public bool count = false;
@@ -38,6 +42,7 @@ public class SpawnManager : MonoBehaviour
     {
 
         enemyCollection.Add(enemy);
+        
         string tag = enemy.gameObject.tag;
         switch (tag)
         {
@@ -61,24 +66,24 @@ public class SpawnManager : MonoBehaviour
         {
             case "Durga":
 
-                if (durga.Contains(enemy))
+                
                     durga.Remove(enemy);
                 break;
             case "Igner":
-                if (igner.Contains(enemy))
+                
                     igner.Remove(enemy);
                 break;
             case "Untagged":
                 Debug.Log("No tag found on " + enemy.gameObject.name);
                 break;
         }
-        if (enemyCollection.Contains(enemy))
+        
             enemyCollection.Remove(enemy);
     }
 
     void CountEnemies()
     {
-        if (enemyCollection.Count == 0 & count)
+        if (enemyCollection.entityList.Count == 0 & count)
         {
             if (areaStarted)
             {

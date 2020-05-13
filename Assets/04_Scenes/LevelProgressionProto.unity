@@ -2576,6 +2576,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Igner_Root
       objectReference: {fileID: 0}
+    - target: {fileID: 2076079792687854352, guid: 1b61b4130f4d1e84f98e136714e59790,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2076079792687854359, guid: 1b61b4130f4d1e84f98e136714e59790,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4309,6 +4314,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 84565653644464121, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: enemyList
+      value: 
+      objectReference: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87,
+        type: 2}
     - target: {fileID: 537976613570928071, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4389,13 +4400,13 @@ PrefabInstance:
         type: 3}
       propertyPath: ignerList
       value: 
-      objectReference: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d,
+      objectReference: {fileID: 11400000, guid: 0f812a823563df8469e398f70a61ba3c,
         type: 2}
     - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: durgaList
       value: 
-      objectReference: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878,
+      objectReference: {fileID: 11400000, guid: ae7d9fab51e811f42946048391246003,
         type: 2}
     - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
@@ -4412,37 +4423,24 @@ PrefabInstance:
         type: 3}
       propertyPath: _igner
       value: 
-      objectReference: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d,
+      objectReference: {fileID: 11400000, guid: 0f812a823563df8469e398f70a61ba3c,
         type: 2}
     - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: _durga
       value: 
-      objectReference: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878,
+      objectReference: {fileID: 11400000, guid: ae7d9fab51e811f42946048391246003,
+        type: 2}
+    - target: {fileID: 3016386617689796680, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: enemySet
+      value: 
+      objectReference: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1,
         type: 2}
     m_RemovedComponents:
     - {fileID: 3016386617398075699, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
     - {fileID: 3016386617398075721, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
---- !u!1 &3016386617470237450 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3016386617398075710, guid: 7ab2ec0b09864e046aba10e445d9af44,
-    type: 3}
-  m_PrefabInstance: {fileID: 3016386617470237449}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3016386617470237451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016386617470237450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947154799dbf1c846807ceb97aed81f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyList: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
 --- !u!1001 &5706513654110668790
 PrefabInstance:
   m_ObjectHideFlags: 0
