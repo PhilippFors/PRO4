@@ -7,9 +7,6 @@ using UnityEngine.Jobs;
 using UnityEngine.AI;
 public class AIManager : MonoBehaviour
 {
-    [SerializeField] private EnemyList enemyList;
-    [SerializeField] private EnemyList durgaList;
-    [SerializeField] private EnemyList ignerList;
     private void Start()
     {
         EventSystem.instance.activateAI += SetAIActive;
@@ -27,7 +24,7 @@ public class AIManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (EnemyBody enemy in enemyList.entityList){
+        foreach (EnemyBody enemy in SpawnManager.instance.enemyCollection){
             //do something
         }
     }

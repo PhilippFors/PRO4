@@ -75,16 +75,21 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     #region Init
     public void InitStats()
     {
+        statList = new List<GameStatistics>();
         foreach (FloatReference f in statTemplate.statList)
         {
             StatVariable s = (StatVariable)f.Variable;
+            Debug.Log(s.statName.ToString() + " ," + f.Value);
+            
             statList.Add(new GameStatistics(f.Value, s.statName));
         }
+        Debug.Log(GetStatValue(StatName.MaxHealth));
         currentHealth = GetStatValue(StatName.MaxHealth);
     }
 
     public void InitMultiplier()
     {
+        multList = new List<Multiplier>();
         foreach (FloatReference f in multTemplate.statList)
         {
             MultVariable s = (MultVariable)f.Variable;
