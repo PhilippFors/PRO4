@@ -5,15 +5,17 @@ using UnityEngine;
 public class PlayerBody : MonoBehaviour, IStats
 {
     public List<GameStatistics> statList { get; set; }
-
-    public PlayerTemplate template;
+    public StatTemplate template;
     private void Awake()
     {
         InitStats();
     }
     public void InitStats()
     {
-       statList = StatInit.InitPlayerStats(template);
+        foreach(FloatReference f in template.statList){
+            StatVariable s = (StatVariable)f.Variable;
+            statList.Add(new GameStatistics(f.Value, s.statName));
+        }
     }
 
     public void SetStatValue(StatName name, float value)
@@ -29,8 +31,8 @@ public class PlayerBody : MonoBehaviour, IStats
     public void CalculateHealth(float damage)
     {
         //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
-        float newDamage = damage * damage / (damage + GetStatValue(StatName.defense));
-        SetStatValue(StatName.health, GetStatValue(StatName.health) - damage);
+        float newDamage = damage * damage / (damage + GetStatValue(StatName.Defense));
+        SetStatValue(StatName.MaxHealth, GetStatValue(StatName.MaxHealth) - damage);
         Debug.Log(gameObject.name + " just took " + newDamage + " damage.");
     }
 
