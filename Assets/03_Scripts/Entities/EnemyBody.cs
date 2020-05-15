@@ -15,8 +15,35 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     {
         InitStats();
         InitMultiplier();
-
     }
+
+    #region Init
+    public void InitStats()
+    {
+        statList = new List<GameStatistics>();
+        foreach (FloatReference f in statTemplate.statList)
+        {
+            StatVariable s = (StatVariable)f.Variable;
+            Debug.Log(s.statName.ToString() + " ," + f.Value);
+
+            statList.Add(new GameStatistics(f.Value, s.statName));
+        }
+        
+        currentHealth = GetStatValue(StatName.MaxHealth);
+    }
+
+    public void InitMultiplier()
+    {
+        multList = new List<Multiplier>();
+        foreach (FloatReference f in multTemplate.statList)
+        {
+            MultVariable s = (MultVariable)f.Variable;
+            multList.Add(new Multiplier(f.Value, s.multiplierName));
+        }
+    }
+
+
+    #endregion
     #region health
     void CheckHealth()
     {
@@ -25,7 +52,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
             OnDeath();
         }
     }
-    public void CalculateHealth(float damage)
+    public void TakeDamage(float damage)
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
         calcDamage = damage * (damage / (damage + (GetStatValue(StatName.Defense) * GetMultValue(MultiplierName.defense))));
@@ -36,6 +63,10 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
 
+    public void Heal(float healAmount)
+    {
+
+    }
     public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
@@ -71,32 +102,6 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     {
         return statList.Find(x => x.GetName().Equals(stat)).GetValue();
 
-    }
-    #endregion
-
-    #region Init
-    public void InitStats()
-    {
-        statList = new List<GameStatistics>();
-        foreach (FloatReference f in statTemplate.statList)
-        {
-            StatVariable s = (StatVariable)f.Variable;
-            Debug.Log(s.statName.ToString() + " ," + f.Value);
-            
-            statList.Add(new GameStatistics(f.Value, s.statName));
-        }
-        Debug.Log(GetStatValue(StatName.MaxHealth));
-        currentHealth = GetStatValue(StatName.MaxHealth);
-    }
-
-    public void InitMultiplier()
-    {
-        multList = new List<Multiplier>();
-        foreach (FloatReference f in multTemplate.statList)
-        {
-            MultVariable s = (MultVariable)f.Variable;
-            multList.Add(new Multiplier(f.Value, s.multiplierName));
-        }
     }
     #endregion
 }

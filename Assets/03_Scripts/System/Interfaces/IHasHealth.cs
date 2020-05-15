@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHasHealth
 {
-   void CalculateHealth(float damage);
-
+   void TakeDamage(float damage);
+   void Heal(float healAmount);
    void OnDeath();
 }

@@ -25,7 +25,6 @@ public class SpawnProcess : MonoBehaviour
     {
         EnemyBody enemy = Instantiate(Spawnpoints[SpawnIndex].prefab, Spawnpoints[SpawnIndex].point.position, Spawnpoints[SpawnIndex].point.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
         enemy.GetComponent<Animation>().Play("Entry");
-
         SpawnManager.instance.AddEnemyToList(enemy);
         StartCoroutine(WaitForAnimation(enemy));
         SpawnIndex++;

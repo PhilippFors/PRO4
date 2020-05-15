@@ -20,7 +20,6 @@ public class AIManager : MonoBehaviour
     public void SetAIActive(EnemyBody enemy)
     {
         enemy.GetComponent<StateMachineController>().SetAI(true);
-
     }
 
     private void Update()

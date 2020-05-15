@@ -6,9 +6,6 @@ public class SpawnManager : MonoBehaviour
 {
     [HideInInspector] public SpawnProcess spawnProcess => GetComponent<SpawnProcess>();
     public float SpawnWaitTime = 4.8f;
-    // public List<EnemyBody> enemyCollection = new List<EnemyBody>();
-    // public List<EnemyBody> durga = new List<EnemyBody>();
-    // public List<EnemyBody> igner = new List<EnemyBody>();
 
     public EnemySet enemyCollection;
     public EnemySet durga;
@@ -21,7 +18,6 @@ public class SpawnManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
     }
     private void Start()
     {

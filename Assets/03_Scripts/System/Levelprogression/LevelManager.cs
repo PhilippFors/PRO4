@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaEntry -= StartArea;
         LevelEventSystem.instance.nextWave -= StartWave;
         LevelEventSystem.instance.areaExit -= AreaFinsihed;
-
     }
 
     bool HasNextWave()
