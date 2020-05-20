@@ -9,5 +9,8 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Prototype 2");
     }
-
+    public void OpenSettings()
+    {
+        SceneManager.LoadScene("Settings");
+    }
 }
