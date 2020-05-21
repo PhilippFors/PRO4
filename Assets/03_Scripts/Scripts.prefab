@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1893172630503101812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8014953696669980837}
+  - component: {fileID: 4068044928732438912}
+  m_Layer: 0
+  m_Name: LevelData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8014953696669980837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893172630503101812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 537976613570928071}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4068044928732438912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893172630503101812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa4c8652bcb27241ae7f1de1d1b8fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelInfo: {fileID: 0}
 --- !u!1 &2587438256095077187
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,6 +75,7 @@ Transform:
   - {fileID: 3016386618586033154}
   - {fileID: 3016386617689796683}
   - {fileID: 3016386617375203225}
+  - {fileID: 8014953696669980837}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,7 +125,7 @@ MonoBehaviour:
   currentLevel: 0
   currentWave: 0
   currentArea: 0
-  level0: {fileID: 0}
+  level0: {fileID: 4068044928732438912}
   levels:
   - {fileID: 0}
 --- !u!1 &3016386617398075710
@@ -141,9 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5dabe0d4bd4434fb6c328f1a62fba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
-  durgaList: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878, type: 2}
-  ignerList: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d, type: 2}
+  set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
 --- !u!114 &3016386617398075721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947154799dbf1c846807ceb97aed81f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
+  set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
 --- !u!1 &3016386617689796663
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,9 +275,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnWaitTime: 4.8
-  _enemyCollection: {fileID: 11400000, guid: fdf6315954cfe384696ebad8d4fb8a87, type: 2}
-  _durga: {fileID: 11400000, guid: 6cde7747f9c827346949b716d71e2878, type: 2}
-  _igner: {fileID: 11400000, guid: 900a03231dea049498d932d9633f417d, type: 2}
+  enemyCollection: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
+  durga: {fileID: 11400000, guid: d8762f34ae67bcf40ada5da7325b9449, type: 2}
+  igner: {fileID: 11400000, guid: 5d6a23eba7250f74f8d5b8812ff96dd1, type: 2}
   isSpawning: 0
   areaStarted: 0
   count: 0
