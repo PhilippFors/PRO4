@@ -13,4 +13,8 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Settings");
     }
+    public void OpenCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }
