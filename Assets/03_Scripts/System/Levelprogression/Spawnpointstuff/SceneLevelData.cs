@@ -5,7 +5,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class SceneLevelData : MonoBehaviour
 {
-     public Level levelInfo;
+    public Level levelInfo;
     public void OnEnable()
     {
         if (levelInfo == null)
