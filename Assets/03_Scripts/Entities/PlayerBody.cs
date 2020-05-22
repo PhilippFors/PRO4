@@ -6,13 +6,14 @@ public class PlayerBody : MonoBehaviour, IStats
 {
     public List<GameStatistics> statList { get; set; }
     public StatTemplate template;
-    public StatVariable currentHealth;
+    public FloatVariable currentHealth;
     private void Awake()
     {
         InitStats();
     }
     public void InitStats()
     {
+        statList = new List<GameStatistics>();
         foreach (FloatReference f in template.statList)
         {
             StatVariable s = (StatVariable)f.Variable;
@@ -54,6 +55,8 @@ public class PlayerBody : MonoBehaviour, IStats
             {
                 float overflow = currentHealth.Value + healAmount - MaxHealth;
                 currentHealth.Value += healAmount - overflow;
+            } else{
+                currentHealth.Value += healAmount;
             }
         }
     }
