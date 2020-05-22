@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 public class SpawnProcess : MonoBehaviour
-{
+{   
+    
     private Wave wave;
     private static int SpawnIndex;
     private List<SpawnPoint> Spawnpoints = new List<SpawnPoint>();
@@ -41,4 +42,8 @@ public class SpawnProcess : MonoBehaviour
         EventSystem.instance.ActivateAI(enemy);
         yield break;
     }
+
+
+
+    
 }

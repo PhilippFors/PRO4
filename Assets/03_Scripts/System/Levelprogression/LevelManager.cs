@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int currentWave = 0;
     [SerializeField] private int currentArea = 0;
     public InSceneSO level0;
-
+    [SerializeField] private InSceneSO[] levelData;
     [SerializeField] public Level[] levels;
 
     private void Start()
