@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class InSceneSO : MonoBehaviour
+public class SceneLevelData : MonoBehaviour
 {
      public Level levelInfo;
     public void OnEnable()

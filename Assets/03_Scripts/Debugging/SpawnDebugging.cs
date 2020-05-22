@@ -7,10 +7,6 @@ public class SpawnDebugging : MonoBehaviour
     public EnemySet set;
     public GameObject prefab;
     public bool spawnEnable = false;
-    public void EnableSpawnclick()
-    {
-        spawnEnable = !spawnEnable;
-    }
     private void Update()
     {
         if (!spawnEnable)
@@ -35,6 +31,7 @@ public class SpawnDebugging : MonoBehaviour
                 EnemyBody enemy = Instantiate(prefab, rayPoint, Quaternion.Euler(Vector3.forward)).gameObject.GetComponentInChildren<EnemyBody>();
                 enemy.gameObject.GetComponent<Animation>().enabled =false;
                 enemy.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                enemy.gameObject.GetComponent<StateMachineController>().enabled = false;
                 set.Add(enemy);
             }
         }
