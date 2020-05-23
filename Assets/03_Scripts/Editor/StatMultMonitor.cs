@@ -65,7 +65,13 @@ public class StatMultMonitor : EditorWindow
                     {
                         m.SetValue(EditorGUILayout.FloatField(m.GetName().ToString(), m.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
                     }
+                    if (GUILayout.Button("Destroy", GUILayout.Width(120f)))
+                    {
+                        set.Remove(e);
+                        Destroy(e.parent);
+                    }
                 }
+
             }
 
         GUILayout.EndScrollView();
