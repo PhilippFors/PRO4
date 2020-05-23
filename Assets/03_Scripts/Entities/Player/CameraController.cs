@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
 
     private void Start() {
         playercontrols = player.GetComponent<PlayerStateMachine>();
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
     }
     private void FixedUpdate()
     {

@@ -24,11 +24,9 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
         foreach (FloatReference f in statTemplate.statList)
         {
             StatVariable s = (StatVariable)f.Variable;
-            Debug.Log(s.statName.ToString() + " ," + f.Value);
-
             statList.Add(new GameStatistics(f.Value, s.statName));
         }
-        
+
         currentHealth = GetStatValue(StatName.MaxHealth);
     }
 
@@ -47,7 +45,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     #region health
     void CheckHealth()
     {
-        if (GetStatValue(StatName.MaxHealth) <= 0)
+        if (currentHealth <= 0)
         {
             OnDeath();
         }
@@ -56,10 +54,11 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
         calcDamage = damage * (damage / (damage + (GetStatValue(StatName.Defense) * GetMultValue(MultiplierName.defense))));
-        SetStatValue(StatName.MaxHealth, (GetStatValue(StatName.MaxHealth) - calcDamage));
-        CheckHealth();
+        // SetStatValue(StatName.MaxHealth, (GetStatValue(StatName.MaxHealth) - calcDamage));
+        
         Debug.Log(gameObject.name + " just took " + calcDamage + " damage.");
         currentHealth -= calcDamage;
+        CheckHealth();
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
 

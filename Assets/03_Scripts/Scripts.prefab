@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8014953696669980837}
   - component: {fileID: 4068044928732438912}
   m_Layer: 0
-  m_Name: LevelData
+  m_Name: TutorialLevelData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1893172630503101812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa4c8652bcb27241ae7f1de1d1b8fca, type: 3}
+  m_Script: {fileID: 11500000, guid: 65b35bf32f752874c88358269dde6177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelInfo: {fileID: 0}
@@ -126,6 +126,7 @@ MonoBehaviour:
   currentWave: 0
   currentArea: 0
   level0: {fileID: 4068044928732438912}
+  levelData: []
   levels:
   - {fileID: 0}
 --- !u!1 &3016386617398075710
@@ -241,6 +242,7 @@ GameObject:
   - component: {fileID: 3016386617689796680}
   - component: {fileID: 3016386617689796681}
   - component: {fileID: 3016386617689796662}
+  - component: {fileID: 4770899273923203546}
   m_Layer: 0
   m_Name: SpawnManagement
   m_TagString: Untagged
@@ -322,6 +324,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4770899273923203546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3016386617689796663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cedbd03be80526419ae982c7a8fb896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
+  prefab: {fileID: 2076079792687854352, guid: 1b61b4130f4d1e84f98e136714e59790, type: 3}
+  spawnEnable: 0
 --- !u!1 &3016386618586033153
 GameObject:
   m_ObjectHideFlags: 0

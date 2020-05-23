@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class InSceneSO : MonoBehaviour
+public class SceneLevelData : MonoBehaviour
 {
-     public Level levelInfo;
+    public Level levelInfo;
     public void OnEnable()
     {
         if (levelInfo == null)
