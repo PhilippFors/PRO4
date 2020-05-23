@@ -61,12 +61,18 @@ public class SOTemplateEditor : EditorWindow
                     if (f.Variable is MultVariable)
                     {
                         MultVariable m = (MultVariable)f.Variable;
+                        GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
                         f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), m.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        EditorGUILayout.ObjectField(m, typeof(MultVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
+                        GUILayout.EndHorizontal();
                     }
                     if (f.Variable is StatVariable)
                     {
                         StatVariable s = (StatVariable)f.Variable;
+                        GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
                         f.Variable.Value = EditorGUILayout.FloatField("Stat: " + s.statName.ToString(), s.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        EditorGUILayout.ObjectField(s, typeof(StatVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
+                        GUILayout.EndHorizontal();
                     }
                 }
             }

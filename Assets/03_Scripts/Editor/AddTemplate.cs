@@ -9,6 +9,8 @@ public class AddTemplate : EditorWindow
     float statfloatField;
     string name;
     string templatename;
+    string templateFolder = "Enemy";
+
     StatName statName;
     MultiplierName multName;
     List<StatTemplate> templates = new List<StatTemplate>();
@@ -22,6 +24,8 @@ public class AddTemplate : EditorWindow
 
     bool statAdded = false;
     bool multAdded = false;
+
+    bool toggle = false;
     public static void ShowWindow()
     {
         GetWindow<AddTemplate>("Add Template");
@@ -32,6 +36,20 @@ public class AddTemplate : EditorWindow
         if (!init)
         {
             templatename = EditorGUILayout.TextField("Template Name: ", templatename);
+
+            GUILayout.Label("Toggle target folder");
+            toggle = EditorGUILayout.Toggle(toggle);
+
+            if (toggle)
+            {
+                templateFolder = "Enemy";
+
+            }
+            else
+            {
+                templateFolder = "Player";
+            }
+            GUILayout.Label("Target Folder is: " + templateFolder);
             if (GUILayout.Button("Save Asset"))
             {
                 StatTemplate newasset = ScriptableObject.CreateInstance<StatTemplate>();
@@ -58,7 +76,7 @@ public class AddTemplate : EditorWindow
                         n++;
                     }
                 }
-                AssetDatabase.CreateAsset(newasset, "Assets/" + templatename + ".asset");
+                AssetDatabase.CreateAsset(newasset, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/" + templatename + ".asset");
                 AssetDatabase.SaveAssets();
                 init = true;
 
@@ -94,7 +112,10 @@ public class AddTemplate : EditorWindow
                     if (f.Variable is MultVariable)
                     {
                         MultVariable m = (MultVariable)f.Variable;
+                        
                         f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), m.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        
+                        
                     }
                     if (f.Variable is StatVariable)
                     {
@@ -168,7 +189,7 @@ public class AddTemplate : EditorWindow
                 n++;
             }
         }
-        AssetDatabase.CreateAsset(v, "Assets/" + name + ".asset");
+        AssetDatabase.CreateAsset(v, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/Mults/" + name + ".asset");
         AssetDatabase.SaveAssets();
 
 
@@ -220,7 +241,7 @@ public class AddTemplate : EditorWindow
                 n++;
             }
         }
-        AssetDatabase.CreateAsset(v, "Assets/" + name + ".asset");
+        AssetDatabase.CreateAsset(v, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/Stats/" + name + ".asset");
         AssetDatabase.SaveAssets();
 
 
