@@ -6,8 +6,10 @@ public class AddTemplate : EditorWindow
 {
     string[] paths;
     string[] stuff;
+    string[] options = { "Igner", "Durga", "Shirugi", "Player" };
+    int index;
     float statfloatField;
-    string name;
+    string _name;
     string templatename;
     string templateFolder = "Enemy";
 
@@ -37,18 +39,25 @@ public class AddTemplate : EditorWindow
         {
             templatename = EditorGUILayout.TextField("Template Name: ", templatename);
 
-            GUILayout.Label("Toggle target folder");
-            toggle = EditorGUILayout.Toggle(toggle);
+            GUILayout.Label("For which Entity is this Template?");
+            index = EditorGUILayout.Popup(index, options);
 
-            if (toggle)
+            switch (index)
             {
-                templateFolder = "Enemy";
+                case 0:
+                    templateFolder = "Enemy/Igner";
+                    break;
+                case 1:
+                    templateFolder = "Enemy/Durga";
+                    break;
+                case 2:
+                    templateFolder = "Enemy/Shirugi";
+                    break;
+                case 3:
+                    templateFolder = "Player";
+                    break;
+            }
 
-            }
-            else
-            {
-                templateFolder = "Player";
-            }
             GUILayout.Label("Target Folder is: " + templateFolder);
             if (GUILayout.Button("Save Asset"))
             {
@@ -68,14 +77,17 @@ public class AddTemplate : EditorWindow
                 for (int i = 0; i < paths.Length; i++)
                     templates.Add((StatTemplate)AssetDatabase.LoadAssetAtPath(stuff[i], typeof(StatTemplate)));
 
+                bool yes = false;
                 foreach (StatTemplate t in templates)
                 {
-                    if (t.name.Equals(templatename))
+                    string na = templatename + n.ToString();
+                    Debug.Log(t.name);
+                    if (t.name.Equals(na))
                     {
-                        templatename = "NewStatObject" + n.ToString();
                         n++;
                     }
                 }
+                templatename = templatename + n.ToString();
                 AssetDatabase.CreateAsset(newasset, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/" + templatename + ".asset");
                 AssetDatabase.SaveAssets();
                 init = true;
@@ -112,10 +124,10 @@ public class AddTemplate : EditorWindow
                     if (f.Variable is MultVariable)
                     {
                         MultVariable m = (MultVariable)f.Variable;
-                        
+
                         f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), m.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
-                        
-                        
+
+
                     }
                     if (f.Variable is StatVariable)
                     {
@@ -125,41 +137,42 @@ public class AddTemplate : EditorWindow
                 }
             }
 
-
-            GUILayout.Label("Values for Stat/Mult");
-            statfloatField = EditorGUILayout.FloatField("Value: ", statfloatField);
-            name = EditorGUILayout.TextField("Name: ", name);
             GUILayout.Space(5f);
+            if (!multAdded & !statAdded)
+                GUILayout.Label("The first thing you add will determine the type of the StatTemplate", EditorStyles.boldLabel);
             if (!multAdded)
             {
-                statFoldout = EditorGUILayout.Foldout(statFoldout, "Add Stat");
-                if (statFoldout)
+                GUILayout.Label("Set values for Stat", EditorStyles.boldLabel);
+                statfloatField = EditorGUILayout.FloatField("Value: ", statfloatField);
+                _name = EditorGUILayout.TextField("Name: ", _name);
+
+                statName = (StatName)EditorGUILayout.EnumPopup(statName);
+                if (GUILayout.Button("Add Stat"))
                 {
-                    statName = (StatName)EditorGUILayout.EnumPopup(statName);
-                    if (GUILayout.Button("Add Stat"))
-                    {
-                        AddStat();
-                        statAdded = true;
-                    }
+                    AddStat();
+                    statAdded = true;
                 }
+
             }
             GUILayout.Space(5f);
             if (!statAdded)
             {
-                multFoldout = EditorGUILayout.Foldout(multFoldout, "Add Mult");
-                if (multFoldout)
+                GUILayout.Label("Set values for Multiplier", EditorStyles.boldLabel);
+                statfloatField = EditorGUILayout.FloatField("Value: ", statfloatField);
+                _name = EditorGUILayout.TextField("Name: ", _name);
+
+                multName = (MultiplierName)EditorGUILayout.EnumPopup(multName);
+
+                if (GUILayout.Button("Add Mult"))
                 {
-                    multName = (MultiplierName)EditorGUILayout.EnumPopup(multName);
-
-                    if (GUILayout.Button("Add Mult"))
-                    {
-                        AddMult();
-                        multAdded = true;
-                    }
+                    AddMult();
+                    multAdded = true;
                 }
-            }
-        }
 
+
+            }
+
+        }
     }
 
 
@@ -168,9 +181,9 @@ public class AddTemplate : EditorWindow
         m = ScriptableObject.CreateInstance<MultVariable>();
         int n = 1;
         List<MultVariable> list = new List<MultVariable>();
-        if (name == null)
+        if (_name == null)
         {
-            name = "NewMultVariable";
+            _name = "NewMultVariable";
         }
         paths = AssetDatabase.FindAssets("t:MultVariable");
         stuff = new string[paths.Length];
@@ -183,13 +196,15 @@ public class AddTemplate : EditorWindow
 
         foreach (MultVariable t in list)
         {
-            if (t.name.Equals(name))
+            string na = _name + n.ToString();
+            Debug.Log(t.name);
+            if (t.name.Equals(na))
             {
-                name = name + n.ToString();
                 n++;
             }
         }
-        AssetDatabase.CreateAsset(v, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/Mults/" + name + ".asset");
+        _name = _name + n.ToString();
+        AssetDatabase.CreateAsset(m, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/Mults/" + _name + ".asset");
         AssetDatabase.SaveAssets();
 
 
@@ -205,7 +220,7 @@ public class AddTemplate : EditorWindow
 
         foreach (MultVariable t in list)
         {
-            if (t.name.Equals(name))
+            if (t.name.Equals(_name))
             {
                 m = t;
             }
@@ -213,16 +228,17 @@ public class AddTemplate : EditorWindow
 
         m.multiplierName = multName;
         m.Value = statfloatField;
-        asset.Add(v);
+        _name = null;
+        asset.Add(m);
     }
     void AddStat()
     {
         v = ScriptableObject.CreateInstance<StatVariable>();
         int n = 1;
         List<StatVariable> list = new List<StatVariable>();
-        if (name == null)
+        if (_name == null)
         {
-            name = "NewStatVariable";
+            _name = "NewStatVariable";
         }
         paths = AssetDatabase.FindAssets("t:StatVariable");
         stuff = new string[paths.Length];
@@ -235,13 +251,16 @@ public class AddTemplate : EditorWindow
 
         foreach (StatVariable t in list)
         {
-            if (t.name.Equals(name))
+            string na = _name + n.ToString();
+            Debug.Log(t.name);
+            if (t.name.Equals(na))
             {
-                name = name + n.ToString();
                 n++;
             }
         }
-        AssetDatabase.CreateAsset(v, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/Stats/" + name + ".asset");
+        _name = _name + n.ToString();
+
+        AssetDatabase.CreateAsset(v, "Assets/03_Scripts/Entities/StatTemplates/" + templateFolder + "/Stats/" + _name + ".asset");
         AssetDatabase.SaveAssets();
 
 
@@ -257,7 +276,7 @@ public class AddTemplate : EditorWindow
 
         foreach (StatVariable t in list)
         {
-            if (t.name.Equals(name))
+            if (t.name.Equals(_name))
             {
                 v = t;
             }
@@ -265,6 +284,11 @@ public class AddTemplate : EditorWindow
 
         v.statName = statName;
         v.Value = statfloatField;
+        _name = null;
         asset.Add(v);
+    }
+    private void OnInspectorUpdate()
+    {
+        Repaint();
     }
 }

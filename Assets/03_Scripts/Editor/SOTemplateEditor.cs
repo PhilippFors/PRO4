@@ -10,6 +10,9 @@ public class SOTemplateEditor : EditorWindow
     int oldPathlength;
     Vector2 scrollPosition = Vector2.zero;
     List<StatTemplate> templates = new List<StatTemplate>();
+    bool secure = false;
+    StatVariable v;
+    MultVariable m;
     string[] paths;
     string[] stuff;
     [MenuItem("Tools/Custom Window/Template Editor")]
@@ -76,17 +79,24 @@ public class SOTemplateEditor : EditorWindow
                     }
                 }
             }
-            GUILayout.Space(1f);
+            EditorGUILayout.Separator();
             GUILayout.Label("____________", EditorStyles.boldLabel);
             GUILayout.Space(1f);
         }
-
+        GUILayout.EndScrollView();
         if (GUILayout.Button("Create new template"))
         {
             GetWindow<AddTemplate>("Add Template");
         }
 
-        GUILayout.EndScrollView();
+        if (GUILayout.Button("Edit Templates"))
+        {
+            GetWindow<EditTemplate>("Edit Template");
+        }
     }
 
+    private void OnInspectorUpdate()
+    {
+        Repaint();
+    }
 }
