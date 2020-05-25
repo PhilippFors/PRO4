@@ -90,36 +90,34 @@ public class EditTemplate : EditorWindow
         foreach (StatTemplate t in list)
         {
             asset = t;
-            if (asset.statList != null && asset.statList.Count != 0)
-            {
-                foreach (FloatReference f in asset.statList)
+            if (asset != null)
+                if (asset.statList != null && asset.statList.Count != 0)
                 {
-                    if (f.Variable is MultVariable)
+                    foreach (FloatReference f in asset.statList)
                     {
-                        isStat = false;
-                        isMult = true;
-                        MultVariable m = (MultVariable)f.Variable;
-                        GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
-                        f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), m.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
-                        EditorGUILayout.ObjectField(m, typeof(MultVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
-                        GUILayout.EndHorizontal();
-                    }
-                    if (f.Variable is StatVariable)
-                    {
-                        isStat = true;
-                        isMult = false;
-                        StatVariable s = (StatVariable)f.Variable;
-                        GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
-                        f.Variable.Value = EditorGUILayout.FloatField("Stat: " + s.statName.ToString(), s.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
-                        EditorGUILayout.ObjectField(s, typeof(StatVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
-                        GUILayout.EndHorizontal();
+                        if (f.Variable is MultVariable)
+                        {
+                            isStat = false;
+                            isMult = true;
+                            MultVariable m = (MultVariable)f.Variable;
+                            GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
+                            f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), m.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                            EditorGUILayout.ObjectField(m, typeof(MultVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
+                            GUILayout.EndHorizontal();
+                        }
+                        if (f.Variable is StatVariable)
+                        {
+                            isStat = true;
+                            isMult = false;
+                            StatVariable s = (StatVariable)f.Variable;
+                            GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
+                            f.Variable.Value = EditorGUILayout.FloatField("Stat: " + s.statName.ToString(), s.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                            EditorGUILayout.ObjectField(s, typeof(StatVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
+                            GUILayout.EndHorizontal();
+                        }
                     }
                 }
-            }
         }
-
-
-
 
         GUILayout.Space(5f);
 
@@ -134,27 +132,27 @@ public class EditTemplate : EditorWindow
                 AddStat();
 
             }
-
-            if (asset.statList.Count != 0)
-            {
-                int i = 0;
-                options = new string[asset.statList.Count];
-                foreach (FloatReference f in asset.statList)
+            if (asset != null)
+                if (asset.statList.Count != 0)
                 {
-                    StatVariable s = (StatVariable)f.Variable;
-                    options[i] = s.statName.ToString();
-                    i++;
-                }
+                    int i = 0;
+                    options = new string[asset.statList.Count];
+                    foreach (FloatReference f in asset.statList)
+                    {
+                        StatVariable s = (StatVariable)f.Variable;
+                        options[i] = s.name;
+                        i++;
+                    }
 
-                GUILayout.Space(5f);
-                GUILayout.Label("Choose Stat to delete", EditorStyles.boldLabel);
-                // deletionStatName = (StatName)EditorGUILayout.EnumPopup(deletionStatName);
-                index = EditorGUILayout.Popup(index, options);
-                if (GUILayout.Button("Delete Stat"))
-                {
-                    DeleteStat(index);
+                    GUILayout.Space(5f);
+                    GUILayout.Label("Choose Stat to delete", EditorStyles.boldLabel);
+                    // deletionStatName = (StatName)EditorGUILayout.EnumPopup(deletionStatName);
+                    index = EditorGUILayout.Popup(index, options);
+                    if (GUILayout.Button("Delete Stat"))
+                    {
+                        DeleteStat(index);
+                    }
                 }
-            }
 
 
         }
@@ -171,25 +169,26 @@ public class EditTemplate : EditorWindow
                 AddMult();
             }
 
-            if (asset.statList.Count != 0)
-            {
-                int i = 0;
-                options = new string[asset.statList.Count];
-                foreach (FloatReference f in asset.statList)
+            if (asset != null)
+                if (asset.statList.Count != 0)
                 {
-                    MultVariable s = (MultVariable)f.Variable;
-                    options[i] = s.multiplierName.ToString();
-                    i++;
+                    int i = 0;
+                    options = new string[asset.statList.Count];
+                    foreach (FloatReference f in asset.statList)
+                    {
+                        MultVariable s = (MultVariable)f.Variable;
+                        options[i] = s.name;
+                        i++;
+                    }
+                    GUILayout.Space(5f);
+                    GUILayout.Label("Choose Multiplier to delete", EditorStyles.boldLabel);
+                    // deletionMultName = (MultiplierName)EditorGUILayout.EnumPopup(deletionMultName);
+                    index = EditorGUILayout.Popup(index, options);
+                    if (GUILayout.Button("Delete Multiplier"))
+                    {
+                        DeleteMult(index);
+                    }
                 }
-                GUILayout.Space(5f);
-                GUILayout.Label("Choose Multiplier to delete", EditorStyles.boldLabel);
-                // deletionMultName = (MultiplierName)EditorGUILayout.EnumPopup(deletionMultName);
-                index = EditorGUILayout.Popup(index, options);
-                if (GUILayout.Button("Delete Multiplier"))
-                {
-                    DelteMult(index);
-                }
-            }
 
         }
     }
@@ -199,22 +198,31 @@ public class EditTemplate : EditorWindow
         foreach (FloatReference f in asset.statList)
         {
             StatVariable s = (StatVariable)f.Variable;
-            if (options[index] == s.statName.ToString())
+            if (options[index] == s.name)
             {
                 asset.statList.Remove(f);
+                DeleteAsset(f.Variable.name);
+                // DestroyImmediate(f.Variable, true);
             }
         }
     }
-    void DelteMult(int index)
+    void DeleteMult(int index)
     {
         foreach (FloatReference f in asset.statList)
         {
             MultVariable s = (MultVariable)f.Variable;
-            if (options[index] == s.multiplierName.ToString())
+            if (options[index] == s.name)
             {
                 asset.statList.Remove(f);
+                DeleteAsset(f.Variable.name);
             }
         }
+    }
+
+    void DeleteAsset(string name)
+    {
+        string[] str = AssetDatabase.FindAssets(name);
+        AssetDatabase.DeleteAsset(AssetDatabase.GUIDToAssetPath(str[0]));
     }
 
     void AddMult()

@@ -58,7 +58,7 @@ public class AddTemplate : EditorWindow
                     break;
             }
 
-            GUILayout.Label("Target Folder is: " + templateFolder);
+            GUILayout.Label("Target Folder is: 03_Scripts/Entities/StatTemplates/" + templateFolder);
             if (GUILayout.Button("Save Asset"))
             {
                 StatTemplate newasset = ScriptableObject.CreateInstance<StatTemplate>();

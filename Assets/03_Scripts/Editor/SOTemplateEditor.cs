@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using System.Linq;
 public class SOTemplateEditor : EditorWindow
 {
     bool init = false;
@@ -56,25 +56,32 @@ public class SOTemplateEditor : EditorWindow
 
         foreach (StatTemplate t in templates)
         {
-            EditorGUILayout.ObjectField(t, typeof(StatTemplate), GUILayout.MinWidth(200f), GUILayout.MaxWidth(270f));
+            EditorGUILayout.ObjectField(t, typeof(StatTemplate), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(270f));
             if (t.statList != null && t.statList.Count != 0)
             {
                 foreach (FloatReference f in t.statList)
                 {
                     if (f.Variable is MultVariable)
                     {
+
                         MultVariable m = (MultVariable)f.Variable;
                         GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
-                        f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), m.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
-                        EditorGUILayout.ObjectField(m, typeof(MultVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
+                        var so = new SerializedObject(m);
+                        so.FindProperty("Value").floatValue = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), f.Variable.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        so.ApplyModifiedProperties();
+                        // f.Variable.Value = EditorGUILayout.FloatField("Mult: " + m.multiplierName.ToString(), f.Variable.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        EditorGUILayout.ObjectField(m, typeof(MultVariable), false, GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
                         GUILayout.EndHorizontal();
                     }
                     if (f.Variable is StatVariable)
                     {
                         StatVariable s = (StatVariable)f.Variable;
                         GUILayout.BeginHorizontal(GUILayout.MinWidth(600f), GUILayout.MaxWidth(400f));
-                        f.Variable.Value = EditorGUILayout.FloatField("Stat: " + s.statName.ToString(), s.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
-                        EditorGUILayout.ObjectField(s, typeof(StatVariable), GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
+                        var so = new SerializedObject(s);
+                        so.FindProperty("Value").floatValue = EditorGUILayout.FloatField("Stat: " + s.statName.ToString(), f.Variable.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        so.ApplyModifiedProperties();
+                        // f.Variable.Value = EditorGUILayout.FloatField("Stat: " + s.statName.ToString(), f.Variable.Value, GUILayout.MinWidth(100f), GUILayout.MaxWidth(200f));
+                        EditorGUILayout.ObjectField(s, typeof(StatVariable), false, GUILayout.MinWidth(150f), GUILayout.MaxWidth(200f));
                         GUILayout.EndHorizontal();
                     }
                 }
