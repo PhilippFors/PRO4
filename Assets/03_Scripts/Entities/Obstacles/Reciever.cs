@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class Reciever : MonoBehaviour
 {
-
+    public bool occupied;
+    private void Start()
+    {
+        occupied = false;
+    }
 }

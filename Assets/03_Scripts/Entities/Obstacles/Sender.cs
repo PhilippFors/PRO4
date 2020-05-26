@@ -8,7 +8,8 @@ public class Sender : MonoBehaviour
     [SerializeField] private Transform searcher;
     [SerializeField] private GameObject Wall;
     public bool found = false;
-    LayerMask recieve => LayerMask.GetMask("Reciever");
+    LayerMask recieverMask => LayerMask.GetMask("Reciever");
+    bool tick = true;
     float minRot = -90f;
     float maxRot = 90f;
     void Start()
@@ -23,38 +24,45 @@ public class Sender : MonoBehaviour
     {
         float i = 0;
         float j = 0;
-        while (true)
+        while (i <= maxRot || j >= minRot)
         {
-            if (i >= maxRot || j <= minRot)
-                return;
             RaycastHit hit;
             Reciever obj;
             searcher.localEulerAngles = new Vector3(0, i, 0);
-            if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, recieve))
+            if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, recieverMask))
             {
                 Debug.Log(searcher.rotation);
                 obj = hit.transform.gameObject.GetComponent<Reciever>();
                 if (obj != null)
                 {
-                    reciever = obj.transform;
-                    found = true;
-                    return;
+                    if (!obj.occupied)
+                    {
+                        reciever = obj.transform;
+                        found = true;
+                        obj.occupied = true;
+                        return;
+                    }
                 }
             }
+
             searcher.localEulerAngles = new Vector3(0, j, 0);
-            if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, recieve))
+            if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, recieverMask))
             {
                 Debug.Log(searcher.transform.rotation);
                 obj = hit.transform.gameObject.GetComponent<Reciever>();
                 if (obj != null)
                 {
-                    reciever = obj.transform;
-                    found = true;
-                    return;
+                    if (!obj.occupied)
+                    {
+                        reciever = obj.transform;
+                        found = true;
+                        obj.occupied = true;
+                        return;
+                    }
                 }
             }
-            i = i - 0.3f;
-            j = j + 0.3f;
+            i = i + 0.3f;
+            j = j - 0.3f;
         }
 
     }
