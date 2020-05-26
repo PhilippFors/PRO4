@@ -63,7 +63,7 @@ public class Sender : MonoBehaviour
         Vector3 dir = reciever.position - Wall.transform.position;
         Wall.SetActive(true);
         Wall.transform.rotation = Quaternion.LookRotation(dir);
-        float distance = Vector3.Distance(reciever.position, searcher.position);
+        float distance = Vector3.Distance(reciever.position, Wall.transform.position);
         Wall.transform.position += Wall.transform.forward * distance / 2;
         // Wall.transform.localPosition -= new Vector3(0.5f,0,0);
         Wall.transform.localScale = new Vector3(Wall.transform.localScale.x, Wall.transform.localScale.y, distance);
