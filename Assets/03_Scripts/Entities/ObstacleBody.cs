@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class ObstacleBody : MonoBehaviour, IHasHealth
 {
-    public readonly float maxHealth;
+    
     public float health;
     public float regenPause;
     public float regenRate;
     public bool regenerate = false;
-
+    public FloatVariable maxHealth;
+    private void Start()
+    {
+        health = maxHealth.Value;
+    }
     private void Update()
     {
         if (!regenerate)
@@ -38,7 +42,7 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
     public void Heal(float healAmount)
     {
         health += healAmount * Time.deltaTime;
-        if (health >= maxHealth)
+        if (health >= maxHealth.Value)
             regenerate = false;
     }
 }

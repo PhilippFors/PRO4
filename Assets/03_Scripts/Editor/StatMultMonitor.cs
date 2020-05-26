@@ -12,7 +12,7 @@ public class StatMultMonitor : EditorWindow
     Vector2 scrollPosition = Vector2.zero;
     Vector2 enemyScrollPosition = Vector2.zero;
 
-    [MenuItem("Tools/Custom Window/Stat-Mult Monitor")]
+    [MenuItem("Tools/Custom Window/Stat-Mult Runtime Monitor")]
     public static void ShowWindow()
     {
         GetWindow<StatMultMonitor>("Stat-Mult Monitor");
