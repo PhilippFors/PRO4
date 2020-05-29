@@ -17,4 +17,12 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Credits");
     }
+    public void StartMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
