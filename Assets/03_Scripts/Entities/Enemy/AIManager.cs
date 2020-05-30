@@ -7,6 +7,7 @@ using UnityEngine.Jobs;
 using UnityEngine.AI;
 public class AIManager : MonoBehaviour
 {
+    public EnemySet set;
     private void Start()
     {
         EventSystem.instance.activateAI += SetAIActive;
@@ -19,7 +20,13 @@ public class AIManager : MonoBehaviour
     public void SetAIActive(EnemyBody enemy)
     {
         enemy.GetComponent<StateMachineController>().SetAI(true);
+    }
 
+    private void Update()
+    {
+        foreach (EnemyBody enemy in set.entityList){
+            //do something;
+        }
     }
 
 }

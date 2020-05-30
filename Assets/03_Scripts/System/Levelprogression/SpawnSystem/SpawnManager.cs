@@ -6,10 +6,11 @@ public class SpawnManager : MonoBehaviour
 {
     [HideInInspector] public SpawnProcess spawnProcess => GetComponent<SpawnProcess>();
     public float SpawnWaitTime = 4.8f;
-    public List<EnemyBody> enemyCollection = new List<EnemyBody>();
-    public List<EnemyBody> durga = new List<EnemyBody>();
-    public List<EnemyBody> igner = new List<EnemyBody>();
 
+    public EnemySet enemyCollection;
+    public EnemySet durga;
+    public EnemySet igner;
+    
     public bool isSpawning = false;
     public bool areaStarted = false;
     public bool count = false;
@@ -17,7 +18,6 @@ public class SpawnManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
     }
     private void Start()
     {
@@ -36,15 +36,19 @@ public class SpawnManager : MonoBehaviour
 
     public void AddEnemyToList(EnemyBody enemy)
     {
-        SpawnManager.instance.enemyCollection.Add(enemy);
+
+        enemyCollection.Add(enemy);
+        
         string tag = enemy.gameObject.tag;
         switch (tag)
         {
             case "Durga":
-                SpawnManager.instance.durga.Add(enemy);
+
+                durga.Add(enemy);
                 break;
             case "Igner":
-                SpawnManager.instance.igner.Add(enemy);
+
+                igner.Add(enemy);
                 break;
             case "Untagged":
                 Debug.Log("No tag found on " + enemy.gameObject.name);
@@ -53,30 +57,29 @@ public class SpawnManager : MonoBehaviour
     }
     void RemoveEnemyFromList(EnemyBody enemy)
     {
-        int toRemoveIndex = 0;
         string tag = enemy.gameObject.tag;
         switch (tag)
         {
             case "Durga":
-                toRemoveIndex = durga.FindIndex(x => x.GetComponent<EnemyBody>() == enemy);
-                durga.RemoveAt(toRemoveIndex);
+
+                
+                    durga.Remove(enemy);
                 break;
             case "Igner":
-                toRemoveIndex = igner.FindIndex(x => x.GetComponent<EnemyBody>() == enemy);
-                igner.RemoveAt(toRemoveIndex);
+                
+                    igner.Remove(enemy);
                 break;
             case "Untagged":
                 Debug.Log("No tag found on " + enemy.gameObject.name);
                 break;
         }
-        toRemoveIndex = enemyCollection.FindIndex(x => x.GetComponent<EnemyBody>() == enemy);
-        enemyCollection.RemoveAt(toRemoveIndex);
-
+        
+            enemyCollection.Remove(enemy);
     }
 
     void CountEnemies()
     {
-        if (enemyCollection.Count == 0 & count)
+        if (enemyCollection.entityList.Count == 0 & count)
         {
             if (areaStarted)
             {

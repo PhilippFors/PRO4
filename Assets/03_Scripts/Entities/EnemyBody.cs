@@ -6,32 +6,66 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
 {
     public List<GameStatistics> statList { get; set; }
     public List<Multiplier> multList { get; set; }
-    public EnemyTemplate template;
-
+    public StatTemplate statTemplate;
+    public StatTemplate multTemplate;
     public GameObject parent;
-
+    public EnemySet set;
+    [SerializeField] private float currentHealth;
     private void Awake()
     {
         InitStats();
         InitMultiplier();
     }
+
+    #region Init
+    public void InitStats()
+    {
+        statList = new List<GameStatistics>();
+        foreach (FloatReference f in statTemplate.statList)
+        {
+            StatVariable s = (StatVariable)f.Variable;
+            statList.Add(new GameStatistics(f.Value, s.statName));
+        }
+
+        currentHealth = GetStatValue(StatName.MaxHealth);
+    }
+
+    public void InitMultiplier()
+    {
+        multList = new List<Multiplier>();
+        foreach (FloatReference f in multTemplate.statList)
+        {
+            MultVariable s = (MultVariable)f.Variable;
+            multList.Add(new Multiplier(f.Value, s.multiplierName));
+        }
+    }
+
+
+    #endregion
     #region health
-    void CheckHealth(){
-        if(GetStatValue(StatName.health)<= 0){
+    void CheckHealth()
+    {
+        if (currentHealth <= 0)
+        {
             OnDeath();
         }
     }
-    public void CalculateHealth(float damage)
+    public void TakeDamage(float damage)
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
-        calcDamage = damage * (damage / (damage + (GetStatValue(StatName.defense) * GetMultValue(MultiplierName.defense))));
-        SetStatValue(StatName.health, (GetStatValue(StatName.health) - calcDamage));
-        CheckHealth();
+        calcDamage = damage * (damage / (damage + (GetStatValue(StatName.Defense) * GetMultValue(MultiplierName.defense))));
+        // SetStatValue(StatName.MaxHealth, (GetStatValue(StatName.MaxHealth) - calcDamage));
+        
         Debug.Log(gameObject.name + " just took " + calcDamage + " damage.");
-
+        currentHealth -= calcDamage;
+        CheckHealth();
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
 
+    public void Heal(float healAmount)
+    {
+
+    }
     public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
@@ -59,25 +93,14 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     #endregion
 
     #region Stats
-    public void SetStatValue(StatName name, float value)
+    public void SetStatValue(StatName stat, float value)
     {
-        statList.Find(x => x.GetName().Equals(name)).SetValue(value);
+        statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
     }
     public float GetStatValue(StatName stat)
     {
         return statList.Find(x => x.GetName().Equals(stat)).GetValue();
-    }
-    #endregion
 
-    #region Init
-    public void InitStats()
-    {
-        statList = StatInit.InitEnemyStats(template);
-    }
-
-    public void InitMultiplier()
-    {
-        multList = StatInit.InitEnemyMultipliers();
     }
     #endregion
 }

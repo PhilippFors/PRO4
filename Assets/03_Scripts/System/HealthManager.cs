@@ -16,6 +16,6 @@ public class HealthManager : MonoBehaviour
     
     public void DoDamage(IHasHealth entity, float baseDmg)
     {
-        entity.CalculateHealth(baseDmg);
+        entity.TakeDamage(baseDmg);
     }
 }

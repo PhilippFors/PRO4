@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-public enum StatName
+﻿public enum StatName
 {
     undefined,
-    health,
-    speed,
-    range,
-    turnSpeed,
-    defense,
-    attackSpeed
+    MaxHealth,
+    Speed,
+    Range,
+    TurnSpeed,
+    Defense,
+    AttackSpeed,
+    BaseDmg
 }
 public class GameStatistics
 {

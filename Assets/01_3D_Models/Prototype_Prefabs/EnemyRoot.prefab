@@ -286,8 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ef47a098113f544a6d693f9b4676ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  template: {fileID: 11400000, guid: 102e2de9d9373e0488d4755eb328faa8, type: 2}
+  template: {fileID: 11400000, guid: 77a6aa34bf773af4da67fb306207e439, type: 2}
   parent: {fileID: 2605190324806775517}
+  currentHealth: 0
 --- !u!114 &7250835467841483357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +308,7 @@ MonoBehaviour:
   aiActive: 0
   animator: {fileID: 3011181963997447337}
   isGrounded: 1
+  nextMovePosition: {x: 0, y: 0, z: 0}
   deltaTime: 0
   weapon: {fileID: 1144393892354060739}
 --- !u!195 &8995351918121646134

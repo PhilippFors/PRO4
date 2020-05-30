@@ -19,8 +19,6 @@ public class ProgressBarSkills : ProgessBar
         player = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
         skillObject = player.skills[id];
         
-        
-        
     }
     
 

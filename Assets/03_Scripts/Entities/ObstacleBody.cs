@@ -1,27 +1,28 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstacleBody : MonoBehaviour, IHasHealth
 {
-    protected readonly float _maxHealth;
-    protected float _health;
-    protected float _regenPause;
-    protected float _regenRate;
-    protected bool regenerate = false;
-
+    
+    public float health;
+    public float regenPause;
+    public float regenRate;
+    public bool regenerate = false;
+    public FloatVariable maxHealth;
+    private void Start()
+    {
+        health = maxHealth.Value;
+    }
     private void Update()
     {
         if (!regenerate)
             return;
 
-        _health += _regenRate * Time.deltaTime;
-        if (_health >= _maxHealth)
-            regenerate = false;
+        Heal(regenRate);
     }
-    public void CalculateHealth(float damage)
+    public void TakeDamage(float damage)
     {
-        _health -= damage;
+        health -= damage;
         regenerate = false;
         StopCoroutine("RegenerateTimer");
         StartCoroutine("RegenerateTimer");
@@ -34,8 +35,14 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
 
     IEnumerator RegenerateTimer()
     {
-        yield return new WaitForSeconds(_regenPause);
+        yield return new WaitForSeconds(regenPause);
         regenerate = true;
     }
 
+    public void Heal(float healAmount)
+    {
+        health += healAmount * Time.deltaTime;
+        if (health >= maxHealth.Value)
+            regenerate = false;
+    }
 }

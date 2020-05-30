@@ -26,8 +26,6 @@ public class PlayerMovementController
         MouseLook(controller);
     }
 
-
-
     #endregion
 
     #region Movement
@@ -46,7 +44,7 @@ public class PlayerMovementController
 
     void IsGrounded(PlayerStateMachine controller)
     {
-        if (Physics.CheckSphere(controller.transform.position, 1.1f, controller.groundMask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(controller.transform.position + new Vector3 (0, 1f,0), 1.1f, controller.groundMask, QueryTriggerInteraction.Ignore))
         {
             controller.rb.drag = controller.drag;
             controller.isGrounded = true;
