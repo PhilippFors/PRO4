@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Sender : MonoBehaviour
 {
-    private Transform reciever;
+    Transform reciever;
+    public bool active;
     [SerializeField] private Transform searcher;
     [SerializeField] private GameObject Wall;
     public bool found = false;
@@ -40,6 +41,7 @@ public class Sender : MonoBehaviour
                         reciever = obj.transform;
                         found = true;
                         obj.occupied = true;
+                        obj.active = true;
                         return;
                     }
                 }
@@ -57,6 +59,7 @@ public class Sender : MonoBehaviour
                         reciever = obj.transform;
                         found = true;
                         obj.occupied = true;
+                        obj.active = true;
                         return;
                     }
                 }
@@ -66,6 +69,7 @@ public class Sender : MonoBehaviour
         }
 
     }
+
     void BuildWall()
     {
         Vector3 dir = reciever.position - Wall.transform.position;

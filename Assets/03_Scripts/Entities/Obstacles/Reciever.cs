@@ -5,8 +5,10 @@ using UnityEngine;
 public class Reciever : MonoBehaviour
 {
     public bool occupied;
+    public bool active;
     private void Start()
     {
         occupied = false;
+        active = true;
     }
 }
