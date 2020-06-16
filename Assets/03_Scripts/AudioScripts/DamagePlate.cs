@@ -19,7 +19,7 @@ public class DamagePlate : MonoBehaviour
     void Start()
     {
         _material = GetComponent<MeshRenderer>().material;
-       // _color = _material.GetColor("_EmissiveColor");
+        _color = _material.GetColor("_EmissiveColor");
 
        
 
@@ -27,7 +27,7 @@ public class DamagePlate : MonoBehaviour
 
         if (onKick)
         {
-           // EventSystem.instance.Kick += changePlateEmission;
+            EventSystem.instance.Kick += changePlateEmission;
         }
 
         if (deathWall)
@@ -69,7 +69,7 @@ public class DamagePlate : MonoBehaviour
         DOTween.Sequence()
 
             .Append(_material.DOColor(Color.HSVToRGB(H, S, 10, true), "_EmissiveColor", 0.25f))
-            .Join(transform.DOScaleY(120, 0.25f))
+            .Join(transform.DOScaleY(20, 0.25f))
             .Append(_material.DOColor(Color.HSVToRGB(H, S, -5, true), "_EmissiveColor", 0.5f))
             .Join(transform.DOScaleY(1, 0.5f))
             .SetEase(Ease.Flash);
