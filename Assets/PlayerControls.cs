@@ -379,6 +379,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""bcf75fd9-bead-4098-aa10-d1c1739cad9c"",
+                    ""path"": ""<Keyboard>/G"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""GrenadeThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""fa3632cd-0d28-46dd-8875-cc7a9cebe382"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -449,7 +460,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GrenadeReleaser"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""189b8616-b4eb-4792-b219-78ed713bffd5"",
+                    ""path"": ""<Keyboard>/G"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
                     ""action"": ""GrenadeReleaser"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

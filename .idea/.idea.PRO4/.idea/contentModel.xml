@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Alex\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Alex\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_PRO4.2145416697.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.2145416697.00" t="ExcludeRecursive" />
     <e p="C:\Users\Alex\Desktop\FH-Hagenberg\4.Semester\Pro4" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
@@ -12,6 +12,7 @@
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
             <e p="AR_Light.cs" t="Include" />
+            <e p="DamagePlate.cs" t="Include" />
             <e p="FMODScripts" t="Include">
               <e p="AR_AudioEmission.cs" t="Include" />
               <e p="AudioCube.cs" t="Include" />
@@ -22,15 +23,26 @@
               <e p="uiSpectrum.cs" t="Include" />
             </e>
             <e p="TestCubeAudioMove.cs" t="Include" />
+            <e p="TestLaserTween.cs" t="Include" />
+          </e>
+          <e p="Debugging" t="Include">
+            <e p="SpawnDebugging.cs" t="Include" />
+          </e>
+          <e p="Editor" t="Include">
+            <e p="AddTemplate.cs" t="Include" />
+            <e p="EditTemplate.cs" t="Include" />
+            <e p="RestartArea.cs" t="Include" />
+            <e p="SOTemplateEditor.cs" t="Include" />
+            <e p="StatMultMonitor.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
             <e p="Enemy" t="Include">
               <e p="AIManager.cs" t="Include" />
               <e p="DisableCols.cs" t="Include" />
+              <e p="DoAttack.cs" t="Include" />
               <e p="Durga" t="Include">
                 <e p="EnemyTestWeapon.cs" t="Include" />
-                <e p="MoveObstacle.cs" t="Include" />
-                <e p="Scripts" t="Include">
+                <e p="StateMachineScripts" t="Include">
                   <e p="Actions" t="Include">
                     <e p="DurgaAttackAction.cs" t="Include" />
                     <e p="DurgaChaseAction.cs" t="Include" />
@@ -42,7 +54,6 @@
                   </e>
                 </e>
               </e>
-              <e p="EnemyTemplate.cs" t="Include" />
               <e p="PluggableStatemachine" t="Include">
                 <e p="BaseScripts" t="Include">
                   <e p="Action.cs" t="Include" />
@@ -61,6 +72,10 @@
             <e p="Obstacles" t="Include">
               <e p="ARLaser.cs" t="Include" />
               <e p="DeathBlockTrigger.cs" t="Include" />
+              <e p="MoveObstacle.cs" t="Include" />
+              <e p="ObstacleMaster.cs" t="Include" />
+              <e p="Reciever.cs" t="Include" />
+              <e p="Sender.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
               <e p="AnimatorScripts" t="Include">
@@ -71,6 +86,10 @@
               <e p="CameraController.cs" t="Include" />
               <e p="Grenade.cs" t="Include" />
               <e p="PlayerAttack.cs" t="Include" />
+              <e p="PlayerAttackStates" t="Include">
+                <e p="AttackStateMachine.cs" t="Include" />
+                <e p="AttackStates.cs" t="Include" />
+              </e>
               <e p="PlayerController" t="Include">
                 <e p="AttackState.cs" t="Include" />
                 <e p="DashMovementController.cs" t="Include" />
@@ -79,16 +98,10 @@
                 <e p="PlayerStateMachine.cs" t="Include" />
               </e>
               <e p="PlayerController.cs" t="Include" />
-              <e p="PlayerTemplate.cs" t="Include" />
               <e p="PlayerTestWeapon.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
             </e>
             <e p="PlayerBody.cs" t="Include" />
-          </e>
-          <e p="Interfaces" t="Include">
-            <e p="IHasHealth.cs" t="Include" />
-            <e p="IMultipliers.cs" t="Include" />
-            <e p="IStats.cs" t="Include" />
           </e>
           <e p="PrototypeScripts" t="Include">
             <e p="AttackNorth_1.cs" t="Include" />
@@ -109,21 +122,35 @@
               <e p="LevelEventSystem.cs" t="Include" />
             </e>
             <e p="GameDataStructures" t="Include">
+              <e p="Enums" t="Include">
+                <e p="StatEnums.cs" t="Include" />
+              </e>
+              <e p="FloatReference.cs" t="Include" />
+              <e p="FloatVariable.cs" t="Include" />
               <e p="GameStatistics.cs" t="Include" />
               <e p="Multiplier.cs" t="Include" />
-              <e p="StatInit.cs" t="Include" />
+              <e p="MultVariable.cs" t="Include" />
+              <e p="StatTemplate.cs" t="Include" />
+              <e p="StatVariable.cs" t="Include" />
             </e>
             <e p="HealthManager.cs" t="Include" />
+            <e p="Interfaces" t="Include">
+              <e p="IHasHealth.cs" t="Include" />
+              <e p="IMultipliers.cs" t="Include" />
+              <e p="IStats.cs" t="Include" />
+            </e>
             <e p="Levelprogression" t="Include">
               <e p="LevelManager.cs" t="Include" />
               <e p="Spawnpointstuff" t="Include">
                 <e p="Area.cs" t="Include" />
-                <e p="InSceneSO.cs" t="Include" />
                 <e p="Level.cs" t="Include" />
+                <e p="SceneLevelData.cs" t="Include" />
                 <e p="Spawnpoint.cs" t="Include" />
                 <e p="Wave.cs" t="Include" />
               </e>
               <e p="SpawnSystem" t="Include">
+                <e p="EnemySet.cs" t="Include" />
+                <e p="EntitySet.cs" t="Include" />
                 <e p="SpawnManager.cs" t="Include" />
                 <e p="SpawnProcess.cs" t="Include" />
               </e>
@@ -138,6 +165,9 @@
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="UIManager.cs" t="Include" />
           </e>
         </e>
         <e p="07_NavMeshComponents" t="Include">
@@ -157,6 +187,20 @@
         </e>
         <e p="PlayerControls.cs" t="Include" />
         <e p="Plugins" t="Include">
+          <e p="Demigiant" t="Include">
+            <e p="DOTween" t="Include">
+              <e p="Modules" t="Include">
+                <e p="DOTweenModuleAudio.cs" t="Include" />
+                <e p="DOTweenModulePhysics.cs" t="Include" />
+                <e p="DOTweenModulePhysics2D.cs" t="Include" />
+                <e p="DOTweenModuleSprite.cs" t="Include" />
+                <e p="DOTweenModuleUI.cs" t="Include" />
+                <e p="DOTweenModuleUnityVersion.cs" t="Include" />
+                <e p="DOTweenModuleUtils.cs" t="Include" />
+              </e>
+              <e p="readme.txt" t="Include" />
+            </e>
+          </e>
           <e p="FMOD" t="Include">
             <e p="addons" t="Include">
               <e p="ResonanceAudio" t="Include">
@@ -224,8 +268,30 @@
               </e>
             </e>
           </e>
+          <e p="Mirza Beig" t="Include">
+            <e p="_DOCS" t="Include">
+              <e p="README - Inferno VFX.txt" t="Include" />
+            </e>
+            <e p="Particle Systems" t="Include">
+              <e p="_Common" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="_Demo" t="Include">
+                    <e p="DemoManager.cs" t="Include" />
+                    <e p="FPSDisplay.cs" t="Include" />
+                    <e p="FPSTest.cs" t="Include" />
+                    <e p="LoopingParticleSystemsManager.cs" t="Include" />
+                    <e p="MouseFollow.cs" t="Include" />
+                    <e p="OneshotParticleSystemsManager.cs" t="Include" />
+                    <e p="ParticleManager.cs" t="Include" />
+                  </e>
+                  <e p="AnimatedLight.cs" t="Include" />
+                  <e p="CameraShake.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
         </e>
-        <e p="RestartArea.cs" t="Include" />
+        <e p="RotateCam.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
