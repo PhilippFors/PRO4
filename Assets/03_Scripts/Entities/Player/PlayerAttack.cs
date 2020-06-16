@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] public List<Skills> skills = new List<Skills>();
 
     private GameObject _child; //the weapon object
-    public float comboCounter = 0;
+    public int comboCounter = 0;
 
     public GameObject grenadePrefab;
 
@@ -23,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
     
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
+    
     
 
     [SerializeField] private float moveSpeed = 5f;
@@ -50,8 +51,8 @@ public class PlayerAttack : MonoBehaviour
     {
         input = new PlayerControls();
 
-        input.Gameplay.LeftAttack.performed += rt => Attack(0);
-        input.Gameplay.RightAttack.performed += rt => Attack(1);
+        //input.Gameplay.LeftAttack.performed += rt => Attack(0);
+        //input.Gameplay.RightAttack.performed += rt => Attack(1);
         input.Gameplay.GrenadeThrow.performed += rt => AimMove();
         input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
         input.Gameplay.Skill1.performed += rt => Skill(0);
@@ -129,8 +130,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void GrenadeThrow()
     {
-        
-        GameObject grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+        GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
         StartCoroutine(SimulateProjectile(grenade));
         EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
         
@@ -145,7 +146,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator SimulateProjectile(GameObject grenade)
     {
         // Short delay added before Projectile is thrown
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
        
         // Move projectile to the position of throwing object + add some offset if needed.
         //grenade.transform.position = myTransform.position + new Vector3(0, 0.0f, 0);

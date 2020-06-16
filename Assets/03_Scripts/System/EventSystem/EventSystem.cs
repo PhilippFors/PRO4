@@ -15,6 +15,7 @@ public class EventSystem : MonoBehaviour
     public event System.Action Kick;
     public event System.Action Bass;
     public event System.Action AimGrenade;
+    public event System.Action ThrowGrenade;
     public event System.Action Explode;
 
     /*private static EventSystem _instance;
@@ -95,6 +96,11 @@ public class EventSystem : MonoBehaviour
     public void OnGrenadeAim()
     {
         AimGrenade();
+    }
+
+    public void onGrenadeRelease()
+    {
+        
     }
 
     public void OnExplode()

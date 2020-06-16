@@ -34,7 +34,7 @@ public class PlayerStateMachine : MonoBehaviour
     // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
     [HideInInspector] public float deltaTime;
     [HideInInspector] public float time;
-    public float moveSpeed = 5.0f, grenadeMoveSpeed = 6.0f, standardMoveSpeed = 8.0f, dashValue, dashValueTime, maxDashValue;
+    public float moveSpeed = 5.0f, grenadeMove = 3.0f, standardMoveSpeed = 8.0f, dashValue, dashValueTime, maxDashValue;
     public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
 
     #endregion
@@ -52,6 +52,8 @@ public class PlayerStateMachine : MonoBehaviour
     GrenadeMovementController grenadeController;
     private AttackState attackController;
 
+    public PlayerAttack target => GetComponent<PlayerAttack>();
+
     #endregion
 
     private void Awake()
@@ -63,6 +65,7 @@ public class PlayerStateMachine : MonoBehaviour
         grenadeController = new GrenadeMovementController(this);
 
         input.Gameplay.Dash.performed += ctx => SetState(PlayerMovmentSate.dash);
+        
     }
 
     private void OnEnable()
@@ -108,6 +111,7 @@ public class PlayerStateMachine : MonoBehaviour
         move = input.Gameplay.Movement.ReadValue<Vector2>();
         gamepadRotate = input.Gameplay.Rotate.ReadValue<Vector2>();
         mouseLook = input.Gameplay.Look.ReadValue<Vector2>();
+        
     }
 
     private void FixedUpdate()
@@ -128,6 +132,9 @@ public class PlayerStateMachine : MonoBehaviour
             case PlayerMovmentSate.standard:
                 ResetMoveSpeed();
                 break;
+            case PlayerMovmentSate.grenade:
+                GrenadeMoveSpeed();
+                break;
         }
         currentState = state;
     }
@@ -143,6 +150,11 @@ public class PlayerStateMachine : MonoBehaviour
     public void Attack()
     {
         attackController.StopMovement(this);
+    }
+
+    void GrenadeMoveSpeed()
+    {
+        moveSpeed = grenadeMove;
     }
 
 }
