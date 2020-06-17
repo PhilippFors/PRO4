@@ -7,9 +7,18 @@ public class DamagePlate : MonoBehaviour
 {
 
     private Material _material;
+    private float defaultLength;
+
+
     public bool onKick;
+    public bool onBass;
 
     public bool deathWall;
+    public bool damagePlate;
+
+
+    public float lengthOfLaser;
+
 
     Color _color;
     float H, S, V;
@@ -19,7 +28,7 @@ public class DamagePlate : MonoBehaviour
     void Start()
     {
         _material = GetComponent<MeshRenderer>().material;
-       // _color = _material.GetColor("_EmissiveColor");
+        _color = _material.GetColor("EmissionRedColor");
 
        
 
@@ -32,7 +41,18 @@ public class DamagePlate : MonoBehaviour
 
         if (deathWall)
         {
-            EventSystem.instance.Kick += triggerDeathWall;
+            if (onKick)
+                EventSystem.instance.Kick += triggerDeathWall;
+            else if (onBass)
+                EventSystem.instance.Bass += triggerDeathWall;
+           
+            defaultLength = transform.localScale.y;
+
+        }
+
+        if (damagePlate)
+        {
+             EventSystem.instance.Kick += changePlateEmission;
         }
 
     }
@@ -51,8 +71,8 @@ public class DamagePlate : MonoBehaviour
 
 
         DOTween.Sequence()
-            .Append(_material.DOColor(Color.HSVToRGB(H, S, 10, true), "_EmissiveColor", 0.25f))
-            .Append(_material.DOColor(Color.HSVToRGB(H, S,-5, true), "_EmissiveColor", 0.25f))
+            .Append(_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))
+            .Append(_material.DOColor(Color.HSVToRGB(H, S,-10, true), "EmissionRedColor", 0.25f))
             .SetEase(Ease.Flash);
 
     
@@ -69,9 +89,9 @@ public class DamagePlate : MonoBehaviour
         DOTween.Sequence()
 
             .Append(_material.DOColor(Color.HSVToRGB(H, S, 10, true), "_EmissiveColor", 0.25f))
-            .Join(transform.DOScaleY(120, 0.25f))
+            .Join(transform.DOScaleY(lengthOfLaser, 0.25f))
             .Append(_material.DOColor(Color.HSVToRGB(H, S, -5, true), "_EmissiveColor", 0.5f))
-            .Join(transform.DOScaleY(1, 0.5f))
+            .Join(transform.DOScaleY(defaultLength, 0.5f))
             .SetEase(Ease.Flash);
 
 
