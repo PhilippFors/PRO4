@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 public class SpawnProcess : MonoBehaviour
 {   
     
     private Wave wave;
+    public AIManager manager;
     private static int SpawnIndex;
     private List<SpawnPoint> Spawnpoints = new List<SpawnPoint>();
     public void StartSpawnAnim(Wave w)
@@ -25,6 +27,8 @@ public class SpawnProcess : MonoBehaviour
     public void Spawn()
     {
         EnemyBody enemy = Instantiate(Spawnpoints[SpawnIndex].prefab, Spawnpoints[SpawnIndex].point.position, Spawnpoints[SpawnIndex].point.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
+        enemy.GetComponent<StateMachineController>().settings = manager;
+        SceneManager.MoveGameObjectToScene(enemy.gameObject, SceneManager.GetSceneByName("AI_Prototype"));
         enemy.GetComponent<Animation>().Play("Entry");
         SpawnManager.instance.AddEnemyToList(enemy);
         StartCoroutine(WaitForAnimation(enemy));

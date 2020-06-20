@@ -126,7 +126,8 @@ MonoBehaviour:
   currentWave: 0
   currentArea: 0
   level0: {fileID: 4068044928732438912}
-  levelData: []
+  levelData:
+  - {fileID: 4068044928732438912}
   levels:
   - {fileID: 0}
 --- !u!1 &3016386617398075710
@@ -187,7 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5dabe0d4bd4434fb6c328f1a62fba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playertag: Player
   set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
+  durgaSet: {fileID: 0}
+  minDistance: 0
+  avoidDistance: 6
+  rayAmount: 100
 --- !u!114 &3016386617398075721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3016386617689796663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1896622, y: -0.18786201, z: 1.1434997}
+  m_LocalPosition: {x: 0.5648518, y: -0.18786201, z: 1.1434997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 537976613570928071}
@@ -295,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994a2aaa7a0fbc843b9cc692cea1f2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 3016386617398075697}
 --- !u!114 &3016386617689796662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,8 +343,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cedbd03be80526419ae982c7a8fb896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 3016386617398075697}
   set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
-  prefab: {fileID: 2076079792687854352, guid: 1b61b4130f4d1e84f98e136714e59790, type: 3}
+  prefab: {fileID: 7334783191702041907, guid: 5b74d1ee6920f9045b5bcbc5e03a16b2, type: 3}
+  setActive: 0
   spawnEnable: 0
 --- !u!1 &3016386618586033153
 GameObject:

@@ -11,15 +11,17 @@ public class AttackDecision : Decision
 
     public bool CheckForPlayer(StateMachineController controller)
     {
-        if (Vector3.Distance(controller.target.position, controller.transform.position) > controller.enemystats.GetStatValue(StatName.Range))
+        if (Vector3.Distance(controller.target.position, controller.transform.position) > controller.enemyStats.GetStatValue(StatName.Range))
         {
             // controller.animator.SetTrigger("cancel");
-            controller.weapon.isAttacking = false;
-            controller.agent.isStopped = false;
+
+            controller.actions.Walk(controller);
             return false;
 
         }
-        controller.agent.isStopped = true;
+
+        controller.actions.StopWalking(controller);
+
         return true;
     }
 }

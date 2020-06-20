@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class OnExitState : ScriptableObject
 {
-   public abstract void Execute(StateMachineController contorller);
+   public abstract void Execute(StateMachineController controller);
 }

@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 public class SpawnDebugging : MonoBehaviour
 {
+    public AIManager manager;
     public EnemySet set;
     public GameObject prefab;
+    public bool setActive;
     public bool spawnEnable = false;
     private void Update()
-    {
+    {   
+        if(setActive)
+            SetActive();
+
         if (!spawnEnable)
             return;
 
@@ -29,11 +35,19 @@ public class SpawnDebugging : MonoBehaviour
                 Vector3 rayPoint = cameraRay.GetPoint(rayLength);
                 //Debug.DrawLine(cameraRay.origin, rayPoint);
                 EnemyBody enemy = Instantiate(prefab, rayPoint, Quaternion.Euler(Vector3.forward)).gameObject.GetComponentInChildren<EnemyBody>();
+                enemy.GetComponent<StateMachineController>().settings = manager;
                 enemy.gameObject.GetComponent<Animation>().enabled =false;
-                enemy.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                enemy.gameObject.GetComponent<StateMachineController>().enabled = false;
+                enemy.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                enemy.gameObject.GetComponent<StateMachineController>().enabled = true;
                 set.Add(enemy);
             }
         }
+    }
+
+    public void SetActive(){
+        
+            foreach(EnemyBody enemy in set.entityList)
+                EventSystem.instance.ActivateAI(enemy);
+        
     }
 }

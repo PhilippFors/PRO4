@@ -5,26 +5,32 @@ using UnityEngine.AI;
 
 public class StateMachineController : MonoBehaviour
 {
-    public string playertag = "Player";
-    [HideInInspector] public EnemyBody enemystats => GetComponent<EnemyBody>();
-    public State currentState;
-    public State remainState;
-    public State startState;
-    [SerializeField] private bool aiActive = false;
-    public Transform target { get; private set; }
-    public Animator animator;
-    public bool isGrounded = true;
+    [HideInInspector] public EnemyBody enemyStats => GetComponent<EnemyBody>();
+    [HideInInspector] public NavMeshAgent agent => GetComponent<NavMeshAgent>();
+    [HideInInspector] public IEnemyActions actions => GetComponent<IEnemyActions>();
+    [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
+    [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
+    [HideInInspector] public AIManager settings;
+    [SerializeField] private bool aiActive = false, isGrounded = true;
+    [HideInInspector] public Transform target;
     Vector3 velocity;
-    LayerMask groundMask => LayerMask.GetMask("Ground");
-    public Vector3 nextMovePosition;
-    public float deltaTime;
-    public NavMeshAgent agent => GetComponent<NavMeshAgent>();
-    public EnemyTestWeapon weapon;
-
+    [HideInInspector] public Vector3 currentPos;
+    [HideInInspector] public float deltaTime;
+    public Transform RayEmitter;
+    public State currentState;
+    public State startState;
+    public State remainState;
+    public Transition[] anyTransitions;
+    public Vector3 cachedRayemitterrot;
+    public Vector3 seperationHeading;
+    public bool avoidDirection;
+    public bool checkedAmount;
+    public Vector3 offsetTargetPos;
     void Update()
-    {   
+    {
         deltaTime = Time.deltaTime;
-        if (!aiActive){
+        if (!aiActive)
+        {
             agent.isStopped = true;
             return;
         }
@@ -34,7 +40,27 @@ public class StateMachineController : MonoBehaviour
 
         currentState.StateUpdate(this);
 
+        CheckAnyTransitions(this);
+
         IsGrounded();
+    }
+
+    private void CheckAnyTransitions(StateMachineController controller)
+    {
+        if (anyTransitions.Length == 0)
+            return;
+
+        foreach (Transition transition in anyTransitions)
+        {
+            if (transition.decision.Execute(controller))
+            {
+                controller.SwitchStates(transition.trueState);
+            }
+            else
+            {
+                controller.SwitchStates(transition.falseState);
+            }
+        }
     }
 
     private void OnEnable()
@@ -45,9 +71,10 @@ public class StateMachineController : MonoBehaviour
     {
         aiActive = active;
     }
+
     void IsGrounded()
     {
-        if (Physics.CheckSphere(transform.position + new Vector3(0, -0.005f, 0), 1f, groundMask, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(transform.position + new Vector3(0, 0.9f, 0), 1f, groundMask, QueryTriggerInteraction.Ignore))
         {
             isGrounded = true;
             velocity = Vector3.zero;
@@ -75,8 +102,8 @@ public class StateMachineController : MonoBehaviour
     {
         if (FindObjectOfType<PlayerBody>() != null)
             target = FindObjectOfType<PlayerBody>().GetComponent<Transform>();
-        else if (GameObject.FindGameObjectWithTag(playertag) != null)
-            target = GameObject.FindGameObjectWithTag(playertag).GetComponent<Transform>();
+        else if (GameObject.FindGameObjectWithTag(settings.playertag) != null)
+            target = GameObject.FindGameObjectWithTag(settings.playertag).GetComponent<Transform>();
         else
             Debug.LogError("Could not find Player!");
     }

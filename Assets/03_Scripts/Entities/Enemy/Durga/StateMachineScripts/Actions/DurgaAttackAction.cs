@@ -11,8 +11,7 @@ public class DurgaAttackAction : Action
 
     private void Attack(StateMachineController controller)
     {
-        controller.weapon.isAttacking = true;
-        controller.animator.SetInteger("Sequenz1", 1);
+        Debug.Log("He attack");
     }
 
 

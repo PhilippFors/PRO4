@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 2694225643979038837}
   - component: {fileID: 2694225643979038856}
   - component: {fileID: 2694225643979038859}
+  - component: {fileID: 1410799743}
   m_Layer: 11
   m_Name: Player 1
   m_TagString: Player
@@ -93,7 +94,7 @@ MonoBehaviour:
   deltaTime: 0
   time: 0
   moveSpeed: 5
-  grenadeMoveSpeed: 6
+  grenadeMove: 3
   standardMoveSpeed: 8
   dashValue: 0
   dashValueTime: 0
@@ -135,6 +136,20 @@ CapsuleCollider:
   m_Height: 2.0510776
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1410799743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694225643979038836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de527f503ac3184429180d9e84ee55f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  template: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
+  currentHealth: {fileID: 11400000, guid: 7aa13f19c163f504d99c94d8437c9aee, type: 2}
 --- !u!1001 &2694225642719427606
 PrefabInstance:
   m_ObjectHideFlags: 0

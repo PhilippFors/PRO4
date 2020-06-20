@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 5d7fdc56cc3ea1e48a141f1ab8684e1f, type: 2}
 --- !u!1001 &225415370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,21 +188,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scripts
       objectReference: {fileID: 0}
-    - target: {fileID: 3016386617375203206, guid: 7ab2ec0b09864e046aba10e445d9af44,
+    - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
-      propertyPath: levelData.Array.size
-      value: 1
+      propertyPath: rayAmount
+      value: 50
       objectReference: {fileID: 0}
-    - target: {fileID: 3016386617375203206, guid: 7ab2ec0b09864e046aba10e445d9af44,
+    - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
-      propertyPath: levelData.Array.data[0]
+      propertyPath: separationWeight
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: avoidDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: selfAvoidDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: playerTarget
       value: 
-      objectReference: {fileID: 1750803052}
-    - target: {fileID: 3016386617689796683, guid: 7ab2ec0b09864e046aba10e445d9af44,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5648518
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2694225642568382475}
     - target: {fileID: 4068044928732438912, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: levelInfo
@@ -211,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 4770899273923203546, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: spawnEnable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
@@ -262,26 +272,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1410799742 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2694225643979038836, guid: 5d3c85b1c426810409b9a5b014550c61,
-    type: 3}
-  m_PrefabInstance: {fileID: 2694225642568382474}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1410799743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1410799742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de527f503ac3184429180d9e84ee55f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  template: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
-  currentHealth: {fileID: 11400000, guid: 7aa13f19c163f504d99c94d8437c9aee, type: 2}
 --- !u!114 &1476026287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,18 +294,6 @@ MonoBehaviour:
       - prefab: {fileID: 2076079792687854352, guid: 1b61b4130f4d1e84f98e136714e59790,
           type: 3}
         Point: {fileID: 0}
---- !u!114 &1750803052 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4068044928732438912, guid: 7ab2ec0b09864e046aba10e445d9af44,
-    type: 3}
-  m_PrefabInstance: {fileID: 225415370}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b35bf32f752874c88358269dde6177, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1913961248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -427,35 +405,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2694225643979038836, guid: 5d3c85b1c426810409b9a5b014550c61,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.6
+      value: -0.86
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.1
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
@@ -484,3 +467,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+--- !u!4 &2694225642568382475 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
+    type: 3}
+  m_PrefabInstance: {fileID: 2694225642568382474}
+  m_PrefabAsset: {fileID: 0}

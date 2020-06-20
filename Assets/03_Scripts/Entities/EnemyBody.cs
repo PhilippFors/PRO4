@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyBody : MonoBehaviour, IStats, IMultipliers
 {
@@ -69,7 +70,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
-        Destroy(parent);
+        Destroy(this.gameObject.GetComponentInParent<Transform>());
     }
     #endregion
 
@@ -77,6 +78,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void SetMultValue(MultiplierName name, float value)
     {
         multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
+        
     }
     public float GetMultValue(MultiplierName name)
     {
@@ -96,6 +98,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void SetStatValue(StatName stat, float value)
     {
         statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
+        
     }
     public float GetStatValue(StatName stat)
     {
