@@ -11,7 +11,7 @@ public class AIManager : MonoBehaviour
     public float minDistance;
     public Transform playerTarget;
     public float avoidDistance = 5f;
-    public float selfAvoidDistance = 3f;
+    public float obstacleAvoidDistance = 2f;
     public int rayAmount = 100;
 
     public float separationWeight = 0.5f;

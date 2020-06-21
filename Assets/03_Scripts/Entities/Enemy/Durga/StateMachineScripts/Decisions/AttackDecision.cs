@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 [CreateAssetMenu(menuName = "PluggableAI/Durga/Decision/ChaseOrAttack")]
 public class AttackDecision : Decision
 {
@@ -16,11 +17,13 @@ public class AttackDecision : Decision
             // controller.animator.SetTrigger("cancel");
 
             controller.actions.Walk(controller);
+            controller.agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
             return false;
-
         }
 
         controller.actions.StopWalking(controller);
+
+        controller.agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
         return true;
     }

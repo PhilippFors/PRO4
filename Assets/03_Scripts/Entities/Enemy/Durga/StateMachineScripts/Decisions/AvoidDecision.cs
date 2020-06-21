@@ -23,8 +23,9 @@ public class AvoidDecision : Decision
         if (Vector3.Distance(controller.target.position, controller.transform.position) < controller.settings.avoidDistance)
         {
             dir = controller.target.position - controller.transform.position;
+            dir = dir.normalized;
             RaycastHit hit;
-            if (Physics.SphereCast(controller.transform.position, 1f, dir, out hit, 3f, controller.enemyMask))
+            if (Physics.SphereCast(controller.transform.position, 0.5f, dir, out hit, 3f, controller.enemyMask))
             {
                 Debug.DrawRay(controller.transform.position, dir, Color.yellow);
                 
@@ -33,5 +34,4 @@ public class AvoidDecision : Decision
         }
         return false;
     }
-
 }

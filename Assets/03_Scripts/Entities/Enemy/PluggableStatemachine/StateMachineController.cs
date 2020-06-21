@@ -11,21 +11,24 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public AIManager settings;
+    public AISteering steering;
     [SerializeField] private bool aiActive = false, isGrounded = true;
     [HideInInspector] public Transform target;
     Vector3 velocity;
-    [HideInInspector] public Vector3 currentPos;
     [HideInInspector] public float deltaTime;
     public Transform RayEmitter;
     public State currentState;
     public State startState;
     public State remainState;
     public Transition[] anyTransitions;
-    public Vector3 cachedRayemitterrot;
-    public Vector3 seperationHeading;
     public bool avoidDirection;
     public bool checkedAmount;
     public Vector3 offsetTargetPos;
+
+    private void Start()
+    {
+        steering = new AISteering();
+    }
     void Update()
     {
         deltaTime = Time.deltaTime;
