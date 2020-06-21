@@ -7,21 +7,21 @@ public class OnAvoidStateEnter : OnEnterState
 {
     public override void Execute(StateMachineController controller)
     {
-        Vector3 dir = controller.target.position - controller.transform.position;
+        Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
         Vector3 newDir = dir;
         int rightAmount = 0;
         int leftAmount = 0;
         for (int i = 0; i < 5; i++)
         {
             newDir.y += 5f;
-            RaycastHit[] amount = Physics.SphereCastAll(controller.transform.position, 1f, dir, 5f, controller.enemyMask);
+            RaycastHit[] amount = Physics.SphereCastAll(controller.transform.position, 1f, dir, 5f, controller.settings.enemyMask);
             rightAmount += amount.Length;
         }
         newDir = dir;
         for (int i = 0; i < 5; i++)
         {
             newDir.y -= 5f;
-            RaycastHit[] amount = Physics.SphereCastAll(controller.transform.position, 1f, dir, 5f, controller.enemyMask);
+            RaycastHit[] amount = Physics.SphereCastAll(controller.transform.position, 1f, dir, 5f, controller.settings.enemyMask);
             leftAmount += amount.Length;
         }
 

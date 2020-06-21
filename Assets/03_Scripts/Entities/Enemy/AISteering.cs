@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class AISteering
 {
-    public Vector3 GetSteering(Vector3 dir, StateMachineController controller)
+    public Vector3 AvoidanceSteering(Vector3 dir, StateMachineController controller)
     {
         RaycastHit hit;
 
         if (!FindObstacle(dir, out hit, controller))
         {
-            return controller.target.position;
+            return controller.settings.playerTarget.position;
         }
 
-        Vector3 targetpos = controller.target.position;
+        Vector3 targetpos = controller.settings.playerTarget.position;
 
         float angle = Vector3.Angle(dir * controller.deltaTime, hit.normal);
         if (angle > 165f)
@@ -28,7 +28,7 @@ public class AISteering
         return Seek(targetpos, controller);
     }
 
-    public Vector3 Seek(Vector3 targetPosition, StateMachineController controller)
+    Vector3 Seek(Vector3 targetPosition, StateMachineController controller)
     {
         Vector3 acceleration = SteerTowards(targetPosition, controller);
 
@@ -47,20 +47,20 @@ public class AISteering
     {
         dir = dir.normalized;
 
-        Vector3[] dirs = new Vector3[11];
+        Vector3[] dirs = new Vector3[controller.settings.whiskerAmount];
         dirs[0] = dir;
 
         float orientation = VectorToOrientation(dir);
         float angle = orientation;
-        for (int i = 1; i < 6; i++)
+        for (int i = 1; i < (dirs.Length+1)/2; i++)
         {
-            angle += 10f;
+            angle += controller.settings.angleIncrement;
             dirs[i] = OrientationToVector(orientation + angle * Mathf.Deg2Rad);
         }
         angle = orientation;
-        for (int i = 6; i <dirs.Length; i++)
+        for (int i = (dirs.Length+1)/2; i <dirs.Length; i++)
         {
-            angle -= 10f;
+            angle -= controller.settings.angleIncrement;
             dirs[i] = OrientationToVector(orientation - angle * Mathf.Deg2Rad);
         }
         return CastWhiskers(dirs, out hit, controller);
@@ -73,11 +73,11 @@ public class AISteering
 
         for (int i = 0; i < dirs.Length; i++)
         {
-            float dist = (i == 0) ? 4f : 2f;
+            float dist = (i == 0) ? controller.settings.mainWhiskerL : controller.settings.secondaryWhiskerL;
 
             RaycastHit hit;
 
-            if (Physics.Raycast(controller.RayEmitter.position, dirs[i],out hit, 4f, controller.enemyMask))
+            if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, dist, controller.settings.enemyMask))
             {
                 foundObs = true;
                 firsthit = hit;
@@ -87,12 +87,12 @@ public class AISteering
         return foundObs;
     }
 
-    public static Vector3 OrientationToVector(float orientation)
+    static Vector3 OrientationToVector(float orientation)
     {
         return new Vector3(Mathf.Cos(-orientation), 0, Mathf.Sin(-orientation));
     }
 
-    public static float VectorToOrientation(Vector3 direction)
+    static float VectorToOrientation(Vector3 direction)
     {
         return -1 * Mathf.Atan2(direction.z, direction.x);
     }

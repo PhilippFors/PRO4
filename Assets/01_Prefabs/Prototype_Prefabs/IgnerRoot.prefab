@@ -53,21 +53,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 0}
+  offsetTargetPos: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  deltaTime: 0
+  avoidDirection: 0
+  checkedAmount: 0
   aiActive: 0
   isGrounded: 1
-  target: {fileID: 0}
-  currentPos: {x: 0, y: 0, z: 0}
-  deltaTime: 0
   RayEmitter: {fileID: 6971192665590756750}
   currentState: {fileID: 11400000, guid: 10936313c8eec7c4888a090f7eb93d96, type: 2}
   startState: {fileID: 11400000, guid: 10936313c8eec7c4888a090f7eb93d96, type: 2}
   remainState: {fileID: 11400000, guid: 76edd8e69f1b931409415a7597b5f84e, type: 2}
   anyTransitions: []
-  cachedRayemitterrot: {x: 0, y: 0, z: 0}
-  seperationHeading: {x: 0, y: 0, z: 0}
-  avoidDirection: 0
-  checkedAmount: 0
-  offsetTargetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &8486124376828296188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +104,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1419840226080090113}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.83
+  m_Radius: 0.8
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50

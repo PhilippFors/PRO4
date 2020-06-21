@@ -7,7 +7,7 @@ public class GetOutofIdleDecision : Decision
 {
     public override bool Execute(StateMachineController controller)
     {
-        if (controller.target != null)
+        if (controller.settings.playerTarget != null)
         {
             controller.agent.isStopped = false;
             return true;

@@ -126,10 +126,8 @@ MonoBehaviour:
   currentWave: 0
   currentArea: 0
   level0: {fileID: 4068044928732438912}
-  levelData:
-  - {fileID: 4068044928732438912}
-  levels:
-  - {fileID: 0}
+  levelData: []
+  levels: []
 --- !u!1 &3016386617398075710
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,12 +186,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5dabe0d4bd4434fb6c328f1a62fba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playertag: Player
+  searchPlayerTag: Player
   set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
-  durgaSet: {fileID: 0}
-  minDistance: 0
-  avoidDistance: 6
-  rayAmount: 100
+  durgaSet: {fileID: 11400000, guid: d8762f34ae67bcf40ada5da7325b9449, type: 2}
+  playerTarget: {fileID: 0}
+  avoidDistance: 5
+  obstacleAvoidDistance: 2
+  mainWhiskerL: 2
+  secondaryWhiskerL: 1.5
+  angleIncrement: 10
+  whiskerAmount: 11
 --- !u!114 &3016386617398075721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947154799dbf1c846807ceb97aed81f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
+  set: {fileID: 0}
 --- !u!1 &3016386617689796663
 GameObject:
   m_ObjectHideFlags: 0

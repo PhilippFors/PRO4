@@ -26,7 +26,8 @@ public class AvoidAction : Action
 
         // Vector3 meanDir = new Vector3(((offsetToTarget.x + collisionAvoidDir.x) / 2), 0, ((offsetToTarget.z + collisionAvoidDir.z) / 2));
 
-        controller.agent.destination = controller.steering.GetSteering(controller.transform.forward, controller);
+        controller.agent.destination = controller.steering.AvoidanceSteering(controller.transform.forward, controller);
+        
 
         Vector3 moveTo = controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
 

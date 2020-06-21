@@ -5,30 +5,43 @@ using UnityEngine.AI;
 
 public class StateMachineController : MonoBehaviour
 {
+    #region "Variables"
     [HideInInspector] public EnemyBody enemyStats => GetComponent<EnemyBody>();
     [HideInInspector] public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     [HideInInspector] public IEnemyActions actions => GetComponent<IEnemyActions>();
-    [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
-    [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public AIManager settings;
-    public AISteering steering;
-    [SerializeField] private bool aiActive = false, isGrounded = true;
-    [HideInInspector] public Transform target;
-    Vector3 velocity;
+    [HideInInspector] public AISteering steering;
+    [HideInInspector] public Vector3 offsetTargetPos;
+    [HideInInspector] public Transform ObstacleTarget;
     [HideInInspector] public float deltaTime;
+    [HideInInspector] public bool avoidDirection;
+    [HideInInspector] public bool checkedAmount;
+
+    [SerializeField] private bool aiActive = false, isGrounded = true;
+
     public Transform RayEmitter;
     public State currentState;
     public State startState;
     public State remainState;
     public Transition[] anyTransitions;
-    public bool avoidDirection;
-    public bool checkedAmount;
-    public Vector3 offsetTargetPos;
+
+    #endregion
 
     private void Start()
     {
         steering = new AISteering();
     }
+
+    private void OnEnable()
+    {
+        aiActive = false;
+    }
+
+    public void SetAI(bool active)
+    {
+        aiActive = active;
+    }
+
     void Update()
     {
         deltaTime = Time.deltaTime;
@@ -66,28 +79,14 @@ public class StateMachineController : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        aiActive = false;
-    }
-    public void SetAI(bool active)
-    {
-        aiActive = active;
-    }
-
     void IsGrounded()
     {
-        if (Physics.CheckSphere(transform.position + new Vector3(0, 0.9f, 0), 1f, groundMask, QueryTriggerInteraction.Ignore))
-        {
-            isGrounded = true;
-            velocity = Vector3.zero;
-        }
-        else
+        Vector3 velocity = Vector3.zero;
+        if (!Physics.CheckSphere(transform.position + new Vector3(0, 0.9f, 0), 1f, settings.groundMask, QueryTriggerInteraction.Ignore))
         {
             isGrounded = false;
             velocity.y = Physics.gravity.y * Time.deltaTime;
         }
-
         transform.position += velocity;
     }
 
@@ -99,15 +98,5 @@ public class StateMachineController : MonoBehaviour
             currentState = nextState;
             currentState.StateEnter(this);
         }
-    }
-
-    public void FindPlayer()
-    {
-        if (FindObjectOfType<PlayerBody>() != null)
-            target = FindObjectOfType<PlayerBody>().GetComponent<Transform>();
-        else if (GameObject.FindGameObjectWithTag(settings.playertag) != null)
-            target = GameObject.FindGameObjectWithTag(settings.playertag).GetComponent<Transform>();
-        else
-            Debug.LogError("Could not find Player!");
     }
 }

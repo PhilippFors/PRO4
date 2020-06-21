@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class EnemyBody : MonoBehaviour, IStats, IMultipliers
 {
@@ -10,7 +9,6 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public StatTemplate statTemplate;
     public StatTemplate multTemplate;
     public GameObject parent;
-    public EnemySet set;
     [SerializeField] private float currentHealth;
     private void Awake()
     {
@@ -56,7 +54,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
         calcDamage = damage * (damage / (damage + (GetStatValue(StatName.Defense) * GetMultValue(MultiplierName.defense))));
         // SetStatValue(StatName.MaxHealth, (GetStatValue(StatName.MaxHealth) - calcDamage));
-        
+
         Debug.Log(gameObject.name + " just took " + calcDamage + " damage.");
         currentHealth -= calcDamage;
         CheckHealth();
@@ -78,7 +76,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void SetMultValue(MultiplierName name, float value)
     {
         multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
-        
+
     }
     public float GetMultValue(MultiplierName name)
     {
@@ -98,7 +96,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void SetStatValue(StatName stat, float value)
     {
         statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
-        
+
     }
     public float GetStatValue(StatName stat)
     {
