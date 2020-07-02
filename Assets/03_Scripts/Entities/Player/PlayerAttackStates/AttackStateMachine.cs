@@ -6,100 +6,105 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.PlayerLoop;
 
+public enum States
+{
+    attackState,
+    waitState,
+    returnState,
+    nonattack
+}
+
+
 namespace _03_Scripts.Entities.Player.PlayerAttackStates
 {
     public class AttackStateMachine : MonoBehaviour
     {
-        public List<AttackStates> attackStates;
-        public AttackStates currentState;
+        public List<AttackSO> attacks;
+        public AttackSO currentAttack;
+        public State currentState;
         public PlayableDirector director;
         [HideInInspector] public PlayerControls input;
-        private bool returnPlayed = false;
-        public bool canAttack = true;
-        public float attackTime = 2;
+        private float timer = 0;
+        private int counter = 0;
         private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        public AttackSO baseAttack;
+        public State baseState;
 
         private void Awake()
         {
             input = new PlayerControls();
 
-            input.Gameplay.LeftAttack.performed += ctx => SetState(0);
-            input.Gameplay.RightAttack.performed += ctx => SetState(1);
+            input.Gameplay.LeftAttack.performed += ctx => Attack(0);
+            input.Gameplay.RightAttack.performed += ctx => Attack(1);
             director = gameObject.GetComponent<PlayableDirector>();
         }
 
         private void OnEnable()
         {
             input.Enable();
-            director.stopped += Comboing;
+            
         }
 
         private void OnDisable()
         {
             input.Disable();
-            director.stopped -= Comboing;
+            
         }
 
         private void Start()
         {
-            currentState = attackStates[0];
+            currentAttack = baseAttack;
+            currentState = baseState;
         }
 
-        private void SetState(int stateID)
-        {
-            if (stateID != null && canAttack)
+        private void Attack(int stateID) {
+            if (currentState.canAttack || currentAttack == baseAttack)
             {
-                EventSystem.instance.OnSetState(PlayerMovmentSate.attack);
-                canAttack = false;
-                currentState = currentState.nextStates[stateID];
-                director.Play(currentState.anim);
-                StopCoroutine("Timer");
-                if (attack.skills.Contains(currentState.skill) && attack.comboCounter >= 4)
+                counter = 0;
+                currentAttack = currentAttack.nextAttacks[stateID];
+                SetState(currentAttack.stateList[0]);
+                if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= 4)
                 {
-                    int a = attack.skills.IndexOf(currentState.skill);
+                    int a = attack.skills.IndexOf(currentAttack.skill);
                     attack.skills[a].current += 2;
                     attack.comboCounter = 0;
                 }
-
-                returnPlayed = false;
             }
         }
 
+        private void SetState(State state)
+        {
+            currentState = state;
+            timer = 0;
+            director.Play(currentState.anim);
+            EventSystem.instance.OnSetState(currentState.movementState);
+
+        }
+        
+        
         public void Update()
         {
-            if (director.state != PlayState.Playing)
+            timer += Time.deltaTime;
+            if (timer >= currentState.anim.duration && currentState != baseState)
             {
-                canAttack = true;
+                if ((counter + 1) == currentAttack.stateList.Count)
+                {
+                    attack.comboCounter = 0;
+                    currentState = baseState;
+                    currentAttack = baseAttack;
+                    counter = 0;
+                    EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
+                    
+                }
+                else
+                {
+                    counter++;
+                    SetState(currentAttack.stateList[counter]); 
+
+                }
+               
             }
-        }
-
-
-        private void ReturnAnim()
-        {
-            director.Play(currentState.returnAnim);
-            currentState = attackStates[0];
-            returnPlayed = true;
-            attack.comboCounter = 0;
-
-
-            EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
-        }
-
-        private void Comboing(PlayableDirector a)
-        {
-            if (director == a && !returnPlayed)
-            {
-                canAttack = true;
-                StartCoroutine("Timer");
-            }
-        }
-
-        IEnumerator Timer()
-        {
-            yield return new WaitForSecondsRealtime(attackTime);
-            canAttack = false;
-            ReturnAnim();
-            yield return null;
+            
         }
     }
 }

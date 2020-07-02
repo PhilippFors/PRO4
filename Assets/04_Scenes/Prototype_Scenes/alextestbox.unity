@@ -299,6 +299,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraFollowSpeed: 5
+--- !u!114 &314362037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6dcca6713e3b84fa63fa15d7dc417d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lvlID: 0
+  areas: []
 --- !u!1 &377334566
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,13 +445,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdce7a876d34478d93a1d78ee78a760f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStates:
-  - {fileID: 11400000, guid: 735854f6df8342d4a8471615d35bd008, type: 2}
-  - {fileID: 0}
+  attacks: []
+  currentAttack: {fileID: 0}
   currentState: {fileID: 0}
   director: {fileID: 0}
-  canAttack: 1
-  attackTime: 2
+  baseAttack: {fileID: 11400000, guid: 010d8e2af4d0f8a45aa46480872e1d93, type: 2}
+  baseState: {fileID: 11400000, guid: 1f4ad10dc66ada94cb6e1ccc92409e62, type: 2}
 --- !u!1 &398868725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,7 +1844,6 @@ MonoBehaviour:
   statTemplate: {fileID: 11400000, guid: 77a6aa34bf773af4da67fb306207e439, type: 2}
   multTemplate: {fileID: 11400000, guid: 77a6aa34bf773af4da67fb306207e439, type: 2}
   parent: {fileID: 0}
-  set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
   currentHealth: 20
 --- !u!1 &973199071 stripped
 GameObject:
@@ -6222,20 +6234,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6111844125345197341}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1825130838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae6dcca6713e3b84fa63fa15d7dc417d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lvlID: 0
-  areas: []
 --- !u!4 &1835258037 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3495788946500092831, guid: ed76753b6f7cc374f8afc3852c59a4b2,

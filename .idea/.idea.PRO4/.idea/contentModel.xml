@@ -11,8 +11,11 @@
       <e p="Assets" t="Include">
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
+            <e p="AR_beaconWall.cs" t="Include" />
+            <e p="AR_damagePlate.cs" t="Include" />
             <e p="AR_Light.cs" t="Include" />
-            <e p="DamagePlate.cs" t="Include" />
+            <e p="AR_scaler.cs" t="Include" />
+            <e p="AudioHurdles.cs" t="Include" />
             <e p="FMODScripts" t="Include">
               <e p="AR_AudioEmission.cs" t="Include" />
               <e p="AudioCube.cs" t="Include" />
@@ -33,27 +36,36 @@
             <e p="EditTemplate.cs" t="Include" />
             <e p="RestartArea.cs" t="Include" />
             <e p="SOTemplateEditor.cs" t="Include" />
+            <e p="StateEditor.cs" t="Include" />
             <e p="StatMultMonitor.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
             <e p="Enemy" t="Include">
               <e p="AIManager.cs" t="Include" />
+              <e p="AISteering.cs" t="Include" />
               <e p="DisableCols.cs" t="Include" />
-              <e p="DoAttack.cs" t="Include" />
               <e p="Durga" t="Include">
+                <e p="DurgaAnimator.cs" t="Include" />
                 <e p="EnemyTestWeapon.cs" t="Include" />
                 <e p="StateMachineScripts" t="Include">
                   <e p="Actions" t="Include">
+                    <e p="AvoidAction.cs" t="Include" />
                     <e p="DurgaAttackAction.cs" t="Include" />
                     <e p="DurgaChaseAction.cs" t="Include" />
                     <e p="IdleAction.cs" t="Include" />
                   </e>
                   <e p="Decisions" t="Include">
                     <e p="AttackDecision.cs" t="Include" />
+                    <e p="AvoidDecision.cs" t="Include" />
                     <e p="GetOutofIdleDecision.cs" t="Include" />
+                  </e>
+                  <e p="OnStateEnterExit" t="Include">
+                    <e p="OnAvoidStateEnter.cs" t="Include" />
+                    <e p="OnAvoidStateExit.cs" t="Include" />
                   </e>
                 </e>
               </e>
+              <e p="IEnemyActions.cs" t="Include" />
               <e p="PluggableStatemachine" t="Include">
                 <e p="BaseScripts" t="Include">
                   <e p="Action.cs" t="Include" />
@@ -87,8 +99,9 @@
               <e p="Grenade.cs" t="Include" />
               <e p="PlayerAttack.cs" t="Include" />
               <e p="PlayerAttackStates" t="Include">
+                <e p="AttackSO.cs" t="Include" />
                 <e p="AttackStateMachine.cs" t="Include" />
-                <e p="AttackStates.cs" t="Include" />
+                <e p="State.cs" t="Include" />
               </e>
               <e p="PlayerController" t="Include">
                 <e p="AttackState.cs" t="Include" />
@@ -111,7 +124,6 @@
             <e p="Door.cs" t="Include" />
             <e p="Downer.cs" t="Include" />
             <e p="Gapper.cs" t="Include" />
-            <e p="Reticle.cs" t="Include" />
             <e p="Teleport.cs" t="Include" />
             <e p="TimeStretch.cs" t="Include" />
             <e p="Upscale.cs" t="Include" />
@@ -122,9 +134,6 @@
               <e p="LevelEventSystem.cs" t="Include" />
             </e>
             <e p="GameDataStructures" t="Include">
-              <e p="Enums" t="Include">
-                <e p="StatEnums.cs" t="Include" />
-              </e>
               <e p="FloatReference.cs" t="Include" />
               <e p="FloatVariable.cs" t="Include" />
               <e p="GameStatistics.cs" t="Include" />
@@ -170,7 +179,7 @@
             <e p="UIManager.cs" t="Include" />
           </e>
         </e>
-        <e p="07_NavMeshComponents" t="Include">
+        <e p="08_NavMeshComponents" t="Include">
           <e p="Editor" t="Include">
             <e p="NavMeshComponentsGUIUtility.cs" t="Include" />
             <e p="NavMeshLinkEditor.cs" t="Include" />
