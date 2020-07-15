@@ -16,25 +16,30 @@ public class PlayerStateMachine : MonoBehaviour
 
     [HideInInspector] public Vector3 currentMoveDirection, currentLookDirection;
     [HideInInspector] public Vector3 forward, right, pointToLook;
-    public Vector2 move;
-    public Vector2 gamepadRotate;
-    public Vector2 mouseLook;
+    [HideInInspector] public Vector2 move;
+    [HideInInspector] public Vector2 gamepadRotate;
+    [HideInInspector] public Vector2 mouseLook;
+    public Vector3 velocity = Vector3.zero;
+
     #endregion
 
     #region __________bool__________
 
     [HideInInspector] public bool isAiming, mouseused, gamepadused;
-    public bool isGrounded = true;
-    public bool checkEnemy = false;
+    [HideInInspector] public bool isGrounded = true;
+    [HideInInspector] public bool checkEnemy = false;
+    public bool isMoving = false;
 
     #endregion
 
     #region __________float__________
 
     // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
+    [Header("Settings")]
     [HideInInspector] public float deltaTime;
     [HideInInspector] public float time;
-    public float moveSpeed = 5.0f, grenadeMove = 3.0f, standardMoveSpeed = 8.0f, dashValue, dashValueTime, maxDashValue;
+
+    public float currentMoveSpeed = 5.0f, grenadeMoveSpeed = 3.0f, standardMoveSpeed = 8.0f, dashValue, dashValueTime, maxDashValue;
     public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
 
     #endregion
@@ -50,8 +55,9 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerMovementController standardMovement;
     DashMovementController dashController;
     GrenadeMovementController grenadeController;
-    private AttackState attackController;
 
+    private AttackState attackController;
+    GroundChecker groundChecker => GetComponent<GroundChecker>();
     public PlayerAttack target => GetComponent<PlayerAttack>();
 
     #endregion
@@ -65,7 +71,8 @@ public class PlayerStateMachine : MonoBehaviour
         grenadeController = new GrenadeMovementController(this);
 
         input.Gameplay.Dash.performed += ctx => SetState(PlayerMovmentSate.dash);
-        
+        input.Gameplay.Movement.performed += ctx => IsMoving();
+        input.Gameplay.Movement.canceled += ctx => IsNotMoving();
     }
 
     private void OnEnable()
@@ -77,16 +84,18 @@ public class PlayerStateMachine : MonoBehaviour
         input.Disable();
         EventSystem.instance.SetState -= SetState;
     }
-    
+
     private void Start()
     {
         SetState(PlayerMovmentSate.standard);
         EventSystem.instance.SetState += SetState;
     }
+
     void Update()
     {
         time = Time.time;
         deltaTime = Time.deltaTime;
+        IsGrounded();
         GetInputValues();
         switch (currentState)
         {
@@ -111,14 +120,49 @@ public class PlayerStateMachine : MonoBehaviour
         move = input.Gameplay.Movement.ReadValue<Vector2>();
         gamepadRotate = input.Gameplay.Rotate.ReadValue<Vector2>();
         mouseLook = input.Gameplay.Look.ReadValue<Vector2>();
-        
+    }
+
+    void IsMoving()
+    {
+        isMoving = true;
+    }
+
+    void IsNotMoving()
+    {
+        isMoving = false;
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + currentMoveDirection.normalized * moveSpeed * Time.fixedDeltaTime);
+        CheckSlope();
+
+        rb.MovePosition(transform.position + Vector3.Normalize(currentMoveDirection + velocity) * currentMoveSpeed * Time.fixedDeltaTime);
     }
 
+    public void IsGrounded()
+    {
+        if (Physics.CheckSphere(transform.position + new Vector3(0, 1f, 0), 1.01f, groundMask, QueryTriggerInteraction.Ignore))
+        {
+            rb.drag = drag;
+            isGrounded = true;
+        }
+        else
+        {
+            rb.drag = 0;
+            isGrounded = false;
+        }
+    }
+
+    void CheckSlope()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.3f, groundMask))
+        {
+            velocity = new Vector3(0, -hit.distance, 0);
+        }
+        if (!isMoving)
+            velocity = Vector3.zero;
+    }
     public void SetState(PlayerMovmentSate state)
     {
         switch (state)
@@ -138,8 +182,9 @@ public class PlayerStateMachine : MonoBehaviour
         }
         currentState = state;
     }
-    void ResetMoveSpeed(){
-        moveSpeed = standardMoveSpeed;
+    void ResetMoveSpeed()
+    {
+        currentMoveSpeed = standardMoveSpeed;
     }
 
     public void StartDash()
@@ -154,7 +199,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void GrenadeMoveSpeed()
     {
-        moveSpeed = grenadeMove;
+        currentMoveSpeed = grenadeMoveSpeed;
     }
 
 }
