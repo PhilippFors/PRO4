@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace _03_Scripts.Entities.Player
 {
-    [CreateAssetMenu(fileName = "FILENAME", menuName = "Weapon", order = 0)]
-    public class Weapons : ScriptableObject
+    public class Weapons : MonoBehaviour
     {
-        public List<AttackSO> attacks;
-        public GameObject weapon;
+        public List<AttackSO> attacks = new List<AttackSO>();
+        public int damage;
     }
 }

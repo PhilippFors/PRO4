@@ -121,6 +121,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)""
+                },
+                {
+                    ""name"": ""WeaponSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""860ffea1-ebda-4ca1-b6b5-59385a92a9df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)""
                 }
             ],
             ""bindings"": [
@@ -475,6 +483,44 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""GrenadeReleaser"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb8d1d9e-4a53-4b65-b1f9-d20fa0eb97d6"",
+                    ""path"": ""<Keyboard>/Z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""WeaponSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""New action map"",
+            ""id"": ""e18a87e5-b7cf-472e-bb52-12a680308cf5"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c51ee1e-74c4-40c1-ac61-76f329a9fcdd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1b310fa6-3f7b-47d5-824d-cdc1155673e2"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -524,6 +570,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Skill4 = m_Gameplay.FindAction("Skill4", throwIfNotFound: true);
         m_Gameplay_GrenadeThrow = m_Gameplay.FindAction("GrenadeThrow", throwIfNotFound: true);
         m_Gameplay_GrenadeReleaser = m_Gameplay.FindAction("GrenadeReleaser", throwIfNotFound: true);
+        m_Gameplay_WeaponSwitch = m_Gameplay.FindAction("WeaponSwitch", throwIfNotFound: true);
+        // New action map
+        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
+        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -586,6 +636,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Skill4;
     private readonly InputAction m_Gameplay_GrenadeThrow;
     private readonly InputAction m_Gameplay_GrenadeReleaser;
+    private readonly InputAction m_Gameplay_WeaponSwitch;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -603,6 +654,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Skill4 => m_Wrapper.m_Gameplay_Skill4;
         public InputAction @GrenadeThrow => m_Wrapper.m_Gameplay_GrenadeThrow;
         public InputAction @GrenadeReleaser => m_Wrapper.m_Gameplay_GrenadeReleaser;
+        public InputAction @WeaponSwitch => m_Wrapper.m_Gameplay_WeaponSwitch;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -651,6 +703,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @GrenadeReleaser.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrenadeReleaser;
                 @GrenadeReleaser.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrenadeReleaser;
                 @GrenadeReleaser.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrenadeReleaser;
+                @WeaponSwitch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWeaponSwitch;
+                @WeaponSwitch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWeaponSwitch;
+                @WeaponSwitch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWeaponSwitch;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -694,10 +749,46 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @GrenadeReleaser.started += instance.OnGrenadeReleaser;
                 @GrenadeReleaser.performed += instance.OnGrenadeReleaser;
                 @GrenadeReleaser.canceled += instance.OnGrenadeReleaser;
+                @WeaponSwitch.started += instance.OnWeaponSwitch;
+                @WeaponSwitch.performed += instance.OnWeaponSwitch;
+                @WeaponSwitch.canceled += instance.OnWeaponSwitch;
             }
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // New action map
+    private readonly InputActionMap m_Newactionmap;
+    private INewactionmapActions m_NewactionmapActionsCallbackInterface;
+    private readonly InputAction m_Newactionmap_Newaction;
+    public struct NewactionmapActions
+    {
+        private @PlayerControls m_Wrapper;
+        public NewactionmapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
+        public void SetCallbacks(INewactionmapActions instance)
+        {
+            if (m_Wrapper.m_NewactionmapActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
     private int m_GamepadSchemeIndex = -1;
     public InputControlScheme GamepadScheme
     {
@@ -731,5 +822,10 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSkill4(InputAction.CallbackContext context);
         void OnGrenadeThrow(InputAction.CallbackContext context);
         void OnGrenadeReleaser(InputAction.CallbackContext context);
+        void OnWeaponSwitch(InputAction.CallbackContext context);
+    }
+    public interface INewactionmapActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

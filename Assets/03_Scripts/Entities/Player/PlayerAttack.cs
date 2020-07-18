@@ -12,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
     PlayerControls input;
 
     [SerializeField] public List<Weapons> weapons = new List<Weapons>(2);
+    public Weapons currentWeapon;
+    public int currentWeaponCounter = 1;
     public Transform weaponPoint;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
@@ -62,6 +64,7 @@ public class PlayerAttack : MonoBehaviour
         input.Gameplay.Skill1.performed += rt => Skill(0);
         input.Gameplay.Skill2.performed += rt => Skill(1);
         input.Gameplay.Skill3.performed += rt => Skill(2);
+        input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
     }
 
     private void Reset()
@@ -70,6 +73,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        currentWeapon = weapons[currentWeaponCounter];
+        
         _child = gameObject.transform.GetChild(0).gameObject; //first child object of the player
         //EventSystem.instance.AimGrenade += AimMove;
 
@@ -203,13 +208,34 @@ public class PlayerAttack : MonoBehaviour
 
     void SetCurrentWeapon()
     {
-        weapons[0].weapon.GetComponentInChildren<Transform>().transform.position = weaponPoint.position;
-        weapons[0].weapon.GetComponentInChildren<Transform>().transform.rotation = weaponPoint.rotation;
+        weapons[0].GetComponentInChildren<Transform>().transform.position = weaponPoint.position;
+        weapons[0].GetComponentInChildren<Transform>().transform.rotation = weaponPoint.rotation;
         
     }
 
     void ChangeWeapon()
     {
-        
+        weapons[currentWeaponCounter - 1].enabled = false;
+        currentWeaponCounter++;
+        if (currentWeaponCounter > weapons.Count)
+        {
+            currentWeaponCounter = 1;
+        }
+        weapons[currentWeaponCounter - 1].enabled = true;
+        currentWeapon = weapons[currentWeaponCounter - 1];
+
+
+
+
+        /*if (currentWeapon == weapons[0])
+        {
+            weapons[1].enabled = true;
+            weapons[0].enabled = false;
+        }
+        else
+        {
+            weapons[1].enabled = false;
+            weapons[0].enabled = true;
+        }*/
     }
 }
