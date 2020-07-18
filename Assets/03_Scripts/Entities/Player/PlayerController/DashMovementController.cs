@@ -28,7 +28,7 @@ public class DashMovementController
         controller.checkEnemy = true;
         controller.dashValue = 0f;
 
-        velocity = Vector3.Scale(controller.currentMoveDirection.normalized, controller.dashDistance * new Vector3((Mathf.Log
+        velocity = Vector3.Scale(Vector3.Normalize(controller.currentMoveDirection + controller.velocity), controller.dashDistance * new Vector3((Mathf.Log
         (1f / (controller.deltaTime * controller.rb.drag + 1)) / -controller.deltaTime),
         controller.transform.position.y,
         (Mathf.Log(1f / (controller.deltaTime * controller.rb.drag + 1)) / -controller.deltaTime)));

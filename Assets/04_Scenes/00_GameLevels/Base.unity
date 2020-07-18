@@ -303,6 +303,11 @@ PrefabInstance:
       propertyPath: orthographic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
+        type: 3}
+      propertyPath: cameraFollowSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -367,6 +372,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: sphereCastDistance
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: raycastLength
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: startDistanceFromBottom
+      value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: castingMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: sphereCastRadius
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: rayOriginOffset1.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027655080, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+      propertyPath: showDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038836, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_Name
@@ -375,17 +408,17 @@ PrefabInstance:
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.86
+      value: -48.32
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.05
+      value: -8.938
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5
+      value: -1.36
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038858, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}

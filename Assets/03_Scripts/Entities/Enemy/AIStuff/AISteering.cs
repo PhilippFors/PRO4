@@ -52,13 +52,13 @@ public class AISteering
 
         float orientation = VectorToOrientation(dir);
         float angle = orientation;
-        for (int i = 1; i < (dirs.Length+1)/2; i++)
+        for (int i = 1; i < (dirs.Length + 1) / 2; i++)
         {
             angle += controller.settings.angleIncrement;
             dirs[i] = OrientationToVector(orientation + angle * Mathf.Deg2Rad);
         }
         angle = orientation;
-        for (int i = (dirs.Length+1)/2; i <dirs.Length; i++)
+        for (int i = (dirs.Length + 1) / 2; i < dirs.Length; i++)
         {
             angle -= controller.settings.angleIncrement;
             dirs[i] = OrientationToVector(orientation - angle * Mathf.Deg2Rad);
@@ -69,8 +69,6 @@ public class AISteering
     bool CastWhiskers(Vector3[] dirs, out RaycastHit firsthit, StateMachineController controller)
     {
         firsthit = new RaycastHit();
-        bool foundObs = false;
-
         for (int i = 0; i < dirs.Length; i++)
         {
             float dist = (i == 0) ? controller.settings.mainWhiskerL : controller.settings.secondaryWhiskerL;
@@ -79,12 +77,11 @@ public class AISteering
 
             if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, dist, controller.settings.enemyMask))
             {
-                foundObs = true;
                 firsthit = hit;
-                break;
+                return true;
             }
         }
-        return foundObs;
+        return false;
     }
 
     static Vector3 OrientationToVector(float orientation)
