@@ -17,7 +17,6 @@ public class EventSystem : MonoBehaviour
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
-
     /*private static EventSystem _instance;
     public static EventSystem instance
     {
@@ -30,6 +29,7 @@ public class EventSystem : MonoBehaviour
     public event Action<EnemyBody> onEnemyDeath;
     public event Action<EnemyBody> activateAI;
     public static EventSystem instance;
+
     private void Awake()
     {
         instance = this;
@@ -88,8 +88,9 @@ public class EventSystem : MonoBehaviour
             onEnemyDeath(enemy);
     }
 
-    public void ActivateAI(EnemyBody enemy){
-        if(activateAI != null)
+    public void ActivateAI(EnemyBody enemy)
+    {
+        if (activateAI != null)
             activateAI(enemy);
     }
 
@@ -100,7 +101,6 @@ public class EventSystem : MonoBehaviour
 
     public void onGrenadeRelease()
     {
-        
     }
 
     public void OnExplode()
@@ -112,4 +112,5 @@ public class EventSystem : MonoBehaviour
     {
         SetState(state);
     }
+    
 }

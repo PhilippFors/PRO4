@@ -24,7 +24,7 @@ public class PlayerMovementController
     {
         Move(controller);
         GamepadLook(controller);
-        MouseLook(controller);
+        MouseLook(controller); 
     }
 
     #endregion

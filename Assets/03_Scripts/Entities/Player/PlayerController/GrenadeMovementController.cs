@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +34,8 @@ public class GrenadeMovementController
     public void Tick(PlayerStateMachine controller)
     {
         Move(controller);
+        TargetMove(controller);
+        TargetPosition(controller);
     }
 
     #endregion
@@ -43,16 +45,6 @@ public class GrenadeMovementController
     void Move(PlayerStateMachine controller)
     {
         IsGrounded(controller);
-        target = controller.target.target;
-        Vector2 targetMove = controller.gamepadRotate;
-        Vector3 targetDirection = new Vector3(targetMove.x, 0, targetMove.y);
-
-        Vector3 targetHorizMovement = targetRight * targetDirection.x;
-        Vector3 targetVertikMovement = targetForward * targetDirection.z;
-
-        targetCurrentMoveDirection = targetHorizMovement + targetVertikMovement;
-        target.transform.position =
-            target.transform.position + targetCurrentMoveDirection * targetMoveSpeed * Time.deltaTime;
 
         Vector2 move = controller.move;
         Vector3 direction = new Vector3(move.x, 0, move.y);
@@ -61,6 +53,52 @@ public class GrenadeMovementController
         Vector3 vertikMovement = controller.forward * direction.z;
 
         controller.currentMoveDirection = horizMovement + vertikMovement;
+    }
+
+    void TargetMove(PlayerStateMachine controller)
+    {
+        if (controller.input.Gameplay.Rotate.triggered || controller.gamepadused)
+        {
+            controller.gamepadused = true;
+            controller.mouseused = false;
+
+            target = controller.target.target;
+            Vector2 targetMove = controller.gamepadRotate;
+            Vector3 targetDirection = new Vector3(targetMove.x, 0, targetMove.y);
+
+            Vector3 targetHorizMovement = targetRight * targetDirection.x;
+            Vector3 targetVertikMovement = targetForward * targetDirection.z;
+
+            targetCurrentMoveDirection = targetHorizMovement + targetVertikMovement;
+            target.transform.position = 
+                target.transform.position + targetCurrentMoveDirection * targetMoveSpeed * Time.deltaTime;
+        }
+    }
+
+    public void TargetPosition(PlayerStateMachine controller)
+    {
+        if (controller.input.Gameplay.Look.triggered || controller.mouseused)
+        {
+            controller.gamepadused = false;
+            controller.mouseused = true;
+            target = controller.target.target;
+            Vector3 temp = MousePosition();
+            target.transform.position = new Vector3(temp.x, 1, temp.z);
+        }
+    }
+
+    public Vector3 MousePosition()
+    {
+        groundPlane = new Plane(Vector3.up, 0f);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        float dist;
+        if (groundPlane.Raycast(ray, out dist))
+        {
+            return ray.GetPoint(dist);
+        }
+
+        return Vector3.zero;
     }
 
     #endregion

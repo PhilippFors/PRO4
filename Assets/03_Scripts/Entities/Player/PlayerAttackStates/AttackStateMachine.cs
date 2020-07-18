@@ -19,14 +19,16 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
 {
     public class AttackStateMachine : MonoBehaviour
     {
-        public List<AttackSO> attacks;
         public AttackSO currentAttack;
         public State currentState;
         public PlayableDirector director;
         [HideInInspector] public PlayerControls input;
-        private float timer = 0;
-        private int counter = 0;
+        private float animTimer = 0;
+        private int stateCounter = 0;
+        public float maxRot = 45;
         private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        private static PlayerMovmentSate movementState => GameObject.FindGameObjectWithTag("Player")
+            .GetComponent<PlayerStateMachine>().currentState;
         public AttackSO baseAttack;
         public State baseState;
 
@@ -57,25 +59,37 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
             currentState = baseState;
         }
 
-        private void Attack(int stateID) {
-            if (currentState.canAttack || currentAttack == baseAttack)
+        private void Attack(int stateID)
+        {
+           
+            if (movementState.Equals(PlayerMovmentSate.standard))
             {
-                counter = 0;
-                currentAttack = currentAttack.nextAttacks[stateID];
-                SetState(currentAttack.stateList[0]);
-                if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= 4)
+                if (currentState.canAttack || currentAttack == baseAttack)
                 {
-                    int a = attack.skills.IndexOf(currentAttack.skill);
-                    attack.skills[a].current += 2;
-                    attack.comboCounter = 0;
+                    stateCounter = 0;
+                    currentAttack = currentAttack.nextAttacks[stateID];
+                    SetState(currentAttack.stateList[0]);
+                
+                
+                    if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= 4)
+                    {
+                        int a = attack.skills.IndexOf(currentAttack.skill);
+                        attack.skills[a].current += 2;
+                        attack.comboCounter = 0;
+                    }
                 }
             }
+          
         }
 
         private void SetState(State state)
         {
             currentState = state;
-            timer = 0;
+            animTimer = 0;
+            /*if (state.maxRot != null)
+            {
+                maxRot = state.maxRot;
+            }*/
             director.Play(currentState.anim);
             EventSystem.instance.OnSetState(currentState.movementState);
 
@@ -84,22 +98,22 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
         
         public void Update()
         {
-            timer += Time.deltaTime;
-            if (timer >= currentState.anim.duration && currentState != baseState)
+            animTimer += Time.deltaTime;
+            if (animTimer >= currentState.anim.duration && currentState != baseState)
             {
-                if ((counter + 1) == currentAttack.stateList.Count)
+                if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
                 {
                     attack.comboCounter = 0;
                     currentState = baseState;
                     currentAttack = baseAttack;
-                    counter = 0;
-                    EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
-                    
+                    stateCounter = 0;
+                    //maxRot = 0;
+
                 }
                 else
                 {
-                    counter++;
-                    SetState(currentAttack.stateList[counter]); 
+                    stateCounter++;
+                    SetState(currentAttack.stateList[stateCounter]); 
 
                 }
                

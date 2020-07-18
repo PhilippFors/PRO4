@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using _03_Scripts.Entities.Player;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityScript.Lang;
@@ -9,6 +10,9 @@ using UnityScript.Lang;
 public class PlayerAttack : MonoBehaviour
 {
     PlayerControls input;
+
+    [SerializeField] public List<Weapons> weapons = new List<Weapons>(2);
+    public Transform weaponPoint;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
 
@@ -20,21 +24,20 @@ public class PlayerAttack : MonoBehaviour
     public GameObject targetPrefab;
 
     public GameObject target;
-    
+
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
-    
-    
+
 
     [SerializeField] private float moveSpeed = 5f;
     //  public Vector3 currentDirection;
 
 
-   
     public GameObject AudioPeer;
     public static FMODUnity.StudioEventEmitter emitter;
-
-   
+    
+    private static PlayerMovmentSate movementState => GameObject.FindGameObjectWithTag("Player")
+        .GetComponent<PlayerStateMachine>().currentState;
 
 
     private void OnEnable()
@@ -50,6 +53,7 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         input = new PlayerControls();
+        SetCurrentWeapon();
 
         //input.Gameplay.LeftAttack.performed += rt => Attack(0);
         //input.Gameplay.RightAttack.performed += rt => Attack(1);
@@ -58,7 +62,6 @@ public class PlayerAttack : MonoBehaviour
         input.Gameplay.Skill1.performed += rt => Skill(0);
         input.Gameplay.Skill2.performed += rt => Skill(1);
         input.Gameplay.Skill3.performed += rt => Skill(2);
-        
     }
 
     private void Reset()
@@ -69,15 +72,13 @@ public class PlayerAttack : MonoBehaviour
     {
         _child = gameObject.transform.GetChild(0).gameObject; //first child object of the player
         //EventSystem.instance.AimGrenade += AimMove;
-        
+
 
         emitter = AudioPeer.GetComponent<FMODUnity.StudioEventEmitter>();
         foreach (Skills skill in skills)
         {
             skill.current = 0;
         }
-        
-      
     }
 
     public Skills SkillInit(string name, float current, float max, float timer)
@@ -125,87 +126,90 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        
     }
 
     public void GrenadeThrow()
     {
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
-        GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
-        StartCoroutine(SimulateProjectile(grenade));
-        EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
-        
+        if (movementState.Equals(PlayerMovmentSate.grenade))
+        {
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
+            StartCoroutine(SimulateProjectile(grenade));
+            EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
+        }
     }
 
     public void AimMove()
     {
-        EventSystem.instance.OnSetState(PlayerMovmentSate.grenade);
-        target = Instantiate(targetPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z), transform.rotation);
+        if (movementState.Equals(PlayerMovmentSate.standard))
+        {
+            EventSystem.instance.OnSetState(PlayerMovmentSate.grenade);
+            target = Instantiate(targetPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z),
+                transform.rotation);
+        }
     }
     
+
     IEnumerator SimulateProjectile(GameObject grenade)
     {
         // Short delay added before Projectile is thrown
         //yield return new WaitForSeconds(1.5f);
-       
+
         // Move projectile to the position of throwing object + add some offset if needed.
         //grenade.transform.position = myTransform.position + new Vector3(0, 0.0f, 0);
-       
+
         // Calculate distance to target
         float target_Distance = Vector3.Distance(grenade.transform.position, target.transform.position);
- 
+
         // Calculate the velocity needed to throw the object to the target at specified angle.
         float projectile_Velocity = target_Distance / (Mathf.Sin(2 * firingAngle * Mathf.Deg2Rad) / gravity);
- 
+
         // Extract the X  Y componenent of the velocity
         float Vx = Mathf.Sqrt(projectile_Velocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
         float Vy = Mathf.Sqrt(projectile_Velocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
- 
+
         // Calculate flight time.
         float flightDuration = target_Distance / Vx;
-   
+
         // Rotate projectile to face the target.
         grenade.transform.rotation = Quaternion.LookRotation(target.transform.position - grenade.transform.position);
-       
+
         float elapseTime = 0;
- 
+
         while (elapseTime < flightDuration)
         {
             if (grenade == null)
             {
                 break;
             }
+
             grenade.transform.Translate(0, (Vy - (gravity * elapseTime)) * Time.deltaTime, Vx * Time.deltaTime);
-           
+
             elapseTime += Time.deltaTime;
- 
+
             yield return null;
         }
 
         if (elapseTime >= flightDuration || grenade == null)
         {
             Destroy(target);
-            EventSystem.instance.OnExplode();
+            if (grenade != null)
+            {
+                EventSystem.instance.OnExplode();
+            }
             yield return null;
         }
-    }   
+    }
 
-    public void Attack(int attack)
+    void SetCurrentWeapon()
     {
-        if (_child.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Wait"))
-        {
-           
-            EventSystem.instance.OnSetState(PlayerMovmentSate.attack);
-            switch (attack)
-            {
-                case 0:
-                    _child.GetComponent<Animator>().SetTrigger("FastAttack");
-                    break;
-                case 1:
-                    _child.GetComponent<Animator>().SetTrigger("SlowAttack");
-                    break;
-            }
-            
-        }
+        weapons[0].weapon.GetComponentInChildren<Transform>().transform.position = weaponPoint.position;
+        weapons[0].weapon.GetComponentInChildren<Transform>().transform.rotation = weaponPoint.rotation;
+        
+    }
+
+    void ChangeWeapon()
+    {
+        
     }
 }

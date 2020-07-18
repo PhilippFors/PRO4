@@ -9,6 +9,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
         public TimelineAsset anim;
         public PlayerMovmentSate movementState;
         public bool canAttack;
+        public float maxRot;
         private State _nextState;
     }
 }

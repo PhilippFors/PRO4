@@ -31,16 +31,11 @@ public class ProgressBarSkills : ProgessBar
     
     public override void GetCurrentFill()
     {
-        if (id == 0)
-        {
-            Debug.Log("Is null");
-        }
-        else
-        {
+        
             maximum = (skillObject.max);
             current = (skillObject.current);
             base.GetCurrentFill();
-        }
+        
       
            
         

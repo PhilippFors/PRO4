@@ -46,7 +46,7 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public PlayerControls input;
     public Transform RayEmitter;
-    PlayerMovmentSate currentState;
+    public PlayerMovmentSate currentState;
     PlayerMovementController standardMovement;
     DashMovementController dashController;
     GrenadeMovementController grenadeController;
@@ -76,12 +76,15 @@ public class PlayerStateMachine : MonoBehaviour
     {
         input.Disable();
         EventSystem.instance.SetState -= SetState;
+       
+
     }
     
     private void Start()
     {
         SetState(PlayerMovmentSate.standard);
         EventSystem.instance.SetState += SetState;
+       
     }
     void Update()
     {
@@ -138,6 +141,8 @@ public class PlayerStateMachine : MonoBehaviour
         }
         currentState = state;
     }
+    
+
     void ResetMoveSpeed(){
         moveSpeed = standardMoveSpeed;
     }
