@@ -33,7 +33,6 @@ public class PlayerMovementController
 
     void Move(PlayerStateMachine controller)
     {
-        IsGrounded(controller);
         Vector2 move = controller.move;
         Vector3 direction = new Vector3(move.x, 0, move.y);
 
@@ -43,19 +42,7 @@ public class PlayerMovementController
         controller.currentMoveDirection = horizMovement + vertikMovement;
     }
 
-    void IsGrounded(PlayerStateMachine controller)
-    {
-        if (Physics.CheckSphere(controller.transform.position + new Vector3 (0, 1f,0), 1.1f, controller.groundMask, QueryTriggerInteraction.Ignore))
-        {
-            controller.rb.drag = controller.drag;
-            controller.isGrounded = true;
-        }
-        else
-        {
-            controller.rb.drag = 0;
-            controller.isGrounded = false;
-        }
-    }
+
 
     #endregion
 

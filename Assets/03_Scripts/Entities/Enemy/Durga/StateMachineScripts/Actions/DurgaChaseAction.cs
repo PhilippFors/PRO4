@@ -14,8 +14,11 @@ public class DurgaChaseAction : Action
 
     void Move(StateMachineController controller)
     {
-
-        controller.agent.destination = controller.offsetTargetPos;
+        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < 4f)
+            controller.agent.destination = controller.settings.playerTarget.position;
+        else
+            controller.agent.destination = controller.offsetTargetPos;
+            
         Vector3 moveTo = controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
 
         controller.agent.Move(moveTo);
@@ -25,7 +28,7 @@ public class DurgaChaseAction : Action
     {
         Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
         dir.y = 0;
-        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < controller.enemyStats.GetStatValue(StatName.Range)+1f)
+        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < controller.enemyStats.GetStatValue(StatName.Range) + 1f)
         {
             controller.agent.destination = controller.settings.playerTarget.position;
             Quaternion look = Quaternion.LookRotation(dir);
