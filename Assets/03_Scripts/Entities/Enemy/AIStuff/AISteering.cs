@@ -28,6 +28,26 @@ public class AISteering
         return Seek(targetpos, controller);
     }
 
+    public void IsGrounded(StateMachineController controller)
+    {
+        Vector3 velocity = Vector3.zero;
+        if (!Physics.Raycast(controller.transform.position + new Vector3(0, 1, 0), Vector3.down, 1.1f, controller.settings.groundMask))
+        {
+            controller.isGrounded = false;
+            DoGravity(controller, velocity);
+        }
+        else
+        {
+            controller.isGrounded = true;
+        }
+    }
+
+    private void DoGravity(StateMachineController controller, Vector3 velocity)
+    {
+        velocity.y = Physics.gravity.y * Time.deltaTime;
+        controller.transform.position += velocity;
+    }
+
     Vector3 Seek(Vector3 targetPosition, StateMachineController controller)
     {
         Vector3 acceleration = SteerTowards(targetPosition, controller);

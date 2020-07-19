@@ -17,7 +17,7 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public bool avoidDirection;
     [HideInInspector] public bool checkedAmount;
 
-    [SerializeField] private bool aiActive = false, isGrounded = true;
+    [SerializeField] public bool aiActive = false, isGrounded = true;
 
     public Transform RayEmitter;
     public State currentState;
@@ -58,7 +58,7 @@ public class StateMachineController : MonoBehaviour
 
         CheckAnyTransitions(this);
 
-        IsGrounded();
+        steering.IsGrounded(this);
     }
 
     private void CheckAnyTransitions(StateMachineController controller)
@@ -77,17 +77,6 @@ public class StateMachineController : MonoBehaviour
                 controller.SwitchStates(transition.falseState);
             }
         }
-    }
-
-    void IsGrounded()
-    {
-        Vector3 velocity = Vector3.zero;
-        if (!Physics.CheckSphere(transform.position + new Vector3(0, 0.9f, 0), 1f, settings.groundMask, QueryTriggerInteraction.Ignore))
-        {
-            isGrounded = false;
-            velocity.y = Physics.gravity.y * Time.deltaTime;
-        }
-        transform.position += velocity;
     }
 
     public void SwitchStates(State nextState)

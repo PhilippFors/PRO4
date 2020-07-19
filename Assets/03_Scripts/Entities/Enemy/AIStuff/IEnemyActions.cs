@@ -1,9 +1,9 @@
 ﻿public interface IEnemyActions
 {
     void Attack(int i);
-    void CancelAttack();
+    void CancelAttack(StateMachineController s);
 
     void Walk(StateMachineController s);
     void StopWalking(StateMachineController s);
-    void Stunned();
+    void Stunned(StateMachineController s);
 }

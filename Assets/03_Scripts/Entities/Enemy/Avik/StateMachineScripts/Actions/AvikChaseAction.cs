@@ -1,0 +1,38 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "PluggableAI/Durga/Action/Chase")]
+public class AvikChaseAction : Action
+{
+    public override void Execute(StateMachineController controller)
+    {
+        Move(controller);
+
+        LookAt(controller);
+    }
+
+    void Move(StateMachineController controller)
+    {
+        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < 4f)
+            controller.agent.destination = controller.settings.playerTarget.position;
+        else
+            controller.agent.destination = controller.offsetTargetPos;
+            
+        Vector3 moveTo = controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
+
+        controller.agent.Move(moveTo);
+
+    }
+    void LookAt(StateMachineController controller)
+    {
+        Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
+        dir.y = 0;
+        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < controller.enemyStats.GetStatValue(StatName.Range) + 1f)
+        {
+            controller.agent.destination = controller.settings.playerTarget.position;
+            Quaternion look = Quaternion.LookRotation(dir);
+            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
+        }
+    }
+}
