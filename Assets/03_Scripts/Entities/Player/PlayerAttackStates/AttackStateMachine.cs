@@ -55,15 +55,15 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
 
         private void Start()
         {
-            currentAttack = baseAttack;
+            currentAttack = attack.currentWeapon.baseAttack;
             currentState = baseState;
         }
 
         private void Attack(int stateID)
         {
            
-            if (movementState.Equals(PlayerMovmentSate.standard))
-            {
+            //if (movementState.Equals(PlayerMovmentSate.standard))
+            //{
                 if (currentState.canAttack || currentAttack == baseAttack)
                 {
                     stateCounter = 0;
@@ -78,7 +78,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
                         attack.comboCounter = 0;
                     }
                 }
-            }
+            //}
           
         }
 
@@ -105,7 +105,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
                 {
                     attack.comboCounter = 0;
                     currentState = baseState;
-                    currentAttack = baseAttack;
+                    currentAttack = attack.currentWeapon.baseAttack;
                     stateCounter = 0;
                     //maxRot = 0;
 

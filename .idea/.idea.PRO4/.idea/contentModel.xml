@@ -41,8 +41,20 @@
           </e>
           <e p="Entities" t="Include">
             <e p="Enemy" t="Include">
-              <e p="AIManager.cs" t="Include" />
-              <e p="AISteering.cs" t="Include" />
+              <e p="AIStuff" t="Include">
+                <e p="AIManager.cs" t="Include" />
+                <e p="AISteering.cs" t="Include" />
+                <e p="BaseScripts" t="Include">
+                  <e p="Action.cs" t="Include" />
+                  <e p="Decision.cs" t="Include" />
+                  <e p="OnEnterState.cs" t="Include" />
+                  <e p="OnExitState.cs" t="Include" />
+                  <e p="State.cs" t="Include" />
+                  <e p="Transition.cs" t="Include" />
+                </e>
+                <e p="IEnemyActions.cs" t="Include" />
+                <e p="StateMachineController.cs" t="Include" />
+              </e>
               <e p="DisableCols.cs" t="Include" />
               <e p="Durga" t="Include">
                 <e p="DurgaAnimator.cs" t="Include" />
@@ -65,22 +77,8 @@
                   </e>
                 </e>
               </e>
-              <e p="IEnemyActions.cs" t="Include" />
-              <e p="PluggableStatemachine" t="Include">
-                <e p="BaseScripts" t="Include">
-                  <e p="Action.cs" t="Include" />
-                  <e p="Decision.cs" t="Include" />
-                  <e p="OnEnterState.cs" t="Include" />
-                  <e p="OnExitState.cs" t="Include" />
-                  <e p="State.cs" t="Include" />
-                  <e p="Transition.cs" t="Include" />
-                </e>
-                <e p="StateMachineController.cs" t="Include" />
-              </e>
               <e p="ResetValues.cs" t="Include" />
             </e>
-            <e p="EnemyBody.cs" t="Include" />
-            <e p="ObstacleBody.cs" t="Include" />
             <e p="Obstacles" t="Include">
               <e p="ARLaser.cs" t="Include" />
               <e p="DeathBlockTrigger.cs" t="Include" />
@@ -107,16 +105,19 @@
                 <e p="AttackState.cs" t="Include" />
                 <e p="DashMovementController.cs" t="Include" />
                 <e p="GrenadeMovementController.cs" t="Include" />
+                <e p="GroundChecker.cs" t="Include" />
                 <e p="PlayerMovementController.cs" t="Include" />
                 <e p="PlayerStateMachine.cs" t="Include" />
               </e>
               <e p="PlayerController.cs" t="Include" />
-              <e p="PlayerTestWeapon.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
               <e p="Weapons.cs" t="Include" />
-              <e p="WeaponScript.cs" t="Include" />
             </e>
-            <e p="PlayerBody.cs" t="Include" />
+            <e p="StatScripts" t="Include">
+              <e p="EnemyBody.cs" t="Include" />
+              <e p="ObstacleBody.cs" t="Include" />
+              <e p="PlayerBody.cs" t="Include" />
+            </e>
           </e>
           <e p="PrototypeScripts" t="Include">
             <e p="AttackNorth_1.cs" t="Include" />

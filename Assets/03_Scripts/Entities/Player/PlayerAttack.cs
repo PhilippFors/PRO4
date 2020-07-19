@@ -13,20 +13,16 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] public List<Weapons> weapons = new List<Weapons>(2);
     public Weapons currentWeapon;
-    public int currentWeaponCounter = 1;
+    public int currentWeaponCounter = 0;
     public Transform weaponPoint;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
-
-    private GameObject _child; //the weapon object
+    
     public int comboCounter = 0;
 
     public GameObject grenadePrefab;
-
     public GameObject targetPrefab;
-
     public GameObject target;
-
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
 
@@ -55,8 +51,7 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         input = new PlayerControls();
-        SetCurrentWeapon();
-
+        
         //input.Gameplay.LeftAttack.performed += rt => Attack(0);
         //input.Gameplay.RightAttack.performed += rt => Attack(1);
         input.Gameplay.GrenadeThrow.performed += rt => AimMove();
@@ -74,10 +69,7 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         currentWeapon = weapons[currentWeaponCounter];
-        
-        _child = gameObject.transform.GetChild(0).gameObject; //first child object of the player
-        //EventSystem.instance.AimGrenade += AimMove;
-
+        currentWeapon.Equip(weaponPoint);
 
         emitter = AudioPeer.GetComponent<FMODUnity.StudioEventEmitter>();
         foreach (Skills skill in skills)
@@ -127,12 +119,7 @@ public class PlayerAttack : MonoBehaviour
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }
-
-
-    void Update()
-    {
-    }
-
+    
     public void GrenadeThrow()
     {
         if (movementState.Equals(PlayerMovmentSate.grenade))
@@ -206,36 +193,20 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void SetCurrentWeapon()
-    {
-        weapons[0].GetComponentInChildren<Transform>().transform.position = weaponPoint.position;
-        weapons[0].GetComponentInChildren<Transform>().transform.rotation = weaponPoint.rotation;
-        
-    }
-
     void ChangeWeapon()
     {
-        weapons[currentWeaponCounter - 1].enabled = false;
         currentWeaponCounter++;
-        if (currentWeaponCounter > weapons.Count)
+        if (currentWeaponCounter >= weapons.Count)
         {
-            currentWeaponCounter = 1;
+            currentWeaponCounter = 0;
         }
-        weapons[currentWeaponCounter - 1].enabled = true;
-        currentWeapon = weapons[currentWeaponCounter - 1];
 
-
-
-
-        /*if (currentWeapon == weapons[0])
+        if (currentWeapon != null)
         {
-            weapons[1].enabled = true;
-            weapons[0].enabled = false;
+            currentWeapon.Unequip();
         }
-        else
-        {
-            weapons[1].enabled = false;
-            weapons[0].enabled = true;
-        }*/
+
+        currentWeapon = weapons[currentWeaponCounter];
+        currentWeapon.Equip(weaponPoint);
     }
 }
