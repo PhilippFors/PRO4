@@ -193,6 +193,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    //simple script to change between the weapons
     void ChangeWeapon()
     {
         currentWeaponCounter++;
