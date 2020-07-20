@@ -16,9 +16,9 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public float deltaTime;
     [HideInInspector] public bool avoidDirection;
     [HideInInspector] public bool checkedAmount;
-
+    public bool canAttack = false;
     [SerializeField] public bool aiActive = false, isGrounded = true;
-
+    public bool isAttacking = false;
     public Transform RayEmitter;
     public State currentState;
     public State startState;
@@ -41,7 +41,6 @@ public class StateMachineController : MonoBehaviour
     {
         aiActive = active;
     }
-
     void Update()
     {
         deltaTime = Time.deltaTime;
@@ -51,14 +50,12 @@ public class StateMachineController : MonoBehaviour
             return;
         }
 
+        CheckAnyTransitions(this);
+        steering.IsGrounded(this);
         if (currentState == null)
             currentState = startState;
 
         currentState.StateUpdate(this);
-
-        CheckAnyTransitions(this);
-
-        steering.IsGrounded(this);
     }
 
     private void CheckAnyTransitions(StateMachineController controller)

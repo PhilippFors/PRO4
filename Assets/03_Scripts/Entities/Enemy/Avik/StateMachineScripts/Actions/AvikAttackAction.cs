@@ -4,15 +4,42 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PluggableAI/Avik/Action/Attack")]
 public class AvikAttackAction : Action
 {
-    public override void Execute(StateMachineController controller){
-        
-        Attack(controller);
+    public override void Execute(StateMachineController controller)
+    {
+        if (controller.canAttack)
+            Attack(controller);
     }
 
     private void Attack(StateMachineController controller)
     {
-        Debug.Log("He attack");
+        int one = GetFirstAttack();
+        int two = GetSecondAttack(one, controller);
+        controller.actions.Attack(controller, one, two);
     }
 
+    int GetFirstAttack()
+    {
+        int r = Random.Range(0, 100);
+        if (r <= 50)
+            return 1;
+        else
+            return 2;
+    }
 
+    int GetSecondAttack(int one, StateMachineController controller)
+    {
+        int r = Random.Range(0, 100);
+        if (r <= controller.settings.comboBias)
+        {
+            switch (one)
+            {
+                case 1:
+                    return 3;
+
+                case 2:
+                    return 4;
+            }
+        }
+        return 0;
+    }
 }

@@ -17,13 +17,6 @@ public class EventSystem : MonoBehaviour
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
-    /*private static EventSystem _instance;
-    public static EventSystem instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("null");*/
 
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;

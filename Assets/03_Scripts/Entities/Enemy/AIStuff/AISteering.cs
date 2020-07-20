@@ -31,7 +31,7 @@ public class AISteering
     public void IsGrounded(StateMachineController controller)
     {
         Vector3 velocity = Vector3.zero;
-        if (!Physics.Raycast(controller.transform.position + new Vector3(0, 1, 0), Vector3.down, 1.1f, controller.settings.groundMask))
+        if (!Physics.CheckSphere(controller.transform.position + new Vector3(0, 1, 0), 1.1f))
         {
             controller.isGrounded = false;
             DoGravity(controller, velocity);

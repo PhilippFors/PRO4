@@ -5,11 +5,9 @@ using UnityEngine;
 public class ResetValues : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetInteger("attacknr", 0);
         animator.ResetTrigger("cancel");
-        
     }
-
 }

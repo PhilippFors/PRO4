@@ -8,6 +8,15 @@ public class SpawnDebugging : MonoBehaviour
     public AIManager manager;
     public EnemySet set;
     public GameObject prefab;
+    public enum e {
+        undefined,
+        Avik,
+
+        Shentau,
+
+        Ralger
+
+    };
     public bool setActive;
     public bool spawnEnable = false;
     private void Update()
@@ -19,6 +28,15 @@ public class SpawnDebugging : MonoBehaviour
             return;
 
         Spawn();
+        
+    }
+
+    void DebugSpawn(){
+        // switch(e){
+        //     case:
+        //     e = e.Avik;
+        //     break;
+        // }
     }
     public void Spawn()
     {
@@ -37,8 +55,6 @@ public class SpawnDebugging : MonoBehaviour
                 EnemyBody enemy = Instantiate(prefab, rayPoint, Quaternion.Euler(Vector3.forward)).gameObject.GetComponentInChildren<EnemyBody>();
                 enemy.GetComponent<StateMachineController>().settings = manager;
                 enemy.gameObject.GetComponent<Animation>().enabled =false;
-                enemy.gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                enemy.gameObject.GetComponent<StateMachineController>().enabled = true;
                 set.Add(enemy);
             }
         }

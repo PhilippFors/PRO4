@@ -16,6 +16,8 @@ public class AIManager : MonoBehaviour
     public float secondaryWhiskerL = 1.5f;
     public float angleIncrement = 10f;
     public int whiskerAmount = 11;
+    public int comboBias = 40;
+    public float activationTime = 0.2f;
     private Vector3[] playerOffsetList;
 
     private void Start()
@@ -40,49 +42,50 @@ public class AIManager : MonoBehaviour
 
         GetCircleOffstets();
 
-        foreach (EnemyBody enemy in set.entityList)
-        {
-            StateMachineController st = enemy.GetComponent<StateMachineController>();
-            float minDist = float.MaxValue;
-            Vector3 ofs = Vector3.zero;
-            foreach (Vector3 vec in playerOffsetList)
-            {
-                if (Vector3.Distance(vec, enemy.transform.position) < minDist)
-                {
-                    minDist = Vector3.Distance(vec, enemy.transform.position);
-                    ofs = vec;
-                }
-            }
-            st.offsetTargetPos = ofs;
-        }
+        // foreach (EnemyBody enemy in set.entityList)
+        // {
+        //     StateMachineController st = enemy.GetComponent<StateMachineController>();
+        //     float minDist = float.MaxValue;
+        //     Vector3 ofs = Vector3.zero;
+        //     foreach (Vector3 vec in playerOffsetList)
+        //     {
+        //         if (Vector3.Distance(vec, enemy.transform.position) < minDist)
+        //         {
+        //             minDist = Vector3.Distance(vec, enemy.transform.position);
+        //             ofs = vec;
+        //         }
+        //     }
+        //     st.offsetTargetPos = ofs;
+        // }
     }
 
     void GetCircleOffstets()
     {
         float currentAngle = 0;
         playerOffsetList = new Vector3[set.entityList.Count];
-        for (int i = 0; i < set.entityList.Count; i++)
+        foreach (EnemyBody enemy in set.entityList)
         {
+            StateMachineController st = enemy.GetComponent<StateMachineController>();
             float x = 0;
             float z = 0;
             currentAngle += 360f / set.entityList.Count;
             float convAngle = currentAngle * Mathf.PI / 180F;
             x = (float)(4f * Mathf.Cos(convAngle) + playerTarget.position.x);
             z = (float)(4f * Mathf.Sin(convAngle) + playerTarget.position.z);
-            playerOffsetList[i] = new Vector3(x, playerTarget.position.y, z);
+            st.offsetTargetPos = new Vector3(x, playerTarget.position.y, z);
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        if (set.entityList.Count == 0)
-            return;
+    // private void OnDrawGizmos()
+    // {
+    //     if (set.entityList.Count == 0 || set.entityList == null)
+    //         return;
 
-        foreach (Vector3 vec in playerOffsetList)
-        {
-            Gizmos.DrawWireSphere(vec, 0.2f);
-        }
-    }
+    //     foreach (Vector3 vec in playerOffsetList)
+    //     {
+    //         Gizmos.DrawWireSphere(vec, 0.2f);
+    //     }
+    // }
 
     public void FindPlayer()
     {

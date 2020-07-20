@@ -7,7 +7,9 @@
     TurnSpeed,
     Defense,
     AttackSpeed,
+    AttackRate,
     BaseDmg
+    
 }
 public class GameStatistics
 {
