@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 2694225643979038856}
   - component: {fileID: 2694225643979038859}
   - component: {fileID: 1410799743}
-  - component: {fileID: 1027655080}
   m_Layer: 11
   m_Name: Player 1
   m_TagString: Player
@@ -87,15 +86,17 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   gamepadRotate: {x: 0, y: 0}
   mouseLook: {x: 0, y: 0}
+  velocity: {x: 0, y: 0, z: 0}
   isAiming: 0
   mouseused: 0
   gamepadused: 0
   isGrounded: 1
   checkEnemy: 0
+  isMoving: 0
   deltaTime: 0
   time: 0
-  moveSpeed: 6
-  grenadeMove: 3
+  currentMoveSpeed: 5
+  grenadeMoveSpeed: 3
   standardMoveSpeed: 8
   dashValue: 0
   dashValueTime: 0
@@ -107,6 +108,7 @@ MonoBehaviour:
   delayTime: 0.4
   dashTarget: {fileID: 0}
   RayEmitter: {fileID: 2694225643803719180}
+  currentState: 0
 --- !u!54 &2694225643979038856
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,29 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
   currentHealth: {fileID: 11400000, guid: 7aa13f19c163f504d99c94d8437c9aee, type: 2}
---- !u!114 &1027655080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2694225643979038836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d467563215a7e4296bb0ce8a648c0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundSlopeAngle: 0
-  groundSlopeDir: {x: 0, y: 0, z: 0}
-  castingMask:
-    serializedVersion: 2
-    m_Bits: 1
-  startDistanceFromBottom: 0.2
-  sphereCastRadius: 0.25
-  sphereCastDistance: 0.4
-  raycastLength: 0.4
-  rayOriginOffset1: {x: -0.2, y: 0, z: 0.16}
-  rayOriginOffset2: {x: 0.2, y: 0, z: -0.16}
 --- !u!1001 &2694225642719427606
 PrefabInstance:
   m_ObjectHideFlags: 0
