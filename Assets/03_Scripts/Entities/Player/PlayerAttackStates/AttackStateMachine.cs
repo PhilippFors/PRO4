@@ -19,18 +19,17 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
 {
     public class AttackStateMachine : MonoBehaviour
     {
-        public AttackSO currentAttack;
-        public State currentState;
+        public AttackSO currentAttack; //the current attack
+        public State currentState; //in which state (attack, wait or return) of the attack the statemachine currently is
         public PlayableDirector director;
         [HideInInspector] public PlayerControls input;
-        private float animTimer = 0;
-        private int stateCounter = 0;
-        public float maxRot = 45;
+        private float animTimer = 0; // a timer to check if animation has finished playing
+        private int stateCounter = 0; // counts the current states of an attack
         private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         private static PlayerMovmentSate movementState => GameObject.FindGameObjectWithTag("Player")
             .GetComponent<PlayerStateMachine>().currentState;
-        public AttackSO baseAttack;
-        public State baseState;
+        public AttackSO baseAttack; //an attack which has no states and only holds the next attack
+        public State baseState; // an empty state that does nothing
 
         private void Awake()
         {
@@ -55,22 +54,20 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
 
         private void Start()
         {
-            currentAttack = attack.currentWeapon.baseAttack;
+            currentAttack = attack.currentWeapon.baseAttack; //current attack is based on the current weapon
             currentState = baseState;
         }
 
         private void Attack(int stateID)
         {
-           
-            //if (movementState.Equals(PlayerMovmentSate.standard))
-            //{
+            // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
                 if (currentState.canAttack || currentAttack == baseAttack)
                 {
-                    stateCounter = 0;
-                    currentAttack = currentAttack.nextAttacks[stateID];
-                    SetState(currentAttack.stateList[0]);
-                
-                
+                    stateCounter = 0; //sets the counter back to zero because a new attack begins
+                    currentAttack = currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
+                    SetState(currentAttack.stateList[0]); //sets first (attack) state of the attack
+
+                    //checks if the combo is reached and increases skillmeter and sets combo back to 0
                     if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= 4)
                     {
                         int a = attack.skills.IndexOf(currentAttack.skill);
@@ -78,29 +75,28 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
                         attack.comboCounter = 0;
                     }
                 }
-            //}
-          
+
         }
 
         private void SetState(State state)
         {
+            //sets currentstate and resets animation timer
             currentState = state;
             animTimer = 0;
-            /*if (state.maxRot != null)
-            {
-                maxRot = state.maxRot;
-            }*/
+            
             director.Play(currentState.anim);
-            EventSystem.instance.OnSetState(currentState.movementState);
+            EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
 
         }
         
         
         public void Update()
         {
+            //checks if animation is finished playing (and an animation was playing)
             animTimer += Time.deltaTime;
             if (animTimer >= currentState.anim.duration && currentState != baseState)
             {
+                //checks if we are already in the returnstate and resets everything to start, else changes to the next state
                 if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
                 {
                     attack.comboCounter = 0;
