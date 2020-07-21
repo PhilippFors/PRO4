@@ -7,8 +7,10 @@ public class AIManager : MonoBehaviour
     public string searchPlayerTag = "Player";
     [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
-    public EnemySet set;
-    public EnemySet durgaSet;
+    public EnemySet allSet;
+    public EnemySet avikSet;
+    public EnemySet ralgerSet;
+    public EnemySet shentauSet;
     public Transform playerTarget;
     public float avoidDistance = 5f;
     public float obstacleAvoidDistance = 2f;
@@ -37,38 +39,22 @@ public class AIManager : MonoBehaviour
 
     private void Update()
     {
-        if (set.entityList.Count == 0)
+        if (allSet.entityList.Count == 0)
             return;
 
         GetCircleOffstets();
-
-        // foreach (EnemyBody enemy in set.entityList)
-        // {
-        //     StateMachineController st = enemy.GetComponent<StateMachineController>();
-        //     float minDist = float.MaxValue;
-        //     Vector3 ofs = Vector3.zero;
-        //     foreach (Vector3 vec in playerOffsetList)
-        //     {
-        //         if (Vector3.Distance(vec, enemy.transform.position) < minDist)
-        //         {
-        //             minDist = Vector3.Distance(vec, enemy.transform.position);
-        //             ofs = vec;
-        //         }
-        //     }
-        //     st.offsetTargetPos = ofs;
-        // }
     }
 
     void GetCircleOffstets()
     {
         float currentAngle = 0;
-        playerOffsetList = new Vector3[set.entityList.Count];
-        foreach (EnemyBody enemy in set.entityList)
+        playerOffsetList = new Vector3[allSet.entityList.Count];
+        foreach (EnemyBody enemy in allSet.entityList)
         {
             StateMachineController st = enemy.GetComponent<StateMachineController>();
             float x = 0;
             float z = 0;
-            currentAngle += 360f / set.entityList.Count;
+            currentAngle += 360f / allSet.entityList.Count;
             float convAngle = currentAngle * Mathf.PI / 180F;
             x = (float)(4f * Mathf.Cos(convAngle) + playerTarget.position.x);
             z = (float)(4f * Mathf.Sin(convAngle) + playerTarget.position.z);
@@ -95,6 +81,13 @@ public class AIManager : MonoBehaviour
             playerTarget = GameObject.FindGameObjectWithTag(searchPlayerTag).GetComponent<Transform>();
         else
             Debug.LogError("Could not find Player!");
+    }
+
+    public IEnumerator AttackDelay(StateMachineController controller, float extra = 0)
+    {
+        yield return new WaitForSeconds(controller.enemyStats.GetStatValue(StatName.AttackRate) + extra);
+
+        controller.canAttack = true;
     }
 }
 

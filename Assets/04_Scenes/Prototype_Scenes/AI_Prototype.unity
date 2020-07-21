@@ -1040,19 +1040,44 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1172122755}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &723001117
-MonoBehaviour:
+--- !u!1818360609 &723001117
+RotationConstraint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723001116}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd36f34a4d62af4c95f44fb267344db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1172122756}
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1172122758}
+    weight: 1
+--- !u!1818360608 &723001118
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723001116}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0.2950035, y: 1.039858, z: 0.5674322}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1172122758}
+    weight: 1
 --- !u!1 &903687662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,6 +1962,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 723001116, guid: 59f544f15137bd944b01f612b5b3e5a5, type: 3}
+      propertyPath: m_Name
+      value: RightHandWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1993683549, guid: 59f544f15137bd944b01f612b5b3e5a5, type: 3}
+      propertyPath: m_Name
+      value: LeftHandWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7827677573391495959, guid: 59f544f15137bd944b01f612b5b3e5a5,
+        type: 3}
+      propertyPath: m_IsLocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8116359365157493441, guid: 59f544f15137bd944b01f612b5b3e5a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1997,20 +2035,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Avik_root
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1993683552, guid: 59f544f15137bd944b01f612b5b3e5a5, type: 3}
+    - {fileID: 723001119, guid: 59f544f15137bd944b01f612b5b3e5a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 59f544f15137bd944b01f612b5b3e5a5, type: 3}
---- !u!114 &1172122756 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4196642420567074668, guid: 59f544f15137bd944b01f612b5b3e5a5,
+--- !u!4 &1172122757 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5776798398501351117, guid: 59f544f15137bd944b01f612b5b3e5a5,
     type: 3}
   m_PrefabInstance: {fileID: 1172122755}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 055d4b53a0613eb49a884e9afe664027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+--- !u!4 &1172122758 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3186146761409477956, guid: 59f544f15137bd944b01f612b5b3e5a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1172122755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1199881881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3356,19 +3396,44 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1172122755}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1993683550
-MonoBehaviour:
+--- !u!1818360609 &1993683550
+RotationConstraint:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993683549}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd36f34a4d62af4c95f44fb267344db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1172122756}
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1172122757}
+    weight: 1
+--- !u!1818360608 &1993683551
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993683549}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: -0.28331673, y: 1.0308065, z: 0.57800007}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1172122757}
+    weight: 1
 --- !u!1 &2018562525
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class AvikAttackAction : Action
     private void Attack(StateMachineController controller)
     {
         int one = GetFirstAttack();
-        int two = GetSecondAttack(one, controller);
+        bool two = GetSecondAttack(one, controller);
         controller.actions.Attack(controller, one, two);
     }
 
@@ -26,20 +26,9 @@ public class AvikAttackAction : Action
             return 2;
     }
 
-    int GetSecondAttack(int one, StateMachineController controller)
+    bool GetSecondAttack(int one, StateMachineController controller)
     {
         int r = Random.Range(0, 100);
-        if (r <= controller.settings.comboBias)
-        {
-            switch (one)
-            {
-                case 1:
-                    return 3;
-
-                case 2:
-                    return 4;
-            }
-        }
-        return 0;
+        return r <= controller.settings.comboBias;
     }
 }

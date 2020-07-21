@@ -1,6 +1,6 @@
 ﻿public interface IEnemyActions
 {
-    void Attack(StateMachineController s, int i, int j = 0);
+    void Attack(StateMachineController s, int i, bool combo = false);
     void CancelAttack(StateMachineController s);
 
     void Walk(StateMachineController s);
