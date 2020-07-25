@@ -18,9 +18,12 @@ public class AIManager : MonoBehaviour
     public float secondaryWhiskerL = 1.5f;
     public float angleIncrement = 10f;
     public int whiskerAmount = 11;
+    [Range(0, 100)]
     public int comboBias = 40;
+
     public float activationTime = 0.2f;
     private Vector3[] playerOffsetList;
+
 
     private void Start()
     {

@@ -8,6 +8,7 @@ public class Sender : MonoBehaviour
     public bool active;
     [SerializeField] private Transform searcher;
     [SerializeField] private GameObject Wall;
+    public ObstacleMaster master;
     public bool found = false;
     LayerMask recieverMask => LayerMask.GetMask("Reciever");
     bool tick = true;
@@ -42,6 +43,8 @@ public class Sender : MonoBehaviour
                         found = true;
                         obj.occupied = true;
                         obj.active = true;
+                        active = true;
+                        master.nextReciever = obj;
                         return;
                     }
                 }
@@ -60,6 +63,8 @@ public class Sender : MonoBehaviour
                         found = true;
                         obj.occupied = true;
                         obj.active = true;
+                        active = true;
+                        master.nextReciever = obj;
                         return;
                     }
                 }
@@ -67,7 +72,6 @@ public class Sender : MonoBehaviour
             i = i + 0.3f;
             j = j - 0.3f;
         }
-
     }
 
     void BuildWall()
@@ -76,7 +80,7 @@ public class Sender : MonoBehaviour
         Wall.SetActive(true);
         Wall.transform.rotation = Quaternion.LookRotation(dir);
         float distance = Vector3.Distance(reciever.position, Wall.transform.position);
-        Wall.transform.position += Wall.transform.forward * distance / 2;
+        // Wall.transform.position += Wall.transform.forward * distance / 2;
         // Wall.transform.localPosition -= new Vector3(0.5f,0,0);
         Wall.transform.localScale = new Vector3(Wall.transform.localScale.x, Wall.transform.localScale.y, distance);
     }

@@ -10,7 +10,8 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
     public float regenRate = 10f;
     public bool regenActive = false;
     public FloatVariable maxHealth;
-    public BoxCollider col;
+    BoxCollider col => GetComponent<BoxCollider>();
+    MeshRenderer render => GetComponent<MeshRenderer>();
     private void Start()
     {
         health = maxHealth.Value;
@@ -26,6 +27,8 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
     public void TakeDamage(float damage)
     {
         health -= damage;
+        if(health <= 0)
+            health = 0;
         regenActive = false;
         StopCoroutine("RegenerateTimer");
         StartCoroutine("RegenerateTimer");
@@ -34,11 +37,13 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
     public void OnDeath()
     {
         col.enabled = false;
+        render.enabled = false;
         //TODO: Disable Obstacle, animate deactivation
     }
 
     public void Activate(){
         col.enabled = true;
+        render.enabled = true;
         //TODO: Enable Obstalce, animate activation
     }
 

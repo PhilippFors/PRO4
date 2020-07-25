@@ -35,7 +35,6 @@ public class PlayerStateMachine : MonoBehaviour
     #region __________float__________
 
     // [SerializeField] private float rotationSpeed = 50f; //later used for smoothing rapid turns of the player
-    [Header("Settings")]
     [HideInInspector] public float deltaTime;
     [HideInInspector] public float time;
 
