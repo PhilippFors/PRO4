@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstacleMaster : MonoBehaviour
 {
     // Start is called before the first frame update
-    [HideInInspector] public Reciever nextReciever;
+    public Reciever nextReciever;
     public Reciever selfReciever;
     public Sender sender;
     public ObstacleBody body;
@@ -20,6 +20,7 @@ public class ObstacleMaster : MonoBehaviour
             sender.active = false;
             if (nextReciever != null)
                 nextReciever.active = false;
+
             body.OnDeath();
             StartCoroutine(WallRecover());
         }
@@ -41,8 +42,6 @@ public class ObstacleMaster : MonoBehaviour
         }
 
         //TODO: Animate Pillar deactivation
-        //TODO: Deactivate collider
-
     }
     void ActivateMaster()
     {
@@ -53,12 +52,13 @@ public class ObstacleMaster : MonoBehaviour
             col.enabled = true;
             if (sender.found)
                 sender.active = true;
+            if (!sender.found)
+                selfReciever.active = true;
             if (nextReciever != null)
                 nextReciever.active = true;
-        }
 
+        }
         //TODO: Animate Pillar activation
-        //TODO: Activate collider
     }
     IEnumerator MasterRecover()
     {
