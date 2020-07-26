@@ -9,6 +9,6 @@ public class ResetValues : StateMachineBehaviour
     {
         animator.SetInteger("attacknr", 0);
         animator.ResetTrigger("cancel");
-        animator.ResetTrigger("ComboTrigger");
+        animator.ResetTrigger("comboTrigger");
     }
 }
