@@ -7,6 +7,7 @@ public class ObstacleMaster : MonoBehaviour
     // Start is called before the first frame update
     public Reciever nextReciever;
     public Reciever selfReciever;
+    public ObstacleMaster nextMaster;
     public Sender sender;
     public ObstacleBody body;
     BoxCollider col => GetComponent<BoxCollider>();
@@ -38,7 +39,6 @@ public class ObstacleMaster : MonoBehaviour
             masterActive = false;
             transform.position += new Vector3(0, -0.5f, 0);
             col.enabled = false;
-
         }
 
         //TODO: Animate Pillar deactivation
@@ -67,10 +67,9 @@ public class ObstacleMaster : MonoBehaviour
     }
     IEnumerator WallRecover()
     {
-
         while (true)
         {
-            if (masterActive)
+            if (masterActive & nextMaster.masterActive)
                 if (body.health >= body.minActivationHealth)
                 {
                     body.Activate();

@@ -12,8 +12,8 @@ public class Sender : MonoBehaviour
     public bool found = false;
     LayerMask recieverMask => LayerMask.GetMask("Reciever");
     bool tick = true;
-    float minRot = -90f;
-    float maxRot = 90f;
+    float minRot = -85f;
+    float maxRot = 85f;
     void Start()
     {
         Init();
@@ -76,6 +76,12 @@ public class Sender : MonoBehaviour
 
     void BuildWall()
     {
+        RaycastHit hit;
+        if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, LayerMask.GetMask("ObstacleMaster")))
+        {
+            if (hit.transform.gameObject.GetComponent<ObstacleMaster>())
+                master.nextMaster = hit.transform.gameObject.GetComponent<ObstacleMaster>();
+        }
         Vector3 dir = reciever.position - Wall.transform.position;
         Wall.SetActive(true);
         Wall.transform.rotation = Quaternion.LookRotation(dir);
