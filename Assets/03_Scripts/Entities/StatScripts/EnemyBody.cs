@@ -101,7 +101,6 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public float GetStatValue(StatName stat)
     {
         return statList.Find(x => x.GetName().Equals(stat)).GetValue();
-
     }
     #endregion
 }

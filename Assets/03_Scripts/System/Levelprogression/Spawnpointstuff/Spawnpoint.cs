@@ -8,6 +8,6 @@ using UnityEngine.Playables;
 public class SpawnPoint{
     public GameObject prefab;
     public GameObject Point;
-    [HideInInspector] public Transform point =>Point.GetComponent<Transform>();
+    [HideInInspector] public Transform point => Point.GetComponent<Transform>();
     [HideInInspector] public EnemyBody enemy => prefab.GetComponentInChildren<EnemyBody>();
 }

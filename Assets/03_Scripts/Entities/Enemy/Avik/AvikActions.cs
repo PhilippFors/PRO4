@@ -8,6 +8,7 @@ public class AvikActions : MonoBehaviour, IEnemyActions
     public Weapon[] weapons;
     float attackCountdown;
     float extraComboTime = 1f;
+
     public void Attack(StateMachineController controller, int i, bool combo = false)
     {
         switch (i)
@@ -40,30 +41,21 @@ public class AvikActions : MonoBehaviour, IEnemyActions
 
         controller.canAttack = false;
         controller.isAttacking = true;
-        animator.SetFloat("AnimSpeed", controller.enemyStats.GetStatValue(StatName.AttackSpeed));
-        animator.SetInteger("attacknr", i);
+        animator.SetFloat(AnimatorStrings.animSpeed.ToString(), controller.enemyStats.GetStatValue(StatName.AttackSpeed));
+        animator.SetInteger(AnimatorStrings.attacknr.ToString(), i);
         if (combo)
-            animator.SetTrigger("ComboTrigger");
+            animator.SetTrigger(AnimatorStrings.comboTrigger.ToString());
 
     }
 
-    void CheckIsAttacking(StateMachineController controller)
-    {
-        if (animator.GetInteger("attacknr") == 0)
-        {
-            controller.isAttacking = false;
-            foreach (Weapon weapon in weapons)
-                weapon.Deactivate();
-        }
-    }
     private void SingleAttack()
     {
-        animator.SetInteger("attacknr", 1);
+        animator.SetInteger(AnimatorStrings.attacknr.ToString(), 1);
     }
 
     public void CancelAttack(StateMachineController controller)
     {
-        animator.SetTrigger("cancel");
+        animator.SetTrigger(AnimatorStrings.cancel.ToString());
     }
 
     public void Walk(StateMachineController s)
@@ -84,5 +76,15 @@ public class AvikActions : MonoBehaviour, IEnemyActions
     public void Stunned(StateMachineController controller)
     {
         throw new System.NotImplementedException();
+    }
+
+    public void CheckIsAttacking(StateMachineController controller)
+    {
+        if (animator.GetInteger(AnimatorStrings.attacknr.ToString()) == 0)
+        {
+            controller.isAttacking = false;
+            foreach (Weapon weapon in weapons)
+                weapon.Deactivate();
+        }
     }
 }

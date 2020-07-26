@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Weapon
+public abstract class Weapon : MonoBehaviour
 {
-    void Activate();
-    void Deactivate();
+    abstract public void Activate();
+    abstract public void Deactivate();
 }

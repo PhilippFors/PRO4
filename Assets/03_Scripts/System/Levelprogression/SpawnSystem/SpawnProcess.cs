@@ -19,11 +19,26 @@ public class SpawnProcess : MonoBehaviour
 
         foreach (SpawnPoint spawnPoint in wave.spawnPoints)
         {
+            Debug.Log(spawnPoint.point.position);
+            Debug.Log(spawnPoint.point.gameObject.name);
             spawnPoint.point.GetComponent<PlayableDirector>().Play();
             Spawnpoints.Add(spawnPoint);
+            StartCoroutine(SpawnCO());
         }
     }
+    IEnumerator SpawnCO()
+    {
+        yield return new WaitForSeconds(0.5f);
+        EnemyBody enemy = Instantiate(Spawnpoints[SpawnIndex].prefab, Spawnpoints[SpawnIndex].point.position, Spawnpoints[SpawnIndex].point.transform.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
+        enemy.GetComponent<StateMachineController>().settings = manager;
 
+        enemy.GetComponent<Animation>().Play("Entry");
+        SpawnManager.instance.AddEnemyToList(enemy);
+        StartCoroutine(WaitForAnimation(enemy));
+        SpawnIndex++;
+        if (!SpawnManager.instance.count)
+            SpawnManager.instance.count = true;
+    }
     public void Spawn()
     {
         EnemyBody enemy = Instantiate(Spawnpoints[SpawnIndex].prefab, Spawnpoints[SpawnIndex].point.position, Spawnpoints[SpawnIndex].point.localRotation).gameObject.GetComponentInChildren<EnemyBody>();

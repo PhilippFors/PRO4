@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvikWeapon : MonoBehaviour, Weapon
+public class AvikWeapon : Weapon
 {
     public StateMachineController controller;
     BoxCollider col => GetComponent<BoxCollider>();
@@ -20,12 +20,12 @@ public class AvikWeapon : MonoBehaviour, Weapon
     //     }
     // }
 
-    public void Activate()
+    public override void Activate()
     {
         col.enabled = true;
     }
 
-    public void Deactivate()
+    public override void Deactivate()
     {
         col.enabled = false;
     }

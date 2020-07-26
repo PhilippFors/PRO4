@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private int currentWave = 0;
     [SerializeField] private int currentArea = 0;
-    public SceneLevelData level0;
+    bool levelExitTriggered = false;
     [SerializeField] private SceneLevelData[] levelData;
     [SerializeField] public Level[] levels;
-
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
         LevelEventSystem.instance.nextWave += StartWave;
         LevelEventSystem.instance.areaExit += AreaFinsihed;
-        levels[0] = level0.levelInfo;
-        // LevelEventSystem.instance.levelExit += LevelFinished;
+        levels = new Level[levelData.Length];
+        for (int i = 0; i < levelData.Length; i++)
+            levels[i] = levelData[i].levelInfo;
+        LevelEventSystem.instance.levelExit += LevelFinished;
     }
 
     private void OnDisable()
@@ -46,6 +47,7 @@ public class LevelManager : MonoBehaviour
 
     void LevelFinished()
     {
+        levelExitTriggered = true;
         currentLevel++;
         currentArea = 0;
         currentWave = 0;
@@ -53,6 +55,7 @@ public class LevelManager : MonoBehaviour
 
     void StartArea()
     {
+        levelExitTriggered = false;
         if (!levels[currentLevel].areas[currentArea].started)
         {
             StartWave();
@@ -78,7 +81,7 @@ public class LevelManager : MonoBehaviour
             Spawn(wavesToSpawn);
             return;
         }
-        while(true)
+        while (true)
         {
             if (i >= levels[currentLevel].areas[currentArea].waves.Length || !levels[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
             {
@@ -100,6 +103,10 @@ public class LevelManager : MonoBehaviour
         SpawnManager.instance.SpawnEnemies(wavesToSpawn, currentWave - wavesToSpawn.Count);
     }
 
+    public void RestartLevel()
+    {
+        
+    }
     public void RestartCurrentArea()
     {
         if (currentArea != 0)
