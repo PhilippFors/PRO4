@@ -24,6 +24,7 @@ public class Sender : MonoBehaviour
 
     void Init()
     {
+        searcher.gameObject.SetActive(true);
         float i = 0;
         float j = 0;
         while (i <= maxRot || j >= minRot)
@@ -31,7 +32,7 @@ public class Sender : MonoBehaviour
             RaycastHit hit;
             Reciever obj;
             searcher.localEulerAngles = new Vector3(0, i, 0);
-            if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, recieverMask))
+            if (Physics.Raycast(transform.position, searcher.forward, out hit, 4f, recieverMask))
             {
                 Debug.Log(searcher.rotation);
                 obj = hit.transform.gameObject.GetComponent<Reciever>();
@@ -72,6 +73,7 @@ public class Sender : MonoBehaviour
             i = i + 0.3f;
             j = j - 0.3f;
         }
+        searcher.gameObject.SetActive(false);
     }
 
     void BuildWall()
@@ -82,6 +84,7 @@ public class Sender : MonoBehaviour
             if (hit.transform.gameObject.GetComponent<ObstacleMaster>())
                 master.nextMaster = hit.transform.gameObject.GetComponent<ObstacleMaster>();
         }
+        searcher.gameObject.SetActive(false);
         Vector3 dir = reciever.position - Wall.transform.position;
         Wall.SetActive(true);
         Wall.transform.rotation = Quaternion.LookRotation(dir);
