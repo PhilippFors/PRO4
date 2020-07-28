@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LevelEventSystem : MonoBehaviour
 {
@@ -9,12 +10,18 @@ public class LevelEventSystem : MonoBehaviour
     public event System.Action nextWave;
     public event System.Action levelEntry;
     public event System.Action levelExit;
+    public event Action<List<SpawnpointID>> getList;
     
     public static LevelEventSystem instance;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    public void GetList(List<SpawnpointID> l)
+    {
+        getList(l);
     }
 
     public void AreaEntry()

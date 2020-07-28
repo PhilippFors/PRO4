@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class SpawnpointList : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public List<SpawnpointID> spawnList = new List<SpawnpointID>();
     void Start()
     {
-        
+        SendList();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FindSpawnpoints()
     {
-        
+        spawnList = new List<SpawnpointID>();
+        SpawnpointID[] list = FindObjectsOfType<SpawnpointID>();
+        foreach (SpawnpointID sp in list)
+            spawnList.Add(sp);
+    }
+
+    public void SendList()
+    {
+        LevelEventSystem.instance.GetList(spawnList);
     }
 }

@@ -83,6 +83,7 @@ MonoBehaviour:
   levelData:
   - {fileID: 0}
   levels: []
+  spawnpointList: []
 --- !u!1 &3016386617398075710
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +95,6 @@ GameObject:
   - component: {fileID: 3016386617398075702}
   - component: {fileID: 3016386617398075701}
   - component: {fileID: 3016386617398075697}
-  - component: {fileID: 3016386617398075721}
   - component: {fileID: 84565653644464121}
   m_Layer: 0
   m_Name: GameManager
@@ -155,35 +155,6 @@ MonoBehaviour:
   whiskerAmount: 11
   comboBias: 40
   activationTime: 0.2
---- !u!114 &3016386617398075721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016386617398075710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 8dfcc9248fd3a1640b4944ed48bc4463, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3016386617398075697}
-          m_MethodName: SetAIActive
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &84565653644464121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947154799dbf1c846807ceb97aed81f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  set: {fileID: 0}
+  set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
 --- !u!1 &3016386617689796663
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +209,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3016386617689796663}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3387fdcfca2f31144b6c0ec22f2ade3e, type: 3}
   m_Name: 

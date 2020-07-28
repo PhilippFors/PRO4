@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+
+[ExecuteInEditMode]
 public class SpawnpointID : MonoBehaviour
 {
     public PlayableDirector director;
@@ -15,17 +17,23 @@ public class SpawnpointID : MonoBehaviour
     {
         oldLevelID = LevelID;
     }
-
-    public void UpdateLevelID()
+    public void UpdateID()
     {
+        SpawnpointID[] list = FindObjectsOfType<SpawnpointID>();
         if (LevelID != oldLevelID)
         {
-            SpawnpointID[] list = FindObjectsOfType<SpawnpointID>();
+            
             foreach (SpawnpointID id in list)
             {
                 id.LevelID = this.LevelID;
             }
             oldLevelID = LevelID;
+            
         }
+        foreach (SpawnpointID id in list)
+        {
+            id.gameObject.name = "SpawnPNT: " + "Lvl " + id.LevelID + ", ar " + id.AreaID + ", Unq " + id.UniqueID;
+        }
+        
     }
 }

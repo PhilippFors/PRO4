@@ -11,9 +11,9 @@ public class UpdateLevelID : Editor
         DrawDefaultInspector();
 
         SpawnpointID script = (SpawnpointID)target;
-        if (GUILayout.Button("Update LevelID's"))
+        if (GUILayout.Button("Update ID's"))
         {
-            script.UpdateLevelID();
+            script.UpdateID();
         }
     }
 }

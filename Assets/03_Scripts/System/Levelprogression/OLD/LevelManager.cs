@@ -10,11 +10,13 @@ public class LevelManager : MonoBehaviour
     bool levelExitTriggered = false;
     [SerializeField] private SceneLevelData[] levelData;
     [SerializeField] public Level[] levels;
+    public List<SpawnpointID> spawnpointList;
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
         LevelEventSystem.instance.nextWave += StartWave;
         LevelEventSystem.instance.areaExit += AreaFinsihed;
+        LevelEventSystem.instance.getList += GetList;
         levels = new Level[levelData.Length];
         for (int i = 0; i < levelData.Length; i++)
             levels[i] = levelData[i].levelInfo;
@@ -26,6 +28,7 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaEntry -= StartArea;
         LevelEventSystem.instance.nextWave -= StartWave;
         LevelEventSystem.instance.areaExit -= AreaFinsihed;
+        LevelEventSystem.instance.getList -= GetList;
     }
 
     bool HasNextWave()
@@ -33,6 +36,10 @@ public class LevelManager : MonoBehaviour
         return currentWave + 1 <= levels[currentLevel].areas[currentArea].waves.Length;
     }
 
+    public void GetList(List<SpawnpointID> list)
+    {
+        spawnpointList = list;
+    }
     void AreaFinsihed()
     {
         levels[currentLevel].areas[currentArea].finished = true;
