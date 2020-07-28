@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum EnemyType{
+    undefinded,
+    Avik,
+    Shentau
+}
 public class EnemyBody : MonoBehaviour, IStats, IMultipliers
 {
     public List<GameStatistics> statList { get; set; }

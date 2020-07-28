@@ -16,6 +16,8 @@ public class SceneLevelData : MonoBehaviour
     public void SaveAsset()
     {
         AssetDatabase.CreateAsset(levelInfo, "Assets/03_Scripts/" + gameObject.name +".asset");
+        var so = new SerializedObject(levelInfo);
+        so.ApplyModifiedProperties();
         AssetDatabase.SaveAssets();
     }
 

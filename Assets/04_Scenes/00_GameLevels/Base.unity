@@ -121,28 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 5d7fdc56cc3ea1e48a141f1ab8684e1f, type: 2}
---- !u!114 &179103446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae6dcca6713e3b84fa63fa15d7dc417d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lvlID: 0
-  areas:
-  - finished: 0
-    started: 0
-    waves:
-    - SpawnNextWaveInstantly: 0
-      spawnPoints:
-      - prefab: {fileID: 2649116113045803458, guid: 36368829eaf9d6548a3644bbbf277d6f,
-          type: 3}
-        Point: {fileID: 0}
 --- !u!1001 &225415370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,7 +198,7 @@ PrefabInstance:
         type: 3}
       propertyPath: levelData.Array.data[0]
       value: 
-      objectReference: {fileID: 575535307}
+      objectReference: {fileID: 0}
     - target: {fileID: 3016386617398075697, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: playerTarget
@@ -257,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b35bf32f752874c88358269dde6177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelInfo: {fileID: 179103446}
+  levelInfo: {fileID: 11400000, guid: 608280fde9fa6914391e8613be57288e, type: 2}
 --- !u!4 &575535308
 Transform:
   m_ObjectHideFlags: 0
