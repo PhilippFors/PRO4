@@ -7,19 +7,22 @@ public class PlayerBody : MonoBehaviour, IStats
     public List<GameStatistics> statList { get; set; }
     public StatTemplate template;
     public FloatVariable currentHealth;
-    private void Awake()
+    private void Start()
     {
         InitStats();
     }
     public void InitStats()
     {
-        statList = new List<GameStatistics>();
-        foreach (FloatReference f in template.statList)
+        if (SaveManager.instance.isNewGame)
         {
-            StatVariable s = (StatVariable)f.Variable;
-            statList.Add(new GameStatistics(f.Value, s.statName));
+            statList = new List<GameStatistics>();
+            foreach (FloatReference f in template.statList)
+            {
+                StatVariable s = (StatVariable)f.Variable;
+                statList.Add(new GameStatistics(f.Value, s.statName));
+            }
+            currentHealth.Value = GetStatValue(StatName.MaxHealth);
         }
-        currentHealth.Value = GetStatValue(StatName.MaxHealth);
     }
 
     public void SetStatValue(StatName name, float value)
@@ -55,7 +58,9 @@ public class PlayerBody : MonoBehaviour, IStats
             {
                 float overflow = currentHealth.Value + healAmount - MaxHealth;
                 currentHealth.Value += healAmount - overflow;
-            } else{
+            }
+            else
+            {
                 currentHealth.Value += healAmount;
             }
         }

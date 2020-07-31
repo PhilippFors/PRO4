@@ -8,8 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int currentWave = 0;
     [SerializeField] private int currentArea = 0;
     bool levelExitTriggered = false;
-    [SerializeField] private SceneLevelData[] levelData;
-    [SerializeField] public Level[] levels;
+    public Level[] levelData;
     public List<SpawnpointID> spawnpointList;
     private void Start()
     {
@@ -17,9 +16,6 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.nextWave += StartWave;
         LevelEventSystem.instance.areaExit += AreaFinsihed;
         LevelEventSystem.instance.getList += GetList;
-        levels = new Level[levelData.Length];
-        for (int i = 0; i < levelData.Length; i++)
-            levels[i] = levelData[i].levelInfo;
         LevelEventSystem.instance.levelExit += LevelFinished;
     }
 
@@ -33,7 +29,7 @@ public class LevelManager : MonoBehaviour
 
     bool HasNextWave()
     {
-        return currentWave + 1 <= levels[currentLevel].areas[currentArea].waves.Length;
+        return currentWave + 1 <= levelData[currentLevel].areas[currentArea].waves.Length;
     }
 
     public void GetList(List<SpawnpointID> list)
@@ -42,7 +38,7 @@ public class LevelManager : MonoBehaviour
     }
     void AreaFinsihed()
     {
-        levels[currentLevel].areas[currentArea].finished = true;
+        levelData[currentLevel].areas[currentArea].finished = true;
         SpawnManager.instance.areaStarted = false;
         currentArea++;
         currentWave = 0;
@@ -63,10 +59,10 @@ public class LevelManager : MonoBehaviour
     void StartArea()
     {
         levelExitTriggered = false;
-        if (!levels[currentLevel].areas[currentArea].started)
+        if (!levelData[currentLevel].areas[currentArea].started)
         {
             StartWave();
-            levels[currentLevel].areas[currentArea].started = true;
+            levelData[currentLevel].areas[currentArea].started = true;
         }
     }
 
@@ -81,16 +77,16 @@ public class LevelManager : MonoBehaviour
         List<Wave> wavesToSpawn = new List<Wave>();
 
         int i = currentWave;
-        if (!levels[currentLevel].areas[currentArea].waves[currentWave].SpawnNextWaveInstantly)
+        if (!levelData[currentLevel].areas[currentArea].waves[currentWave].SpawnNextWaveInstantly)
         {
-            wavesToSpawn.Add(levels[currentLevel].areas[currentArea].waves[currentWave]);
+            wavesToSpawn.Add(levelData[currentLevel].areas[currentArea].waves[currentWave]);
             currentWave++;
             Spawn(wavesToSpawn);
             return;
         }
         while (true)
         {
-            if (i >= levels[currentLevel].areas[currentArea].waves.Length || !levels[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
+            if (i >= levelData[currentLevel].areas[currentArea].waves.Length || !levelData[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
             {
                 Spawn(wavesToSpawn);
                 Debug.Log(wavesToSpawn.Count);
@@ -98,7 +94,7 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                wavesToSpawn.Add(levels[currentLevel].areas[currentArea].waves[i]);
+                wavesToSpawn.Add(levelData[currentLevel].areas[currentArea].waves[i]);
                 currentWave++;
             }
             i++;
@@ -121,8 +117,24 @@ public class LevelManager : MonoBehaviour
 
 
         SpawnManager.instance.areaStarted = true;
-        levels[currentLevel].areas[currentArea].started = false;
+        levelData[currentLevel].areas[currentArea].started = false;
         StartArea();
     }
 
+
+    public void SetCurrentLevel(int level){
+        currentLevel = level;
+    }
+
+    public void SetCurrentArea(int area){
+        currentArea = area;
+    }
+
+    public int GetCurrentLevel(){
+        return currentLevel;
+    }
+
+    public int GetCurrentArea(){
+        return currentArea;
+    }
 }

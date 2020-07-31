@@ -7,7 +7,7 @@ public class SpawnpointList : MonoBehaviour
     public List<SpawnpointID> spawnList = new List<SpawnpointID>();
     void Start()
     {
-        SendList();
+        StartCoroutine(SendDelay());
     }
 
     public void FindSpawnpoints()
@@ -21,5 +21,11 @@ public class SpawnpointList : MonoBehaviour
     public void SendList()
     {
         LevelEventSystem.instance.GetList(spawnList);
+    }
+
+    IEnumerator SendDelay()
+    {
+        yield return new WaitForEndOfFrame();
+        SendList();
     }
 }

@@ -11,7 +11,7 @@ public class LevelEventSystem : MonoBehaviour
     public event System.Action levelEntry;
     public event System.Action levelExit;
     public event Action<List<SpawnpointID>> getList;
-    
+
     public static LevelEventSystem instance;
 
     private void Awake()
@@ -21,7 +21,8 @@ public class LevelEventSystem : MonoBehaviour
 
     public void GetList(List<SpawnpointID> l)
     {
-        getList(l);
+        if (getList != null)
+            getList(l);
     }
 
     public void AreaEntry()
@@ -45,8 +46,10 @@ public class LevelEventSystem : MonoBehaviour
             levelExit();
     }
 
-    public void NextWave(){
-        if(nextWave != null){
+    public void NextWave()
+    {
+        if (nextWave != null)
+        {
             nextWave();
         }
     }
