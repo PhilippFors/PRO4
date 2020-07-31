@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    public LevelManager levelManager;
+    public OLD_LevelManager levelManager;
     public PlayerBody playerBody;
     public static SaveManager instance;
     public bool isNewGame;

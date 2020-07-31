@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class LevelManager : MonoBehaviour
+public class OLD_LevelManager : MonoBehaviour
 {
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private int currentWave = 0;
@@ -27,10 +27,10 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.getList -= GetList;
     }
 
-    bool HasNextWave()
-    {
-        return currentWave + 1 <= levelData[currentLevel].areas[currentArea].waves.Length;
-    }
+    // bool HasNextWave()
+    // {
+    //     // return currentWave + 1 <= levelData[currentLevel].areas[currentArea].waves.Length;
+    // }
 
     public void GetList(List<SpawnpointID> list)
     {
@@ -69,37 +69,37 @@ public class LevelManager : MonoBehaviour
 
     void StartWave()
     {
-        if (!HasNextWave())
-        {
-            AreaFinsihed();
-            return;
-        }
+        // if (!HasNextWave())
+        // {
+        //     AreaFinsihed();
+        //     return;
+        // }
 
-        List<Wave> wavesToSpawn = new List<Wave>();
+        // List<Wave> wavesToSpawn = new List<Wave>();
 
-        int i = currentWave;
-        if (!levelData[currentLevel].areas[currentArea].waves[currentWave].SpawnNextWaveInstantly)
-        {
-            wavesToSpawn.Add(levelData[currentLevel].areas[currentArea].waves[currentWave]);
-            currentWave++;
-            Spawn(wavesToSpawn);
-            return;
-        }
-        while (true)
-        {
-            if (i >= levelData[currentLevel].areas[currentArea].waves.Length || !levelData[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
-            {
-                Spawn(wavesToSpawn);
-                Debug.Log(wavesToSpawn.Count);
-                return;
-            }
-            else
-            {
-                wavesToSpawn.Add(levelData[currentLevel].areas[currentArea].waves[i]);
-                currentWave++;
-            }
-            i++;
-        }
+        // int i = currentWave;
+        // if (!levelData[currentLevel].areas[currentArea].waves[currentWave].SpawnNextWaveInstantly)
+        // {
+        //     wavesToSpawn.Add(levelData[currentLevel].areas[currentArea].waves[currentWave]);
+        //     currentWave++;
+        //     Spawn(wavesToSpawn);
+        //     return;
+        // }
+        // while (true)
+        // {
+        //     if (i >= levelData[currentLevel].areas[currentArea].waves.Length || !levelData[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
+        //     {
+        //         Spawn(wavesToSpawn);
+        //         Debug.Log(wavesToSpawn.Count);
+        //         return;
+        //     }
+        //     else
+        //     {
+        //         wavesToSpawn.Add(levelData[currentLevel].areas[currentArea].waves[i]);
+        //         currentWave++;
+        //     }
+        //     i++;
+        // }
     }
 
     public void Spawn(List<Wave> wavesToSpawn)

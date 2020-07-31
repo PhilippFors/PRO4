@@ -200,8 +200,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scripts
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3016386617375203206, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
+--- !u!1 &225415371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3016386617375203207, guid: 7ab2ec0b09864e046aba10e445d9af44,
+    type: 3}
+  m_PrefabInstance: {fileID: 225415370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &225415372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225415371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da1685f3c7d98340b975b8358c15835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 0
+  currentWave: 0
+  currentArea: 0
+  levelData: []
+  spawnpointlist: {fileID: 11400000, guid: 6064ed67f26b6a442bf7a9425adbda2a, type: 2}
+  currentObjective: {fileID: 0}
 --- !u!1 &740371997
 GameObject:
   m_ObjectHideFlags: 1
