@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
         SpawnManager.instance.areaStarted = false;
         currentArea++;
         currentWave = 0;
+        StartArea();
         // if (currentArea == levels[currentLevel].areas.Length)
         // {
         //     LevelFinished();

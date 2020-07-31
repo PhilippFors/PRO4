@@ -20,7 +20,7 @@ public class SaveManager : MonoBehaviour
             LoadPlayer();
             LoadLevel();
         }
-        
+
     }
 
     public void Save()
@@ -35,21 +35,17 @@ public class SaveManager : MonoBehaviour
         levelManager.SetCurrentArea(data.currentArea);
 
         if (data.currentAreaFinsihed)
-            for (int i = 0; i < data.currentLevel; i++)
+            for (int j = 0; j <= data.currentArea; j++)
             {
-                for (int j = 0; j < data.currentArea; j++)
-                {
-                    levelManager.levelData[i].areas[j].finished = true;
-                }
+                levelManager.levelData[data.currentLevel].areas[j].finished = true;
             }
+
         else
-            for (int i = 0; i <= data.currentLevel; i++)
+            for (int j = 0; j <= data.currentArea - 1; j++)
             {
-                for (int j = 0; j <= data.currentArea-1; j++)
-                {
-                    levelManager.levelData[i].areas[j].finished = true;
-                }
+                levelManager.levelData[data.currentLevel].areas[j].finished = true;
             }
+
 
     }
 
@@ -61,7 +57,7 @@ public class SaveManager : MonoBehaviour
         playerBody.statList = new List<GameStatistics>();
         float o;
         foreach (FloatReference stat in playerBody.template.statList)
-        {   
+        {
             o = 0;
             StatVariable v = (StatVariable)stat.Variable;
             data.playerStats.TryGetValue(v.statName.ToString(), out o);

@@ -8,7 +8,9 @@ public class AreaEntry : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player"))
         {
+
             LevelEventSystem.instance.AreaEntry();
+            
             SpawnManager.instance.areaStarted = true;
             GetComponent<BoxCollider>().enabled = false;
         }
