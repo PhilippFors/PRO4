@@ -6,7 +6,5 @@ using UnityEngine;
 public class Level:ScriptableObject
 {
     public int lvlID;
-    public Area[] areas;
-
-    
+    public Objective[] areas;
 }

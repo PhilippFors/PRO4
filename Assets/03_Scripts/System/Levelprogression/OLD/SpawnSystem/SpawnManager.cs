@@ -43,11 +43,9 @@ public class SpawnManager : MonoBehaviour
         switch (tag)
         {
             case "Durga":
-
                 durga.Add(enemy);
                 break;
             case "Igner":
-
                 igner.Add(enemy);
                 break;
             case "Untagged":
@@ -60,9 +58,7 @@ public class SpawnManager : MonoBehaviour
         string tag = enemy.gameObject.tag;
         switch (tag)
         {
-            case "Durga":
-
-                
+            case "Durga":  
                     durga.Remove(enemy);
                 break;
             case "Igner":

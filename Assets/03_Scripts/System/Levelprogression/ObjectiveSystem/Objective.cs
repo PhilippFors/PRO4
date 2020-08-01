@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class Objective : ScriptableObject
 {
     public ObjectiveTransition[] transitions;
-
+    public bool started;
+    public bool finished;
     public void ObjectiveUpdate(LevelManager manager)
     {
         ExecuteObjective(manager);
@@ -24,7 +25,6 @@ public abstract class Objective : ScriptableObject
                 manager.SwitchObjective();
             }
         }
-
     }
     public abstract void StateExit(LevelManager manager);
 

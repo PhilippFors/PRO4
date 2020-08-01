@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private int currentWave = 0;
     [SerializeField] private int currentArea = 0;
@@ -30,7 +31,9 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        currentObjective.ObjectiveUpdate(this);
+        if (currentObjective != null)
+            currentObjective.ObjectiveUpdate(this);
+
     }
 
     public void StartLevel()
@@ -40,7 +43,9 @@ public class LevelManager : MonoBehaviour
 
     public void StartArea()
     {
-        
+        GetNextObjective();
+        if (HasNextObjective())
+            currentArea++;
     }
 
     public void FinsishArea()
@@ -58,13 +63,22 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void SwitchObjective(){
-        levelData[currentLevel].areas[currentArea].objective.StateExit(this);
-        FinsishArea();
-        currentObjective = GetNextObjective();
+    public void SwitchObjective()
+    {
+        levelData[currentLevel].areas[currentArea].StateExit(this);
+        currentObjective = null;
     }
 
-    Objective GetNextObjective(){
-        return null;
+    Objective GetNextObjective()
+    {
+        if (HasNextObjective())
+            return levelData[currentLevel].areas[currentArea + 1];
+        else
+            return null;
+    }
+
+    bool HasNextObjective()
+    {
+        return currentArea + 1 < levelData[currentLevel].areas.Length;
     }
 }

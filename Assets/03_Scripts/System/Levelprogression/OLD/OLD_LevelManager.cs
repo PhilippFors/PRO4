@@ -15,7 +15,7 @@ public class OLD_LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaEntry += StartArea;
         LevelEventSystem.instance.nextWave += StartWave;
         LevelEventSystem.instance.areaExit += AreaFinsihed;
-        LevelEventSystem.instance.getList += GetList;
+
         LevelEventSystem.instance.levelExit += LevelFinished;
     }
 
@@ -24,7 +24,7 @@ public class OLD_LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaEntry -= StartArea;
         LevelEventSystem.instance.nextWave -= StartWave;
         LevelEventSystem.instance.areaExit -= AreaFinsihed;
-        LevelEventSystem.instance.getList -= GetList;
+
     }
 
     // bool HasNextWave()
