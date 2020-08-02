@@ -7,6 +7,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
     public class State : ScriptableObject
     {
         public TimelineAsset anim;
+        public AnimationClip clip;
         public PlayerMovmentSate movementState;
         public bool canAttack;
         public float maxRot;

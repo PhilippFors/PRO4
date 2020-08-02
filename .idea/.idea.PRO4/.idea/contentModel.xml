@@ -55,19 +55,18 @@
                 <e p="IEnemyActions.cs" t="Include" />
                 <e p="StateMachineController.cs" t="Include" />
               </e>
-              <e p="DisableCols.cs" t="Include" />
-              <e p="Durga" t="Include">
-                <e p="DurgaAnimator.cs" t="Include" />
+              <e p="Avik" t="Include">
+                <e p="AvikActions.cs" t="Include" />
                 <e p="EnemyTestWeapon.cs" t="Include" />
                 <e p="StateMachineScripts" t="Include">
                   <e p="Actions" t="Include">
+                    <e p="AvikAttackAction.cs" t="Include" />
+                    <e p="AvikChaseAction.cs" t="Include" />
+                    <e p="AvikIdleAction.cs" t="Include" />
                     <e p="AvoidAction.cs" t="Include" />
-                    <e p="DurgaAttackAction.cs" t="Include" />
-                    <e p="DurgaChaseAction.cs" t="Include" />
-                    <e p="IdleAction.cs" t="Include" />
                   </e>
                   <e p="Decisions" t="Include">
-                    <e p="AttackDecision.cs" t="Include" />
+                    <e p="AvikAttackDecision.cs" t="Include" />
                     <e p="AvoidDecision.cs" t="Include" />
                     <e p="GetOutofIdleDecision.cs" t="Include" />
                   </e>
@@ -77,6 +76,7 @@
                   </e>
                 </e>
               </e>
+              <e p="DisableCols.cs" t="Include" />
               <e p="ResetValues.cs" t="Include" />
             </e>
             <e p="Obstacles" t="Include">
@@ -299,6 +299,7 @@
           </e>
         </e>
         <e p="RotateCam.cs" t="Include" />
+        <e p="SetSpeed.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
