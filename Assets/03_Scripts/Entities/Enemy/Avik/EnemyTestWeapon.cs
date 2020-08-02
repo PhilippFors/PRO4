@@ -10,12 +10,11 @@ public class EnemyTestWeapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameObject obj = other.gameObject;
-        if (isAttacking)
+
+        if (obj.GetComponent<EnemyBody>() == null && obj.GetComponent<IHasHealth>() != null)
         {
-            if (obj.GetComponent<EnemyBody>() == null && obj.GetComponent<IHasHealth>() != null)
-            {
-                EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
-            }
+            EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
         }
     }
+
 }

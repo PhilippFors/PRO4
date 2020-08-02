@@ -4,111 +4,81 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private int currentWave = 0;
     [SerializeField] private int currentArea = 0;
-    public SceneLevelData level0;
-    [SerializeField] private SceneLevelData[] levelData;
-    [SerializeField] public Level[] levels;
+    bool levelExitTriggered = false;
+    public Level[] levelData;
+    public SpawnpointlistSO spawnpointlist;
+
+    public Objective currentObjective;
 
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
-        LevelEventSystem.instance.nextWave += StartWave;
-        LevelEventSystem.instance.areaExit += AreaFinsihed;
-        levels[0] = level0.levelInfo;
-        // LevelEventSystem.instance.levelExit += LevelFinished;
+        // LevelEventSystem.instance.nextWave += StartWave;
+        LevelEventSystem.instance.areaExit += FinsishArea;
+        LevelEventSystem.instance.levelExit += FinishLevel;
     }
-
     private void OnDisable()
     {
         LevelEventSystem.instance.areaEntry -= StartArea;
-        LevelEventSystem.instance.nextWave -= StartWave;
-        LevelEventSystem.instance.areaExit -= AreaFinsihed;
+        // LevelEventSystem.instance.nextWave -= StartWave;
+        LevelEventSystem.instance.areaExit -= FinsishArea;
+        LevelEventSystem.instance.levelExit -= FinishLevel;
     }
 
-    bool HasNextWave()
+    private void Update()
     {
-        return currentWave + 1 <= levels[currentLevel].areas[currentArea].waves.Length;
+        if (currentObjective != null)
+            currentObjective.ObjectiveUpdate(this);
+
     }
 
-    void AreaFinsihed()
+    public void StartLevel()
     {
-        levels[currentLevel].areas[currentArea].finished = true;
-        SpawnManager.instance.areaStarted = false;
-        currentArea++;
-        currentWave = 0;
-        // if (currentArea == levels[currentLevel].areas.Length)
-        // {
-        //     LevelFinished();
-        // }
+
     }
 
-    void LevelFinished()
+    public void StartArea()
     {
-        currentLevel++;
-        currentArea = 0;
-        currentWave = 0;
+        GetNextObjective();
+        if (HasNextObjective())
+            currentArea++;
     }
 
-    void StartArea()
+    public void FinsishArea()
     {
-        if (!levels[currentLevel].areas[currentArea].started)
-        {
-            StartWave();
-            levels[currentLevel].areas[currentArea].started = true;
-        }
+
     }
 
-    void StartWave()
+    public void FinishLevel()
     {
-        if (!HasNextWave())
-        {
-            AreaFinsihed();
-            return;
-        }
 
-        List<Wave> wavesToSpawn = new List<Wave>();
-
-        int i = currentWave;
-        if (!levels[currentLevel].areas[currentArea].waves[currentWave].SpawnNextWaveInstantly)
-        {
-            wavesToSpawn.Add(levels[currentLevel].areas[currentArea].waves[currentWave]);
-            currentWave++;
-            Spawn(wavesToSpawn);
-            return;
-        }
-        while(true)
-        {
-            if (i >= levels[currentLevel].areas[currentArea].waves.Length || !levels[currentLevel].areas[currentArea].waves[i].SpawnNextWaveInstantly)
-            {
-                Spawn(wavesToSpawn);
-                Debug.Log(wavesToSpawn.Count);
-                return;
-            }
-            else
-            {
-                wavesToSpawn.Add(levels[currentLevel].areas[currentArea].waves[i]);
-                currentWave++;
-            }
-            i++;
-        }
     }
 
-    public void Spawn(List<Wave> wavesToSpawn)
+    public void ExecuteCheckObjective()
     {
-        SpawnManager.instance.SpawnEnemies(wavesToSpawn, currentWave - wavesToSpawn.Count);
+
     }
 
-    public void RestartCurrentArea()
+    public void SwitchObjective()
     {
-        if (currentArea != 0)
-            currentArea = currentArea - 1;
-
-
-        SpawnManager.instance.areaStarted = true;
-        levels[currentLevel].areas[currentArea].started = false;
-        StartArea();
+        levelData[currentLevel].areas[currentArea].StateExit(this);
+        currentObjective = null;
     }
 
+    Objective GetNextObjective()
+    {
+        if (HasNextObjective())
+            return levelData[currentLevel].areas[currentArea + 1];
+        else
+            return null;
+    }
+
+    bool HasNextObjective()
+    {
+        return currentArea + 1 < levelData[currentLevel].areas.Length;
+    }
 }

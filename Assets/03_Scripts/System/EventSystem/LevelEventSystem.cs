@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LevelEventSystem : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class LevelEventSystem : MonoBehaviour
     public event System.Action nextWave;
     public event System.Action levelEntry;
     public event System.Action levelExit;
-    
+
     public static LevelEventSystem instance;
 
     private void Awake()
@@ -22,27 +23,28 @@ public class LevelEventSystem : MonoBehaviour
         if (areaEntry != null)
             areaEntry();
     }
+
     public void AreaExit()
     {
         if (areaExit != null)
             areaExit();
     }
+
     public void LevelEntry()
     {
         if (levelEntry != null)
             levelEntry();
     }
+
     public void LevelExit()
     {
         if (levelExit != null)
             levelExit();
     }
 
-    public void NextWave(){
-        if(nextWave != null){
+    public void NextWave()
+    {
+        if (nextWave != null)
             nextWave();
-        }
     }
-
-
 }

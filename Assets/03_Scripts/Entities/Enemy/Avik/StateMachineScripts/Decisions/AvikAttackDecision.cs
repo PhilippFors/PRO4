@@ -7,6 +7,7 @@ public class AvikAttackDecision : Decision
 {
     public override bool Execute(StateMachineController controller)
     {
+        controller.actions.CheckIsAttacking(controller);
         return CheckForPlayer(controller);
     }
 

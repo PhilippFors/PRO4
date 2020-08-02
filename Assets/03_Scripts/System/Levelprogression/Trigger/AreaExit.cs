@@ -8,7 +8,8 @@ public class AreaExit : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            LevelEventSystem.instance.AreaExit();
+            
+            SaveManager.instance.Save();
             GetComponent<BoxCollider>().enabled = false;
         }
 

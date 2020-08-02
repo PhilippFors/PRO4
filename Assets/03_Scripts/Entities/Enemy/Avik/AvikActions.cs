@@ -5,56 +5,57 @@ using UnityEngine;
 public class AvikActions : MonoBehaviour, IEnemyActions
 {
     public Animator animator;
-    public GameObject weapon;
+    public Weapon[] weapons;
     float attackCountdown;
-    public void Attack(StateMachineController controller, int i, int j = 0)
+    float extraComboTime = 1f;
+
+    public void Attack(StateMachineController controller, int i, bool combo = false)
     {
         switch (i)
         {
             case 1:
-                ExecuteAttack(controller, i, j);
+                ExecuteAttack(controller, i, combo);
                 break;
             case 2:
-                ExecuteAttack(controller, i, j);
+                ExecuteAttack(controller, i, combo);
                 break;
             case -1:
                 animator.Play("Activation");
                 break;
         }
-        if(j != 0){
-            StartCoroutine(AttackDelay(controller, 1f));
-        } else{
-            StartCoroutine(AttackDelay(controller));
+        if (combo)
+        {
+            StartCoroutine(controller.settings.AttackDelay(controller, extraComboTime));
         }
-                
+        else
+        {
+            StartCoroutine(controller.settings.AttackDelay(controller));
+        }
+
     }
 
-    void ExecuteAttack(StateMachineController controller, int i, int j = 0)
+    void ExecuteAttack(StateMachineController controller, int i, bool combo)
     {
+        foreach (Weapon weapon in weapons)
+            weapon.Activate();
+
         controller.canAttack = false;
         controller.isAttacking = true;
-        animator.SetFloat("AnimSpeed", controller.enemyStats.GetStatValue(StatName.AttackSpeed));
-        animator.SetInteger("attacknr", i);
-        animator.SetInteger("secAttacknr", j);
-        
+        animator.SetFloat(AnimatorStrings.animSpeed.ToString(), controller.enemyStats.GetStatValue(StatName.AttackSpeed));
+        animator.SetInteger(AnimatorStrings.attacknr.ToString(), i);
+        if (combo)
+            animator.SetTrigger(AnimatorStrings.comboTrigger.ToString());
 
     }
 
-    void CheckIsAttacking(StateMachineController controller)
-    {
-        if (animator.GetInteger("attacknr") == 0)
-        {
-            controller.isAttacking = false;
-        }
-    }
     private void SingleAttack()
     {
-        animator.SetInteger("attacknr", 1);
+        animator.SetInteger(AnimatorStrings.attacknr.ToString(), 1);
     }
 
     public void CancelAttack(StateMachineController controller)
     {
-        animator.SetTrigger("cancel");
+        animator.SetTrigger(AnimatorStrings.cancel.ToString());
     }
 
     public void Walk(StateMachineController s)
@@ -77,10 +78,13 @@ public class AvikActions : MonoBehaviour, IEnemyActions
         throw new System.NotImplementedException();
     }
 
-    IEnumerator AttackDelay(StateMachineController controller, float extra = 0)
+    public void CheckIsAttacking(StateMachineController controller)
     {
-        yield return new WaitForSeconds(controller.enemyStats.GetStatValue(StatName.AttackRate)+extra);
-
-        controller.canAttack = true;
+        if (animator.GetInteger(AnimatorStrings.attacknr.ToString()) == 0)
+        {
+            controller.isAttacking = false;
+            foreach (Weapon weapon in weapons)
+                weapon.Deactivate();
+        }
     }
 }

@@ -113,4 +113,19 @@ public class AISteering
     {
         return -1 * Mathf.Atan2(direction.z, direction.x);
     }
+
+    public bool IsInFront(Vector3 target, StateMachineController controller)
+    {
+        return IsFacing(target, 0, controller);
+    }
+
+    public bool IsFacing(Vector3 target, float cosineValue,StateMachineController controller)
+    {
+        Vector3 facing = controller.transform.right.normalized;
+
+        Vector3 directionToTarget = (target - controller.transform.position);
+        directionToTarget.Normalize();
+
+        return Vector3.Dot(facing, directionToTarget) >= cosineValue;
+    }
 }

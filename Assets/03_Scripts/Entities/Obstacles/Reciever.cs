@@ -9,6 +9,6 @@ public class Reciever : MonoBehaviour
     private void Start()
     {
         occupied = false;
-        active = true;
+        active = false;
     }
 }
