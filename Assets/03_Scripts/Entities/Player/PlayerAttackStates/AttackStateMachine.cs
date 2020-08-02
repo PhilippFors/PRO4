@@ -30,6 +30,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
             .GetComponent<PlayerStateMachine>().currentState;
         public AttackSO baseAttack; //an attack which has no states and only holds the next attack
         public State baseState; // an empty state that does nothing
+        PlayableGraph playableGraph;
 
         private void Awake()
         {
@@ -49,6 +50,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
         private void OnDisable()
         {
             input.Disable();
+            playableGraph.Destroy();
             
         }
 
@@ -56,6 +58,10 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
         {
             currentAttack = attack.currentWeapon.baseAttack; //current attack is based on the current weapon
             currentState = baseState;
+            
+            
+            //a = clip.averageDuration;
+            GraphVisualizerClient.Show(playableGraph);
         }
 
         private void Attack(int stateID)
@@ -84,7 +90,8 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
             currentState = state;
             animTimer = 0;
             
-            director.Play(currentState.anim);
+            //director.Play(currentState.anim);
+            AnimationPlayableUtilities.PlayClip(GetComponentInChildren<Animator>(), currentState.clip, out playableGraph);
             EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
 
         }
@@ -94,7 +101,8 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
         {
             //checks if animation is finished playing (and an animation was playing)
             animTimer += Time.deltaTime;
-            if (animTimer >= currentState.anim.duration && currentState != baseState)
+            //if (animTimer >= currentState.anim.duration && currentState != baseState)
+            if (currentState != baseState && animTimer >= currentState.clip.averageDuration)
             {
                 //checks if we are already in the returnstate and resets everything to start, else changes to the next state
                 if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
