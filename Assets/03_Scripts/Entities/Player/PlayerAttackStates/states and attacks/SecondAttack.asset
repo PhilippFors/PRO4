@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: SecondAttack
   m_EditorClassIdentifier: 
   skill: {fileID: 0}
-  nextAttacks: []
+  nextAttacks:
+  - {fileID: 11400000, guid: 60a28071886a95546bac264518cdc786, type: 2}
+  - {fileID: 11400000}
   stateList:
   - {fileID: 11400000, guid: 4838f456b1d4ed0428055c2c5fe5fd5a, type: 2}
   - {fileID: 11400000, guid: a34b7b6695a908e49922a95eabe5f53b, type: 2}

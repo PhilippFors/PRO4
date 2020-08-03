@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FMOD;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.Playables;
+using Debug = UnityEngine.Debug;
+
 public enum PlayerMovmentSate
 {
     standard,
@@ -15,7 +20,7 @@ public class PlayerStateMachine : MonoBehaviour
     #region __________Vector 2&3__________
 
     [HideInInspector] public Vector3 currentMoveDirection, currentLookDirection;
-    [HideInInspector] public Vector3 forward, right, pointToLook;
+    [HideInInspector] public Vector3 forward, right, pointToLook, currentLook;
     [HideInInspector] public Vector2 move;
     [HideInInspector] public Vector2 gamepadRotate;
     [HideInInspector] public Vector2 mouseLook;
@@ -58,6 +63,10 @@ public class PlayerStateMachine : MonoBehaviour
     private AttackState attackController;
     GroundChecker groundChecker => GetComponent<GroundChecker>();
     public PlayerAttack target => GetComponent<PlayerAttack>();
+    
+    public AnimationClip clip;
+
+    PlayableGraph playableGraph;
 
     #endregion
 
@@ -82,7 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         input.Disable();
         EventSystem.instance.SetState -= SetState;
-       
+        playableGraph.Destroy();
 
     }
 
@@ -90,6 +99,21 @@ public class PlayerStateMachine : MonoBehaviour
     {
         SetState(PlayerMovmentSate.standard);
         EventSystem.instance.SetState += SetState;
+        
+        playableGraph = PlayableGraph.Create();
+
+        playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+
+        var playableOutput = AnimationPlayableOutput.Create(playableGraph, "Run", GetComponentInChildren<Animator>());
+
+        // Wrap the clip in a playable
+
+        var clipPlayable = AnimationClipPlayable.Create(playableGraph, clip);
+
+        // Connect the Playable to an output
+
+        playableOutput.SetSourcePlayable(clipPlayable);
+
        
     }
 
@@ -114,6 +138,7 @@ public class PlayerStateMachine : MonoBehaviour
                 attackController.Tick(this);
                 break;
         }
+        
         dashController.DashCooldown(this);
     }
 
@@ -127,11 +152,18 @@ public class PlayerStateMachine : MonoBehaviour
     void IsMoving()
     {
         isMoving = true;
+        if (currentState == PlayerMovmentSate.standard)
+        {
+            PlayAnim();
+        }
+        
     }
 
     void IsNotMoving()
     {
         isMoving = false;
+        playableGraph.Stop();
+        Debug.Log(isMoving);
     }
 
     private void FixedUpdate()
@@ -202,6 +234,14 @@ public class PlayerStateMachine : MonoBehaviour
     void GrenadeMoveSpeed()
     {
         currentMoveSpeed = grenadeMoveSpeed;
+    }
+
+    void PlayAnim()
+    {
+        
+        // Plays the Graph.
+
+        playableGraph.Play();
     }
 
 }

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.-1010712004.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Alex\Desktop\FHHagenberg\Pro4" t="IncludeRecursive">
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.2145416697.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Alex\Desktop\FH-Hagenberg\4.Semester\Pro4" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -35,9 +35,14 @@
             <e p="AddTemplate.cs" t="Include" />
             <e p="EditTemplate.cs" t="Include" />
             <e p="RestartArea.cs" t="Include" />
+            <e p="SaveAsset.cs" t="Include" />
+            <e p="SaveGameEditor.cs" t="Include" />
             <e p="SOTemplateEditor.cs" t="Include" />
+            <e p="SpawnlistEditor.cs" t="Include" />
+            <e p="SpawnpointEditor.cs" t="Include" />
             <e p="StateEditor.cs" t="Include" />
             <e p="StatMultMonitor.cs" t="Include" />
+            <e p="UpdateLevelID.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
             <e p="Enemy" t="Include">
@@ -57,6 +62,7 @@
               </e>
               <e p="Avik" t="Include">
                 <e p="AvikActions.cs" t="Include" />
+                <e p="AvikWeapon.cs" t="Include" />
                 <e p="EnemyTestWeapon.cs" t="Include" />
                 <e p="StateMachineScripts" t="Include">
                   <e p="Actions" t="Include">
@@ -68,7 +74,6 @@
                   <e p="Decisions" t="Include">
                     <e p="AvikAttackDecision.cs" t="Include" />
                     <e p="AvoidDecision.cs" t="Include" />
-                    <e p="GetOutofIdleDecision.cs" t="Include" />
                   </e>
                   <e p="OnStateEnterExit" t="Include">
                     <e p="OnAvoidStateEnter.cs" t="Include" />
@@ -77,7 +82,26 @@
                 </e>
               </e>
               <e p="DisableCols.cs" t="Include" />
+              <e p="GeneralST" t="Include">
+                <e p="GetOutofIdleDecision.cs" t="Include" />
+              </e>
               <e p="ResetValues.cs" t="Include" />
+              <e p="Shentau" t="Include">
+                <e p="ShentauActions.cs" t="Include" />
+                <e p="STScripts" t="Include">
+                  <e p="Actions" t="Include">
+                    <e p="ShentauAtt.cs" t="Include" />
+                    <e p="ShentauChargeAtt.cs" t="Include" />
+                    <e p="ShentauIdle.cs" t="Include" />
+                    <e p="ShentauMovement.cs" t="Include" />
+                  </e>
+                  <e p="Decisions" t="Include">
+                    <e p="Shentau_AttOrMove.cs" t="Include" />
+                    <e p="Shentau_ChargeOrAtt.cs" t="Include" />
+                    <e p="Shentau_ChargeOrMove.cs" t="Include" />
+                  </e>
+                </e>
+              </e>
             </e>
             <e p="Obstacles" t="Include">
               <e p="ARLaser.cs" t="Include" />
@@ -113,6 +137,7 @@
               <e p="ObstacleBody.cs" t="Include" />
               <e p="PlayerBody.cs" t="Include" />
             </e>
+            <e p="Weapon.cs" t="Include" />
           </e>
           <e p="PrototypeScripts" t="Include">
             <e p="AttackNorth_1.cs" t="Include" />
@@ -147,19 +172,36 @@
               <e p="IStats.cs" t="Include" />
             </e>
             <e p="Levelprogression" t="Include">
-              <e p="LevelManager.cs" t="Include" />
-              <e p="Spawnpointstuff" t="Include">
+              <e p="Level" t="Include">
                 <e p="Area.cs" t="Include" />
+                <e p="DefeatEnemyObjective.cs" t="Include" />
                 <e p="Level.cs" t="Include" />
                 <e p="SceneLevelData.cs" t="Include" />
-                <e p="Spawnpoint.cs" t="Include" />
                 <e p="Wave.cs" t="Include" />
+              </e>
+              <e p="LevelManager.cs" t="Include" />
+              <e p="ObjectiveSystem" t="Include">
+                <e p="Objective.cs" t="Include" />
+                <e p="ObjectiveAction.cs" t="Include" />
+                <e p="ObjectiveDecision.cs" t="Include" />
+                <e p="ObjectiveTransition.cs" t="Include" />
+              </e>
+              <e p="OLD" t="Include">
+                <e p="OLD_LevelManager.cs" t="Include" />
+                <e p="SpawnSystem" t="Include">
+                  <e p="SpawnManager.cs" t="Include" />
+                  <e p="SpawnProcess.cs" t="Include" />
+                </e>
               </e>
               <e p="SpawnSystem" t="Include">
                 <e p="EnemySet.cs" t="Include" />
                 <e p="EntitySet.cs" t="Include" />
-                <e p="SpawnManager.cs" t="Include" />
-                <e p="SpawnProcess.cs" t="Include" />
+                <e p="Spawnpointstuff" t="Include">
+                  <e p="Spawnpoint.cs" t="Include" />
+                  <e p="SpawnpointID.cs" t="Include" />
+                  <e p="SpawnpointList.cs" t="Include" />
+                  <e p="SpawnpointlistSO.cs" t="Include" />
+                </e>
               </e>
               <e p="Trigger" t="Include">
                 <e p="AreaEntry.cs" t="Include" />
@@ -172,6 +214,12 @@
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
+            <e p="SaveSystem" t="Include">
+              <e p="LevelSaveData.cs" t="Include" />
+              <e p="PlayerSaveData.cs" t="Include" />
+              <e p="SaveLoadGame.cs" t="Include" />
+              <e p="SaveManager.cs" t="Include" />
+            </e>
           </e>
           <e p="UI" t="Include">
             <e p="UIManager.cs" t="Include" />
