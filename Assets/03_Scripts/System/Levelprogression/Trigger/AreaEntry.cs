@@ -11,7 +11,7 @@ public class AreaEntry : MonoBehaviour
 
             LevelEventSystem.instance.AreaEntry();
             
-            SpawnManager.instance.areaStarted = true;
+            // SpawnManager.instance.areaStarted = true;
             GetComponent<BoxCollider>().enabled = false;
         }
     }

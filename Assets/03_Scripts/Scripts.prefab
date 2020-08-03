@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bb9955d790b9747b597d477e0ad68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 3016386617375203206}
+  levelManager: {fileID: 0}
   playerBody: {fileID: 0}
-  isNewGame: 0
+  isNewGame: 1
 --- !u!1 &1097293483
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3016386617375203225}
-  - component: {fileID: 3016386617375203206}
+  - component: {fileID: 4556130863239267361}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -201,7 +201,7 @@ Transform:
   m_Father: {fileID: 537976613570928071}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3016386617375203206
+--- !u!114 &4556130863239267361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,16 +210,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3016386617375203207}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 970c6251db7fbcd41ba8d3aec6b2ca1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8da1685f3c7d98340b975b8358c15835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
-  currentWave: 0
   currentArea: 0
   levelData:
   - {fileID: 11400000, guid: 608280fde9fa6914391e8613be57288e, type: 2}
-  - {fileID: 11400000, guid: 004f7b029387ca445ad2caedc36627d5, type: 2}
-  spawnpointList: []
+  spawnpointlist: {fileID: 11400000, guid: 6064ed67f26b6a442bf7a9425adbda2a, type: 2}
+  spawnManager: {fileID: 3016386617689796680}
+  currentObjective: {fileID: 0}
+  deltaTime: 0
 --- !u!1 &3016386617398075710
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,8 +288,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3016386617689796683}
   - component: {fileID: 3016386617689796680}
-  - component: {fileID: 3016386617689796681}
-  - component: {fileID: 3016386617689796662}
   - component: {fileID: 4770899273923203546}
   m_Layer: 0
   m_Name: SpawnManagement
@@ -318,60 +317,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3016386617689796663}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3387fdcfca2f31144b6c0ec22f2ade3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelManager: {fileID: 4556130863239267361}
   SpawnWaitTime: 4.8
   enemyCollection: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
-  durga: {fileID: 11400000, guid: d8762f34ae67bcf40ada5da7325b9449, type: 2}
-  igner: {fileID: 11400000, guid: 5d6a23eba7250f74f8d5b8812ff96dd1, type: 2}
   isSpawning: 0
-  areaStarted: 0
   count: 0
---- !u!114 &3016386617689796681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016386617689796663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 994a2aaa7a0fbc843b9cc692cea1f2a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
---- !u!114 &3016386617689796662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016386617689796663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 922cfdd11b8396c40ab6e8de8bbd134e, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3016386617689796681}
-          m_MethodName: Spawn
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  enemyListEmpty: 0
+  checkDelay: 0.5
+  spawnAnimDelay: 0.5
+  spawnDelay: 1.5
+  Avik: {fileID: 2649116113045803458, guid: 36368829eaf9d6548a3644bbbf277d6f, type: 3}
+  manager: {fileID: 1097293485}
 --- !u!114 &4770899273923203546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,9 +345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cedbd03be80526419ae982c7a8fb896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 1097293485}
   set: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
-  prefab: {fileID: 2649116113045803458, guid: 36368829eaf9d6548a3644bbbf277d6f, type: 3}
+  Avik: {fileID: 2649116113045803458, guid: 36368829eaf9d6548a3644bbbf277d6f, type: 3}
+  Shentau: {fileID: 658895093965917319, guid: 7269487055fec1d49ae78039a498b191, type: 3}
+  enemyType: 1
   setActive: 0
   spawnEnable: 0
 --- !u!1 &3016386618586033153

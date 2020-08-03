@@ -19,8 +19,6 @@ public class SpawnProcess : MonoBehaviour
 
         // foreach (SpawnPoint spawnPoint in wave.spawnPoints)
         // {
-        //     Debug.Log(spawnPoint.point.position);
-        //     Debug.Log(spawnPoint.point.gameObject.name);
         //     spawnPoint.point.GetComponent<PlayableDirector>().Play();
         //     Spawnpoints.Add(spawnPoint);
         //     StartCoroutine(SpawnCO());

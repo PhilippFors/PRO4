@@ -12,18 +12,18 @@ public class OLD_LevelManager : MonoBehaviour
     public List<SpawnpointID> spawnpointList;
     private void Start()
     {
-        LevelEventSystem.instance.areaEntry += StartArea;
-        LevelEventSystem.instance.nextWave += StartWave;
-        LevelEventSystem.instance.areaExit += AreaFinsihed;
+        // LevelEventSystem.instance.areaEntry += StartArea;
+        // LevelEventSystem.instance.nextWave += StartWave;
+        // LevelEventSystem.instance.areaExit += AreaFinsihed;
 
-        LevelEventSystem.instance.levelExit += LevelFinished;
+        // LevelEventSystem.instance.levelExit += LevelFinished;
     }
 
     private void OnDisable()
     {
-        LevelEventSystem.instance.areaEntry -= StartArea;
-        LevelEventSystem.instance.nextWave -= StartWave;
-        LevelEventSystem.instance.areaExit -= AreaFinsihed;
+        // LevelEventSystem.instance.areaEntry -= StartArea;
+        // LevelEventSystem.instance.nextWave -= StartWave;
+        // LevelEventSystem.instance.areaExit -= AreaFinsihed;
 
     }
 
@@ -38,11 +38,11 @@ public class OLD_LevelManager : MonoBehaviour
     }
     void AreaFinsihed()
     {
-        levelData[currentLevel].areas[currentArea].finished = true;
-        SpawnManager.instance.areaStarted = false;
-        currentArea++;
-        currentWave = 0;
-        StartArea();
+        // levelData[currentLevel].areas[currentArea].finished = true;
+        // SpawnManager.instance.areaStarted = false;
+        // currentArea++;
+        // currentWave = 0;
+        // StartArea();
         // if (currentArea == levels[currentLevel].areas.Length)
         // {
         //     LevelFinished();
@@ -51,10 +51,10 @@ public class OLD_LevelManager : MonoBehaviour
 
     void LevelFinished()
     {
-        levelExitTriggered = true;
-        currentLevel++;
-        currentArea = 0;
-        currentWave = 0;
+        // levelExitTriggered = true;
+        // currentLevel++;
+        // currentArea = 0;
+        // currentWave = 0;
     }
 
     void StartArea()
@@ -104,7 +104,7 @@ public class OLD_LevelManager : MonoBehaviour
 
     public void Spawn(List<Wave> wavesToSpawn)
     {
-        SpawnManager.instance.SpawnEnemies(wavesToSpawn, currentWave - wavesToSpawn.Count);
+        // SpawnManager.instance.StartSpawn(wavesToSpawn, currentWave - wavesToSpawn.Count);
     }
 
     public void RestartLevel()
@@ -113,13 +113,13 @@ public class OLD_LevelManager : MonoBehaviour
     }
     public void RestartCurrentArea()
     {
-        if (currentArea != 0)
-            currentArea = currentArea - 1;
+        // if (currentArea != 0)
+        //     currentArea = currentArea - 1;
 
 
-        SpawnManager.instance.areaStarted = true;
-        levelData[currentLevel].areas[currentArea].started = false;
-        StartArea();
+        // // SpawnManager.instance.areaStarted = true;
+        // levelData[currentLevel].areas[currentArea].started = false;
+        // StartArea();
     }
 
 

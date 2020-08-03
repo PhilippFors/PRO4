@@ -5,19 +5,85 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New DefeatEnemyObjective", menuName = "Objectives/DefeatEnemyObjective")]
 public class DefeatEnemyObjective : Objective
 {
+    public Wave[] waves;
+    int currentWave;
+    public bool lastWaveDefeated = false;
+    
     public override void ExecuteObjective(LevelManager manager)
     {
-        Debug.Log("This Objective is executet: " + name);
+        if (manager.spawnManager.enemyListEmpty)
+        {
+            NewWave(manager);
+            manager.spawnManager.StartEnemyCount();
+        }
     }
 
-    public override void StateEnter(LevelManager manager)
+    public void NewWave(LevelManager manager)
     {
-        Debug.Log("State Enter");
+        if (!HasNextWave())
+        {
+            lastWaveDefeated = true;
+            return;
+        }
+
+        List<Wave> wavesToSpawn = new List<Wave>();
+
+        int i = currentWave;
+        if (!waves[currentWave].SpawnNextWaveInstantly)
+        {
+            wavesToSpawn.Add(waves[currentWave]);
+            currentWave++;
+            manager.spawnManager.StartSpawn(wavesToSpawn, i);
+            return;
+        }
+        while (true)
+        {
+            if (i >= waves.Length || !waves[i].SpawnNextWaveInstantly)
+            {
+                manager.spawnManager.StartSpawn(wavesToSpawn, i);
+                Debug.Log(wavesToSpawn.Count);
+                return;
+            }
+            else
+            {
+                wavesToSpawn.Add(waves[i]);
+                currentWave++;
+            }
+            i++;
+        }
     }
 
-    public override void StateExit(LevelManager manager)
+    bool HasNextWave()
     {
-        Debug.Log("State Exit");
+        return currentWave + 1 <= waves.Length;
     }
 
+    public override void ObjEnter(LevelManager manager)
+    {
+        NewWave(manager);
+        manager.spawnManager.StartEnemyCount();
+    }
+
+    public override void ObjExit(LevelManager manager)
+    {
+        Debug.Log("Objective Exit");
+    }
+
+    public override void CheckTransitions(LevelManager manager)
+    {
+        if (lastWaveDefeated)
+        {
+            manager.SwitchObjective();
+        }
+    }
+
+    // IEnumerator GeneralDelay(DefeatEnemyObjective obj, float delayTime, LevelManager manager)
+    // {
+    //     while (!manager.spawnManager.CountEnemies())
+    //     {
+    //         yield return new WaitForSeconds(delayTime);
+    //     }
+    //     NewWave(manager);
+    //     yield break;
+    // }
 }

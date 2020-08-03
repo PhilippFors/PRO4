@@ -1,19 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class LevelManager : MonoBehaviour
 {
-
-    [SerializeField] private int currentLevel = 0;
-    [SerializeField] private int currentWave = 0;
-    [SerializeField] private int currentArea = 0;
+    public int currentLevel = 0;
+    public int currentArea = 0;
     bool levelExitTriggered = false;
     public Level[] levelData;
     public SpawnpointlistSO spawnpointlist;
-
+    public SpawnManager spawnManager;
     public Objective currentObjective;
-
+    public float deltaTime;
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
@@ -31,24 +29,27 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (currentObjective != null)
-            currentObjective.ObjectiveUpdate(this);
+        deltaTime = Time.deltaTime;
+        if (currentObjective == null)
+            return;
 
-    }
-
-    public void StartLevel()
-    {
-
+        currentObjective.ObjectiveUpdate(this);
     }
 
     public void StartArea()
     {
-        GetNextObjective();
+        currentObjective.started = true;
+        currentObjective = GetNextObjective();
+        currentObjective.ObjEnter(this);
+    }
+
+    public void FinsishArea()
+    {
         if (HasNextObjective())
             currentArea++;
     }
 
-    public void FinsishArea()
+    public void StartLevel()
     {
 
     }
@@ -58,23 +59,20 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void ExecuteCheckObjective()
-    {
-
-    }
-
     public void SwitchObjective()
     {
-        levelData[currentLevel].areas[currentArea].StateExit(this);
+        levelData[currentLevel].areas[currentArea].ObjExit(this);
+        currentObjective.finished = true;
         currentObjective = null;
+        FinsishArea();
     }
 
     Objective GetNextObjective()
     {
-        if (HasNextObjective())
-            return levelData[currentLevel].areas[currentArea + 1];
-        else
-            return null;
+        // if (HasNextObjective())
+        return levelData[currentLevel].areas[currentArea];
+        // else
+        // return null;
     }
 
     bool HasNextObjective()
