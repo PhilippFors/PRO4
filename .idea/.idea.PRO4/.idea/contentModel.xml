@@ -189,18 +189,15 @@
               <e p="OLD" t="Include">
                 <e p="OLD_LevelManager.cs" t="Include" />
                 <e p="SpawnSystem" t="Include">
-                  <e p="SpawnManager.cs" t="Include" />
                   <e p="SpawnProcess.cs" t="Include" />
                 </e>
               </e>
               <e p="SpawnSystem" t="Include">
-                <e p="EnemySet.cs" t="Include" />
-                <e p="EntitySet.cs" t="Include" />
+                <e p="SpawnManager.cs" t="Include" />
                 <e p="Spawnpointstuff" t="Include">
                   <e p="Spawnpoint.cs" t="Include" />
                   <e p="SpawnpointID.cs" t="Include" />
                   <e p="SpawnpointList.cs" t="Include" />
-                  <e p="SpawnpointlistSO.cs" t="Include" />
                 </e>
               </e>
               <e p="Trigger" t="Include">
@@ -214,6 +211,11 @@
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
+            <e p="RunTimeSets" t="Include">
+              <e p="EnemySet.cs" t="Include" />
+              <e p="EntitySet.cs" t="Include" />
+              <e p="SpawnpointlistSO.cs" t="Include" />
+            </e>
             <e p="SaveSystem" t="Include">
               <e p="LevelSaveData.cs" t="Include" />
               <e p="PlayerSaveData.cs" t="Include" />

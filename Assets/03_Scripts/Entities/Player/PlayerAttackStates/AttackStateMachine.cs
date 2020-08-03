@@ -70,6 +70,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
                     stateCounter = 0; //sets the counter back to zero because a new attack begins
                     currentAttack = currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
                     SetState(currentAttack.stateList[0]); //sets first (attack) state of the attack
+                    attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = true;
 
                     //checks if the combo is reached and increases skillmeter and sets combo back to 0
                     if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= 4)
@@ -116,7 +117,8 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
                 else
                 {
                     stateCounter++;
-                    SetState(currentAttack.stateList[stateCounter]); 
+                    SetState(currentAttack.stateList[stateCounter]);
+                    attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
 
                 }
                

@@ -28,8 +28,12 @@ public class AttackState
         {
             controller.SetState(PlayerMovmentSate.standard);
         }*/
-        MouseLook(controller);
-        GamepadLook(controller);
+        if (attack.currentState.canTurn)
+        {
+            MouseLook(controller);
+            GamepadLook(controller);
+        }
+        
     }
     
     void GamepadLook(PlayerStateMachine controller)

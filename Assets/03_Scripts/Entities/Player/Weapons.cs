@@ -10,6 +10,7 @@ namespace _03_Scripts.Entities.Player
         public List<AttackSO> attacks = new List<AttackSO>();
         public AttackSO baseAttack;
         public float bsdmg = 20.0f;
+        public AttackStateMachine attack => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
 
         internal void Equip(Transform weaponPoint)
         {
@@ -29,16 +30,20 @@ namespace _03_Scripts.Entities.Player
         
         private void OnTriggerEnter(Collider other)
         {
-        
-            if (other.gameObject.GetComponent<EnemyBody>() != null)
+
+            if (attack.currentState.canDamage)
             {
-                GetComponentInParent<PlayerAttack>().comboCounter += 1;
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                if (other.gameObject.GetComponent<EnemyBody>() != null)
+                {
+                    GetComponentInParent<PlayerAttack>().comboCounter += 1;
+                    EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                }
+                else if (other.gameObject.GetComponent<ObstacleBody>())
+                {
+                    EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                }
             }
-            else if (other.gameObject.GetComponent<ObstacleBody>())
-            {
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
-            }
+            
         }
     }
 }

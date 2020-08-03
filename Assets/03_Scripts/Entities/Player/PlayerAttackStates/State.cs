@@ -10,6 +10,8 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
         public AnimationClip clip;
         public PlayerMovmentSate movementState;
         public bool canAttack;
+        public bool canTurn;
+        public bool canDamage;
         public float maxRot;
         private State _nextState;
     }
