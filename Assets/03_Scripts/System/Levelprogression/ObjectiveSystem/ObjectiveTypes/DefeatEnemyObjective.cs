@@ -6,25 +6,26 @@ using UnityEngine;
 public class DefeatEnemyObjective : Objective
 {
     public Wave[] waves;
-    int currentWave;
+    public int currentWave = 0;
     public bool lastWaveDefeated = false;
-    
+
     public override void ExecuteObjective(LevelManager manager)
     {
-        if (manager.spawnManager.enemyListEmpty)
+        if (SpawnManager.instance.enemyListEmpty)
         {
             NewWave(manager);
-            manager.spawnManager.StartEnemyCount();
+            SpawnManager.instance.StartEnemyCount();
         }
     }
 
     public void NewWave(LevelManager manager)
     {
-        if (!HasNextWave())
-        {
-            lastWaveDefeated = true;
-            return;
-        }
+        if (currentWave != 0)
+            if (!HasNextWave())
+            {
+                lastWaveDefeated = true;
+                return;
+            }
 
         List<Wave> wavesToSpawn = new List<Wave>();
 
@@ -33,14 +34,14 @@ public class DefeatEnemyObjective : Objective
         {
             wavesToSpawn.Add(waves[currentWave]);
             currentWave++;
-            manager.spawnManager.StartSpawn(wavesToSpawn, i);
+            SpawnManager.instance.StartSpawn(wavesToSpawn, i);
             return;
         }
         while (true)
         {
             if (i >= waves.Length || !waves[i].SpawnNextWaveInstantly)
             {
-                manager.spawnManager.StartSpawn(wavesToSpawn, i);
+                SpawnManager.instance.StartSpawn(wavesToSpawn, i);
                 Debug.Log(wavesToSpawn.Count);
                 return;
             }
@@ -55,13 +56,14 @@ public class DefeatEnemyObjective : Objective
 
     bool HasNextWave()
     {
-        return currentWave + 1 <= waves.Length;
+        return currentWave +1 <= waves.Length;
     }
 
     public override void ObjEnter(LevelManager manager)
-    {
+    {   
+        currentWave = 0;
         NewWave(manager);
-        manager.spawnManager.StartEnemyCount();
+        SpawnManager.instance.StartEnemyCount();
     }
 
     public override void ObjExit(LevelManager manager)
@@ -76,14 +78,9 @@ public class DefeatEnemyObjective : Objective
             manager.SwitchObjective();
         }
     }
-
-    // IEnumerator GeneralDelay(DefeatEnemyObjective obj, float delayTime, LevelManager manager)
-    // {
-    //     while (!manager.spawnManager.CountEnemies())
-    //     {
-    //         yield return new WaitForSeconds(delayTime);
-    //     }
-    //     NewWave(manager);
-    //     yield break;
-    // }
+    private void OnDisable() {
+        this.started = false;
+        this.finished = false;
+        this.lastWaveDefeated = false;
+    }
 }

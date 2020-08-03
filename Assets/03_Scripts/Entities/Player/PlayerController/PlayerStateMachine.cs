@@ -163,7 +163,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         isMoving = false;
         playableGraph.Stop();
-        Debug.Log(isMoving);
+        // Debug.Log(isMoving);
     }
 
     private void FixedUpdate()

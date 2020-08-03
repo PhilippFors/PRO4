@@ -31,22 +31,21 @@ public class Grenade : MonoBehaviour
 
     public void Explode()
     {
-       // Instantiate(explosionEffect, transform.position, transform.rotation);
+        // Instantiate(explosionEffect, transform.position, transform.rotation);
 
-     
-
-
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, radius, LayerMask.GetMask("Enemy"));
 
         foreach (Collider nearbyObject in colliders)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+
             if (rb != null)
             {
                 rb.AddExplosionForce(force, transform.position, radius);
-            }        
+                rb.gameObject.GetComponent<StateMachineController>().Stun();
+            }
         }
-        
+
         Destroy(gameObject);
     }
 }

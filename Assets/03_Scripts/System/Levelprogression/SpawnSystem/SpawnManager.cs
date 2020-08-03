@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // [HideInInspector] public SpawnProcess spawnProcess => GetComponent<SpawnProcess>();
-    // public static SpawnManager instance;
+    public static SpawnManager instance;
+    [SerializeField] private AIManager manager;
     [SerializeField] private LevelManager levelManager;
-    public float SpawnWaitTime = 4.8f;
+    [SerializeField] private GameObject Avik;
+
     public EnemySet enemyCollection;
     public bool isSpawning = false;
     public bool count = false;
-    public bool enemyListEmpty;
+    public bool enemyListEmpty = false;
+
+    [Header("Settings")]
+    public float SpawnWaitTime = 4.8f;
     public float checkDelay = 0.5f;
     public float spawnAnimDelay = 0.5f;
     public float spawnDelay = 1.5f;
 
-    [SerializeField] private GameObject Avik;
-
-    [SerializeField] private AIManager manager;
-    // private void Awake()
-    // {
-    //     instance = this;
-    // }
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         EventSystem.instance.onEnemyDeath += RemoveEnemyFromList;
@@ -72,7 +73,7 @@ public class SpawnManager : MonoBehaviour
         enemyCollection.Remove(enemy);
     }
 
-    public bool CountEnemies()
+    bool CountEnemies()
     {
         if (enemyCollection.entityList.Count == 0 & count)
         {

@@ -801,7 +801,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62447249}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1420,15 +1420,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 498616910345916071, guid: 838c5183ff200234dacc5b14df2988c9,
+        type: 3}
+      propertyPath: UniqueID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3476993869908635171, guid: 838c5183ff200234dacc5b14df2988c9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 14.06
       objectReference: {fileID: 0}
     - target: {fileID: 3476993869908635171, guid: 838c5183ff200234dacc5b14df2988c9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.57
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 3476993869908635171, guid: 838c5183ff200234dacc5b14df2988c9,
         type: 3}
@@ -1478,7 +1483,7 @@ PrefabInstance:
     - target: {fileID: 3476993869908635173, guid: 838c5183ff200234dacc5b14df2988c9,
         type: 3}
       propertyPath: m_Name
-      value: 'SpawnPNT: Lvl 0, ar 0, Unq 3'
+      value: 'SpawnPNT: Lvl 0, ar 0, Unq 1'
       objectReference: {fileID: 0}
     - target: {fileID: 4182696856871255266, guid: 838c5183ff200234dacc5b14df2988c9,
         type: 3}

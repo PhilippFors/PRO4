@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    public OLD_LevelManager levelManager;
+    public LevelManager levelManager;
     public PlayerBody playerBody;
     public static SaveManager instance;
     public bool isNewGame;
@@ -31,8 +31,8 @@ public class SaveManager : MonoBehaviour
     public void LoadLevel()
     {
         LevelSaveData data = SaveLoadGame.LoadGameProgress();
-        levelManager.SetCurrentLevel(data.currentLevel);
-        levelManager.SetCurrentArea(data.currentArea);
+        levelManager.currentArea = data.currentArea;
+        levelManager.currentLevel =data.currentLevel;
 
         if (data.currentAreaFinsihed)
             for (int j = 0; j <= data.currentArea; j++)

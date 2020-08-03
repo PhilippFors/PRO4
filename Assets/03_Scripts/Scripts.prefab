@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bb9955d790b9747b597d477e0ad68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 0}
+  levelManager: {fileID: 4556130863239267361}
   playerBody: {fileID: 0}
   isNewGame: 1
 --- !u!1 &1097293483
@@ -218,7 +218,6 @@ MonoBehaviour:
   levelData:
   - {fileID: 11400000, guid: 608280fde9fa6914391e8613be57288e, type: 2}
   spawnpointlist: {fileID: 11400000, guid: 6064ed67f26b6a442bf7a9425adbda2a, type: 2}
-  spawnManager: {fileID: 3016386617689796680}
   currentObjective: {fileID: 0}
   deltaTime: 0
 --- !u!1 &3016386617398075710
@@ -322,17 +321,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3387fdcfca2f31144b6c0ec22f2ade3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1097293485}
   levelManager: {fileID: 4556130863239267361}
-  SpawnWaitTime: 4.8
+  Avik: {fileID: 2649116113045803458, guid: 36368829eaf9d6548a3644bbbf277d6f, type: 3}
   enemyCollection: {fileID: 11400000, guid: 6155b151c0a9e3e438581bb2bb159cd1, type: 2}
   isSpawning: 0
   count: 0
   enemyListEmpty: 0
+  SpawnWaitTime: 4.8
   checkDelay: 0.5
   spawnAnimDelay: 0.5
   spawnDelay: 1.5
-  Avik: {fileID: 2649116113045803458, guid: 36368829eaf9d6548a3644bbbf277d6f, type: 3}
-  manager: {fileID: 1097293485}
 --- !u!114 &4770899273923203546
 MonoBehaviour:
   m_ObjectHideFlags: 0

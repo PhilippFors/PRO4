@@ -55,6 +55,7 @@ public class StatMultMonitor : EditorWindow
                     EditorGUILayout.ObjectField(e, typeof(EnemyBody));
 
                     GUILayout.Label("Stats", EditorStyles.boldLabel);
+                    e.currentHealth = EditorGUILayout.FloatField("Current Health", e.currentHealth, GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f));
                     foreach (GameStatistics s in e.statList)
                     {
                         s.SetValue(EditorGUILayout.FloatField(s.GetName().ToString(), s.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
@@ -67,8 +68,8 @@ public class StatMultMonitor : EditorWindow
                     }
                     if (GUILayout.Button("Destroy", GUILayout.Width(120f)))
                     {
-                        set.Remove(e);
-                        Destroy(e.parent);
+                        // set.Remove(e);
+                        e.OnDeath();
                     }
                 }
 

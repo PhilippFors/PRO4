@@ -5,7 +5,7 @@ public static class SaveLoadGame
 {
     static string playerPath = Application.persistentDataPath + "/player.data";
     static string levelPath = Application.persistentDataPath + "/levelprogress.data";
-    public static void SaveGameData(PlayerBody playerData, OLD_LevelManager levelData)
+    public static void SaveGameData(PlayerBody playerData, LevelManager levelData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 

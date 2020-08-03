@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Objective : ScriptableObject
 {
-    
     public bool started;
     public bool finished;
     public void ObjectiveUpdate(LevelManager manager)
@@ -20,4 +19,5 @@ public abstract class Objective : ScriptableObject
     public abstract void ObjExit(LevelManager manager);
 
     public abstract void ObjEnter(LevelManager manager);
+
 }

@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour
     bool levelExitTriggered = false;
     public Level[] levelData;
     public SpawnpointlistSO spawnpointlist;
-    public SpawnManager spawnManager;
     public Objective currentObjective;
     public float deltaTime;
     private void Start()
@@ -19,6 +18,7 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaExit += FinsishArea;
         LevelEventSystem.instance.levelExit += FinishLevel;
     }
+
     private void OnDisable()
     {
         LevelEventSystem.instance.areaEntry -= StartArea;
@@ -38,8 +38,8 @@ public class LevelManager : MonoBehaviour
 
     public void StartArea()
     {
-        currentObjective.started = true;
         currentObjective = GetNextObjective();
+        currentObjective.started = true;
         currentObjective.ObjEnter(this);
     }
 

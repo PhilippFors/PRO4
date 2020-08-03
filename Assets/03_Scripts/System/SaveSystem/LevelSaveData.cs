@@ -9,11 +9,11 @@ public class LevelSaveData
     public int currentArea;
     
     public bool currentAreaFinsihed;
-    public LevelSaveData(OLD_LevelManager data){
-        currentLevel = data.GetCurrentLevel();
-        currentArea = data.GetCurrentArea();
+    public LevelSaveData(LevelManager data){
+        currentLevel = data.currentLevel;
+        currentArea = data.currentArea;
 
-        currentAreaFinsihed = data.levelData[data.GetCurrentLevel()].areas[data.GetCurrentArea()].finished;
+        currentAreaFinsihed = data.levelData[data.currentLevel].areas[data.currentArea].finished;
     }
 
 }
