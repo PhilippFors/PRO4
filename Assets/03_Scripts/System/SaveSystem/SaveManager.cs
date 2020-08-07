@@ -6,6 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     public LevelManager levelManager;
     public PlayerBody playerBody;
+    public PlayerAttack playerAttack;
     public static SaveManager instance;
     public bool isNewGame;
 
@@ -13,6 +14,7 @@ public class SaveManager : MonoBehaviour
     {
         instance = this;
     }
+    
     private void Start()
     {
         if (!isNewGame)
@@ -20,30 +22,31 @@ public class SaveManager : MonoBehaviour
             LoadPlayer();
             LoadLevel();
         }
-
     }
 
     public void Save()
     {
-        SaveLoadGame.SaveGameData(playerBody, levelManager);
+        SaveLoadGame.SaveGameData(playerBody, playerAttack, levelManager);
     }
 
     public void LoadLevel()
     {
         LevelSaveData data = SaveLoadGame.LoadGameProgress();
         levelManager.currentArea = data.currentArea;
-        levelManager.currentLevel =data.currentLevel;
+        levelManager.currentLevel = data.currentLevel;
 
         if (data.currentAreaFinsihed)
             for (int j = 0; j <= data.currentArea; j++)
             {
                 levelManager.levelData[data.currentLevel].areas[j].finished = true;
+                levelManager.levelData[data.currentLevel].areas[j].started = true;
             }
 
         else
             for (int j = 0; j <= data.currentArea - 1; j++)
             {
                 levelManager.levelData[data.currentLevel].areas[j].finished = true;
+                levelManager.levelData[data.currentLevel].areas[j].started = true;
             }
 
 
@@ -51,6 +54,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadPlayer()
     {
+        //Load statistics
         PlayerSaveData data = SaveLoadGame.LoadPlayer();
         playerBody.currentHealth.Value = data.currentPlayerHealth;
         playerBody.transform.position = new Vector3(data.playerPos[0], data.playerPos[1], data.playerPos[2]);
@@ -63,5 +67,12 @@ public class SaveManager : MonoBehaviour
             data.playerStats.TryGetValue(v.statName.ToString(), out o);
             playerBody.statList.Add(new GameStatistics(o, v.statName));
         }
+
+        //Load weapon data
+        // foreach(Weapons weapon in playerAttack.weapons){
+            //if(weapon.WeaponID == data.currentWeaponID)
+                // playerAttack.currentWeapon = weapon;
+        // }
+        playerAttack.currentWeapon.Equip(playerAttack.weaponPoint);
     }
 }

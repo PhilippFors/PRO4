@@ -13,16 +13,15 @@ public class PlayerBody : MonoBehaviour, IStats
     }
     public void InitStats()
     {
-        if (SaveManager.instance.isNewGame)
+
+        statList = new List<GameStatistics>();
+        foreach (FloatReference f in template.statList)
         {
-            statList = new List<GameStatistics>();
-            foreach (FloatReference f in template.statList)
-            {
-                StatVariable s = (StatVariable)f.Variable;
-                statList.Add(new GameStatistics(f.Value, s.statName));
-            }
-            currentHealth.Value = GetStatValue(StatName.MaxHealth);
+            StatVariable s = (StatVariable)f.Variable;
+            statList.Add(new GameStatistics(f.Value, s.statName));
         }
+        currentHealth.Value = GetStatValue(StatName.MaxHealth);
+
     }
 
     public void SetStatValue(StatName name, float value)

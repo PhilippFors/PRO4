@@ -14,10 +14,10 @@ public class CameraController : MonoBehaviour
         playercontrols = player.GetComponent<PlayerStateMachine>();
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
     }
-    private void FixedUpdate()
+    private void Update()
     {
         playerPosition = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z) + playercontrols.currentMoveDirection* 1.05f;
-        transform.position = Vector3.Lerp(transform.position, playerPosition, Time.fixedDeltaTime*cameraFollowSpeed);
-        // transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        // transform.position = Vector3.Lerp(transform.position, playerPosition, Time.fixedDeltaTime*cameraFollowSpeed);
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
     }
 }

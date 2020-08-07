@@ -8,7 +8,7 @@ namespace _03_Scripts.Entities.Player.PlayerAttackStates
     {
         public TimelineAsset anim;
         public AnimationClip clip;
-        public PlayerMovmentSate movementState;
+        public PlayerMovementSate movementState;
         public bool canAttack;
         public bool canTurn;
         public bool canDamage;

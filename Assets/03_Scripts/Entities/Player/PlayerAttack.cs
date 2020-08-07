@@ -34,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject AudioPeer;
     public static FMODUnity.StudioEventEmitter emitter;
     
-    private static PlayerMovmentSate movementState => GameObject.FindGameObjectWithTag("Player")
+    private static PlayerMovementSate movementState => GameObject.FindGameObjectWithTag("Player")
         .GetComponent<PlayerStateMachine>().currentState;
 
 
@@ -122,20 +122,20 @@ public class PlayerAttack : MonoBehaviour
     
     public void GrenadeThrow()
     {
-        if (movementState.Equals(PlayerMovmentSate.grenade))
+        if (movementState.Equals(PlayerMovementSate.grenade))
         {
             Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
             GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
             StartCoroutine(SimulateProjectile(grenade));
-            EventSystem.instance.OnSetState(PlayerMovmentSate.standard);
+            EventSystem.instance.OnSetState(PlayerMovementSate.standard);
         }
     }
 
     public void AimMove()
     {
-        if (movementState.Equals(PlayerMovmentSate.standard))
+        if (movementState.Equals(PlayerMovementSate.standard))
         {
-            EventSystem.instance.OnSetState(PlayerMovmentSate.grenade);
+            EventSystem.instance.OnSetState(PlayerMovementSate.grenade);
             target = Instantiate(targetPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z),
                 transform.rotation);
         }

@@ -12,12 +12,8 @@ public abstract class Objective : ScriptableObject
 
         CheckTransitions(manager);
     }
-
     public abstract void ExecuteObjective(LevelManager manager);
-
     public abstract void CheckTransitions(LevelManager manager);
     public abstract void ObjExit(LevelManager manager);
-
     public abstract void ObjEnter(LevelManager manager);
-
 }

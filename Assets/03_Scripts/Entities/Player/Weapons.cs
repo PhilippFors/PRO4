@@ -30,7 +30,6 @@ namespace _03_Scripts.Entities.Player
         
         private void OnTriggerEnter(Collider other)
         {
-
             if (attack.currentState.canDamage)
             {
                 if (other.gameObject.GetComponent<EnemyBody>() != null)

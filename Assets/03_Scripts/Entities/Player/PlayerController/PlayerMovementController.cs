@@ -40,6 +40,8 @@ public class PlayerMovementController
         Vector3 vertikMovement = controller.forward * direction.z;
 
         controller.currentMoveDirection = horizMovement + vertikMovement;
+
+        // controller.transform.position += controller.currentMoveDirection * controller.currentMoveSpeed  * controller.deltaTime;
     }
 
 

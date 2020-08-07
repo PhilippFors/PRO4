@@ -24,6 +24,7 @@ public class Sender : MonoBehaviour
 
     void Init()
     {
+        active = true;
         searcher.gameObject.SetActive(true);
         float i = 0;
         float j = 0;
@@ -34,17 +35,15 @@ public class Sender : MonoBehaviour
             searcher.localEulerAngles = new Vector3(0, i, 0);
             if (Physics.Raycast(transform.position, searcher.forward, out hit, 4f, recieverMask))
             {
-                Debug.Log(searcher.rotation);
                 obj = hit.transform.gameObject.GetComponent<Reciever>();
                 if (obj != null)
                 {
                     if (!obj.occupied)
                     {
+                        obj.active = true;
                         reciever = obj.transform;
                         found = true;
                         obj.occupied = true;
-                        obj.active = true;
-                        active = true;
                         master.nextReciever = obj;
                         return;
                     }
@@ -54,7 +53,6 @@ public class Sender : MonoBehaviour
             searcher.localEulerAngles = new Vector3(0, j, 0);
             if (Physics.Raycast(searcher.position, searcher.forward, out hit, 4f, recieverMask))
             {
-                Debug.Log(searcher.transform.rotation);
                 obj = hit.transform.gameObject.GetComponent<Reciever>();
                 if (obj != null)
                 {
@@ -64,7 +62,6 @@ public class Sender : MonoBehaviour
                         found = true;
                         obj.occupied = true;
                         obj.active = true;
-                        active = true;
                         master.nextReciever = obj;
                         return;
                     }
@@ -73,6 +70,7 @@ public class Sender : MonoBehaviour
             i = i + 0.3f;
             j = j - 0.3f;
         }
+        active = false;
         searcher.gameObject.SetActive(false);
     }
 
@@ -92,5 +90,6 @@ public class Sender : MonoBehaviour
         // Wall.transform.position += Wall.transform.forward * distance / 2;
         // Wall.transform.localPosition -= new Vector3(0.5f,0,0);
         Wall.transform.localScale = new Vector3(Wall.transform.localScale.x, Wall.transform.localScale.y, distance);
+        // Wall.AddComponent<BoxCollider>();
     }
 }

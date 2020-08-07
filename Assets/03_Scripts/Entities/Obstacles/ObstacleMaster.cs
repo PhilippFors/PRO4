@@ -23,32 +23,33 @@ public class ObstacleMaster : MonoBehaviour
                 nextReciever.active = false;
 
             body.OnDeath();
-            StartCoroutine(WallRecover());
+            StopCoroutine("WallRecover");
+            StartCoroutine("WallRecover");
         }
 
         if (!sender.active & !selfReciever.active)
         {
             DeactivateMaster();
-            StartCoroutine(MasterRecover());
+
+            StartCoroutine("MasterRecover");
+            StartCoroutine("MasterRecover");
         }
     }
     void DeactivateMaster()
     {
-        if (masterActive)
-        {
+
             masterActive = false;
-            transform.position += new Vector3(0, -0.5f, 0);
+            // transform.position += new Vector3(0, -0.5f, 0);
             col.enabled = false;
-        }
+        
 
         //TODO: Animate Pillar deactivation
     }
     void ActivateMaster()
     {
-        if (!masterActive)
-        {
+
             masterActive = true;
-            transform.position += new Vector3(0, 0.5f, 0);
+            // transform.position += new Vector3(0, 0.5f, 0);
             col.enabled = true;
             if (sender.found)
                 sender.active = true;
@@ -57,7 +58,7 @@ public class ObstacleMaster : MonoBehaviour
             if (nextReciever != null)
                 nextReciever.active = true;
 
-        }
+        
         //TODO: Animate Pillar activation
     }
     IEnumerator MasterRecover()

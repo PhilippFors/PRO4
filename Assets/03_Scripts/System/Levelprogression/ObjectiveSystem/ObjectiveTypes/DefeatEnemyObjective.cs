@@ -20,12 +20,11 @@ public class DefeatEnemyObjective : Objective
 
     public void NewWave(LevelManager manager)
     {
-        if (currentWave != 0)
-            if (!HasNextWave())
-            {
-                lastWaveDefeated = true;
-                return;
-            }
+        if (currentWave != 0 & !HasNextWave())
+        {
+            lastWaveDefeated = true;
+            return;
+        }
 
         List<Wave> wavesToSpawn = new List<Wave>();
 
@@ -56,11 +55,11 @@ public class DefeatEnemyObjective : Objective
 
     bool HasNextWave()
     {
-        return currentWave +1 <= waves.Length;
+        return currentWave + 1 <= waves.Length;
     }
 
     public override void ObjEnter(LevelManager manager)
-    {   
+    {
         currentWave = 0;
         NewWave(manager);
         SpawnManager.instance.StartEnemyCount();
@@ -78,9 +77,11 @@ public class DefeatEnemyObjective : Objective
             manager.SwitchObjective();
         }
     }
-    private void OnDisable() {
+    private void OnDisable()
+    {
         this.started = false;
         this.finished = false;
         this.lastWaveDefeated = false;
+        currentWave = 0;
     }
 }
