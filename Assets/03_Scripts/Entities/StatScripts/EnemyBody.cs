@@ -73,7 +73,7 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
-        Destroy(this.gameObject.GetComponentInParent<Transform>().gameObject);
+        Destroy(parent);
         Destroy(Symbol);
     }
     #endregion
