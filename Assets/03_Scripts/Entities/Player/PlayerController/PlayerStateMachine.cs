@@ -25,13 +25,14 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public Vector2 gamepadRotate;
     [HideInInspector] public Vector2 mouseLook;
     public Vector3 velocity = Vector3.zero;
+    public Vector3 gravity = Vector3.zero;
 
     #endregion
 
     #region __________bool__________
 
     [HideInInspector] public bool isAiming, mouseused, gamepadused;
-    [HideInInspector] public bool isGrounded = true;
+    public bool isGrounded = false;
     [HideInInspector] public bool checkEnemy = false;
     public bool isMoving = false;
 
@@ -197,12 +198,13 @@ public class PlayerStateMachine : MonoBehaviour
         {
             // drag = 0;
             isGrounded = true;
+            
         }
         else
         {
             // drag = afterDrag;
             isGrounded = false;
-            transform.position += new Vector3(0, -9.2f,0)*Time.deltaTime;
+            characterController.Move(Physics.gravity*Time.deltaTime);
         }
     }
 
