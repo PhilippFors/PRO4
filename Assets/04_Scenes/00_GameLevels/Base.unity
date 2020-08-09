@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 1
+    m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 512
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: 3f92d5d64f6108f4c846bfefe20a9412,
+  m_LightingDataAsset: {fileID: 112000004, guid: 959446b3e650a4f4fb0151e0a7e7b387,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -282,6 +282,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
+--- !u!20 &311147542 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4926999947177597579, guid: 800e21fc8bd34cf499e536165412a55d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1913961248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &332715783 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6618694705625661217, guid: 5d3c85b1c426810409b9a5b014550c61,
@@ -515,12 +521,27 @@ PrefabInstance:
     - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: cameraFollowSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
+        type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 311147542}
+    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
+        type: 3}
+      propertyPath: clampAmount
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
+        type: 3}
+      propertyPath: targetBias
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.82
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
@@ -530,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.67
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
@@ -605,7 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitParticle: {fileID: 3806020586268821136, guid: 0250a511614d70746b0fdca0595d740b,
     type: 3}
-  electricity: {fileID: 1419190404638124475, guid: b22565f649d66ba44988437726a74f02,
+  electricity: {fileID: 1419190404638124475, guid: 4a46ff17370f89648a446cb1d1f273cf,
     type: 3}
   particlePoints:
   - {fileID: 2084667333}
