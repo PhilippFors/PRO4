@@ -282,12 +282,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
---- !u!20 &311147542 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4926999947177597579, guid: 800e21fc8bd34cf499e536165412a55d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1913961248}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &332715783 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6618694705625661217, guid: 5d3c85b1c426810409b9a5b014550c61,
@@ -396,7 +390,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164802415}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a108e6d357c35148a9bc8cdc408d3bb, type: 3}
   m_Name: 
@@ -410,7 +404,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164802415}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
@@ -477,67 +471,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1521733404043561001, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -17.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1521733404043561001, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.86
-      objectReference: {fileID: 0}
     - target: {fileID: 4448479036420193063, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_Name
       value: CameraTarget
       objectReference: {fileID: 0}
-    - target: {fileID: 4448479036420193063, guid: 800e21fc8bd34cf499e536165412a55d,
+    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4448479036420193063, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: m_Icon
+      propertyPath: player
       value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 4926999947177597579, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4926999947177597579, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: orthographic size
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4926999947177597579, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: cameraFollowSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 311147542}
-    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: clampAmount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6103788874078067670, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: targetBias
-      value: 0.2
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1542384253}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -591,11 +534,6 @@ PrefabInstance:
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7437201228010885879, guid: 800e21fc8bd34cf499e536165412a55d,
-        type: 3}
-      propertyPath: antialiasing
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

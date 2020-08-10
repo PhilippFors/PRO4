@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5945212132758989408}
   - component: {fileID: 1455140741041404892}
   - component: {fileID: 7268057653442151113}
+  - component: {fileID: 1088416846678408913}
   m_Layer: 10
   m_Name: pCube376
   m_TagString: Untagged
@@ -93,6 +94,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15.999998, y: 1.05, z: 16}
   m_Center: {x: 0, y: 0, z: 0.0000004172325}
+--- !u!114 &1088416846678408913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673065455913234770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297e7e3c8d8aada429de1aea4d59e86c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioBand1: 0
+  _audioBand2: 7
+  _useBuffer: 0
+  _colorChange: 0
+  _sizeChangeY: 0
+  _sizeStartScale: 0
+  _sizeMaxScale: 0
+  _enable32Bands: 0
 --- !u!1 &6410028301733036439
 GameObject:
   m_ObjectHideFlags: 0

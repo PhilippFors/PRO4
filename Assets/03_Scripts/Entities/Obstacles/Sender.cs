@@ -11,9 +11,8 @@ public class Sender : MonoBehaviour
     public ObstacleMaster master;
     public bool found = false;
     LayerMask recieverMask => LayerMask.GetMask("Reciever");
-    bool tick = true;
-    float minRot = -85f;
-    float maxRot = 85f;
+    public float minRot = -85f;
+    public float maxRot = 85f;
     void Start()
     {
         Init();
@@ -87,9 +86,7 @@ public class Sender : MonoBehaviour
         Wall.SetActive(true);
         Wall.transform.rotation = Quaternion.LookRotation(dir);
         float distance = Vector3.Distance(reciever.position, Wall.transform.position);
-        // Wall.transform.position += Wall.transform.forward * distance / 2;
-        // Wall.transform.localPosition -= new Vector3(0.5f,0,0);
+        Wall.transform.localScale = new Vector3(Wall.transform.localScale.x, Wall.transform.localScale.y, 1);
         Wall.transform.localScale = new Vector3(Wall.transform.localScale.x, Wall.transform.localScale.y, distance);
-        // Wall.AddComponent<BoxCollider>();
     }
 }
