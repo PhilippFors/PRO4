@@ -376,8 +376,10 @@ GameObject:
   - component: {fileID: 1164802418}
   - component: {fileID: 1164802417}
   - component: {fileID: 1164802416}
+  - component: {fileID: 1164802419}
+  - component: {fileID: 1164802420}
   m_Layer: 0
-  m_Name: FMODAudioPeer (1)
+  m_Name: FMODAudioPeer
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -410,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/TriggerMusic
+  Event: event:/Techno
   PlayEvent: 1
   StopEvent: 0
   AllowFadeout: 1
@@ -434,6 +436,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 42.874, z: 0}
+--- !u!114 &1164802419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164802415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec94b17077552dd4d8f4e2b1e20f66fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beat: 0
+  marker: 
+  fullBar: 0
+  barCounter: 0
+--- !u!114 &1164802420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164802415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650cf0ed54447d6428293aab65094aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1210123033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3548874461716923087, guid: 5d3c85b1c426810409b9a5b014550c61,
