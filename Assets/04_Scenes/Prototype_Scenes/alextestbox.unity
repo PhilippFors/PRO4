@@ -121,6 +121,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &26426605 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6751445866104344671, guid: 332040ecb799a504c82f636f3e596300,
+    type: 3}
+  m_PrefabInstance: {fileID: 8090666080251611870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &26426608
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26426605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &101703354 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2445292694290272769, guid: db218bc33f1f9884498fdf5d9083c4a6,
@@ -3798,6 +3817,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template: {fileID: 0}
   currentHealth: {fileID: 0}
+--- !u!114 &1456436088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456436081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a684bde0f8f4783a2c633fd76ec8b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  gamepadRotate: {x: 0, y: 0}
+  forward: {fileID: -203655887218126122, guid: 3727ad485afed754abbfcd68a20bc2a1, type: 3}
+  backward: {fileID: -203655887218126122, guid: 71c94b21ce26503458d3497a3566fa9b,
+    type: 3}
+  right: {fileID: -203655887218126122, guid: 78745ea6b9cf45a4681d6b704f76294a, type: 3}
+  left: {fileID: -203655887218126122, guid: 31a562ba7c6647248bf668e43376f897, type: 3}
+  idle: {fileID: 0}
+  weightX: 0
+  weightY: 0
 --- !u!1 &1505635906
 GameObject:
   m_ObjectHideFlags: 0
@@ -7843,6 +7884,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6751445866104344664, guid: 332040ecb799a504c82f636f3e596300,
+        type: 3}
+      propertyPath: weaponID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8090666081123612482, guid: 332040ecb799a504c82f636f3e596300,
         type: 3}
       propertyPath: m_Name

@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using _03_Scripts.Entities.Player.PlayerAttackStates;
 using UnityEngine;
 
-public class AttackState
+public class AttackMovementState
 {
     private GameObject _child; //the weapon object
     private Plane groundPlane;
     private Quaternion currentRotation;
     private Camera mainCam => GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     private AttackStateMachine attack => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
-    public AttackState(PlayerStateMachine controller)
+    public AttackMovementState(PlayerStateMachine controller)
     {
         _child = controller.transform.GetChild(0).gameObject; //first child object of the player
 

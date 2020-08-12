@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using _03_Scripts.Entities.Player;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityScript.Lang;

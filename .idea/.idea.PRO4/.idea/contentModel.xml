@@ -112,16 +112,17 @@
               <e p="Sender.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
+              <e p="AnimationController.cs" t="Include" />
               <e p="CameraController.cs" t="Include" />
               <e p="Grenade.cs" t="Include" />
               <e p="PlayerAttack.cs" t="Include" />
               <e p="PlayerAttackStates" t="Include">
                 <e p="AttackSO.cs" t="Include" />
+                <e p="AttackState.cs" t="Include" />
                 <e p="AttackStateMachine.cs" t="Include" />
-                <e p="State.cs" t="Include" />
               </e>
               <e p="PlayerController" t="Include">
-                <e p="AttackState.cs" t="Include" />
+                <e p="AttackMovementState.cs" t="Include" />
                 <e p="DashMovementController.cs" t="Include" />
                 <e p="GrenadeMovementController.cs" t="Include" />
                 <e p="GroundChecker.cs" t="Include" />

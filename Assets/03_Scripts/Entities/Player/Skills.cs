@@ -8,6 +8,7 @@ public class Skills : ScriptableObject
     public float max;
     public float timer;
     public bool isActive = false;
+    public int comboCounter;
     public float activeValue = 0.3f;
     public float deactiveValue = 1f;
     public float decreaseMultValue;

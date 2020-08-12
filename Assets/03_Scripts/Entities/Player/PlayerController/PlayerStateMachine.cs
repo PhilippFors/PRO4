@@ -60,7 +60,7 @@ public class PlayerStateMachine : MonoBehaviour
     DashMovementController dashController;
     GrenadeMovementController grenadeController;
 
-    private AttackState attackController;
+    private AttackMovementState attackController;
     GroundChecker groundChecker => GetComponent<GroundChecker>();
     public PlayerAttack target => GetComponent<PlayerAttack>();
     
@@ -75,7 +75,7 @@ public class PlayerStateMachine : MonoBehaviour
         input = new PlayerControls();
         standardMovement = new PlayerMovementController(this);
         dashController = new DashMovementController(this);
-        attackController = new AttackState(this);
+        attackController = new AttackMovementState(this);
         grenadeController = new GrenadeMovementController(this);
 
         input.Gameplay.Dash.performed += ctx => SetState(PlayerMovmentSate.dash);
@@ -241,7 +241,7 @@ public class PlayerStateMachine : MonoBehaviour
         
         // Plays the Graph.
 
-        playableGraph.Play();
+        //playableGraph.Play();
     }
 
 }

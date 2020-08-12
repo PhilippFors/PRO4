@@ -8,6 +8,7 @@ using UnityEngine.Playables;
 using UnityEngine.PlayerLoop;
 using Debug = UnityEngine.Debug;
 
+
 public enum States
 {
     attackState,
@@ -16,114 +17,103 @@ public enum States
     nonattack
 }
 
-
-namespace _03_Scripts.Entities.Player.PlayerAttackStates
+public class AttackStateMachine : MonoBehaviour
 {
-    public class AttackStateMachine : MonoBehaviour
+    public AttackSO currentAttack; //the current attack
+    public AttackState currentState; //in which state (attack, wait or return) of the attack the statemachine currently is
+    [HideInInspector] public PlayerControls input;
+    private float animTimer = 0; // a timer to check if animation has finished playing
+    private int stateCounter = 0; // counts the current states of an attack
+    private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+
+    public AttackSO baseAttack; //an attack which has no states and only holds the next attack
+    public AttackState baseState; // an empty state that does nothing
+    PlayableGraph playableGraph;
+    public Animator child => GetComponentInChildren<Animator>(); //animator of the character model
+
+    private void Awake()
     {
-        public AttackSO currentAttack; //the current attack
-        public State currentState; //in which state (attack, wait or return) of the attack the statemachine currently is
-        [HideInInspector] public PlayerControls input;
-        private float animTimer = 0; // a timer to check if animation has finished playing
-        private int stateCounter = 0; // counts the current states of an attack
-        private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
-        
-        public AttackSO baseAttack; //an attack which has no states and only holds the next attack
-        public State baseState; // an empty state that does nothing
-        PlayableGraph playableGraph;
-        public Animator child => GetComponentInChildren<Animator>(); //animator of the character model
+        input = new PlayerControls();
 
-        private void Awake()
+        input.Gameplay.LeftAttack.performed += ctx => Attack(0);
+        input.Gameplay.RightAttack.performed += ctx => Attack(1);
+    }
+
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
+        playableGraph.Destroy();
+    }
+
+    private void Start()
+    {
+        currentAttack = attack.currentWeapon.baseAttack; //current attack is based on the current weapon
+        currentState = baseState;
+
+        GraphVisualizerClient.Show(playableGraph);
+    }
+
+    private void Attack(int stateID)
+    {
+        // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
+        if (currentState.canAttack || currentAttack == baseAttack)
         {
-            input = new PlayerControls();
+            stateCounter = 0; //sets the counter back to zero because a new attack begins
+            currentAttack =
+                currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
+            SetState(currentAttack.stateList[0]); //sets first (attack) state of the attack
+            attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = true;
 
-            input.Gameplay.LeftAttack.performed += ctx => Attack(0);
-            input.Gameplay.RightAttack.performed += ctx => Attack(1);
-        }
-
-        private void OnEnable()
-        {
-            input.Enable();
-            
-        }
-
-        private void OnDisable()
-        {
-            input.Disable();
-            playableGraph.Destroy();
-            
-        }
-
-        private void Start()
-        {
-            currentAttack = attack.currentWeapon.baseAttack; //current attack is based on the current weapon
-            currentState = baseState;
-            
-            GraphVisualizerClient.Show(playableGraph);
-        }
-
-        private void Attack(int stateID)
-        {
-            // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
-                if (currentState.canAttack || currentAttack == baseAttack)
-                {
-                    stateCounter = 0; //sets the counter back to zero because a new attack begins
-                    currentAttack = currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
-                    SetState(currentAttack.stateList[0]); //sets first (attack) state of the attack
-                    attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = true;
-
-                    //checks if the combo is reached and increases skillmeter and sets combo back to 0
-                    if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= 4)
-                    {
-                        int a = attack.skills.IndexOf(currentAttack.skill);
-                        attack.skills[a].current += 2;
-                        attack.comboCounter = 0;
-                    }
-                }
-
-        }
-
-        private void SetState(State state)
-        {
-            //sets currentstate and resets animation timer
-            currentState = state;
-            animTimer = 0;
-            
-            //plays the animation of the currentstate
-            AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
-            EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
-
-        }
-        
-        
-        public void Update()
-        {
-            //checks if animation is finished playing (and an animation was playing)
-            animTimer += Time.deltaTime;
-            //if (animTimer >= currentState.anim.duration && currentState != baseState)
-            if (currentState != baseState && animTimer >= currentState.clip.averageDuration)
+            //checks if the combo is reached and increases skillmeter and sets combo back to 0
+            if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= currentAttack.skill.comboCounter)
             {
-                //checks if we are already in the returnstate and resets everything to start, else changes to the next state
-                if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
-                {
-                    attack.comboCounter = 0;
-                    currentState = baseState;
-                    currentAttack = attack.currentWeapon.baseAttack;
-                    stateCounter = 0;
-                    EventSystem.instance.OnSetState(currentState.movementState);
-                    //maxRot = 0;
-
-                }
-                else
-                {
-                    stateCounter++;
-                    SetState(currentAttack.stateList[stateCounter]);
-                    attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
-
-                }
-               
+                int a = attack.skills.IndexOf(currentAttack.skill);
+                attack.skills[a].current += 2;
+                attack.comboCounter = 0;
             }
-            
+        }
+    }
+
+    private void SetState(AttackState state)
+    {
+        //sets currentstate and resets animation timer
+        currentState = state;
+        animTimer = 0;
+
+        //plays the animation of the currentstate
+        AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
+        EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
+    }
+
+
+    public void Update()
+    {
+        //checks if animation is finished playing (and an animation was playing)
+        animTimer += Time.deltaTime;
+        //if (animTimer >= currentState.anim.duration && currentState != baseState)
+        if (currentState != baseState && animTimer >= currentState.clip.averageDuration)
+        {
+            //checks if we are already in the returnstate and resets everything to start, else changes to the next state
+            if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
+            {
+                attack.comboCounter = 0;
+                currentState = baseState;
+                currentAttack = attack.currentWeapon.baseAttack;
+                stateCounter = 0;
+                EventSystem.instance.OnSetState(currentState.movementState);
+                //maxRot = 0;
+            }
+            else
+            {
+                stateCounter++;
+                SetState(currentAttack.stateList[stateCounter]);
+                attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
+            }
         }
     }
 }

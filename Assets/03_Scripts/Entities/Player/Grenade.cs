@@ -8,6 +8,7 @@ public class Grenade : MonoBehaviour
 {
     private float radius = 10f;
     public float force = 700f;
+    public float bsdmg = 50;
 
     private GameObject explosionEffect;
     // Start is called before the first frame update
@@ -44,6 +45,15 @@ public class Grenade : MonoBehaviour
             if (rb != null)
             {
                 rb.AddExplosionForce(force, transform.position, radius);
+                if (rb.gameObject.GetComponent<EnemyBody>() != null)
+                {
+                    GetComponentInParent<PlayerAttack>().comboCounter += 1;
+                    EventSystem.instance.OnAttack(rb.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                }
+                else if (rb.gameObject.GetComponent<ObstacleBody>())
+                {
+                    EventSystem.instance.OnAttack(rb.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                }
             }        
         }
         
