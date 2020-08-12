@@ -15,11 +15,11 @@ MonoBehaviour:
   skillName: LowPass
   current: 0
   max: 6
-  timer: 3
-  isActive: 1
+  timer: 10
+  isActive: 0
   activeValue: 0.3
   deactiveValue: 1
-  decreaseMultValue: 0.8
-  increaseMultValue: 1.2
+  decreaseMultValue: -0.2
+  increaseMultValue: 0.2
   increaseMultiplierName: 0
-  decreaseMultiplierName: 0
+  decreaseMultiplierName: 2

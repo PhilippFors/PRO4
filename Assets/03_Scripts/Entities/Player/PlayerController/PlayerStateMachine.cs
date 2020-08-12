@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 using Debug = UnityEngine.Debug;
 
-public enum PlayerMovmentSate
+public enum PlayerMovementSate
 {
     standard,
     dash,
@@ -25,13 +25,14 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public Vector2 gamepadRotate;
     [HideInInspector] public Vector2 mouseLook;
     public Vector3 velocity = Vector3.zero;
+    public Vector3 gravity = Vector3.zero;
 
     #endregion
 
     #region __________bool__________
 
     [HideInInspector] public bool isAiming, mouseused, gamepadused;
-    [HideInInspector] public bool isGrounded = true;
+    public bool isGrounded = false;
     [HideInInspector] public bool checkEnemy = false;
     public bool isMoving = false;
 
@@ -45,6 +46,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public float currentMoveSpeed = 5.0f, grenadeMoveSpeed = 3.0f, standardMoveSpeed = 8.0f, dashValue, dashValueTime, maxDashValue;
     public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
+    private float afterDrag = 10;
 
     #endregion
 
@@ -55,7 +57,7 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public PlayerControls input;
     public Transform RayEmitter;
-    public PlayerMovmentSate currentState;
+    public PlayerMovementSate currentState;
     PlayerMovementController standardMovement;
     DashMovementController dashController;
     GrenadeMovementController grenadeController;
@@ -63,10 +65,12 @@ public class PlayerStateMachine : MonoBehaviour
     private AttackMovementState attackController;
     GroundChecker groundChecker => GetComponent<GroundChecker>();
     public PlayerAttack target => GetComponent<PlayerAttack>();
-    
+
     public AnimationClip clip;
 
     PlayableGraph playableGraph;
+    public CharacterController characterController => GetComponent<CharacterController>();
+    [SerializeField] private StatTemplate playerTemplate;
 
     #endregion
 
@@ -78,7 +82,7 @@ public class PlayerStateMachine : MonoBehaviour
         attackController = new AttackMovementState(this);
         grenadeController = new GrenadeMovementController(this);
 
-        input.Gameplay.Dash.performed += ctx => SetState(PlayerMovmentSate.dash);
+        input.Gameplay.Dash.performed += ctx => SetState(PlayerMovementSate.dash);
         input.Gameplay.Movement.performed += ctx => IsMoving();
         input.Gameplay.Movement.canceled += ctx => IsNotMoving();
     }
@@ -87,6 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         input.Enable();
     }
+
     private void OnDisable()
     {
         input.Disable();
@@ -97,9 +102,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Start()
     {
-        SetState(PlayerMovmentSate.standard);
+        SetState(PlayerMovementSate.standard);
         EventSystem.instance.SetState += SetState;
-        
+
         playableGraph = PlayableGraph.Create();
 
         playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
@@ -114,7 +119,15 @@ public class PlayerStateMachine : MonoBehaviour
 
         playableOutput.SetSourcePlayable(clipPlayable);
 
-       
+        foreach (FloatReference f in playerTemplate.statList)
+        {
+            StatVariable s = (StatVariable)f.Variable;
+            if (s.statName.ToString().Equals("Speed"))
+            {
+                standardMoveSpeed = s.Value;
+            }
+        }
+        grenadeMoveSpeed = standardMoveSpeed / 2;
     }
 
     void Update()
@@ -125,20 +138,21 @@ public class PlayerStateMachine : MonoBehaviour
         GetInputValues();
         switch (currentState)
         {
-            case PlayerMovmentSate.standard:
+            case PlayerMovementSate.standard:
+                // CheckSlope();
                 standardMovement.Tick(this);
                 break;
-            case PlayerMovmentSate.dash:
+            case PlayerMovementSate.dash:
                 dashController.Tick(this);
                 break;
-            case PlayerMovmentSate.grenade:
+            case PlayerMovementSate.grenade:
                 grenadeController.Tick(this);
                 break;
-            case PlayerMovmentSate.attack:
+            case PlayerMovementSate.attack:
                 attackController.Tick(this);
                 break;
         }
-        
+        Move();
         dashController.DashCooldown(this);
     }
 
@@ -149,41 +163,48 @@ public class PlayerStateMachine : MonoBehaviour
         mouseLook = input.Gameplay.Look.ReadValue<Vector2>();
     }
 
+    void Move()
+    {
+        velocity.y = 0;
+        characterController.Move(((Vector3.Normalize(currentMoveDirection) + velocity) * currentMoveSpeed) * Time.deltaTime);
+    }
+
     void IsMoving()
     {
         isMoving = true;
-        if (currentState == PlayerMovmentSate.standard)
+        if (currentState == PlayerMovementSate.standard)
         {
             PlayAnim();
         }
-        
     }
 
     void IsNotMoving()
     {
         isMoving = false;
         playableGraph.Stop();
-        Debug.Log(isMoving);
+        // Debug.Log(isMoving);
     }
 
-    private void FixedUpdate()
-    {
-        CheckSlope();
+    // private void FixedUpdate()
+    // {
 
-        rb.MovePosition(transform.position + Vector3.Normalize(currentMoveDirection + velocity) * currentMoveSpeed * Time.fixedDeltaTime);
-    }
+
+    //     // rb.MovePosition(transform.position + Vector3.Normalize(currentMoveDirection + velocity) * currentMoveSpeed * Time.fixedDeltaTime);
+    // }
 
     public void IsGrounded()
     {
         if (Physics.CheckSphere(transform.position + new Vector3(0, 1f, 0), 1.01f, groundMask, QueryTriggerInteraction.Ignore))
         {
-            rb.drag = drag;
+            // drag = 0;
             isGrounded = true;
+            
         }
         else
         {
-            rb.drag = 0;
+            // drag = afterDrag;
             isGrounded = false;
+            characterController.Move(Physics.gravity*Time.deltaTime);
         }
     }
 
@@ -197,20 +218,21 @@ public class PlayerStateMachine : MonoBehaviour
         if (!isMoving)
             velocity = Vector3.zero;
     }
-    public void SetState(PlayerMovmentSate state)
+    public void SetState(PlayerMovementSate state)
     {
+        velocity = Vector3.zero;
         switch (state)
         {
-            case PlayerMovmentSate.attack:
+            case PlayerMovementSate.attack:
                 Attack();
                 break;
-            case PlayerMovmentSate.dash:
+            case PlayerMovementSate.dash:
                 StartDash();
                 break;
-            case PlayerMovmentSate.standard:
+            case PlayerMovementSate.standard:
                 ResetMoveSpeed();
                 break;
-            case PlayerMovmentSate.grenade:
+            case PlayerMovementSate.grenade:
                 GrenadeMoveSpeed();
                 break;
         }
@@ -238,7 +260,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void PlayAnim()
     {
-        
+
         // Plays the Graph.
 
         //playableGraph.Play();

@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6470dd98ba986e4bbd8bfed00e2317b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 4926999947177597579}
   cameraFollowSpeed: 5
+  targetBias: 0.25
 --- !u!1 &5299737657160163017
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +76,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5299737657160163017}
   m_LocalRotation: {x: -0.0322597, y: -0.000000029802319, z: 0.0000000074505797, w: 0.99947953}
-  m_LocalPosition: {x: 0.05, y: -0.38, z: -10.3}
+  m_LocalPosition: {x: 0.05, y: -0.86, z: -17.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6470254219507337851}
@@ -103,11 +105,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 5.5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

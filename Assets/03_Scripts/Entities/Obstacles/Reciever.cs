@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Reciever : MonoBehaviour
 {
-    public bool occupied;
-    public bool active;
+    public bool occupied = false;
+    public bool active = false;
     private void Start()
     {
-        occupied = false;
-        active = false;
+
     }
 }

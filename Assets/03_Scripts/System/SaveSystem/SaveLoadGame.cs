@@ -5,12 +5,12 @@ public static class SaveLoadGame
 {
     static string playerPath = Application.persistentDataPath + "/player.data";
     static string levelPath = Application.persistentDataPath + "/levelprogress.data";
-    public static void SaveGameData(PlayerBody playerData, OLD_LevelManager levelData)
+    public static void SaveGameData(PlayerBody playerData, PlayerAttack playerAttack, LevelManager levelData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
         FileStream stream = new FileStream(playerPath, FileMode.Create);
-        PlayerSaveData data = new PlayerSaveData(playerData);
+        PlayerSaveData data = new PlayerSaveData(playerData, playerAttack);
         formatter.Serialize(stream, data);
 
         stream = new FileStream(levelPath, FileMode.Create);

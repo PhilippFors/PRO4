@@ -12,8 +12,9 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public List<Multiplier> multList { get; set; }
     public StatTemplate statTemplate;
     public StatTemplate multTemplate;
-    public GameObject parent;
-    [SerializeField] private float currentHealth;
+    [SerializeField] private GameObject parent;
+    [SerializeField] private GameObject Symbol;
+    [SerializeField] public float currentHealth;
     private void Awake()
     {
         InitStats();
@@ -72,7 +73,8 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
-        Destroy(this.gameObject.GetComponentInParent<Transform>());
+        Destroy(parent);
+        Destroy(Symbol);
     }
     #endregion
 

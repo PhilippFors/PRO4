@@ -29,9 +29,9 @@ public class DashMovementController
         controller.dashValue = 0f;
 
         velocity = Vector3.Scale(Vector3.Normalize(controller.currentMoveDirection + controller.velocity), controller.dashDistance * new Vector3((Mathf.Log
-        (1f / (controller.deltaTime * controller.rb.drag + 1)) / -controller.deltaTime),
+        (1f / (controller.deltaTime * controller.drag + 1)) / -controller.deltaTime),
         controller.transform.position.y,
-        (Mathf.Log(1f / (controller.deltaTime * controller.rb.drag + 1)) / -controller.deltaTime)));
+        (Mathf.Log(1f / (controller.deltaTime * controller.drag + 1)) / -controller.deltaTime)));
 
         CheckDashPathForEnemys(controller);
         //disable Hurtbox
@@ -50,9 +50,9 @@ public class DashMovementController
     void DashUpdate(PlayerStateMachine controller)
     {
 
-        controller.rb.velocity = velocity * controller.dashForce;
-        velocity.x /= 1 + controller.rb.drag * controller.deltaTime;
-        velocity.z /= 1 + controller.rb.drag * controller.deltaTime;
+        controller.velocity = velocity * controller.dashForce;
+        velocity.x /= 1 + controller.drag * controller.deltaTime;
+        velocity.z /= 1 + controller.drag * controller.deltaTime;
 
         //invincible while frametime not zero
         if (frametime <= 0 && !dashDelayOn)
@@ -68,6 +68,7 @@ public class DashMovementController
             return;
 
         DashDelay(controller);
+        
     }
 
     void DashDelay(PlayerStateMachine controller)
@@ -79,7 +80,7 @@ public class DashMovementController
             velocity = Vector3.zero;
             delayCountdown = controller.delayTime; ;
             dashDelayOn = false;
-            controller.SetState(PlayerMovmentSate.standard);
+            controller.SetState(PlayerMovementSate.standard);
         }
     }
 

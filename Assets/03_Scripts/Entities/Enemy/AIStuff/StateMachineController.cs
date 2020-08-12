@@ -83,4 +83,14 @@ public class StateMachineController : MonoBehaviour
             currentState.StateEnter(this);
         }
     }
+
+    public void Stun(){
+        StartCoroutine(StunWait());
+    }
+
+    IEnumerator StunWait(){
+        aiActive = false;
+        yield return new WaitForSeconds(1.5f);
+        aiActive = true;
+    }
 }
