@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.2145416697.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Alex\Desktop\FH-Hagenberg\4.Semester\Pro4" t="IncludeRecursive">
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.-1010712004.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Alex\Desktop\FHHagenberg\Pro4" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -32,16 +32,19 @@
             <e p="SpawnDebugging.cs" t="Include" />
           </e>
           <e p="Editor" t="Include">
-            <e p="AddTemplate.cs" t="Include" />
-            <e p="EditTemplate.cs" t="Include" />
+            <e p="Editor Windows" t="Include">
+              <e p="AddTemplate.cs" t="Include" />
+              <e p="AttackStateEditor.cs" t="Include" />
+              <e p="EditTemplate.cs" t="Include" />
+              <e p="SOTemplateEditor.cs" t="Include" />
+              <e p="SpawnpointEditor.cs" t="Include" />
+              <e p="StateEditor.cs" t="Include" />
+              <e p="StatMultMonitor.cs" t="Include" />
+            </e>
             <e p="RestartArea.cs" t="Include" />
             <e p="SaveAsset.cs" t="Include" />
             <e p="SaveGameEditor.cs" t="Include" />
-            <e p="SOTemplateEditor.cs" t="Include" />
             <e p="SpawnlistEditor.cs" t="Include" />
-            <e p="SpawnpointEditor.cs" t="Include" />
-            <e p="StateEditor.cs" t="Include" />
-            <e p="StatMultMonitor.cs" t="Include" />
             <e p="UpdateLevelID.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
@@ -140,10 +143,10 @@
             </e>
             <e p="Weapon.cs" t="Include" />
           </e>
+          <e p="GameManager.cs" t="Include" />
           <e p="PrototypeScripts" t="Include">
             <e p="AttackNorth_1.cs" t="Include" />
             <e p="AttackNorth_2.cs" t="Include" />
-            <e p="AudioSkillsController.cs" t="Include" />
             <e p="Bullet.cs" t="Include" />
             <e p="Door.cs" t="Include" />
             <e p="Downer.cs" t="Include" />
@@ -153,6 +156,7 @@
             <e p="Upscale.cs" t="Include" />
           </e>
           <e p="system" t="Include">
+            <e p="DestroyParticle.cs" t="Include" />
             <e p="EventSystem" t="Include">
               <e p="EventSystem.cs" t="Include" />
               <e p="LevelEventSystem.cs" t="Include" />
@@ -175,7 +179,6 @@
             <e p="Levelprogression" t="Include">
               <e p="Level" t="Include">
                 <e p="Area.cs" t="Include" />
-                <e p="DefeatEnemyObjective.cs" t="Include" />
                 <e p="Level.cs" t="Include" />
                 <e p="SceneLevelData.cs" t="Include" />
                 <e p="Wave.cs" t="Include" />
@@ -186,11 +189,8 @@
                 <e p="ObjectiveAction.cs" t="Include" />
                 <e p="ObjectiveDecision.cs" t="Include" />
                 <e p="ObjectiveTransition.cs" t="Include" />
-              </e>
-              <e p="OLD" t="Include">
-                <e p="OLD_LevelManager.cs" t="Include" />
-                <e p="SpawnSystem" t="Include">
-                  <e p="SpawnProcess.cs" t="Include" />
+                <e p="ObjectiveTypes" t="Include">
+                  <e p="DefeatEnemyObjective.cs" t="Include" />
                 </e>
               </e>
               <e p="SpawnSystem" t="Include">
@@ -209,6 +209,7 @@
               </e>
             </e>
             <e p="MultiplierManager.cs" t="Include" />
+            <e p="ParticleController.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
@@ -223,6 +224,7 @@
               <e p="SaveLoadGame.cs" t="Include" />
               <e p="SaveManager.cs" t="Include" />
             </e>
+            <e p="SceneLoader.cs" t="Include" />
           </e>
           <e p="UI" t="Include">
             <e p="UIManager.cs" t="Include" />
@@ -351,6 +353,7 @@
         </e>
         <e p="RotateCam.cs" t="Include" />
         <e p="SetSpeed.cs" t="Include" />
+        <e p="Unparenter.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

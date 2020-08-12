@@ -9,7 +9,7 @@ using UnityEngine.PlayerLoop;
 using Debug = UnityEngine.Debug;
 
 
-public enum States
+public enum AttackStates
 {
     attackState,
     waitState,

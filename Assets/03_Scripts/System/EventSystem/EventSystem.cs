@@ -38,7 +38,7 @@ public class EventSystem : MonoBehaviour
     {
         if (ActivateSkill != null)
             Debug.Log("Skill Activated");
-            ActivateSkill(multiplierName, value);
+        ActivateSkill(multiplierName, value);
     }
 
     public void OnSkill()

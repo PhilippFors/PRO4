@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868e07c6479c4e01a684176054f5c857, type: 3}
+  m_Script: {fileID: 11500000, guid: e550320a98879cf4389ca94675a3c0c3, type: 3}
   m_Name: ReturnState
   m_EditorClassIdentifier: 
-  anim: {fileID: 11400000, guid: 6a79ed8d9ca8d324cbb607ed47fe3ee9, type: 2}
+  anim: {fileID: 0}
   clip: {fileID: -7223563537927322271, guid: 379f9a15bb8b17d47848f6df7223a71e, type: 3}
-  movementState: 3
+  movementState: 0
   canAttack: 0
+  canTurn: 0
+  canDamage: 0
   maxRot: 0

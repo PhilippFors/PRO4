@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public Weapons currentWeapon;
     public int currentWeaponCounter = 0;
     public Transform weaponPoint;
+    public Skills currentActiveSkill;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
     
@@ -45,6 +46,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnDisable()
     {
         input.Gameplay.Disable();
+
     }
 
     private void Awake()
@@ -93,6 +95,10 @@ public class PlayerAttack : MonoBehaviour
         Skills temp = skills[id];
         if (!temp.isActive && temp.current == temp.max)
         {
+            foreach (Skills skill in skills)
+            {
+                skill.isActive = false;
+            }
             StartCoroutine(Timer(temp, id));
         }
         else
@@ -105,6 +111,7 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator Timer(Skills temp, int id)
     {
         temp.isActive = true;
+        currentActiveSkill = temp;
         emitter.SetParameter(temp.skillName, temp.activeValue);
         temp.current = 0;
         EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue);
@@ -114,7 +121,8 @@ public class PlayerAttack : MonoBehaviour
 
         EventSystem.instance.OnSkill();
         temp.isActive = false;
-        Debug.Log("hi");
+        currentActiveSkill = null;
+        //Debug.Log("hi");
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }
@@ -208,5 +216,10 @@ public class PlayerAttack : MonoBehaviour
 
         currentWeapon = weapons[currentWeaponCounter];
         currentWeapon.Equip(weaponPoint);
+    }
+    
+    public Skills GetCurrentSkill()
+    {
+        return currentActiveSkill;
     }
 }
