@@ -66,14 +66,87 @@ public class StateEditor : EditorWindow
                 EditorGUILayout.Separator();
                 var so = new SerializedObject(t);
 
-
+                int actnr = 1;
                 GUILayout.Label("Actions ", EditorStyles.boldLabel);
                 var ab = so.FindProperty("actions");
-            }
+                if (t.actions.Length != 0)
+                    for (int i = 0; i < t.actions.Length; i++)
+                    {
 
-            GUILayout.EndScrollView();
+                        var s = ab.GetArrayElementAtIndex(i).objectReferenceValue = EditorGUILayout.ObjectField("Action " + actnr, t.actions[i], typeof(Action), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(maxWidth));
+                        so.ApplyModifiedProperties();
+                        actnr++;
+
+                    }
+
+                if (GUILayout.Button("Add Action"))
+                {
+                    so.FindProperty("actions").InsertArrayElementAtIndex(t.actions.Length);
+                    so.ApplyModifiedProperties();
+                }
+                if (t.actions.Length != 0)
+                    if (GUILayout.Button("Remove Action"))
+                    {
+                        so.FindProperty("actions").GetArrayElementAtIndex(t.actions.Length - 1).objectReferenceValue = null;
+                        so.FindProperty("actions").DeleteArrayElementAtIndex(t.actions.Length - 1);
+                        so.ApplyModifiedProperties();
+                    }
+                EditorGUILayout.Separator();
+
+                transitionBools[j] = EditorGUILayout.Foldout(transitionBools[j], "Transitions");
+                var tra = so.FindProperty("transitions");
+                if (t.transitions.Length != 0)
+                {
+                    if (transitionBools[j])
+                    {
+                        int trnr = 1;
+
+
+                        for (int i = 0; i < t.transitions.Length; i++)
+                        {
+                            var tr = tra.GetArrayElementAtIndex(i);
+                            GUILayout.Label("Transition " + trnr, EditorStyles.boldLabel);
+                            var d = tr.FindPropertyRelative("decision").objectReferenceValue = EditorGUILayout.ObjectField("Decision", t.transitions[i].decision, typeof(Decision), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(maxWidth));
+                            var s = tr.FindPropertyRelative("trueState").objectReferenceValue = EditorGUILayout.ObjectField("True State", t.transitions[i].trueState, typeof(State), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(maxWidth));
+                            var f = tr.FindPropertyRelative("falseState").objectReferenceValue = EditorGUILayout.ObjectField("False State", t.transitions[i].falseState, typeof(State), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(maxWidth));
+                            so.ApplyModifiedProperties();
+                            EditorGUILayout.Separator();
+
+                            trnr++;
+                        }
+                    }
+                }
+                if (GUILayout.Button("Add Transition"))
+                {
+                    so.FindProperty("transitions").InsertArrayElementAtIndex(t.transitions.Length);
+                    so.ApplyModifiedProperties();
+                }
+                if (t.transitions.Length != 0)
+                    if (GUILayout.Button("Remove Transition"))
+                    {
+                        so.FindProperty("transitions").GetArrayElementAtIndex(t.transitions.Length - 1).objectReferenceValue = null;
+                        so.FindProperty("transitions").DeleteArrayElementAtIndex(t.transitions.Length - 1);
+                        so.ApplyModifiedProperties();
+                    }
+
+                EditorGUILayout.Separator();
+
+                so.FindProperty("onExitState").objectReferenceValue = EditorGUILayout.ObjectField("On Exit", t.onExitState, typeof(OnExitState), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(maxWidth));
+                so.FindProperty("onEnterState").objectReferenceValue = EditorGUILayout.ObjectField("On Enter", t.onEnterState, typeof(OnEnterState), false, GUILayout.MinWidth(200f), GUILayout.MaxWidth(maxWidth));
+
+                EditorGUILayout.Separator();
+
+                so.ApplyModifiedProperties();
+            }
+            j++;
         }
+
+        GUILayout.EndScrollView();
+
+
+        GUILayout.EndScrollView();
     }
+
     private void OnInspectorUpdate()
     {
         Repaint();

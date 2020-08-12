@@ -13,10 +13,11 @@ public class AvikAttackDecision : Decision
 
     public bool CheckForPlayer(StateMachineController controller)
     {
-        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) > controller.enemyStats.GetStatValue(StatName.Range) &!controller.isAttacking)
+        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) > controller.enemyStats.GetStatValue(StatName.Range) & !controller.isAttacking)
         {
             controller.actions.Walk(controller);
             controller.agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+
             return false;
         }
 
