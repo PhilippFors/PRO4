@@ -5,34 +5,34 @@ using DG.Tweening;
 
 public class AR_damagePlate : MonoBehaviour
 {
-    private Material _material;
+    private Material m_material;
     private float defaultLength;
 
 
-    public bool onKick;
-    public bool onBass;
+    public bool m_onKick;
+    public bool m_onBass;
 
-    public bool intervalBeat;
-    public int intervalCounter = 0;
+    public bool m_intervalBeat;
+    public int m_intervalCounter = 0;
 
-    Color _color;
+    Color m_color;
     float H, S, V;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _material = GetComponent<MeshRenderer>().material;
-        _color = _material.GetColor("EmissionRedColor");
+        m_material = GetComponent<MeshRenderer>().material;
+        m_color = m_material.GetColor("EmissionRedColor");
 
-        Color.RGBToHSV((_color), out H, out S, out V);
+        Color.RGBToHSV((m_color), out H, out S, out V);
 
-        if (onKick)
+        if (m_onKick)
         {
             EventSystem.instance.Kick += changePlateEmission;
         }
 
-        if (onBass) 
+        if (m_onBass) 
         {
             EventSystem.instance.Bass +=  changePlateEmission;
         }
@@ -49,16 +49,16 @@ public class AR_damagePlate : MonoBehaviour
 
     void changePlateEmission()
     {
-        if (intervalBeat)
+        if (m_intervalBeat)
         {
-            intervalCounter++;
+            m_intervalCounter++;
         }
-        if (intervalCounter % 2 == 0)
+        if (m_intervalCounter % 2 == 0)
         {
-            Debug.Log("changPlateEmission");
+            //Debug.Log("changPlateEmission");
             DOTween.Sequence()
-                .Append(_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))
-                .Append(_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", 0.25f))
+                .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))
+                .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", 0.25f))
                 .SetEase(Ease.Flash);
         }
     }
