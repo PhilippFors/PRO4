@@ -13,6 +13,7 @@ public class AR_damagePlate : MonoBehaviour
     public bool m_onBass;
 
     public bool m_intervalBeat;
+    public int m_interval = 2;
     public int m_intervalCounter = 0;
 
     public bool m_active;
@@ -60,7 +61,7 @@ public class AR_damagePlate : MonoBehaviour
         {
             m_intervalCounter++;
         }
-        if (m_intervalCounter % 2 == 0)
+        if (m_intervalCounter % m_interval == 0)
         {
             m_active = true;
             //Debug.Log("changPlateEmission");
@@ -68,8 +69,6 @@ public class AR_damagePlate : MonoBehaviour
                 .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))
                 .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", 0.25f))
                 .SetEase(Ease.Flash);
-
-  
         }
     }
 
