@@ -15,15 +15,22 @@ public class AR_damagePlate : MonoBehaviour
     public bool m_intervalBeat;
     public int m_intervalCounter = 0;
 
+    public bool m_active;
+    Sequence mySequence;
+
     Color m_color;
     float H, S, V;
 
+    
 
     // Start is called before the first frame update
     void Start()
     {
         m_material = GetComponent<MeshRenderer>().material;
         m_color = m_material.GetColor("EmissionRedColor");
+
+        BoxCollider a  = GetComponentInChildren<BoxCollider>();
+       
 
         Color.RGBToHSV((m_color), out H, out S, out V);
 
@@ -55,12 +62,30 @@ public class AR_damagePlate : MonoBehaviour
         }
         if (m_intervalCounter % 2 == 0)
         {
+            m_active = true;
             //Debug.Log("changPlateEmission");
-            DOTween.Sequence()
+            mySequence = DOTween.Sequence()
                 .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))
                 .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", 0.25f))
                 .SetEase(Ease.Flash);
+
+  
         }
     }
+
+
+    public void PullTrigger(Collider c)
+    {
+        if (mySequence.IsActive())
+        {
+            Debug.Log("Damage Plate hit");
+        }
+    }
+    public void test()
+    {
+
+    }
+
+
 }
 

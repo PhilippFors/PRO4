@@ -8,11 +8,10 @@ public class AR_AudioEmission : MonoBehaviour
     public int _audioBand1 = 0;
     public int _audioBand2 = 7;
 
+    public bool _enableAudioBand1 = true; //BLUE
+    public bool _enableAudioBand2 = true; //RED
 
     public bool _useBuffer;
-    public bool _colorChange;
-    public bool _sizeChangeY;
-    public float _sizeStartScale, _sizeMaxScale;
     public bool _enable32Bands;
 
 
@@ -32,6 +31,8 @@ public class AR_AudioEmission : MonoBehaviour
         _material = GetComponent<MeshRenderer>().material;
 
 
+
+
         _color1 = _material.GetColor("EmissionBlueColor");
         _color2 = _material.GetColor("EmissionRedColor");
 
@@ -43,18 +44,22 @@ public class AR_AudioEmission : MonoBehaviour
         if (_useBuffer)
         {
 
-            if (_colorChange)
-            {
                 float H, S, V;
-
+                if (_enableAudioBand1)
+            {
                 Color.RGBToHSV((_color1), out H, out S, out V);
                 V = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand1);
                 _material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
+            }
 
+            if (_enableAudioBand2)
+            {
                 Color.RGBToHSV((_color2), out H, out S, out V);
                 V = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand2);
                 _material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V, true));
             }
+                
+            
 
         }
         //IF NOT USE BUFFER
@@ -62,13 +67,20 @@ public class AR_AudioEmission : MonoBehaviour
         {
             float H, S, V;
 
-            Color.RGBToHSV((_color1), out H, out S, out V);
-            V = FMODAudioPeer._instance.getFqBand8(_audioBand1);
-            _material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
+            if (_enableAudioBand1)
+            {
+                Color.RGBToHSV((_color1), out H, out S, out V);
+                V = FMODAudioPeer._instance.getFqBand8(_audioBand1);
+                _material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
+            }
 
-            Color.RGBToHSV((_color2), out H, out S, out V);
-            V = FMODAudioPeer._instance.getFqBand8(_audioBand2);
-            _material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V, true));
+            if (_enableAudioBand2)
+            {
+                Color.RGBToHSV((_color2), out H, out S, out V);
+                V = FMODAudioPeer._instance.getFqBand8(_audioBand2);
+                _material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V, true));
+            }
+                
 
             
         }
