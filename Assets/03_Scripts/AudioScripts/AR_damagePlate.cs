@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class AR_damagePlate : MonoBehaviour
+public class AR_damagePlate : MusicAnalyzer
 {
     private Material m_material;
     private float defaultLength;
 
-
+    /*
+    public bool m_onSnare;
     public bool m_onKick;
-    public bool m_onBass;
+    public bool m_onHighHat;
 
     public bool m_intervalBeat;
     public int m_interval = 2;
     public int m_intervalCounter = 0;
+    */
 
     public bool m_active;
     Sequence mySequence;
@@ -34,16 +36,7 @@ public class AR_damagePlate : MonoBehaviour
        
 
         Color.RGBToHSV((m_color), out H, out S, out V);
-
-        if (m_onKick)
-        {
-            EventSystem.instance.Kick += changePlateEmission;
-        }
-
-        if (m_onBass) 
-        {
-            EventSystem.instance.Bass +=  changePlateEmission;
-        }
+        addActionToEvent();
 
     }
 
@@ -55,13 +48,12 @@ public class AR_damagePlate : MonoBehaviour
 
 
 
-    void changePlateEmission()
+    protected override void objectAction()
     {
-        if (m_intervalBeat)
-        {
-            m_intervalCounter++;
-        }
-        if (m_intervalCounter % m_interval == 0)
+
+        increaseIntervalCounter();
+        
+        if (checkInterval())
         {
             m_active = true;
             //Debug.Log("changPlateEmission");
@@ -79,10 +71,6 @@ public class AR_damagePlate : MonoBehaviour
         {
             Debug.Log("Damage Plate hit");
         }
-    }
-    public void test()
-    {
-
     }
 
 

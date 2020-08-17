@@ -10,8 +10,8 @@ public class TestLaserTween : MonoBehaviour
 {
 
 
-    public bool bassLaser;
-    public bool kickLaser;
+    public bool onKick;
+    public bool onSnare;
 
     Transform laserTrans;
 
@@ -24,11 +24,11 @@ public class TestLaserTween : MonoBehaviour
         Vector3 turretLocation = transform.localPosition;
         laserTrans = gameObject.transform.GetChild(0);
 
-        if (bassLaser)
+        if (onKick)
         {
-            EventSystem.instance.Bass += shootLaserSequence;
+            EventSystem.instance.Snare += shootLaserSequence;
         }
-        if (kickLaser)
+        if (onSnare)
         {
             EventSystem.instance.Kick += moveTurretOneWaySequence;
         }

@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class AR_beaconWall : MonoBehaviour
+public class AR_beaconWall : MusicAnalyzer
 {
 
     private Material _material;
     private float defaultLength;
 
 
-    public bool onKick;
-    public bool onBass;
-
-    public bool intervalBeat;
-    public int intervalCounter = 0;
+   
     public float lengthOfLaser;
 
 
@@ -41,15 +37,7 @@ public class AR_beaconWall : MonoBehaviour
 
         Color.RGBToHSV((_beaconEmissiveColor), out H, out S, out V);
 
-        if (onKick)
-        {
-            EventSystem.instance.Kick += triggerDeathWall;
-        }
-
-        if (onBass)
-        {
-            EventSystem.instance.Bass += triggerDeathWall;
-        }
+        addActionToEvent();
 
     }
 
@@ -59,13 +47,10 @@ public class AR_beaconWall : MonoBehaviour
 
     }
 
-    void triggerDeathWall()
+    protected override void objectAction()
     {
-        if (intervalBeat)
-        {
-            intervalCounter++;
-        }
-        if (intervalCounter % 2 == 0)
+        increaseIntervalCounter();
+        if (checkInterval())
         {
             DOTween.Sequence()
            .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))

@@ -12,8 +12,9 @@ public class EventSystem : MonoBehaviour
     public event Action<PlayerMovementSate> SetState;
 
     //Events die von der Musik ausgelöst werden
+    public event System.Action Snare;
     public event System.Action Kick;
-    public event System.Action Bass;
+    public event System.Action HighHat;
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
@@ -48,6 +49,36 @@ public class EventSystem : MonoBehaviour
     }
 
 
+    public void OnSnare()
+    {
+        if (Snare == null)
+        {
+            Debug.Log("SnareEvent has no subscriber");
+        }
+        else
+        {
+            Snare();
+        }
+
+        //WHY THIS SHORTHAND SYNTAX NICHT WORKING?
+        //Kick == null ? Debug.Log("KickEvent is empty") : Kick();
+        //No idea but du not brauchen it -P
+    }
+
+    public void OnHighHat()
+    {
+        if (HighHat == null)
+        {
+            Debug.Log("HighHatEvent has no subscriber");
+        }
+        else
+        {
+            HighHat();
+        }
+
+
+    }
+
     public void OnKick()
     {
         if (Kick == null)
@@ -57,22 +88,6 @@ public class EventSystem : MonoBehaviour
         else
         {
             Kick();
-        }
-
-        //WHY THIS SHORTHAND SYNTAX NICHT WORKING?
-        //Kick == null ? Debug.Log("KickEvent is empty") : Kick();
-        //No idea but du not brauchen it -P
-    }
-
-    public void OnBass()
-    {
-        if (Bass == null)
-        {
-            Debug.Log("BassEvent has no subscriber");
-        }
-        else
-        {
-            Bass();
         }
     }
 

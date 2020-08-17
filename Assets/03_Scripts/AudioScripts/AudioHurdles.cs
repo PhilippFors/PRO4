@@ -10,8 +10,8 @@ public class AudioHurdles : MonoBehaviour
     private float defaultLength;
 
 
+    public bool onSnare;
     public bool onKick;
-    public bool onBass;
 
     public bool intervalBeat;
     public int intervalCounter = 0;
@@ -45,11 +45,11 @@ public class AudioHurdles : MonoBehaviour
         if (deathWall)
         {
             if (onKick) 
-            EventSystem.instance.Kick += triggerDeathWall;          
+            EventSystem.instance.Snare += triggerDeathWall;          
             
         
-            else if (onBass) 
-            EventSystem.instance.Bass += triggerDeathWall;        
+            else if (onSnare) 
+            EventSystem.instance.Snare += triggerDeathWall;        
             
 
         defaultLength = transform.localScale.y;

@@ -33,7 +33,7 @@ public class MusicManager : MonoBehaviour
             {
                 switch (marker[i])
                 {
-                    case 'K':
+                    case 'S':
                         //Debug.Log("Parsed: Kick");
                         if(EventSystem.instance == null)
                         {
@@ -41,11 +41,11 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            EventSystem.instance.OnKick();
+                            EventSystem.instance.OnSnare();
                         }                   
                         break;
 
-                    case 'B':
+                    case 'K':
                        // Debug.Log("Parsed: Bass");
                         if (EventSystem.instance == null)
                         {
@@ -53,7 +53,18 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            EventSystem.instance.OnBass();
+                            EventSystem.instance.OnKick();
+                        }
+                        break;
+                    case 'H':
+                        
+                        if (EventSystem.instance == null)
+                        {
+                            Debug.Log("EventSystem is empty");
+                        }
+                        else
+                        {
+                            EventSystem.instance.OnHighHat();
                         }
                         break;
                 }
