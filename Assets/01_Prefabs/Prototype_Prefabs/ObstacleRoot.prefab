@@ -845,6 +845,8 @@ MonoBehaviour:
   Wall: {fileID: 4204542302404945651}
   master: {fileID: 5973306530368213331}
   found: 0
+  minRot: -85
+  maxRot: 85
 --- !u!1 &8536965833061157818
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +979,7 @@ NavMeshObstacle:
   m_Extents: {x: 0.28, y: 1.305, z: 0.255}
   m_MoveThreshold: 0.1
   m_Carve: 1
-  m_CarveOnlyStationary: 0
+  m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.3030001, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1001 &9066000516825544695
@@ -1171,6 +1173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: LightsModule.intensityCurve.scalar
       value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419190404638124475, guid: 58d7375196976e0449df2bc5153765c2,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d7375196976e0449df2bc5153765c2, type: 3}

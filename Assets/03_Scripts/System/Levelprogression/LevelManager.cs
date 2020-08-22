@@ -7,10 +7,11 @@ public class LevelManager : MonoBehaviour
     public int currentLevel = 0;
     public int currentArea = 0;
     bool levelExitTriggered = false;
-    public Level[] levelData;
-    public SpawnpointlistSO spawnpointlist;
     public Objective currentObjective;
-    public float deltaTime;
+    [HideInInspector] public float deltaTime;
+
+    [Header("Level Data")]
+    public Level[] levelData;
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;

@@ -7,12 +7,15 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager instance;
     [SerializeField] private AIManager manager;
     [SerializeField] private LevelManager levelManager;
-    [SerializeField] private GameObject Avik;
 
+    public SpawnpointlistSO spawnpointlist;
+    Wave lastWave;
     public EnemySet enemyCollection;
     public bool isSpawning = false;
-    public bool count = false;
+    [HideInInspector] public bool count = false;
     public bool enemyListEmpty = false;
+    [Header("EnemyPrefabs")]
+    [SerializeField] private GameObject Avik;
 
     [Header("Settings")]
     public float SpawnWaitTime = 4.8f;
@@ -100,7 +103,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnDelay(List<Wave> waves, float wait = 0.5f)
     {
-        isSpawning = true;
+        lastWave = null;
         yield return new WaitForSeconds(wait);
 
         if (waves.Count > 1)
@@ -108,60 +111,99 @@ public class SpawnManager : MonoBehaviour
             int i = 0;
             while (i < waves.Count)
             {
-                Debug.Log(i + " ," + waves.Count);
-                WaveCheck(waves[i]);
-                Debug.Log("Spawn");
-                yield return new WaitForSeconds(SpawnWaitTime);
-                Debug.Log("Wait is over");
-                i++;
+                if (!isSpawning)
+                {
+                    isSpawning = true;
+                    StartCoroutine(SpawnEnemy(waves[i]));
+                    yield return new WaitForSeconds(SpawnWaitTime);
+                    i++;
+                }
+                yield return null;
             }
             yield break;
         }
         else
         {
-            WaveCheck(waves[0]);
+            StartCoroutine(SpawnEnemy(waves[0]));
             yield break;
         }
     }
 
 
-    void WaveCheck(Wave w)
-    {
-        foreach (SpawnPoint sPoint in w.spawnPoints)
-        {
-            switch (sPoint.enemyType)
-            {
-                case EnemyType.Avik:
-                    StartCoroutine(SpawnEnemy(Avik, sPoint.UniqueID));
-                    break;
-                case EnemyType.undefinded:
+    // void WaveCheck(Wave w)
+    // {
 
-                    break;
+    //     float ExtraWait = 0;
+    //     for (int i = 0; i < w.spawnPoints.Length; i++)
+    //     {
+    //         if (i != w.spawnPoints.Length - 1)
+    //             if (w.spawnPoints[i].UniqueID != w.spawnPoints[i + 1].UniqueID)
+    //             {
+    //                 ExtraWait = 0;
+    //             }
+    //             else
+    //             {
+    //                 ExtraWait = 5f;
+    //             }
+
+    //         switch (w.spawnPoints[i].enemyType)
+    //         {
+    //             case EnemyType.Avik:
+    //                 // StartCoroutine(SpawnEnemy(Avik, w.spawnPoints[i].UniqueID));
+    //                 break;
+    //             case EnemyType.undefinded:
+
+    //                 break;
+    //         }
+    //     }
+    // }
+
+    IEnumerator SpawnEnemy(Wave w)
+    {
+
+        for (int i = 0; i < w.spawnPoints.Length; i++)
+        {
+            if (i == 0 & lastWave != null)
+                if (w.spawnPoints[i].UniqueID == lastWave.spawnPoints[lastWave.spawnPoints.Length - 1].UniqueID)
+                    yield return new WaitForSeconds(SpawnWaitTime);
+
+
+            foreach (SpawnpointID spawnPoint in spawnpointlist.list)
+            {
+                if (spawnPoint.UniqueID == w.spawnPoints[i].UniqueID & spawnPoint.AreaID == levelManager.currentArea & spawnPoint.LevelID == levelManager.currentLevel)
+                {
+                    switch (w.spawnPoints[i].enemyType)
+                    {
+                        case EnemyType.Avik:
+                            StartCoroutine(InstantiateEnemy(Avik, spawnPoint));
+                            break;
+                        case EnemyType.undefinded:
+
+                            break;
+                    }
+                }
             }
+
+            if (i != w.spawnPoints.Length - 1)
+                if (w.spawnPoints[i].UniqueID == w.spawnPoints[i + 1].UniqueID)
+                    yield return new WaitForSeconds(SpawnWaitTime);
         }
+        isSpawning = false;
+        lastWave = w;
     }
 
-    IEnumerator SpawnEnemy(GameObject obj, int ID)
+    IEnumerator InstantiateEnemy(GameObject obj, SpawnpointID spawnPoint)
     {
-        foreach (SpawnpointID spawnPoint in levelManager.spawnpointlist.list)
-        {
-            if (spawnPoint.UniqueID == ID & spawnPoint.AreaID == levelManager.currentArea & spawnPoint.LevelID == levelManager.currentLevel)
-            {
-                spawnPoint.director.Play();
+        spawnPoint.director.Play();
+        yield return new WaitForSeconds(spawnAnimDelay);
+        EnemyBody enemy = Instantiate(obj, spawnPoint.transform.position, spawnPoint.transform.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
+        enemy.GetComponent<StateMachineController>().settings = manager;
+        enemy.GetComponent<Animation>().Play("Entry");
 
-                yield return new WaitForSeconds(spawnAnimDelay);
+        AddEnemyToList(enemy);
+        StartCoroutine(WaitForAnimation(enemy));
 
-                EnemyBody enemy = Instantiate(obj, spawnPoint.transform.position, spawnPoint.transform.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
-                enemy.GetComponent<StateMachineController>().settings = manager;
-                enemy.GetComponent<Animation>().Play("Entry");
-
-                AddEnemyToList(enemy);
-                StartCoroutine(WaitForAnimation(enemy));
-
-                count = true;
-                isSpawning = false;
-            }
-        }
+        count = true;
     }
 
     IEnumerator WaitForAnimation(EnemyBody enemy)

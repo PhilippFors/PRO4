@@ -15,7 +15,7 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public Transform ObstacleTarget;
     [HideInInspector] public float deltaTime;
     private bool aiActive = false;
-    [HideInInspector] public bool isGrounded = true, canAttack = false, isAttacking = false, checkedAmount, avoidDirection;
+    [HideInInspector] public bool isGrounded = true, canAttack = false, isAttacking = false, checkedAmount, avoidDirection, stunned;
     public Transform RayEmitter;
     public State currentState;
     public State startState;
@@ -89,8 +89,8 @@ public class StateMachineController : MonoBehaviour
     }
 
     IEnumerator StunWait(){
-        aiActive = false;
-        yield return new WaitForSeconds(1.5f);
-        aiActive = true;
+        stunned = true;
+        yield return new WaitForSeconds(2f);
+        stunned = false;
     }
 }

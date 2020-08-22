@@ -44,7 +44,7 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public float deltaTime;
     [HideInInspector] public float time;
 
-    public float currentMoveSpeed = 5.0f, grenadeMoveSpeed = 3.0f, standardMoveSpeed = 8.0f, dashValue, dashValueTime, maxDashValue;
+    public float currentMoveSpeed = 5.0f, grenadeMoveSpeed = 3.0f, standardMoveSpeed, dashValue, dashValueTime, maxDashValue;
     public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
     private float afterDrag = 10;
 
@@ -198,7 +198,6 @@ public class PlayerStateMachine : MonoBehaviour
         {
             // drag = 0;
             isGrounded = true;
-            
         }
         else
         {

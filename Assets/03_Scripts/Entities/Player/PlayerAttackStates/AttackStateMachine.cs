@@ -8,7 +8,6 @@ using UnityEngine.Playables;
 using UnityEngine.PlayerLoop;
 using Debug = UnityEngine.Debug;
 
-
 public enum AttackStates
 {
     attackState,
