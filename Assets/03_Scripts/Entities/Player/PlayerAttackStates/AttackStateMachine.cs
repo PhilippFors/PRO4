@@ -25,6 +25,7 @@ public class AttackStateMachine : MonoBehaviour
     private float animTimer = 0; // a timer to check if animation has finished playing
     private int stateCounter = 0; // counts the current states of an attack
     private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+    AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
 
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
@@ -81,13 +82,17 @@ public class AttackStateMachine : MonoBehaviour
 
     private void SetState(AttackState state)
     {
+       
         //sets currentstate and resets animation timer
         currentState = state;
         animTimer = 0;
 
         //plays the animation of the currentstate
-        AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
+        //AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
+        animCon.AttackDisconnecter();
+        animCon.AttackAnimation(currentState.clip);
         EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
+        
     }
 
 
@@ -101,11 +106,15 @@ public class AttackStateMachine : MonoBehaviour
             //checks if we are already in the returnstate and resets everything to start, else changes to the next state
             if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
             {
+                animCon.AttackDisconnecter();
+                animCon.MoveStarter();
                 attack.comboCounter = 0;
-                currentState = baseState;
+                
                 currentAttack = attack.currentWeapon.baseAttack;
+                currentState = baseState;
+                EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
                 stateCounter = 0;
-                EventSystem.instance.OnSetState(currentState.movementState);
+                
                 //maxRot = 0;
             }
             else
@@ -113,6 +122,7 @@ public class AttackStateMachine : MonoBehaviour
                 stateCounter++;
                 SetState(currentAttack.stateList[stateCounter]);
                 attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
+                
             }
         }
     }
