@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class Weapons : MonoBehaviour
 {
@@ -8,6 +7,10 @@ public class Weapons : MonoBehaviour
     public AttackSO baseAttack;
     public float bsdmg = 20.0f;
     public int weaponID;
+    public float knockbackForce = 3f;
+
+    [Range(0, 100)]
+    public int stunChance = 50;
     public AttackStateMachine attack => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
 
     internal void Equip(Transform weaponPoint)
@@ -34,6 +37,7 @@ public class Weapons : MonoBehaviour
             {
                 GetComponentInParent<PlayerAttack>().comboCounter += 1;
                 EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                other.GetComponent<IKnockback>().ApplyKnockback(knockbackForce, stunChance);
             }
             else if (other.gameObject.GetComponent<ObstacleBody>())
             {

@@ -1,25 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum EnemyType{
+public enum EnemyType
+{
     undefinded,
     Avik,
     Shentau
 }
-public class EnemyBody : MonoBehaviour, IStats, IMultipliers
+public class EnemyBody : MonoBehaviour, IStats, IMultipliers, IKnockback
 {
     public List<GameStatistics> statList { get; set; }
     public List<Multiplier> multList { get; set; }
     public StatTemplate statTemplate;
     public StatTemplate multTemplate;
+    public StateMachineController controller => GetComponent<StateMachineController>();
+    public Rigidbody rb => GetComponent<Rigidbody>();
+    public Symbol symbolInfo;
+    // Material mat;
     [SerializeField] private GameObject parent;
-    [SerializeField] private GameObject Symbol;
+    [SerializeField] private GameObject symbol;
     [SerializeField] public float currentHealth;
     private void Awake()
     {
+        InitSymbol();
         InitStats();
         InitMultiplier();
     }
+
 
     #region Init
     public void InitStats()
@@ -44,8 +51,16 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
         }
     }
 
+    void InitSymbol()
+    {
+        Material mat = new Material(symbolInfo.shader);
+        mat.SetTexture("_Texture", symbolInfo.symbolSprite);
+        mat.SetColor("_Color", Color.red);
+        symbol.GetComponent<MeshRenderer>().material = mat;
+    }
 
     #endregion
+
     #region health
     void CheckHealth()
     {
@@ -70,11 +85,12 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     {
 
     }
+
     public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
         Destroy(parent);
-        Destroy(Symbol);
+        Destroy(symbol);
     }
     #endregion
 
@@ -82,7 +98,6 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public void SetMultValue(MultiplierName name, float value)
     {
         multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
-
     }
     public float GetMultValue(MultiplierName name)
     {
@@ -107,6 +122,20 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers
     public float GetStatValue(StatName stat)
     {
         return statList.Find(x => x.GetName().Equals(stat)).GetValue();
+    }
+
+    public void ApplyKnockback(float force, int stunChance)
+    {
+        // float totalStun = stunChance - GetStatValue(StatName.stunResist);
+        int rand = Random.Range(0, 101);
+
+        if(rand < stunChance){
+            controller.Stun();
+        }
+        
+        Vector3 direction = Vector3.Normalize(transform.position - controller.settings.playerTarget.position);
+        rb.AddForce(direction * force, ForceMode.Impulse);
+
     }
     #endregion
 }

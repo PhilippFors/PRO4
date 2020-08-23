@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class MusicAnalyzer : MonoBehaviour
 {
-
-
     public bool m_onSnare;
     public bool m_onKick;
     public bool m_onHighHat;
@@ -17,14 +15,14 @@ public abstract class MusicAnalyzer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     protected void increaseIntervalCounter()
@@ -33,16 +31,23 @@ public abstract class MusicAnalyzer : MonoBehaviour
         {
             m_intervalCounter++;
         }
-        
+
     }
 
     protected bool checkInterval()
     {
-        return (m_intervalCounter % m_interval == 0);
+        if (m_intervalBeat)
+        {
+            return (m_intervalCounter % m_interval == 0);
+        }
+        else
+        {
+            return true;
+        }
     }
 
     protected abstract void objectAction();
-  
+
     protected void addActionToEvent()
     {
         if (m_onSnare)

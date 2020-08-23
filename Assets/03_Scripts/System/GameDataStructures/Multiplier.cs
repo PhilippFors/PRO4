@@ -7,7 +7,8 @@ public enum MultiplierName
     damage,
     speed,
 
-    health
+    health,
+    stunMultiplier
 
 }
 public class Multiplier

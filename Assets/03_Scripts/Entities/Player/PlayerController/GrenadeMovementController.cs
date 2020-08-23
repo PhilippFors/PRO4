@@ -22,13 +22,7 @@ public class GrenadeMovementController
         targetForward.y = 0;
         targetForward = Vector3.Normalize(targetForward);
         targetRight = Quaternion.Euler(new Vector3(0, 90, 0)) * targetForward;
-        Cursor.visible = true;
-
-        controller.forward = mainCam.transform.forward;
-        controller.forward.y = 0;
-        controller.forward = Vector3.Normalize(controller.forward);
-        controller.right = Quaternion.Euler(new Vector3(0, 90, 0)) * controller.forward;
-        Cursor.visible = true;
+        
     }
 
     public void Tick(PlayerStateMachine controller)
@@ -44,8 +38,6 @@ public class GrenadeMovementController
 
     void Move(PlayerStateMachine controller)
     {
-        IsGrounded(controller);
-
         Vector2 move = controller.move;
         Vector3 direction = new Vector3(move.x, 0, move.y);
 
@@ -103,19 +95,4 @@ public class GrenadeMovementController
 
     #endregion
 
-
-    void IsGrounded(PlayerStateMachine controller)
-    {
-        if (Physics.CheckSphere(controller.transform.position, 1.1f, controller.groundMask,
-            QueryTriggerInteraction.Ignore))
-        {
-            controller.rb.drag = controller.drag;
-            controller.isGrounded = true;
-        }
-        else
-        {
-            controller.rb.drag = 0;
-            controller.isGrounded = false;
-        }
-    }
 }
