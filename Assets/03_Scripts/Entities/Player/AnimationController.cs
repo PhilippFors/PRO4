@@ -93,7 +93,7 @@ public class AnimationController : MonoBehaviour
         // weightX = Mathf.Clamp01(x);
         movementBlendPlayable.SetInputWeight(0, pah.y);
         movementBlendPlayable.SetInputWeight(1, -pah.y);
-        movementBlendPlayable.SetInputWeight(2,  -pah.x);
+        movementBlendPlayable.SetInputWeight(2, -pah.x);
         movementBlendPlayable.SetInputWeight(3, pah.x);
         movementBlendPlayable.SetInputWeight(4, 0);
     }

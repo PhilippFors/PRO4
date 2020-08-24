@@ -6,7 +6,6 @@ using UnityEngine;
 public class GrenadeMovementController
 {
     private Plane groundPlane;
-
     private float targetMoveSpeed = 15.0f;
     private Camera mainCam => GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     private GameObject target;

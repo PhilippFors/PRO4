@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 338787d6af6e8b54f8ee16368e6238c9
+  m_OcclusionCullingData: {fileID: 36300000, guid: a8f975f144361474ebe86a4e32c494b3,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -592,7 +593,7 @@ PrefabInstance:
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
@@ -602,7 +603,7 @@ PrefabInstance:
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6470254219507337851, guid: 800e21fc8bd34cf499e536165412a55d,
         type: 3}
@@ -768,7 +769,7 @@ PrefabInstance:
     - target: {fileID: 2694225643979038837, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: dashDistance
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2694225643979038837, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
@@ -882,6 +883,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d3c85b1c426810409b9a5b014550c61, type: 3}
+--- !u!1 &2694225642568382475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2694225643979038836, guid: 5d3c85b1c426810409b9a5b014550c61,
+    type: 3}
+  m_PrefabInstance: {fileID: 2694225642568382474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2694225642568382476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694225642568382475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a684bde0f8f4783a2c633fd76ec8b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  gamepadRotate: {x: 0, y: 0}
+  forward: {fileID: -203655887218126122, guid: 3727ad485afed754abbfcd68a20bc2a1, type: 3}
+  backward: {fileID: -203655887218126122, guid: 71c94b21ce26503458d3497a3566fa9b,
+    type: 3}
+  right: {fileID: -203655887218126122, guid: 78745ea6b9cf45a4681d6b704f76294a, type: 3}
+  left: {fileID: -203655887218126122, guid: 31a562ba7c6647248bf668e43376f897, type: 3}
+  idle: {fileID: -203655887218126122, guid: 98b6118655387184eb4b96d5277c6da7, type: 3}
+  weightX: 0
+  weightY: 0
 --- !u!1001 &7841703927526172765
 PrefabInstance:
   m_ObjectHideFlags: 0
