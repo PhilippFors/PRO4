@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     {
         if (SaveManager.instance.isNewGame)
         {
-            player.InitStats();
+            player.InitStats(player.template);
             SaveManager.instance.LoadLevel();
         }
         else

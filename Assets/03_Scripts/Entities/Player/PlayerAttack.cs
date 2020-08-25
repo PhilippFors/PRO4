@@ -101,6 +101,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 skill.isActive = false;
             }
+            EventSystem.instance.OnSkill(temp);
             StartCoroutine(Timer(temp, id));
         }
         else
@@ -116,12 +117,8 @@ public class PlayerAttack : MonoBehaviour
         currentActiveSkill = temp;
         emitter.SetParameter(temp.skillName, temp.activeValue);
         temp.current = 0;
-        EventSystem.instance.OnSkill(MultiplierName.defense, temp.increaseMultValue);
-        EventSystem.instance.OnSkill(MultiplierName.speed, temp.decreaseMultValue);
-
         yield return new WaitForSeconds(temp.timer);
 
-        EventSystem.instance.OnSkill();
         temp.isActive = false;
         currentActiveSkill = null;
         //Debug.Log("hi");

@@ -12,7 +12,6 @@ public class MultiplierManager : MonoBehaviour
     private void OnDisable()
     {
         EventSystem.instance.ActivateSkill -= SetAllMultValues;
-        EventSystem.instance.ResetMult -= ResetMultiplier;
     }
 
     private void Awake()
@@ -23,24 +22,19 @@ public class MultiplierManager : MonoBehaviour
     private void Start()
     {
         EventSystem.instance.ActivateSkill += SetAllMultValues;
-        EventSystem.instance.ResetMult += ResetMultiplier;
     }
 
     //TODO: Add Symbol to parameters, iterate over each enemy and compare Symbol names
-    public void SetAllMultValues(MultiplierName multiplierName, float value)
+    public void SetAllMultValues(Skills skill)
     {
         foreach (EnemyBody enemy in set.entityList)
         {
-            enemy.SetMultValue(multiplierName, value);
+            if (enemy.symbolInfo.name.Equals(skill.symbol.name))
+                if (skill.symbol.enhance)
+                    enemy.AddMultiplier(skill.symbol.main, skill.increaseMultValue, skill.timer);
+                else
+                    enemy.AddMultiplier(skill.symbol.main, skill.decreaseMultValue, skill.timer);
         }
-    }
-
-    IEnumerator ResetTimer(float Skilltime)
-    {
-        yield return new WaitForSeconds(Skilltime);
-        ResetMultiplier();
-        //Reset Music
-        yield return null;
     }
 
     public void ResetMultiplier()

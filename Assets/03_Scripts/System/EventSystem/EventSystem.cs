@@ -5,9 +5,8 @@ using System;
 
 public class EventSystem : MonoBehaviour
 {
-    public event System.Action ResetMult;
     public event Action<IHasHealth, float> Attack;
-    public event Action<MultiplierName, float> ActivateSkill;
+    public event Action<Skills> ActivateSkill;
 
     public event Action<PlayerMovementSate> SetState;
 
@@ -36,19 +35,12 @@ public class EventSystem : MonoBehaviour
             Attack(entity, basedmg);
     }
 
-    public void OnSkill(MultiplierName multiplierName, float value)
+    public void OnSkill(Skills skill)
     {
         if (ActivateSkill != null)
             Debug.Log("Skill Activated");
-        ActivateSkill(multiplierName, value);
+        ActivateSkill(skill);
     }
-
-    public void OnSkill()
-    {
-        if (ResetMult != null)
-            ResetMult();
-    }
-
 
     public void OnSnare()
     {

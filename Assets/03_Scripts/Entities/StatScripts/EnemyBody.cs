@@ -7,30 +7,28 @@ public enum EnemyType
     Avik,
     Shentau
 }
-public class EnemyBody : MonoBehaviour, IStats, IMultipliers, IKnockback
+public class EnemyBody : AStats
 {
-    public List<GameStatistics> statList { get; set; }
-    public List<Multiplier> multList { get; set; }
+    // public List<GameStatistics> statList { get; set; }
+    // public List<Multiplier> multList { get; set; }
     public StatTemplate statTemplate;
-    public StatTemplate multTemplate;
     public StateMachineController controller => GetComponent<StateMachineController>();
     public Rigidbody rb => GetComponent<Rigidbody>();
     public Symbol symbolInfo;
     // Material mat;
     [SerializeField] private GameObject parent;
     [SerializeField] private GameObject symbol;
-    [SerializeField] public float currentHealth;
+    public float currentHealth;
     private void Awake()
     {
         InitSymbol();
-        InitStats();
-        InitMultiplier();
+        this.InitStats(statTemplate);
     }
 
-
     #region Init
-    public void InitStats()
+    public override void InitStats(StatTemplate template)
     {
+        multList = new List<Multiplier>();
         statList = new List<GameStatistics>();
         foreach (FloatReference f in statTemplate.statList)
         {
@@ -39,16 +37,6 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers, IKnockback
         }
 
         currentHealth = GetStatValue(StatName.MaxHealth);
-    }
-
-    public void InitMultiplier()
-    {
-        multList = new List<Multiplier>();
-        foreach (FloatReference f in multTemplate.statList)
-        {
-            MultVariable s = (MultVariable)f.Variable;
-            multList.Add(new Multiplier(f.Value, s.multiplierName));
-        }
     }
 
     void InitSymbol()
@@ -62,14 +50,14 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers, IKnockback
     #endregion
 
     #region health
-    void CheckHealth()
+    public override void CheckHealth()
     {
         if (currentHealth <= 0)
         {
             OnDeath();
         }
     }
-    public void TakeDamage(float damage)
+    public override void TakeDamage(float damage)
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
         calcDamage = damage * (damage / (damage + (GetStatValue(StatName.Defense) * GetMultValue(MultiplierName.defense))));
@@ -81,12 +69,12 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers, IKnockback
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
 
-    public void Heal(float healAmount)
+    public override void Heal(float healAmount)
     {
 
     }
 
-    public void OnDeath()
+    public override void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
         Destroy(parent);
@@ -95,47 +83,65 @@ public class EnemyBody : MonoBehaviour, IStats, IMultipliers, IKnockback
     #endregion
 
     #region Multipliers 
-    public void SetMultValue(MultiplierName name, float value)
-    {
-        multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
-    }
-    public float GetMultValue(MultiplierName name)
-    {
-        return multList.Find(x => x.GetName().Equals(name)).GetValue();
-    }
+    // public void AddMultiplier(MultiplierName name, float value, float time)
+    // {
+    //     multList.Add(new Multiplier(value, name));
+    //     StartCoroutine(MultiplierTimer(time, multList.FindIndex(x => x.GetName().Equals(name))));
+    //     // multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
+    // }
+    // public float GetMultValue(MultiplierName name)
+    // {
+    //     float value = 0;
+    //     if (multList.Exists(x => x.GetName().Equals(name)))
+    //     {
+    //         List<Multiplier> list = multList.FindAll(x => x.GetName().Equals(name));
+    //         foreach (Multiplier mult in list)
+    //         {
+    //             value += mult.GetValue();
+    //         }
+    //         return value;
+    //     }
+    //     else
+    //     {
+    //         return 1f;
+    //     }
+    // }
 
-    public void ResetMultipliers()
-    {
-        foreach (Multiplier mult in multList)
-        {
-            mult.ResetMultiplier();
-        }
-    }
+    // public void ResetMultipliers()
+    // {
+    //     multList.Clear();
+    // }
+    // #endregion
+
+    // #region Stats
+    // public void SetStatValue(StatName stat, float value)
+    // {
+    //     statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
+
+    // }
+    // public float GetStatValue(StatName stat)
+    // {
+    //     return statList.Find(x => x.GetName().Equals(stat)).GetValue();
+    // }
     #endregion
-
-    #region Stats
-    public void SetStatValue(StatName stat, float value)
-    {
-        statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
-
-    }
-    public float GetStatValue(StatName stat)
-    {
-        return statList.Find(x => x.GetName().Equals(stat)).GetValue();
-    }
-
     public void ApplyKnockback(float force, int stunChance)
     {
         // float totalStun = stunChance - GetStatValue(StatName.stunResist);
         int rand = Random.Range(0, 101);
 
-        if(rand < stunChance){
+        if (rand < stunChance)
+        {
             controller.Stun();
         }
-        
+
         Vector3 direction = Vector3.Normalize(transform.position - controller.settings.playerTarget.position);
         rb.AddForce(direction * force, ForceMode.Impulse);
 
     }
-    #endregion
+    // public IEnumerator MultiplierTimer(float time, int id)
+    // {
+    //     yield return new WaitForSeconds(time);
+    //     multList.RemoveAt(id);
+    // }
+
 }
