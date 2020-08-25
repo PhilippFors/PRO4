@@ -26,6 +26,8 @@ public class PlayerAttack : MonoBehaviour
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
 
+    private float changeWeaponTimer = 0;
+
 
     [SerializeField] private float moveSpeed = 5f;
     //  public Vector3 currentDirection;
@@ -203,21 +205,34 @@ public class PlayerAttack : MonoBehaviour
     //simple script to change between the weapons
     void ChangeWeapon()
     {
-        currentWeaponCounter++;
-        if (currentWeaponCounter >= weapons.Count)
+        
+        if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 3)
         {
-            currentWeaponCounter = 0;
-        }
+            currentWeaponCounter++;
+            if (currentWeaponCounter >= weapons.Count)
+            {
+                currentWeaponCounter = 0;
+            }
 
-        if (currentWeapon != null)
-        {
-            currentWeapon.Unequip();
-        }
+            if (currentWeapon != null)
+            {
+                currentWeapon.Unequip();
+            }
 
-        currentWeapon = weapons[currentWeaponCounter];
-        currentWeapon.Equip(weaponPoint);
+            currentWeapon = weapons[currentWeaponCounter];
+            currentWeapon.Equip(weaponPoint);
+            changeWeaponTimer = 0;
+        }
+        
+
     }
-    
+
+    private void Update()
+    {
+        changeWeaponTimer += Time.deltaTime;
+    }
+
+
     public Skills GetCurrentSkill()
     {
         return currentActiveSkill;

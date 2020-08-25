@@ -4,13 +4,8 @@ using UnityEngine;
 public class Weapons : MonoBehaviour
 {
     public List<AttackSO> attacks = new List<AttackSO>();
+    public WeaponSettings stats;
     public AttackSO baseAttack;
-    public float bsdmg = 20.0f;
-    public int weaponID;
-    public float knockbackForce = 3f;
-
-    [Range(0, 100)]
-    public int stunChance = 50;
     public AttackStateMachine attack => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
 
     internal void Equip(Transform weaponPoint)
@@ -36,12 +31,12 @@ public class Weapons : MonoBehaviour
             if (other.gameObject.GetComponent<EnemyBody>() != null)
             {
                 GetComponentInParent<PlayerAttack>().comboCounter += 1;
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
-                other.GetComponent<IKnockback>().ApplyKnockback(knockbackForce, stunChance);
+                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), stats.bsdmg);
+                other.GetComponent<IKnockback>().ApplyKnockback(stats.knockbackForce, stats.stunChance);
             }
             else if (other.gameObject.GetComponent<ObstacleBody>())
             {
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), bsdmg);
+                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), stats.bsdmg);
             }
         }
     }

@@ -3846,7 +3846,7 @@ MonoBehaviour:
   right: {fileID: -203655887218126122, guid: 78745ea6b9cf45a4681d6b704f76294a, type: 3}
   left: {fileID: -203655887218126122, guid: 31a562ba7c6647248bf668e43376f897, type: 3}
   idle: {fileID: -203655887218126122, guid: 98b6118655387184eb4b96d5277c6da7, type: 3}
-  attack: {fileID: 7400000, guid: fab87db47fe48b54c8fc4930804fe4c4, type: 2}
+  dash: {fileID: -203655887218126122, guid: 04299858e6476f7489073566e243bacd, type: 3}
   weightX: 0
   weightY: 0
 --- !u!1 &1505635906
@@ -7894,11 +7894,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1526532210753159048, guid: 332040ecb799a504c82f636f3e596300,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: e12676d3cac99f443a4df9503f9c0529,
+        type: 2}
     - target: {fileID: 6751445866104344664, guid: 332040ecb799a504c82f636f3e596300,
         type: 3}
       propertyPath: weaponID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6751445866104344664, guid: 332040ecb799a504c82f636f3e596300,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: e12676d3cac99f443a4df9503f9c0529,
+        type: 2}
     - target: {fileID: 8090666080470393583, guid: 332040ecb799a504c82f636f3e596300,
         type: 3}
       propertyPath: baseState
@@ -7993,7 +8005,17 @@ PrefabInstance:
     - target: {fileID: 9117300041530558873, guid: 332040ecb799a504c82f636f3e596300,
         type: 3}
       propertyPath: dashDistance
-      value: 7
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117300041530558873, guid: 332040ecb799a504c82f636f3e596300,
+        type: 3}
+      propertyPath: dashForce
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117300041530558873, guid: 332040ecb799a504c82f636f3e596300,
+        type: 3}
+      propertyPath: dashDuration
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 332040ecb799a504c82f636f3e596300, type: 3}

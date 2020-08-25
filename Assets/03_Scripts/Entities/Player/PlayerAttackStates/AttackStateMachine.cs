@@ -23,8 +23,9 @@ public class AttackStateMachine : MonoBehaviour
     [HideInInspector] public PlayerControls input;
     private float animTimer = 0; // a timer to check if animation has finished playing
     private int stateCounter = 0; // counts the current states of an attack
-    private static PlayerAttack attack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+    private static PlayerAttack playerAttack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
+    PlayerStateMachine _stateMachine => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>();
 
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
@@ -52,7 +53,7 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Start()
     {
-        currentAttack = attack.currentWeapon.baseAttack; //current attack is based on the current weapon
+        currentAttack = playerAttack.currentWeapon.baseAttack; //current attack is based on the current weapon
         currentState = baseState;
 
         GraphVisualizerClient.Show(playableGraph);
@@ -61,20 +62,20 @@ public class AttackStateMachine : MonoBehaviour
     private void Attack(int stateID)
     {
         // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
-        if (currentState.canAttack || currentAttack == baseAttack)
+        if (_stateMachine.currentState == PlayerMovementSate.standard && (currentState.canAttack || currentAttack == baseAttack))
         {
             stateCounter = 0; //sets the counter back to zero because a new attack begins
             currentAttack =
                 currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
             SetState(currentAttack.stateList[0]); //sets first (attack) state of the attack
-            attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = true;
+            playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = true;
 
             //checks if the combo is reached and increases skillmeter and sets combo back to 0
-            if (attack.skills.Contains(currentAttack.skill) && attack.comboCounter >= currentAttack.skill.comboCounter)
+            if (playerAttack.skills.Contains(currentAttack.skill) && playerAttack.comboCounter >= currentAttack.skill.comboCounter)
             {
-                int a = attack.skills.IndexOf(currentAttack.skill);
-                attack.skills[a].current += 2;
-                attack.comboCounter = 0;
+                int a = playerAttack.skills.IndexOf(currentAttack.skill);
+                playerAttack.skills[a].current += 2;
+                playerAttack.comboCounter = 0;
             }
         }
     }
@@ -107,22 +108,27 @@ public class AttackStateMachine : MonoBehaviour
             {
                 animCon.AttackDisconnecter();
                 animCon.MoveStarter();
-                attack.comboCounter = 0;
-                
-                currentAttack = attack.currentWeapon.baseAttack;
-                currentState = baseState;
-                EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
-                stateCounter = 0;
-                
+               
+                SetBase();
                 //maxRot = 0;
             }
             else
             {
                 stateCounter++;
                 SetState(currentAttack.stateList[stateCounter]);
-                attack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
+                playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
                 
             }
         }
+    }
+
+    public void SetBase()
+    {
+        playerAttack.comboCounter = 0;
+                
+        currentAttack = playerAttack.currentWeapon.baseAttack;
+        currentState = baseState;
+        EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
+        stateCounter = 0;
     }
 }

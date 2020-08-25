@@ -7,6 +7,9 @@ public class DashMovementController
     private float timeStartDash, currentDashValueTime, timeSinceStarted, actualDashDistance, frametime = 0.0f, delayCountdown;
     public bool isDashing = false, dashDelayOn = false;
     private Vector3 velocity;
+    AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
+    AttackStateMachine _attackStateMachine => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
+
     public DashMovementController(PlayerStateMachine controller)
     {
         frametime = controller.dashDuration;
@@ -19,7 +22,8 @@ public class DashMovementController
     }
     public void DashInit(PlayerStateMachine controller)
     {
-        
+        animCon.Dasher();
+        _attackStateMachine.SetBase();
         GetCurrentMovedirection(controller);
 
         if (controller.dashValue < 100 || controller.currentMoveDirection == Vector3.zero)
@@ -34,6 +38,7 @@ public class DashMovementController
         (Mathf.Log(1f / (controller.deltaTime * controller.drag + 1)) / -controller.deltaTime)));
 
         CheckDashPathForEnemys(controller);
+        
         //disable Hurtbox
         // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
     }
@@ -80,6 +85,7 @@ public class DashMovementController
             velocity = Vector3.zero;
             delayCountdown = controller.delayTime; ;
             dashDelayOn = false;
+            animCon.MoveStarter();
             controller.SetState(PlayerMovementSate.standard);
         }
     }

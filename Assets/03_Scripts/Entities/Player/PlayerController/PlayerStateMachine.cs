@@ -240,11 +240,13 @@ public class PlayerStateMachine : MonoBehaviour
     void ResetMoveSpeed()
     {
         currentMoveSpeed = standardMoveSpeed;
+        
     }
 
     public void StartDash()
     {
         dashController.DashInit(this);
+        
     }
 
     public void Attack()

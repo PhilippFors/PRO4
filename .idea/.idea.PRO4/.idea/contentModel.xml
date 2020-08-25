@@ -74,13 +74,17 @@
                     <e p="AvikAttackAction.cs" t="Include" />
                     <e p="AvikChaseAction.cs" t="Include" />
                     <e p="AvikIdleAction.cs" t="Include" />
+                    <e p="AvikStunnedAction.cs" t="Include" />
                     <e p="AvoidAction.cs" t="Include" />
                   </e>
                   <e p="Decisions" t="Include">
                     <e p="AvikAttackDecision.cs" t="Include" />
+                    <e p="AvikStunnedDecision.cs" t="Include" />
                     <e p="AvoidDecision.cs" t="Include" />
                   </e>
                   <e p="OnStateEnterExit" t="Include">
+                    <e p="Avik_OnStunnedEnter.cs" t="Include" />
+                    <e p="Avik_OnStunnedExit.cs" t="Include" />
                     <e p="OnAttackExit.cs" t="Include" />
                     <e p="OnAvoidStateEnter.cs" t="Include" />
                     <e p="OnAvoidStateExit.cs" t="Include" />
@@ -108,6 +112,12 @@
                   </e>
                 </e>
               </e>
+            </e>
+            <e p="Interfaces" t="Include">
+              <e p="IHasHealth.cs" t="Include" />
+              <e p="IKnockback.cs" t="Include" />
+              <e p="IMultipliers.cs" t="Include" />
+              <e p="IStats.cs" t="Include" />
             </e>
             <e p="Obstacles" t="Include">
               <e p="ARLaser.cs" t="Include" />
@@ -138,6 +148,7 @@
               <e p="PlayerController.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
               <e p="Weapons.cs" t="Include" />
+              <e p="WeaponSettings.cs" t="Include" />
             </e>
             <e p="StatScripts" t="Include">
               <e p="EnemyBody.cs" t="Include" />
@@ -174,11 +185,6 @@
               <e p="StatVariable.cs" t="Include" />
             </e>
             <e p="HealthManager.cs" t="Include" />
-            <e p="Interfaces" t="Include">
-              <e p="IHasHealth.cs" t="Include" />
-              <e p="IMultipliers.cs" t="Include" />
-              <e p="IStats.cs" t="Include" />
-            </e>
             <e p="Levelprogression" t="Include">
               <e p="Level" t="Include">
                 <e p="Area.cs" t="Include" />
@@ -211,7 +217,10 @@
                 <e p="LevelExit.cs" t="Include" />
               </e>
             </e>
-            <e p="MultiplierManager.cs" t="Include" />
+            <e p="MultiplierSystem" t="Include">
+              <e p="MultiplierManager.cs" t="Include" />
+              <e p="Symbol.cs" t="Include" />
+            </e>
             <e p="ParticleController.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
@@ -246,6 +255,14 @@
             <e p="NavMeshModifier.cs" t="Include" />
             <e p="NavMeshModifierVolume.cs" t="Include" />
             <e p="NavMeshSurface.cs" t="Include" />
+          </e>
+        </e>
+        <e p="MeshCombiner" t="Include">
+          <e p="Editor" t="Include">
+            <e p="MeshCombinerEditor.cs" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="MeshCombiner.cs" t="Include" />
           </e>
         </e>
         <e p="PlayerControls.cs" t="Include" />

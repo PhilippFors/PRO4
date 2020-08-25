@@ -15,4 +15,5 @@ public class Skills : ScriptableObject
     public float increaseMultValue;
     public MultiplierName increaseMultiplierName;
     public MultiplierName decreaseMultiplierName;
+    public Symbol symbol;
 }

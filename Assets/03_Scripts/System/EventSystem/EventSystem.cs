@@ -18,6 +18,7 @@ public class EventSystem : MonoBehaviour
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
+    
 
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
