@@ -7,7 +7,7 @@ public enum EnemyType
     Avik,
     Shentau
 }
-public class EnemyBody : AStats
+public class EnemyBody : AStats, IHasHealth, IKnockback
 {
     // public List<GameStatistics> statList { get; set; }
     // public List<Multiplier> multList { get; set; }
@@ -50,14 +50,14 @@ public class EnemyBody : AStats
     #endregion
 
     #region health
-    public override void CheckHealth()
+    public void CheckHealth()
     {
         if (currentHealth <= 0)
         {
             OnDeath();
         }
     }
-    public override void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
         calcDamage = damage * (damage / (damage + (GetStatValue(StatName.Defense) * GetMultValue(MultiplierName.defense))));
@@ -69,12 +69,12 @@ public class EnemyBody : AStats
         // damage = damage * damage / (damage + (enemy.GetStatValue(StatName.defense) * MultiplierManager.instance.GetEnemyMultValue(MultiplierName.defense)));
     }
 
-    public override void Heal(float healAmount)
+    public void Heal(float healAmount)
     {
 
     }
 
-    public override void OnDeath()
+    public void OnDeath()
     {
         EventSystem.instance.OnEnemyDeath(this);
         Destroy(parent);
@@ -82,48 +82,6 @@ public class EnemyBody : AStats
     }
     #endregion
 
-    #region Multipliers 
-    // public void AddMultiplier(MultiplierName name, float value, float time)
-    // {
-    //     multList.Add(new Multiplier(value, name));
-    //     StartCoroutine(MultiplierTimer(time, multList.FindIndex(x => x.GetName().Equals(name))));
-    //     // multList.Find(x => x.GetName().Equals(name)).SetValue(GetMultValue(name) + value);
-    // }
-    // public float GetMultValue(MultiplierName name)
-    // {
-    //     float value = 0;
-    //     if (multList.Exists(x => x.GetName().Equals(name)))
-    //     {
-    //         List<Multiplier> list = multList.FindAll(x => x.GetName().Equals(name));
-    //         foreach (Multiplier mult in list)
-    //         {
-    //             value += mult.GetValue();
-    //         }
-    //         return value;
-    //     }
-    //     else
-    //     {
-    //         return 1f;
-    //     }
-    // }
-
-    // public void ResetMultipliers()
-    // {
-    //     multList.Clear();
-    // }
-    // #endregion
-
-    // #region Stats
-    // public void SetStatValue(StatName stat, float value)
-    // {
-    //     statList.Find(x => x.GetName().Equals(stat)).SetValue(value);
-
-    // }
-    // public float GetStatValue(StatName stat)
-    // {
-    //     return statList.Find(x => x.GetName().Equals(stat)).GetValue();
-    // }
-    #endregion
     public void ApplyKnockback(float force, int stunChance)
     {
         // float totalStun = stunChance - GetStatValue(StatName.stunResist);
@@ -138,10 +96,5 @@ public class EnemyBody : AStats
         rb.AddForce(direction * force, ForceMode.Impulse);
 
     }
-    // public IEnumerator MultiplierTimer(float time, int id)
-    // {
-    //     yield return new WaitForSeconds(time);
-    //     multList.RemoveAt(id);
-    // }
 
 }

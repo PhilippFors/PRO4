@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IStats : IHasHealth
+public interface IStats
 {
     List<GameStatistics> statList { get; set; }
     void InitStats(StatTemplate template);

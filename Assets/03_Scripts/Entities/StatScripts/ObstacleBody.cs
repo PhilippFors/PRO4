@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObstacleBody : MonoBehaviour, IHasHealth
 {
-    
+
     public float health;
     public float minActivationHealth = 20f;
     public float regenPause = 2f;
@@ -12,6 +12,8 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
     public FloatVariable maxHealth;
     BoxCollider col => GetComponent<BoxCollider>();
     MeshRenderer render => GetComponent<MeshRenderer>();
+
+    Coroutine coroutine;
     private void Start()
     {
         health = maxHealth.Value;
@@ -22,16 +24,19 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
             return;
 
         Heal(regenRate);
-
     }
+
     public void TakeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
             health = 0;
         regenActive = false;
-        StopCoroutine("RegenerateTimer");
-        StartCoroutine("RegenerateTimer");
+        
+        if (coroutine != null)
+            StopCoroutine(coroutine);
+
+        coroutine = StartCoroutine(RegenerateTimer());
     }
 
     public void OnDeath()
@@ -41,7 +46,8 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
         //TODO: Disable Obstacle, animate deactivation
     }
 
-    public void Activate(){
+    public void Activate()
+    {
         col.enabled = true;
         render.enabled = true;
         //TODO: Enable Obstalce, animate activation
@@ -56,7 +62,8 @@ public class ObstacleBody : MonoBehaviour, IHasHealth
     public void Heal(float healAmount)
     {
         health += healAmount * Time.deltaTime;
-        if (health >= maxHealth.Value){
+        if (health >= maxHealth.Value)
+        {
             health = maxHealth.Value;
             regenActive = false;
         }

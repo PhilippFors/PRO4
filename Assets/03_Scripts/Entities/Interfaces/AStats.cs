@@ -6,7 +6,7 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
 {
     public List<GameStatistics> statList { get; set; }
     public List<Multiplier> multList { get; set; }
-    
+
     virtual public void InitStats(StatTemplate template)
     {
         multList = new List<Multiplier>();
@@ -33,7 +33,7 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
     }
     virtual public float GetMultValue(MultiplierName name)
     {
-        float value = 1;
+        float value = 1f;
         if (multList.Exists(x => x.GetName().Equals(name)))
         {
             List<Multiplier> list = multList.FindAll(x => x.GetName().Equals(name));
@@ -43,16 +43,10 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
             }
             return value;
         }
-        else
-        {
-            return 1f;
-        }
+
+        return value;
     }
 
-    virtual public void CheckHealth()
-    {
-
-    }
     virtual public void ResetMultipliers()
     {
         multList.Clear();
@@ -62,20 +56,5 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
     {
         yield return new WaitForSeconds(time);
         multList.RemoveAt(id);
-    }
-
-    virtual public void TakeDamage(float damage)
-    {
-
-    }
-
-    virtual public void Heal(float healAmount)
-    {
-
-    }
-
-    virtual public void OnDeath()
-    {
-
     }
 }

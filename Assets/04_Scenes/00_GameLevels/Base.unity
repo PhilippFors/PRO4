@@ -856,6 +856,12 @@ PrefabInstance:
       propertyPath: stunChance
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 3548874461716923087, guid: 5d3c85b1c426810409b9a5b014550c61,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: e12676d3cac99f443a4df9503f9c0529,
+        type: 2}
     - target: {fileID: 6618694705625661216, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -876,6 +882,12 @@ PrefabInstance:
       propertyPath: stunChance
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 6618694705625661217, guid: 5d3c85b1c426810409b9a5b014550c61,
+        type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: e12676d3cac99f443a4df9503f9c0529,
+        type: 2}
     - target: {fileID: 6618694705625661222, guid: 5d3c85b1c426810409b9a5b014550c61,
         type: 3}
       propertyPath: m_IsActive
@@ -909,6 +921,7 @@ MonoBehaviour:
   right: {fileID: -203655887218126122, guid: 78745ea6b9cf45a4681d6b704f76294a, type: 3}
   left: {fileID: -203655887218126122, guid: 31a562ba7c6647248bf668e43376f897, type: 3}
   idle: {fileID: -203655887218126122, guid: 98b6118655387184eb4b96d5277c6da7, type: 3}
+  dash: {fileID: 0}
   weightX: 0
   weightY: 0
 --- !u!1001 &7841703927526172765

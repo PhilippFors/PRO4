@@ -28,7 +28,6 @@ public class EventSystem : MonoBehaviour
     {
         instance = this;
     }
-
     public void OnAttack(IHasHealth entity, float basedmg)
     {
         if (Attack != null)
