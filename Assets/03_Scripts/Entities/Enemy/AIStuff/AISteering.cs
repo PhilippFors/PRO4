@@ -8,7 +8,7 @@ public class AISteering
     {
         RaycastHit hit;
 
-        if (!FindObstacle(dir, out hit, controller))
+        if (!FindObstacle(dir, out hit, controller, false))
         {
             return controller.settings.playerTarget.position;
         }
@@ -63,7 +63,7 @@ public class AISteering
         return Vector3.ClampMagnitude(v, controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed));
     }
 
-    bool FindObstacle(Vector3 dir, out RaycastHit hit, StateMachineController controller)
+    public bool FindObstacle(Vector3 dir, out RaycastHit hit, StateMachineController controller, bool findPlayer)
     {
         dir = dir.normalized;
 
@@ -83,23 +83,34 @@ public class AISteering
             angle -= controller.settings.angleIncrement;
             dirs[i] = OrientationToVector(orientation - angle * Mathf.Deg2Rad);
         }
-        return CastWhiskers(dirs, out hit, controller);
+        return CastWhiskers(dirs, out hit, controller, findPlayer);
     }
 
-    bool CastWhiskers(Vector3[] dirs, out RaycastHit firsthit, StateMachineController controller)
+    bool CastWhiskers(Vector3[] dirs, out RaycastHit firsthit, StateMachineController controller, bool findPlayer)
     {
         firsthit = new RaycastHit();
         for (int i = 0; i < dirs.Length; i++)
         {
-            float dist = (i == 0) ? controller.settings.mainWhiskerL : controller.settings.secondaryWhiskerL;
-
             RaycastHit hit;
 
-            if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, dist, controller.settings.enemyMask))
+            if (findPlayer)
             {
-                firsthit = hit;
-                return true;
+                if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, controller.enemyStats.GetStatValue(StatName.Range), LayerMask.GetMask("Player")))
+                {
+                    firsthit = hit;
+                    return true;
+                }
             }
+            else
+            {
+                float dist = (i == 0) ? controller.settings.mainWhiskerL : controller.settings.secondaryWhiskerL;
+                if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, dist, controller.settings.enemyMask))
+                {
+                    firsthit = hit;
+                    return true;
+                }
+            }
+
         }
         return false;
     }
@@ -119,7 +130,7 @@ public class AISteering
         return IsFacing(target, 0, controller);
     }
 
-    public bool IsFacing(Vector3 target, float cosineValue,StateMachineController controller)
+    public bool IsFacing(Vector3 target, float cosineValue, StateMachineController controller)
     {
         Vector3 facing = controller.transform.right.normalized;
 

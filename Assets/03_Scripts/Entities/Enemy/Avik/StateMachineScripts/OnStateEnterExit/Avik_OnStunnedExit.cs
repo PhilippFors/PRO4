@@ -6,6 +6,7 @@ public class Avik_OnStunnedExit : OnExitState
 {
     public override void Execute(StateMachineController controller)
     {
+        controller.checkAnyTransition = true;
         controller.agent.isStopped = false;
     }
 

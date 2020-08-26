@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     [HideInInspector] public bool count = false;
     public bool enemyListEmpty = false;
     [Header("EnemyPrefabs")]
-    [SerializeField] private GameObject Avik;
+    public GameObject Avik;
 
     [Header("Settings")]
     public float SpawnWaitTime = 4.8f;
@@ -84,7 +84,6 @@ public class SpawnManager : MonoBehaviour
             {
                 if (!isSpawning)
                 {
-                    // LevelEventSystem.instance.NextWave();
                     count = false;
                     return true;
                 }
@@ -114,7 +113,7 @@ public class SpawnManager : MonoBehaviour
                 if (!isSpawning)
                 {
                     isSpawning = true;
-                    StartCoroutine(SpawnEnemy(waves[i]));
+                    SpawnEnemy(waves[i]);
                     yield return new WaitForSeconds(SpawnWaitTime);
                     i++;
                 }
@@ -124,95 +123,26 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(SpawnEnemy(waves[0]));
+            SpawnEnemy(waves[0]);
             yield break;
         }
     }
 
 
-    // void WaveCheck(Wave w)
-    // {
-
-    //     float ExtraWait = 0;
-    //     for (int i = 0; i < w.spawnPoints.Length; i++)
-    //     {
-    //         if (i != w.spawnPoints.Length - 1)
-    //             if (w.spawnPoints[i].UniqueID != w.spawnPoints[i + 1].UniqueID)
-    //             {
-    //                 ExtraWait = 0;
-    //             }
-    //             else
-    //             {
-    //                 ExtraWait = 5f;
-    //             }
-
-    //         switch (w.spawnPoints[i].enemyType)
-    //         {
-    //             case EnemyType.Avik:
-    //                 // StartCoroutine(SpawnEnemy(Avik, w.spawnPoints[i].UniqueID));
-    //                 break;
-    //             case EnemyType.undefinded:
-
-    //                 break;
-    //         }
-    //     }
-    // }
-
-    IEnumerator SpawnEnemy(Wave w)
+    void SpawnEnemy(Wave w)
     {
-
         for (int i = 0; i < w.spawnPoints.Length; i++)
         {
-            if (i == 0 & lastWave != null)
-                if (w.spawnPoints[i].UniqueID == lastWave.spawnPoints[lastWave.spawnPoints.Length - 1].UniqueID)
-                    yield return new WaitForSeconds(SpawnWaitTime);
-
-
             foreach (SpawnpointID spawnPoint in spawnpointlist.list)
             {
                 if (spawnPoint.UniqueID == w.spawnPoints[i].UniqueID & spawnPoint.AreaID == levelManager.currentArea & spawnPoint.LevelID == levelManager.currentLevel)
                 {
-                    switch (w.spawnPoints[i].enemyType)
-                    {
-                        case EnemyType.Avik:
-                            StartCoroutine(InstantiateEnemy(Avik, spawnPoint));
-                            break;
-                        case EnemyType.undefinded:
-
-                            break;
-                    }
+                    spawnPoint.AddToQueue(w.spawnPoints[i], spawnAnimDelay, SpawnWaitTime, manager, this);
                 }
             }
-
-            if (i != w.spawnPoints.Length - 1)
-                if (w.spawnPoints[i].UniqueID == w.spawnPoints[i + 1].UniqueID)
-                    yield return new WaitForSeconds(SpawnWaitTime);
         }
         isSpawning = false;
         lastWave = w;
-    }
-
-    IEnumerator InstantiateEnemy(GameObject obj, SpawnpointID spawnPoint)
-    {
-        spawnPoint.director.Play();
-        yield return new WaitForSeconds(spawnAnimDelay);
-        EnemyBody enemy = Instantiate(obj, spawnPoint.transform.position, spawnPoint.transform.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
-        enemy.GetComponent<StateMachineController>().settings = manager;
-        enemy.GetComponent<Animation>().Play("Entry");
-
-        AddEnemyToList(enemy);
-        StartCoroutine(WaitForAnimation(enemy));
-
-        count = true;
-    }
-
-    IEnumerator WaitForAnimation(EnemyBody enemy)
-    {
-        while (enemy.gameObject.GetComponent<Animation>().isPlaying)
-        {
-            yield return null;
-        }
-        EventSystem.instance.ActivateAI(enemy);
     }
 
     public void StartEnemyCount()

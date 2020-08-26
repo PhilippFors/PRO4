@@ -15,7 +15,8 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public Transform ObstacleTarget;
     [HideInInspector] public float deltaTime;
     private bool aiActive = false;
-    [HideInInspector] public bool isGrounded = true, canAttack = false, isAttacking = false, checkedAmount, avoidDirection, stunned;
+    [HideInInspector] public bool isGrounded = true, canAttack = false, checkedAmount, avoidDirection, stunned, checkAnyTransition = true;
+    public bool isAttacking = false;
     public Transform RayEmitter;
     public State currentState;
     public State startState;
@@ -51,7 +52,9 @@ public class StateMachineController : MonoBehaviour
         if (currentState == null)
             currentState = startState;
 
-        CheckAnyTransitions(this);
+        if (checkAnyTransition)
+            CheckAnyTransitions(this);
+
         steering.IsGrounded(this);
         currentState.StateUpdate(this);
     }
@@ -76,7 +79,7 @@ public class StateMachineController : MonoBehaviour
 
     public void SwitchStates(State nextState)
     {
-        if (nextState != null && nextState != remainState)
+        if (nextState != null & nextState != remainState)
         {
             currentState.StateExit(this);
             currentState = nextState;
@@ -84,11 +87,13 @@ public class StateMachineController : MonoBehaviour
         }
     }
 
-    public void Stun(){
+    public void Stun()
+    {
         StartCoroutine(StunWait());
     }
 
-    IEnumerator StunWait(){
+    IEnumerator StunWait()
+    {
         stunned = true;
         yield return new WaitForSeconds(2f);
         stunned = false;

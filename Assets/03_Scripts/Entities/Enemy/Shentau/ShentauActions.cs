@@ -14,7 +14,12 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
         throw new System.NotImplementedException();
     }
 
-    public void CheckIsAttacking(StateMachineController s)
+    public bool CheckIsAttacking(StateMachineController s)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void StopAttack(StateMachineController s)
     {
         throw new System.NotImplementedException();
     }

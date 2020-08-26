@@ -7,6 +7,9 @@ public class Avik_OnStunnedEnter : OnEnterState
 {
     public override void Execute(StateMachineController controller)
     {
+        controller.checkAnyTransition = false;
+        controller.actions.Stunned(controller);
+        Debug.Log("Stunned");
         controller.actions.CancelAttack(controller);
         controller.agent.isStopped = true;
     }

@@ -50,8 +50,8 @@ public class StateEditor : EditorWindow
                 transitionBools.Add(true);
             }
             choosen = true;
-
         }
+
         GUILayout.Label(folderPath[0]);
         if (states.Count == 0 || states == null)
             return;
@@ -140,9 +140,6 @@ public class StateEditor : EditorWindow
             }
             j++;
         }
-
-        GUILayout.EndScrollView();
-
 
         GUILayout.EndScrollView();
     }

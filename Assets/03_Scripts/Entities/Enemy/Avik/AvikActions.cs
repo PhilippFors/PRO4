@@ -8,6 +8,7 @@ public class AvikActions : MonoBehaviour, IEnemyActions
     public Weapon[] weapons;
     float attackCountdown;
     float extraComboTime = 1f;
+    public ParticleSystem stunParticle;
 
     public void Attack(StateMachineController controller, int i, bool combo = false)
     {
@@ -57,34 +58,39 @@ public class AvikActions : MonoBehaviour, IEnemyActions
     {
         animator.SetTrigger(AnimatorStrings.cancel.ToString());
     }
-
+    public void StopAttack(StateMachineController controller){
+        animator.SetTrigger(AnimatorStrings.stop.ToString());
+    }
     public void Walk(StateMachineController s)
     {
         if (s.agent.isStopped)
         {
             s.agent.isStopped = false;
         }
-        animator.SetTrigger("isWalking");
+        animator.SetBool("isWalking", true);
     }
 
     public void StopWalking(StateMachineController s)
     {
         s.agent.isStopped = true;
-        animator.ResetTrigger("isWalking");
+        animator.SetBool("isWalking", false);
     }
 
     public void Stunned(StateMachineController controller)
     {
-        throw new System.NotImplementedException();
+        stunParticle.Play();
     }
 
-    public void CheckIsAttacking(StateMachineController controller)
+    public bool CheckIsAttacking(StateMachineController controller)
     {
         if (animator.GetInteger(AnimatorStrings.attacknr.ToString()) == 0)
         {
             controller.isAttacking = false;
             foreach (Weapon weapon in weapons)
                 weapon.Deactivate();
+
+
         }
+        return controller.isAttacking;
     }
 }
