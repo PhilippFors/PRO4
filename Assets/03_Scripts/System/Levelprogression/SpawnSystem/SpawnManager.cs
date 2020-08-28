@@ -133,11 +133,11 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < w.spawnPoints.Length; i++)
         {
-            foreach (SpawnpointID spawnPoint in spawnpointlist.list)
+            foreach (SpawnpointID spawnPointID in spawnpointlist.list)
             {
-                if (spawnPoint.UniqueID == w.spawnPoints[i].UniqueID & spawnPoint.AreaID == levelManager.currentArea & spawnPoint.LevelID == levelManager.currentLevel)
+                if (spawnPointID.UniqueID == w.spawnPoints[i].UniqueID & spawnPointID.AreaID == levelManager.currentArea & spawnPointID.LevelID == levelManager.currentLevel)
                 {
-                    spawnPoint.AddToQueue(w.spawnPoints[i], spawnAnimDelay, SpawnWaitTime, manager, this);
+                    spawnPointID.AddToQueue(w.spawnPoints[i], spawnAnimDelay, SpawnWaitTime, manager, this);
                 }
             }
         }

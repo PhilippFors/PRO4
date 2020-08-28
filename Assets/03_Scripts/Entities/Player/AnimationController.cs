@@ -26,7 +26,7 @@ public class AnimationController : MonoBehaviour
         dashPlayableClip;
 
     public AnimationClipPlayable attackPlayableClip;
-    
+
 
     public float weightX;
     public float weightY;
@@ -80,7 +80,6 @@ public class AnimationController : MonoBehaviour
         mixerPlayable.SetInputWeight(0, 1.0f);
         mixerPlayable.SetInputWeight(1, 1.0f);
         mixerPlayable.SetInputWeight(2, 1.0f);
-       
 
 
         // Plays the Graph.
@@ -89,20 +88,41 @@ public class AnimationController : MonoBehaviour
     }
 
     void Update()
-
     {
-        input.Gameplay.Movement.ReadValue<Vector2>();
-        move = input.Gameplay.Movement.ReadValue<Vector2>();
-        foo = gameObject.transform.forward;
-        bla = new Vector3(move.x, 0, move.y);
-        pah = Vector3.Cross(bla, foo);
-        weightY = pah.z;
-        weightX = pah.x;
-        movementBlendPlayable.SetInputWeight(0, pah.y);
-        movementBlendPlayable.SetInputWeight(1, -pah.y);
-        movementBlendPlayable.SetInputWeight(2, -pah.x);
-        movementBlendPlayable.SetInputWeight(3, pah.x);
-        movementBlendPlayable.SetInputWeight(4, 0);
+        // move = input.Gameplay.Movement.ReadValue<Vector2>();
+        // foo = gameObject.transform.forward;
+        // bla = new Vector3(move.x, 0, move.y);
+        // pah = Vector3.Cross(bla, foo);
+        // weightY = pah.z;
+        // weightX = pah.x;
+        float posx = 0;
+        float posy = 0;
+        if (controller.isMoving)
+        {
+            float deg = Vector3.Angle(transform.right, controller.currentMoveDirection.normalized);
+            if (Vector3.Dot(transform.forward, controller.currentMoveDirection.normalized) < 0)
+            {
+                deg = 360 - deg;
+            }
+            posx = Mathf.Cos(deg * Mathf.Deg2Rad);
+            posy = Mathf.Sin(deg * Mathf.Deg2Rad);
+            Debug.Log(deg);
+        }
+
+        // Debug.Log(posx.ToString() + ", " + posy.ToString());
+
+        // movementBlendPlayable.SetInputWeight(0, posy);
+
+        // movementBlendPlayable.SetInputWeight(1, -posy);
+
+        // movementBlendPlayable.SetInputWeight(2, -posx);
+
+        // movementBlendPlayable.SetInputWeight(3, posx);
+
+        // movementBlendPlayable.SetInputWeight(4, 0);
+
+        child.SetFloat("X", posx);
+        child.SetFloat("Y", posy);
     }
 
     private void OnEnable()
@@ -148,5 +168,5 @@ public class AnimationController : MonoBehaviour
             playableGraph.Disconnect(mixerPlayable, i);
         }
     }
-    
+
 }

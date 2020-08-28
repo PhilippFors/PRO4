@@ -24,7 +24,7 @@ public class PlayerMovementController
     {
         Move(controller);
         GamepadLook(controller);
-        MouseLook(controller); 
+        MouseLook(controller);
     }
 
     #endregion
@@ -93,7 +93,8 @@ public class PlayerMovementController
         {
             Quaternion newRot = Quaternion.LookRotation(controller.pointToLook);
             controller.transform.rotation = newRot;
-            controller.currentLookDirection = newRot.eulerAngles;
+            controller.pointToLook.y = 0;
+            controller.currentLookDirection = controller.pointToLook;
             //Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * rotationSpeed);
         }
     }
