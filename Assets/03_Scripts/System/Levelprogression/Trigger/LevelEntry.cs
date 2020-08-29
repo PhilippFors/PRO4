@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class LevelEntry : MonoBehaviour
 {
-   private void OnTriggerEnter(Collider other)
-   {
-       LevelEventSystem.instance.LevelEntry();
-   }
+    private void Start()
+    {
+        StartCoroutine(LeStart());
+    }
+
+    IEnumerator LeStart()
+    {
+        yield return new WaitForEndOfFrame();
+        LevelEventSystem.instance.LevelEntry();
+    }
 }

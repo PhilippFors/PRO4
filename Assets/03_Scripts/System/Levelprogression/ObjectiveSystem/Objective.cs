@@ -6,14 +6,15 @@ public abstract class Objective : ScriptableObject
 {
     public bool started;
     public bool finished;
+    public int AreaID;
     public void ObjectiveUpdate(LevelManager manager)
     {
         ExecuteObjective(manager);
 
-        CheckTransitions(manager);
+        CheckGoal(manager);
     }
     public abstract void ExecuteObjective(LevelManager manager);
-    public abstract void CheckTransitions(LevelManager manager);
+    public abstract void CheckGoal(LevelManager manager);
     public abstract void ObjExit(LevelManager manager);
     public abstract void ObjEnter(LevelManager manager);
 }

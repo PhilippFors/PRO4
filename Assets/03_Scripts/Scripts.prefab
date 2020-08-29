@@ -215,12 +215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da1685f3c7d98340b975b8358c15835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 0
-  currentArea: 0
   currentObjective: {fileID: 0}
+  barrierList: {fileID: 11400000, guid: 37092d54c6bd9384bbd90c604450cd26, type: 2}
   deltaTime: 0
   levelData:
   - {fileID: 11400000, guid: 608280fde9fa6914391e8613be57288e, type: 2}
+  playerSpawnpoint: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &3016386617398075710
 GameObject:
   m_ObjectHideFlags: 0

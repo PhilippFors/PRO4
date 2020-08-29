@@ -7,7 +7,6 @@ public class LevelEventSystem : MonoBehaviour
 {
     public event System.Action areaEntry;
     public event System.Action areaExit;
-    public event System.Action nextWave;
     public event System.Action levelEntry;
     public event System.Action levelExit;
 
@@ -40,11 +39,5 @@ public class LevelEventSystem : MonoBehaviour
     {
         if (levelExit != null)
             levelExit();
-    }
-
-    public void NextWave()
-    {
-        if (nextWave != null)
-            nextWave();
     }
 }

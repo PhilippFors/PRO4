@@ -4,28 +4,31 @@ using UnityEngine;
 using System;
 public class LevelManager : MonoBehaviour
 {
-    public int currentLevel = 0;
-    public int currentArea = 0;
+    public int currentLevel { private set; get; } = 0;
+    public int currentArea { private set; get; } = 0;
     bool levelExitTriggered = false;
     public Objective currentObjective;
+    public AreaBarrierList barrierList;
     [HideInInspector] public float deltaTime;
 
     [Header("Level Data")]
     public Level[] levelData;
+    public Transform playerSpawnpoint;
+    [SerializeField] private Transform player;
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
-        // LevelEventSystem.instance.nextWave += StartWave;
-        LevelEventSystem.instance.areaExit += FinsishArea;
+        LevelEventSystem.instance.areaExit += FinishArea;
         LevelEventSystem.instance.levelExit += FinishLevel;
+        LevelEventSystem.instance.levelEntry += StartLevel;
     }
 
     private void OnDisable()
     {
         LevelEventSystem.instance.areaEntry -= StartArea;
-        // LevelEventSystem.instance.nextWave -= StartWave;
-        LevelEventSystem.instance.areaExit -= FinsishArea;
+        LevelEventSystem.instance.areaExit -= FinishArea;
         LevelEventSystem.instance.levelExit -= FinishLevel;
+        LevelEventSystem.instance.levelEntry -= StartLevel;
     }
 
     private void Update()
@@ -44,15 +47,46 @@ public class LevelManager : MonoBehaviour
         currentObjective.ObjEnter(this);
     }
 
-    public void FinsishArea()
+    public void FinishArea()
     {
+        foreach (AreaBarrier a in barrierList.list)
+            if (a.AreaID == currentArea)
+                a.Deactivate();
+
         if (HasNextObjective())
             currentArea++;
     }
 
+    public void CheckEndofArea()
+    {
+        if (currentArea + 1 < levelData[currentLevel].areas.Length)
+        {
+            if (levelData[currentLevel].areas[currentArea + 1].AreaID != levelData[currentLevel].areas[currentArea].AreaID)
+                FinishArea();
+        }
+        else if (currentArea + 1 >= levelData[currentLevel].areas.Length)
+        {
+            FinishArea();
+        }
+    }
     public void StartLevel()
     {
+        FindPlayerSpawnpoint();
+        player.position = playerSpawnpoint.position;
+        //TODO: teleport player to level entry
+        //
+    }
 
+
+    public void FindPlayerSpawnpoint()
+    {
+        foreach (SpawnpointID s in SpawnManager.instance.spawnpointlist.list)
+            if (s.playerSpawnpoint)
+            {
+                playerSpawnpoint = s.transform;
+            }
+
+        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawnpoint.GetComponent<SpawnpointID>());
     }
 
     public void FinishLevel()
@@ -65,7 +99,6 @@ public class LevelManager : MonoBehaviour
         levelData[currentLevel].areas[currentArea].ObjExit(this);
         currentObjective.finished = true;
         currentObjective = null;
-        FinsishArea();
     }
 
     Objective GetNextObjective()
@@ -73,11 +106,22 @@ public class LevelManager : MonoBehaviour
         // if (HasNextObjective())
         return levelData[currentLevel].areas[currentArea];
         // else
-        // return null;
+        //     return null;
     }
 
     bool HasNextObjective()
     {
         return currentArea + 1 < levelData[currentLevel].areas.Length;
     }
+
+    public void SetArea(int a)
+    {
+        currentArea = a;
+    }
+
+    public void SetLevel(int a)
+    {
+        currentLevel = a;
+    }
+
 }

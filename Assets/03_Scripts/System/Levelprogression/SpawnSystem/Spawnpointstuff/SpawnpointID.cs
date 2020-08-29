@@ -12,6 +12,8 @@ public class SpawnpointID : MonoBehaviour
     public int UniqueID;
     int oldLevelID;
 
+    public bool playerSpawnpoint = false;
+
     List<SpawnPoint> queue = new List<SpawnPoint>();
     bool isSpawning = false;
     float animDelay = 0;
@@ -35,7 +37,10 @@ public class SpawnpointID : MonoBehaviour
         }
         foreach (SpawnpointID id in list)
         {
-            id.gameObject.name = "SpawnPNT: " + "Lvl " + id.LevelID + ", ar " + id.AreaID + ", Unq " + id.UniqueID;
+            if (id.playerSpawnpoint)
+                id.gameObject.name = "PlayerSpawnPoint";
+            else
+                id.gameObject.name = "SpawnPNT: " + "Lvl " + id.LevelID + ", ar " + id.AreaID + ", Unq " + id.UniqueID;
         }
     }
 

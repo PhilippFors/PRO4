@@ -14,7 +14,7 @@ public class SaveManager : MonoBehaviour
     {
         instance = this;
     }
-    
+
     private void Start()
     {
         if (!isNewGame)
@@ -32,9 +32,10 @@ public class SaveManager : MonoBehaviour
     public void LoadLevel()
     {
         LevelSaveData data = SaveLoadGame.LoadGameProgress();
-        levelManager.currentArea = data.currentArea;
-        levelManager.currentLevel = data.currentLevel;
 
+        levelManager.SetLevel(data.currentLevel);
+        levelManager.SetArea(data.currentArea);
+        
         if (data.currentAreaFinsihed)
             for (int j = 0; j <= data.currentArea; j++)
             {
@@ -70,8 +71,8 @@ public class SaveManager : MonoBehaviour
 
         //Load weapon data
         // foreach(Weapons weapon in playerAttack.weapons){
-            //if(weapon.WeaponID == data.currentWeaponID)
-                // playerAttack.currentWeapon = weapon;
+        //if(weapon.WeaponID == data.currentWeaponID)
+        // playerAttack.currentWeapon = weapon;
         // }
         playerAttack.currentWeapon.Equip(playerAttack.weaponPoint);
     }

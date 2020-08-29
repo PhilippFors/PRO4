@@ -135,7 +135,7 @@ public class SpawnManager : MonoBehaviour
         {
             foreach (SpawnpointID spawnPointID in spawnpointlist.list)
             {
-                if (spawnPointID.UniqueID == w.spawnPoints[i].UniqueID & spawnPointID.AreaID == levelManager.currentArea & spawnPointID.LevelID == levelManager.currentLevel)
+                if (spawnPointID.UniqueID == w.spawnPoints[i].UniqueID & spawnPointID.AreaID == levelManager.currentObjective.AreaID & spawnPointID.LevelID == levelManager.currentLevel)
                 {
                     spawnPointID.AddToQueue(w.spawnPoints[i], spawnAnimDelay, SpawnWaitTime, manager, this);
                 }

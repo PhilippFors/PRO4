@@ -67,16 +67,19 @@ public class DefeatEnemyObjective : Objective
 
     public override void ObjExit(LevelManager manager)
     {
+        manager.CheckEndofArea();
+
         Debug.Log("Objective Exit");
     }
 
-    public override void CheckTransitions(LevelManager manager)
+    public override void CheckGoal(LevelManager manager)
     {
         if (lastWaveDefeated)
         {
             manager.SwitchObjective();
         }
     }
+
     private void OnDisable()
     {
         this.started = false;

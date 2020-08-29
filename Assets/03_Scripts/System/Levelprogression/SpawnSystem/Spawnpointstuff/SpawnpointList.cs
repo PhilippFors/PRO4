@@ -5,9 +5,11 @@ using UnityEngine;
 public class SpawnpointList : MonoBehaviour
 {
     public SpawnpointlistSO spawnlist;
-    void Start()
+    public AreaBarrierList barrierList;
+    void Awake()
     {
         FindSpawnpoints();
+        FindBarriers();
     }
 
     public void FindSpawnpoints()
@@ -16,6 +18,14 @@ public class SpawnpointList : MonoBehaviour
         SpawnpointID[] l = FindObjectsOfType<SpawnpointID>();
         foreach (SpawnpointID sp in l)
             spawnlist.list.Add(sp);
+    }
+
+    public void FindBarriers()
+    {
+        barrierList.list = new List<AreaBarrier>();
+        AreaBarrier[] l = FindObjectsOfType<AreaBarrier>();
+        foreach (AreaBarrier a in l)
+            barrierList.list.Add(a);
     }
 
 }

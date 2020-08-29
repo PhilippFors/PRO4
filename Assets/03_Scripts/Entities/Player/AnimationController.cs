@@ -106,7 +106,7 @@ public class AnimationController : MonoBehaviour
             }
             posx = Mathf.Cos(deg * Mathf.Deg2Rad);
             posy = Mathf.Sin(deg * Mathf.Deg2Rad);
-            Debug.Log(deg);
+            // Debug.Log(deg);
         }
 
         // Debug.Log(posx.ToString() + ", " + posy.ToString());
