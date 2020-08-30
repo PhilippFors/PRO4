@@ -14,10 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   started: 0
   finished: 0
+  AreaID: 0
+  letAreaFinish: 1
+  hasStory: 1
   waves:
   - SpawnNextWaveInstantly: 0
     spawnPoints:
     - enemyType: 1
       UniqueID: 1
+  - SpawnNextWaveInstantly: 0
+    spawnPoints:
+    - enemyType: 1
+      UniqueID: 1
+    - enemyType: 1
+      UniqueID: 3
   currentWave: 0
   lastWaveDefeated: 0

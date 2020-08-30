@@ -129,6 +129,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)""
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3795725-bc22-461e-9119-69f323a6c056"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)""
                 }
             ],
             ""bindings"": [
@@ -494,6 +502,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""WeaponSwitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b074fe6-e85b-4fa7-93fe-b9754aab50a9"",
+                    ""path"": ""E"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -571,6 +590,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_GrenadeThrow = m_Gameplay.FindAction("GrenadeThrow", throwIfNotFound: true);
         m_Gameplay_GrenadeReleaser = m_Gameplay.FindAction("GrenadeReleaser", throwIfNotFound: true);
         m_Gameplay_WeaponSwitch = m_Gameplay.FindAction("WeaponSwitch", throwIfNotFound: true);
+        m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         // New action map
         m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
         m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
@@ -637,6 +657,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_GrenadeThrow;
     private readonly InputAction m_Gameplay_GrenadeReleaser;
     private readonly InputAction m_Gameplay_WeaponSwitch;
+    private readonly InputAction m_Gameplay_Interact;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -655,6 +676,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @GrenadeThrow => m_Wrapper.m_Gameplay_GrenadeThrow;
         public InputAction @GrenadeReleaser => m_Wrapper.m_Gameplay_GrenadeReleaser;
         public InputAction @WeaponSwitch => m_Wrapper.m_Gameplay_WeaponSwitch;
+        public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -706,6 +728,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @WeaponSwitch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWeaponSwitch;
                 @WeaponSwitch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWeaponSwitch;
                 @WeaponSwitch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnWeaponSwitch;
+                @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -752,6 +777,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @WeaponSwitch.started += instance.OnWeaponSwitch;
                 @WeaponSwitch.performed += instance.OnWeaponSwitch;
                 @WeaponSwitch.canceled += instance.OnWeaponSwitch;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -823,6 +851,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnGrenadeThrow(InputAction.CallbackContext context);
         void OnGrenadeReleaser(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface INewactionmapActions
     {

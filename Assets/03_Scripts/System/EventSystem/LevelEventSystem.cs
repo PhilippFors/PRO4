@@ -5,9 +5,9 @@ using System;
 
 public class LevelEventSystem : MonoBehaviour
 {
-    public event System.Action areaEntry;
-    public event System.Action areaExit;
-    public event System.Action levelEntry;
+   public event System.Action areaEntry;
+   public event System.Action areaExit;
+   public event System.Action levelEntry;
     public event System.Action levelExit;
 
     public static LevelEventSystem instance;

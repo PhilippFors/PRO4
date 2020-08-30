@@ -5,15 +5,14 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager instance;
-    [SerializeField] private AIManager manager;
-    [SerializeField] private LevelManager levelManager;
-
+    [SerializeField] public AIManager manager;
+    [SerializeField] public LevelManager levelManager;
+    public bool scriptedSpawn = false;
     public SpawnpointlistSO spawnpointlist;
-    Wave lastWave;
     public EnemySet enemyCollection;
-    public bool isSpawning = false;
-    [HideInInspector] public bool count = false;
-    public bool enemyListEmpty = false;
+
+    [HideInInspector] public bool count = false, enemyListEmpty = false, isSpawning = false;
+
     [Header("EnemyPrefabs")]
     public GameObject Avik;
 
@@ -102,7 +101,6 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnDelay(List<Wave> waves, float wait = 0.5f)
     {
-        lastWave = null;
         yield return new WaitForSeconds(wait);
 
         if (waves.Count > 1)
@@ -137,12 +135,11 @@ public class SpawnManager : MonoBehaviour
             {
                 if (spawnPointID.UniqueID == w.spawnPoints[i].UniqueID & spawnPointID.AreaID == levelManager.currentObjective.AreaID & spawnPointID.LevelID == levelManager.currentLevel)
                 {
-                    spawnPointID.AddToQueue(w.spawnPoints[i], spawnAnimDelay, SpawnWaitTime, manager, this);
+                    spawnPointID.AddToQueue(w.spawnPoints[i], scriptedSpawn, this);
                 }
             }
         }
         isSpawning = false;
-        lastWave = w;
     }
 
     public void StartEnemyCount()

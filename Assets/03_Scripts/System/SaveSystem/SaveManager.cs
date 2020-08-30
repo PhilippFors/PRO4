@@ -8,7 +8,6 @@ public class SaveManager : MonoBehaviour
     public PlayerBody playerBody;
     public PlayerAttack playerAttack;
     public static SaveManager instance;
-    public bool isNewGame;
 
     private void Awake()
     {
@@ -17,7 +16,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        if (!isNewGame)
+        if (!GameManager.instance.isNewGame)
         {
             LoadPlayer();
             LoadLevel();
@@ -35,7 +34,7 @@ public class SaveManager : MonoBehaviour
 
         levelManager.SetLevel(data.currentLevel);
         levelManager.SetArea(data.currentArea);
-        
+
         if (data.currentAreaFinsihed)
             for (int j = 0; j <= data.currentArea; j++)
             {
@@ -69,11 +68,10 @@ public class SaveManager : MonoBehaviour
             playerBody.statList.Add(new GameStatistics(o, v.statName));
         }
 
-        //Load weapon data
-        // foreach(Weapons weapon in playerAttack.weapons){
-        //if(weapon.WeaponID == data.currentWeaponID)
-        // playerAttack.currentWeapon = weapon;
-        // }
+        foreach (Weapons weapon in playerAttack.weapons)
+            if (weapon.stats.weaponID == data.currentWeaponID)
+                playerAttack.currentWeapon = weapon;
+
         playerAttack.currentWeapon.Equip(playerAttack.weaponPoint);
     }
 }

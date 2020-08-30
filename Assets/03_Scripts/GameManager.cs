@@ -5,13 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //GameManager for starting games and managing game over states
-    public PlayerBody player;
+    public bool isNewGame;
+    [SerializeField] private PlayerBody player;
+    public static GameManager instance;
+
+    private void Awake() {
+        instance = this;
+    }
     public void StartGame()
     {
-        if (SaveManager.instance.isNewGame)
+        if (isNewGame)
         {
             player.InitStats(player.template);
-            SaveManager.instance.LoadLevel();
         }
         else
         {
@@ -20,6 +25,23 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver()
+    {
+
+
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void RestartFromLastSave()
+    {
+        SaveManager.instance.LoadLevel();
+        SaveManager.instance.LoadPlayer();
+    }
+
+    public void RestartLevel()
     {
 
     }

@@ -63,18 +63,17 @@ public class DefeatEnemyObjective : Objective
         currentWave = 0;
         NewWave(manager);
         SpawnManager.instance.StartEnemyCount();
+
     }
 
     public override void ObjExit(LevelManager manager)
     {
-        manager.CheckEndofArea();
-
         Debug.Log("Objective Exit");
     }
 
     public override void CheckGoal(LevelManager manager)
     {
-        if (lastWaveDefeated)
+        if (lastWaveDefeated & letAreaFinish)
         {
             manager.SwitchObjective();
         }

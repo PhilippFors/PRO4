@@ -13,11 +13,8 @@ public class SpawnpointID : MonoBehaviour
     int oldLevelID;
 
     public bool playerSpawnpoint = false;
-
     List<SpawnPoint> queue = new List<SpawnPoint>();
     bool isSpawning = false;
-    float animDelay = 0;
-    float waitTime = 0;
 
     void Start()
     {
@@ -44,44 +41,44 @@ public class SpawnpointID : MonoBehaviour
         }
     }
 
-    public void AddToQueue(SpawnPoint spawnPoint, float spawnAnimDelay, float SpawnWaitTime, AIManager manager, SpawnManager spawnM)
+    public void AddToQueue(SpawnPoint spawnPoint, bool scriptedSpawn, SpawnManager sp)
     {
-        animDelay = spawnAnimDelay;
-        waitTime = SpawnWaitTime;
-
         queue.Add(spawnPoint);
 
         if (!isSpawning)
-            StartCoroutine(WorkQueue(manager, spawnM));
+            StartCoroutine(WorkQueue(scriptedSpawn, sp));
     }
 
-    IEnumerator WorkQueue(AIManager manager, SpawnManager spawnM)
+    IEnumerator WorkQueue(bool scriptedSpawn, SpawnManager sp)
     {
         isSpawning = true;
         EnemyBody enemy = null;
         for (int i = 0; i < queue.Count; i++)
         {
             director.Play();
-            yield return new WaitForSeconds(animDelay);
+            yield return new WaitForSeconds(sp.spawnAnimDelay);
             switch (queue[i].enemyType)
             {
                 case EnemyType.Avik:
-                    enemy = InstEnemy(spawnM.Avik);
+                    enemy = InstEnemy(sp.Avik);
                     break;
                 case EnemyType.undefinded:
 
                     break;
             }
-            enemy.GetComponent<StateMachineController>().settings = manager;
+            enemy.GetComponent<StateMachineController>().settings = sp.manager;
             enemy.GetComponent<Animation>().Play("Entry");
 
-            spawnM.AddEnemyToList(enemy);
-            StartCoroutine(WaitForAnimation(enemy));
+            sp.AddEnemyToList(enemy);
+            
+            if (!scriptedSpawn)
+                StartCoroutine(WaitForAnimation(enemy));
+
             if (i + 1 < queue.Count)
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(sp.SpawnWaitTime);
         }
         queue.Clear();
-        spawnM.count = true;
+        sp.count = true;
         isSpawning = false;
     }
 

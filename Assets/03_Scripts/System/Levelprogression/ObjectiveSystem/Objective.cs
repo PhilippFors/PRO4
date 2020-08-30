@@ -7,6 +7,8 @@ public abstract class Objective : ScriptableObject
     public bool started;
     public bool finished;
     public int AreaID;
+    public bool letAreaFinish = true;
+    public bool hasStory = false;
     public void ObjectiveUpdate(LevelManager manager)
     {
         ExecuteObjective(manager);
@@ -17,4 +19,11 @@ public abstract class Objective : ScriptableObject
     public abstract void CheckGoal(LevelManager manager);
     public abstract void ObjExit(LevelManager manager);
     public abstract void ObjEnter(LevelManager manager);
+
+    public void AutoEnter(LevelManager manager)
+    {
+        if (hasStory)
+            StoryEventSystem.instance.NextStory();
+    }
+
 }

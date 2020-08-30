@@ -116,6 +116,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "d3795725-bc22-461e-9119-69f323a6c056",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
                 }
             ],
             "bindings": [
@@ -479,6 +487,17 @@
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "WeaponSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b074fe6-e85b-4fa7-93fe-b9754aab50a9",
+                    "path": "E",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

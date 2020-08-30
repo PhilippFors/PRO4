@@ -21,7 +21,7 @@ public class PlayerSaveData
         SavePlayerStats(playerBody);
         SaveWeaponData(playerAttack);
     }
-    
+
     void SavePlayerStats(PlayerBody playerBody)
     {
         currentPlayerHealth = playerBody.currentHealth.Value;
@@ -31,6 +31,7 @@ public class PlayerSaveData
         playerPos[2] = playerBody.transform.position.z;
 
         playerStats = new Dictionary<string, float>();
+
         foreach (GameStatistics stat in playerBody.statList)
         {
             playerStats.Add(stat.GetName().ToString(), stat.GetValue());
@@ -40,10 +41,10 @@ public class PlayerSaveData
     void SaveWeaponData(PlayerAttack playerAttack)
     {
         equipedWeaponIDs = new List<int>();
-        // foreach (Weapons weapon in playerAttack.weapons)
-        // {
-        // equipedWeaponIDs.Add(weapon.WeaponID);
-        // }
-        // currentWeaponID = playerAttack.Weapon.ID;
+
+        currentWeaponID = playerAttack.currentWeapon.stats.weaponID;
+
+        foreach (Weapons w in playerAttack.weapons)
+            equipedWeaponIDs.Add(w.stats.weaponID);
     }
 }

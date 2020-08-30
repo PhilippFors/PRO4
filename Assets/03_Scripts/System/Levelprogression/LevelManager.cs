@@ -4,8 +4,8 @@ using UnityEngine;
 using System;
 public class LevelManager : MonoBehaviour
 {
-    public int currentLevel { private set; get; } = 0;
-    public int currentArea { private set; get; } = 0;
+    public int currentLevel = 0;
+    public int currentArea = 0;
     bool levelExitTriggered = false;
     public Objective currentObjective;
     public AreaBarrierList barrierList;
@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Level Data")]
     public Level[] levelData;
-    public Transform playerSpawnpoint;
+    Transform playerSpawnpoint;
     [SerializeField] private Transform player;
     private void Start()
     {
@@ -34,16 +34,15 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         deltaTime = Time.deltaTime;
-        if (currentObjective == null)
-            return;
-
-        currentObjective.ObjectiveUpdate(this);
+        if (currentObjective != null)
+            currentObjective.ObjectiveUpdate(this);
     }
 
     public void StartArea()
     {
         currentObjective = GetNextObjective();
         currentObjective.started = true;
+        currentObjective.AutoEnter(this);
         currentObjective.ObjEnter(this);
     }
 
@@ -55,6 +54,8 @@ public class LevelManager : MonoBehaviour
 
         if (HasNextObjective())
             currentArea++;
+
+        StartCoroutine(SaveGame());
     }
 
     public void CheckEndofArea()
@@ -69,12 +70,13 @@ public class LevelManager : MonoBehaviour
             FinishArea();
         }
     }
+
     public void StartLevel()
     {
         FindPlayerSpawnpoint();
         player.position = playerSpawnpoint.position;
-        //TODO: teleport player to level entry
-        //
+        StartCoroutine(SaveGame());
+        //TODO: Exit from Level transition
     }
 
 
@@ -91,11 +93,14 @@ public class LevelManager : MonoBehaviour
 
     public void FinishLevel()
     {
-
+        //TODO: Start loading new level
+        //TODO: Start level transition
+        //TODO: Reset Area count
     }
 
     public void SwitchObjective()
     {
+        CheckEndofArea();
         levelData[currentLevel].areas[currentArea].ObjExit(this);
         currentObjective.finished = true;
         currentObjective = null;
@@ -106,7 +111,7 @@ public class LevelManager : MonoBehaviour
         // if (HasNextObjective())
         return levelData[currentLevel].areas[currentArea];
         // else
-        //     return null;
+        // return null;
     }
 
     bool HasNextObjective()
@@ -122,6 +127,12 @@ public class LevelManager : MonoBehaviour
     public void SetLevel(int a)
     {
         currentLevel = a;
+    }
+
+    IEnumerator SaveGame()
+    {
+        yield return new WaitForEndOfFrame();
+        SaveManager.instance.Save();
     }
 
 }
