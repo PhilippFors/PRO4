@@ -7,6 +7,7 @@ public class EventSystem : MonoBehaviour
 {
     public event Action<IHasHealth, float> Attack;
     public event Action<Skills> ActivateSkill;
+    public event Action<Skills> DeactivateSkill;
 
     public event Action<PlayerMovementSate> SetState;
 
@@ -14,6 +15,7 @@ public class EventSystem : MonoBehaviour
     public event System.Action Snare;
     public event System.Action Kick;
     public event System.Action HighHat;
+
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
@@ -37,8 +39,16 @@ public class EventSystem : MonoBehaviour
     public void OnSkill(Skills skill)
     {
         if (ActivateSkill != null)
-            Debug.Log("Skill Activated");
+            Debug.Log("Skill: " + skill.name + " activated");
         ActivateSkill(skill);
+    }
+
+
+    public void OnSkillDeactivation(Skills skill)
+    {
+        if (DeactivateSkill != null)
+            Debug.Log("Skill: " + skill.name + " deactivated");
+        DeactivateSkill(skill);
     }
 
     public void OnSnare()
@@ -51,10 +61,6 @@ public class EventSystem : MonoBehaviour
         {
             Snare();
         }
-
-        //WHY THIS SHORTHAND SYNTAX NICHT WORKING?
-        //Kick == null ? Debug.Log("KickEvent is empty") : Kick();
-        //No idea but du not brauchen it -P
     }
 
     public void OnHighHat()

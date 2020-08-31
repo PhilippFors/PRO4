@@ -6,11 +6,16 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
 
+    private bool m_kickActive = true;
+    private bool m_snareActive = true;
+    private bool m_highHatActive = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        EventSystem.instance.ActivateSkill += deactivateListener;
+        EventSystem.instance.DeactivateSkill += activateListener;
     }
 
     // Update is called once per frame
@@ -41,6 +46,7 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
+
                             EventSystem.instance.OnSnare();
                         }                   
                         break;
@@ -53,7 +59,9 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
+                            if (m_kickActive) { 
                             EventSystem.instance.OnKick();
+                            }
                         }
                         break;
                     case 'H':
@@ -64,7 +72,9 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            EventSystem.instance.OnHighHat();
+                            if (m_highHatActive) { 
+                                EventSystem.instance.OnHighHat();
+                            }
                         }
                         break;
                 }
@@ -81,6 +91,28 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    public void deactivateListener(Skills skill)
+    {
+        if (skill.name == "LowPass")
+        {
+            m_highHatActive = false;
+        }
+        if (skill.name == "HighPass")
+        {
+            m_kickActive = false;
+        }
+    }
 
+    public void activateListener(Skills skill)
+    {
+        if (skill.name == "LowPass")
+        {
+            m_highHatActive = true;
+        }
+        if (skill.name == "HighPass")
+        {
+            m_kickActive = true;
+        }
+    }
 
 }

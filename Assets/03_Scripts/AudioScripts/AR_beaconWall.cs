@@ -21,23 +21,31 @@ public class AR_beaconWall : MusicAnalyzer
     Color _energyWallColor;
     Material _energyWallMaterial;
 
+    Sequence tweenSeq;
+
     // Start is called before the first frame update
     void Start()
     {
 
         _material = GetComponent<MeshRenderer>().material;
-        _beaconEmissiveColor = _material.GetColor("EmissionRedColor");
+       // _beaconEmissiveColor = _material.GetColor("EmissionRedColor");
 
         _energyWall = this.gameObject.transform.GetChild(0).gameObject;
-        _energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
-        _energyWallColor = _energyWallMaterial.GetColor("EmissionRedColor");
+        //_energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
+        //_energyWallColor = _energyWallMaterial.GetColor("EmissionRedColor");
 
         defaultLength = _energyWall.transform.localScale.y;
 
 
-        Color.RGBToHSV((_beaconEmissiveColor), out H, out S, out V);
+       // Color.RGBToHSV((_beaconEmissiveColor), out H, out S, out V);
 
         addActionToEvent();
+
+        lengthOfLaser = lengthOfLaser /_energyWall.transform.localScale.y;
+
+
+        EventSystem.instance.ActivateSkill += activateColorError1;
+        EventSystem.instance.DeactivateSkill += deactivateColorError1;
 
     }
 
@@ -45,20 +53,72 @@ public class AR_beaconWall : MusicAnalyzer
     void Update()
     {
 
+
+
     }
 
     protected override void objectAction()
     {
-        increaseIntervalCounter();
-        if (checkInterval())
-        {
-            DOTween.Sequence()
-           .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", 0.25f))
-           .Join(_energyWall.transform.DOScaleY(lengthOfLaser, 0.25f))
-           .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 1, true), "EmissionRedColor", 0.5f))
-           .Join(_energyWall.transform.DOScaleY(defaultLength, 0.5f))
-           .SetEase(Ease.Flash);
-        }
 
+        if (!colorErrorActive)
+        {
+
+            Debug.Log("Normal Barrier Action");
+            increaseIntervalCounter();
+            if (checkInterval())
+            {
+                tweenSeq = DOTween.Sequence()
+               .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
+               .Append(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
+           
+               .SetEase(Ease.Flash);
+
+                /**
+                DOTween.Sequence()
+                .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", m_actionInDuration))
+                .Join(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
+                .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 1, true), "EmissionRedColor", m_actionOutDuration))
+                .Join(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
+                .SetEase(Ease.Flash);
+                **/
+            }
+
+        }
+    }
+
+
+    public void activateColorError1(Skills skill)
+    {
+        if (skill.name == "PitchShift")
+        {
+
+            tweenSeq.Kill();
+            Debug.Log("BeconBarrier activate");
+            // colorErrorActive = true;
+
+           
+
+            tweenSeq = DOTween.Sequence()
+            .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
+            .SetEase(Ease.Flash);
+
+
+
+        }
+    }
+
+    public void deactivateColorError1(Skills skill)
+    {
+        if (skill.name == "PitchShift")
+        {
+
+            Debug.Log("BeconBarrier deactivate");
+            /*
+            //colorErrorActive = false;
+            DOTween.Sequence()
+            .Join(_energyWall.transform.DOScaleY(defaultLength, m_actionInDuration))
+            .SetEase(Ease.Flash);
+            */
+        }
     }
 }

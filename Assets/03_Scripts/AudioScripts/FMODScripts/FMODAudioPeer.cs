@@ -11,7 +11,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 {
 
     public static FMODAudioPeer _instance;
-
+    public float _smoothBuffer = 0.005f;
 
     FMODUnity.StudioEventEmitter emitter;
     FMOD.Studio.EventInstance musicInstance;
@@ -324,7 +324,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
             if (_freqBand8[g] > _bandBuffer8[g])
             {
                 _bandBuffer8[g] = _freqBand8[g];
-                _bufferDecrease[g] = 0.005f;
+                _bufferDecrease[g] = _smoothBuffer;
             }
 
             if (_freqBand8[g] < _bandBuffer8[g])
@@ -343,7 +343,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
             if (_freqBand32[g] > _bandBuffer32[g])
             {
                 _bandBuffer32[g] = _freqBand32[g];
-                _bufferDecrease32[g] = 0.005f;
+                _bufferDecrease32[g] = _smoothBuffer;
             }
 
             if (_freqBand32[g] < _bandBuffer32[g])

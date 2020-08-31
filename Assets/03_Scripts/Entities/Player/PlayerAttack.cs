@@ -122,6 +122,7 @@ public class PlayerAttack : MonoBehaviour
         temp.isActive = false;
         currentActiveSkill = null;
         //Debug.Log("hi");
+        EventSystem.instance.OnSkillDeactivation(temp);
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }

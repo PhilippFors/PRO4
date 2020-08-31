@@ -36,25 +36,22 @@ public class TestCubeAudioMove : MonoBehaviour
         switch (id)
         {
             case 0:
-                transform.DOLocalMoveZ(2, 0.5f);
+                transform.DOLocalMoveZ(transform.position.z + 2, 0.5f); 
                 //transform.Translate(new Vector3(0, 0, 5));
                 break;
             case 1:
-                transform.DOLocalMoveX(-2, 0.5f);
+                transform.DOLocalMoveX(transform.position.x - 2, 0.5f);
                 //transform.Translate(new Vector3(-5, 0, 0));
                 break;
             case 2:
-                transform.DOLocalMoveZ(-2, 0.5f);
+                transform.DOLocalMoveZ(transform.position.z - 2, 0.5f);
                 //transform.Translate(new Vector3(0, 0, -5));
                 break;
             case 3:
-                transform.DOLocalMoveX(2, 0.5f);
+                transform.DOLocalMoveX(transform.position.x + 2, 0.5f);
                 //transform.Translate(new Vector3(5, 0, 0));
                 break;
-
         }
-
-       
     }
 
     void test()
