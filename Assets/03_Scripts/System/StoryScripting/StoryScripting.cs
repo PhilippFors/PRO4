@@ -11,12 +11,13 @@ public class StoryScripting : MonoBehaviour
 
     public int currentStoryID;
     public StorySection currentStory;
-    public StorySection[] storyList;
+    [SerializeField] StorySection[] storyList;
 
     private void Start()
     {
         StoryEventSystem.instance.nextStory += StartStorySection;
     }
+
     private void Update()
     {
         if (currentStory != null)
@@ -27,6 +28,21 @@ public class StoryScripting : MonoBehaviour
         storyList[currentStoryID].StoryExit();
         currentStory.finished = true;
         currentStory = null;
+        CheckForNextSection();
+    }
+
+    void CheckForNextSection()
+    {
+        if (currentStoryID + 1 < storyList.Length)
+            if (storyList[currentStoryID + 1].AreaID == storyList[currentStoryID].AreaID)
+            {
+                FinishStorySection(false);
+                StartStorySection();
+            }
+            else
+            {
+                FinishStorySection(true);
+            }
     }
 
     public void StartStorySection()
@@ -36,19 +52,19 @@ public class StoryScripting : MonoBehaviour
         currentStory.StoryEnter(this);
     }
 
-    public void FinishStory()
+    public void FinishStorySection(bool endObjective)
     {
         if (HasNextStorySection())
             currentStoryID++;
 
+        if (endObjective)
+            levelManager.currentObjective.letAreaFinish = true;
         // StartCoroutine(SaveGame());
     }
 
     StorySection GetNextStoryObjective()
     {
-
         return storyList[currentStoryID];
-
     }
 
     bool HasNextStorySection()

@@ -9,9 +9,10 @@ public class MultiplierManager : MonoBehaviour
     //Singleton setup
     public EnemySet set;
     public static MultiplierManager instance;
+    public PlayerBody player;
     private void OnDisable()
     {
-        EventSystem.instance.ActivateSkill -= SetAllMultValues;
+        EventSystem.instance.ActivateSkill -= SetEnemyMultValues;
     }
 
     private void Awake()
@@ -21,11 +22,11 @@ public class MultiplierManager : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.instance.ActivateSkill += SetAllMultValues;
+        EventSystem.instance.ActivateSkill += SetEnemyMultValues;
     }
 
     //TODO: Add Symbol to parameters, iterate over each enemy and compare Symbol names
-    public void SetAllMultValues(Skills skill)
+    public void SetEnemyMultValues(Skills skill)
     {
         foreach (EnemyBody enemy in set.entityList)
         {
@@ -35,6 +36,11 @@ public class MultiplierManager : MonoBehaviour
                 else
                     enemy.AddMultiplier(skill.symbol.main, skill.decreaseMultValue, skill.timer);
         }
+    }
+
+    public void SetPlayerMultValues(MultiplierName name, float value, float time)
+    {
+        player.AddMultiplier(name, value, time);
     }
 
     public void ResetMultiplier()

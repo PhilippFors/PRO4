@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public Level[] levelData;
     Transform playerSpawnpoint;
     [SerializeField] private Transform player;
+    
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
