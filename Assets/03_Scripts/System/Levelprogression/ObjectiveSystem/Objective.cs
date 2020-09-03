@@ -7,17 +7,12 @@ public abstract class Objective : ScriptableObject
     public bool started;
     public bool finished;
     public int AreaID;
-    public bool letAreaFinish
-    {
-        get
-        {
-            return hasStory ? false : true;
-        }
-        set{}
-    }
-
+    [HideInInspector] public bool letAreaFinish;
     public bool hasStory = false;
-
+    private void OnEnable()
+    {
+        letAreaFinish = hasStory ? false : true;
+    }
     public virtual void ObjectiveUpdate(LevelManager manager)
     {
         ExecuteObjective(manager);

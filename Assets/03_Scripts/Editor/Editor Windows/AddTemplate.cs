@@ -6,7 +6,7 @@ public class AddTemplate : EditorWindow
 {
     string[] paths;
     string[] stuff;
-    string[] options = { "Igner", "Durga", "Shirugi", "Player" };
+    string[] options = { "Ralger", "Avik", "Shentau", "Player" };
     int index;
     float statfloatField;
     string _name;
@@ -48,10 +48,10 @@ public class AddTemplate : EditorWindow
                     templateFolder = "Enemy/Igner";
                     break;
                 case 1:
-                    templateFolder = "Enemy/Durga";
+                    templateFolder = "Enemy/Avik";
                     break;
                 case 2:
-                    templateFolder = "Enemy/Shirugi";
+                    templateFolder = "Enemy/Shentau";
                     break;
                 case 3:
                     templateFolder = "Player";

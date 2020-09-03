@@ -1,21 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum EnemyType
-{
-    undefinded,
-    Avik,
-    Shentau
-}
+
 public class EnemyBody : AStats, IHasHealth, IKnockback
 {
-    // public List<GameStatistics> statList { get; set; }
-    // public List<Multiplier> multList { get; set; }
     public StatTemplate statTemplate;
     public StateMachineController controller => GetComponent<StateMachineController>();
     public Rigidbody rb => GetComponent<Rigidbody>();
     public Symbol symbolInfo;
-    // Material mat;
     [SerializeField] private GameObject parent;
     [SerializeField] private GameObject symbol;
     public float currentHealth;
@@ -41,10 +33,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
     void InitSymbol()
     {
-        Material mat = new Material(symbolInfo.shader);
-        mat.SetTexture("_Texture", symbolInfo.symbolSprite);
-        mat.SetColor("_Color", Color.red);
-        symbol.GetComponent<MeshRenderer>().material = mat;
+        symbol.GetComponent<MeshRenderer>().material = symbolInfo.mat;
     }
 
     #endregion
@@ -86,15 +75,15 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
     {
         // float totalStun = stunChance - GetStatValue(StatName.stunResist);
         int rand = Random.Range(0, 101);
+        float newstunchance = stunChance - GetStatValue(StatName.StunResist);
+        if (newstunchance < 0)
+            newstunchance = -1;
 
-        if (rand < stunChance)
-        {
+        if (rand < newstunchance)
             controller.Stun();
-        }
 
         Vector3 direction = Vector3.Normalize(transform.position - controller.settings.playerTarget.position);
         rb.AddForce(direction * force, ForceMode.Impulse);
-
     }
 
 }

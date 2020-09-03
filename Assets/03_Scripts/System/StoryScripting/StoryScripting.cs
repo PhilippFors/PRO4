@@ -43,6 +43,9 @@ public class StoryScripting : MonoBehaviour
             {
                 FinishStorySection(true);
             }
+        else
+            FinishStorySection(true);
+
     }
 
     public void StartStorySection()

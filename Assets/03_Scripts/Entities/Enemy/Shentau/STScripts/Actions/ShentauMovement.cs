@@ -10,13 +10,16 @@ public class ShentauMovement : Action
         Move(controller, GetMovePos(controller));
     }
 
-    Vector3 GetMovePos(StateMachineController controller){
-
+    Vector3 GetMovePos(StateMachineController controller)
+    {
+        //TODO: Procedural Grid on navemesh to next barrier
+        //TODO: Grid holds info of stuff in close proximity like obstacles (or even player)
 
         return Vector3.zero;
     }
 
-    void Move(StateMachineController controller, Vector3 movPos){
+    void Move(StateMachineController controller, Vector3 movPos)
+    {
 
     }
 

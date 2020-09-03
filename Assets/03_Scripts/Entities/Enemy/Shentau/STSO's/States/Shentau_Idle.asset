@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9172e636db6c06c4394f5388383ab33c, type: 3}
   m_Name: Shentau_Idle
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 0}
+  transitions:
+  - decision: {fileID: 0}
+    trueState: {fileID: 0}
+    falseState: {fileID: 0}
   onExitState: {fileID: 0}
   onEnterState: {fileID: 0}
