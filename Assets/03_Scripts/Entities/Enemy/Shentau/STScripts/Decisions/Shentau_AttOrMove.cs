@@ -7,7 +7,7 @@ public class Shentau_AttOrMove : Decision
 {
     public override bool Execute(StateMachineController controller)
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 
 }

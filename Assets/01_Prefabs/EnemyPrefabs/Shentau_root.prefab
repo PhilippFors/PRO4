@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1922061826558820402}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: body_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 3013895118409275136}
   m_Father: {fileID: 7061619036561079683}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 89.467026}
 --- !u!1 &658895092855660769
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,9 +54,9 @@ GameObject:
   - component: {fileID: 154978969}
   - component: {fileID: 154978968}
   - component: {fileID: 7519682439028619979}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shentau_logic
-  m_TagString: Untagged
+  m_TagString: Shentau
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,6 +93,7 @@ MonoBehaviour:
   offsetTargetPos: {x: 0, y: 0, z: 0}
   ObstacleTarget: {fileID: 0}
   deltaTime: 0
+  aiActive: 0
   isGrounded: 1
   canAttack: 0
   checkedAmount: 0
@@ -104,10 +105,7 @@ MonoBehaviour:
   currentState: {fileID: 0}
   startState: {fileID: 11400000, guid: 9c20e85b9d240e742849fce29161f345, type: 2}
   remainState: {fileID: 11400000, guid: 76edd8e69f1b931409415a7597b5f84e, type: 2}
-  anyTransitions:
-  - decision: {fileID: 11400000, guid: 30870c14d7625ee4ba083c76927f946b, type: 2}
-    trueState: {fileID: 11400000, guid: dd3fec951a259c6438279520fb5e9435, type: 2}
-    falseState: {fileID: 11400000, guid: 76edd8e69f1b931409415a7597b5f84e, type: 2}
+  anyTransitions: []
 --- !u!195 &154978973
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -116,19 +114,19 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658895092855660769}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
+  m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 0.1
   m_Acceleration: 3
   avoidancePriority: 50
-  m_AngularSpeed: 200
+  m_AngularSpeed: 100
   m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!54 &154978972
 Rigidbody:
@@ -158,10 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ef47a098113f544a6d693f9b4676ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statTemplate: {fileID: 0}
-  symbolInfo: {fileID: 0}
-  parent: {fileID: 0}
-  symbol: {fileID: 0}
+  statTemplate: {fileID: 11400000, guid: 85454380cbd18b144929f47ae0c2078e, type: 2}
+  symbolInfo: {fileID: 11400000, guid: b31e9aa8e05478745a40574b06eeb243, type: 2}
+  parent: {fileID: 658895093965917319}
+  symbol: {fileID: 3137969792552432156}
   currentHealth: 0
 --- !u!114 &7245355611504129407
 MonoBehaviour:
@@ -268,7 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 658895093965917312}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shentau_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3013895118409275136}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: right_arm_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +330,7 @@ GameObject:
   - component: {fileID: 3435348846120173081}
   - component: {fileID: 996536837173726316}
   - component: {fileID: 1292812923408708913}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Kopf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +350,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6300887156900330974}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.5902769e-14, y: -3.180555e-15, z: 3.180555e-15}
 --- !u!33 &996536837173726316
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -379,7 +377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -409,7 +407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7459731208333383351}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RayEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +439,7 @@ GameObject:
   - component: {fileID: 8485615407777470101}
   - component: {fileID: 1517211438140429159}
   - component: {fileID: 1582417245296763617}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rail_oben
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +459,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4530750053546183905}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.272222e-14, y: -1.272222e-14, z: -1.4124501e-30}
 --- !u!33 &1517211438140429159
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -488,7 +486,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -518,7 +516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7567840074230866229}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: main_railgun_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +538,7 @@ Transform:
   - {fileID: 6693623014847527126}
   m_Father: {fileID: 1922061826558820402}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.53296804}
 --- !u!1 &4507303096786174205
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +550,7 @@ GameObject:
   - component: {fileID: 6300887156900330974}
   - component: {fileID: 8529536216268866494}
   - component: {fileID: 6274209104846723757}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shentau_merged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +573,7 @@ Transform:
   - {fileID: 2463601948711682114}
   m_Father: {fileID: 5502951612975259241}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.5902769e-14, y: -3.180555e-15, z: 3.180555e-15}
 --- !u!33 &8529536216268866494
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -602,7 +600,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -632,7 +630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7773570564125984393}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: left_arm_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +662,7 @@ GameObject:
   - component: {fileID: 4581687999564460059}
   - component: {fileID: 4627581749223855741}
   - component: {fileID: 7992229551077217076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -711,7 +709,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -741,7 +739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8739976055278653499}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: head_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +771,7 @@ GameObject:
   - component: {fileID: 231378428473162813}
   - component: {fileID: 8715040590082411501}
   - component: {fileID: 7351844709878924970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left_rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +791,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2463601948711682114}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.5902769e-14, y: -3.180555e-15, z: 3.180555e-15}
 --- !u!33 &8715040590082411501
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -820,7 +818,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -852,7 +850,7 @@ GameObject:
   - component: {fileID: 9048754026495613255}
   - component: {fileID: 8701509576709225234}
   - component: {fileID: 5322865086869139354}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right_rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -872,7 +870,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2463601948711682114}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.5902769e-14, y: -3.180555e-15, z: 3.180555e-15}
 --- !u!33 &8701509576709225234
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -899,7 +897,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -929,7 +927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4530750053546183905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -952,7 +950,7 @@ Transform:
   - {fileID: 8485615407777470101}
   m_Father: {fileID: 6300887156900330974}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -6.3611086e-15, y: -6.3611086e-15, z: 6.3611086e-15}
 --- !u!1 &5603052356323957285
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +960,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2463601948711682114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rockets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -994,7 +992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6693623014847527126}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: upper_railgun_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1024,7 +1022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7061619036561079683}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Joints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,7 +1055,7 @@ GameObject:
   - component: {fileID: 2918116412189399864}
   - component: {fileID: 5129347570535249053}
   - component: {fileID: 4003717516416350499}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rail_lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1075,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4530750053546183905}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -6.36111e-14, y: -1.272222e-14, z: 7.06225e-30}
 --- !u!33 &5129347570535249053
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1104,7 +1102,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7734046260022228668, guid: 5f98f309ca07ef54694ffb17fd685bd6, type: 3}
+  - {fileID: 2100000, guid: edef332744e984640aa15f2d82903070, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1135,7 +1133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5502951612975259241}
   - component: {fileID: 8407187102059918440}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shentau_all
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,7 +1184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6455221547489349834}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: lower_railgun_jnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1206,7 +1204,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7567840074230866229}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!1001 &4989702049143406086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1274,6 +1272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Symbol
       objectReference: {fileID: 0}
+    - target: {fileID: 7976637404927052826, guid: ca9b52e054ae1d6439543eb6ee2d01bb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8337644400198583689, guid: ca9b52e054ae1d6439543eb6ee2d01bb,
         type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform
@@ -1286,6 +1289,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca9b52e054ae1d6439543eb6ee2d01bb, type: 3}
+--- !u!1 &3137969792552432156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7976637404927052826, guid: ca9b52e054ae1d6439543eb6ee2d01bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 4989702049143406086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &909701678788873445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5305543039634289379, guid: ca9b52e054ae1d6439543eb6ee2d01bb,

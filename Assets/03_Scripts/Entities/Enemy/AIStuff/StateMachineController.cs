@@ -14,7 +14,7 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public Vector3 offsetTargetPos;
     [HideInInspector] public Transform ObstacleTarget;
     [HideInInspector] public float deltaTime;
-    private bool aiActive = false;
+    public bool aiActive = false;
     [HideInInspector] public bool isGrounded = true, canAttack = false, checkedAmount, avoidDirection, stunned, checkAnyTransition = true;
     public bool isAttacking = false;
     public Transform RayEmitter;

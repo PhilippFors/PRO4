@@ -17,8 +17,8 @@ GameObject:
   m_Name: barell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3397308387421076672
 Transform:
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6934764675553162356}
-  m_LocalRotation: {x: -0.72789526, y: -0.0035099387, z: -0.05408463, w: 0.683543}
+  m_LocalRotation: {x: -0.7278967, y: -0.003505915, z: -0.054083936, w: 0.6835417}
   m_LocalPosition: {x: 20.390867, y: 36.090332, z: -33.67576}
-  m_LocalScale: {x: 4.5818, y: 4.5818, z: 4.5817995}
+  m_LocalScale: {x: 4.5818, y: 4.5818, z: 4.5818}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -95.452995, y: -51.086975, z: 46.413986}
 --- !u!33 &8483544501939722102
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioBand1: 0
   _audioBand2: 7
-  _enableAudioBand1: 1
-  _enableAudioBand2: 1
+  _enableBlueFQChannel: 1
+  _enableRedFQChannel: 1
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!65 &5545412847003291676

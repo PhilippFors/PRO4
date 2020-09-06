@@ -17,8 +17,8 @@ GameObject:
   m_Name: container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &571866422059004316
 Transform:
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioBand1: 0
   _audioBand2: 7
-  _enableAudioBand1: 1
-  _enableAudioBand2: 1
+  _enableBlueFQChannel: 1
+  _enableRedFQChannel: 1
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!65 &322457717816370874

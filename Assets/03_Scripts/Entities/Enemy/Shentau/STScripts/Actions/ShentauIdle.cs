@@ -7,7 +7,7 @@ public class ShentauIdle : Action
 {
     public override void Execute(StateMachineController controller)
     {
-        throw new System.NotImplementedException();
+        controller.agent.isStopped = false;
     }
 
 }

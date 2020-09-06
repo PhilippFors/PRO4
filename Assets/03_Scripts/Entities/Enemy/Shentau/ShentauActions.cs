@@ -31,7 +31,7 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
 
     public void Stunned(StateMachineController s)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void Walk(StateMachineController s)
