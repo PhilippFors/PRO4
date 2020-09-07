@@ -48,7 +48,7 @@ public class ShentauMovement : Action
         {
             if (controller.agent.remainingDistance <= 0.1)
                 controller.agent.destination = GetMovePos(controller);
-            
+
             Vector3 moveTo = controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
             controller.agent.Move(moveTo);
         }
