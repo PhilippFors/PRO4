@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 710e8160127d47949ac8774a3460629a, type: 3}
+  m_Name: Heavy01
+  m_EditorClassIdentifier: 
+  skill: {fileID: 11400000, guid: 1dada43e531af6e47ab215507f23bd36, type: 2}
+  nextAttacks:
+  - {fileID: 11400000, guid: 60a28071886a95546bac264518cdc786, type: 2}
+  - {fileID: 11400000}
+  stateList:
+  - {fileID: 11400000, guid: 403b1de73483dc74591a8201582df265, type: 2}
+  - {fileID: 11400000, guid: 7a664604418c79c4280092c71573e6e8, type: 2}
+  - {fileID: 11400000, guid: 04242b989775e214689a27de1d0834d7, type: 2}

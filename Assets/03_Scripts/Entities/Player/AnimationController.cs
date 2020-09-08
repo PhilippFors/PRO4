@@ -14,7 +14,7 @@ public class AnimationController : MonoBehaviour
     [HideInInspector] public Vector2 gamepadRotate;
     private PlayerStateMachine controller => gameObject.GetComponent<PlayerStateMachine>();
     private AttackStateMachine attack => gameObject.GetComponent<AttackStateMachine>();
-    private Animator child => gameObject.GetComponentInChildren<Animator>();
+    private Animator child => gameObject.GetComponent<Animator>();
 
     public AnimationClip forward, backward, right, left, idle, dash;
 
