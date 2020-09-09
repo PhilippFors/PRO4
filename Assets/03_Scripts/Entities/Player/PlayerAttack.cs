@@ -74,7 +74,7 @@ public class PlayerAttack : MonoBehaviour
         currentWeapon = weapons[currentWeaponCounter];
         currentWeapon.Equip(weaponPoint);
 
-        emitter = AudioPeer.GetComponent<FMODUnity.StudioEventEmitter>();
+        emitter = FMODAudioPeer._instance.GetComponent<FMODUnity.StudioEventEmitter>();
         foreach (Skills skill in skills)
         {
             skill.current = 0;
