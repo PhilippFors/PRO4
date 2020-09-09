@@ -41,7 +41,7 @@ public class PlayerMovementController
 
         controller.currentMoveDirection = horizMovement + vertikMovement;
 
-        // controller.transform.position += controller.currentMoveDirection * controller.currentMoveSpeed  * controller.deltaTime;
+        
     }
 
 

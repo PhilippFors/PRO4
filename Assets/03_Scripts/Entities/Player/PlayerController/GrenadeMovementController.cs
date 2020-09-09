@@ -73,14 +73,14 @@ public class GrenadeMovementController
             controller.gamepadused = false;
             controller.mouseused = true;
             target = controller.target.target;
-            Vector3 temp = MousePosition();
+            Vector3 temp = MousePosition(controller);
             target.transform.position = new Vector3(temp.x, 1, temp.z);
         }
     }
 
-    public Vector3 MousePosition()
+    public Vector3 MousePosition(PlayerStateMachine controller)
     {
-        groundPlane = new Plane(Vector3.up, 0f);
+        groundPlane = new Plane(Vector3.up, new Vector3(0, controller.transform.position.y, 0));
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float dist;

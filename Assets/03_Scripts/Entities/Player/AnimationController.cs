@@ -61,20 +61,20 @@ public class AnimationController : MonoBehaviour
 
         // Creates AnimationClipPlayable and connects them to the mixer.
 
-        runPlayableClip = AnimationClipPlayable.Create(playableGraph, forward);
-        backPlayableClip = AnimationClipPlayable.Create(playableGraph, backward);
-        leftPlayableClip = AnimationClipPlayable.Create(playableGraph, left);
-        rightPlayableClip = AnimationClipPlayable.Create(playableGraph, right);
+        // runPlayableClip = AnimationClipPlayable.Create(playableGraph, forward);
+        // backPlayableClip = AnimationClipPlayable.Create(playableGraph, backward);
+        // leftPlayableClip = AnimationClipPlayable.Create(playableGraph, left);
+        // rightPlayableClip = AnimationClipPlayable.Create(playableGraph, right);
         idlePlayableClip = AnimationClipPlayable.Create(playableGraph, idle);
-        dashPlayableClip = AnimationClipPlayable.Create(playableGraph, dash);
+        // dashPlayableClip = AnimationClipPlayable.Create(playableGraph, dash);
 
 
-        playableGraph.Connect(runPlayableClip, 0, movementBlendPlayable, 0);
+        // playableGraph.Connect(runPlayableClip, 0, movementBlendPlayable, 0);
 
-        playableGraph.Connect(backPlayableClip, 0, movementBlendPlayable, 1);
-        playableGraph.Connect(leftPlayableClip, 0, movementBlendPlayable, 2);
-        playableGraph.Connect(rightPlayableClip, 0, movementBlendPlayable, 3);
-        playableGraph.Connect(idlePlayableClip, 0, movementBlendPlayable, 4);
+        // playableGraph.Connect(backPlayableClip, 0, movementBlendPlayable, 1);
+        // playableGraph.Connect(leftPlayableClip, 0, movementBlendPlayable, 2);
+        // playableGraph.Connect(rightPlayableClip, 0, movementBlendPlayable, 3);
+        // playableGraph.Connect(idlePlayableClip, 0, movementBlendPlayable, 4);
 
         playableGraph.Connect(movementBlendPlayable, 0, mixerPlayable, 0);
         mixerPlayable.SetInputWeight(0, 1.0f);

@@ -204,7 +204,7 @@ public class PlayerAttack : MonoBehaviour
     void ChangeWeapon()
     {
         
-        if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 3)
+        if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 1)
         {
             currentWeaponCounter++;
             if (currentWeaponCounter >= weapons.Count)
