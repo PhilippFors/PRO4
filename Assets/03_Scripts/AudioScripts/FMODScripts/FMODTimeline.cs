@@ -53,6 +53,7 @@ public class FMODTimeline : MonoBehaviour
         _musicInstance = _emitter.getEvent();
         AssignBeatEvent(_musicInstance);
         musicManager = GetComponent<MusicManager>();
+        musicManager._emitter = _emitter;
     }
 
     // Update is called once per frame
