@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_PRO4.2145416697.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Alex\Desktop\FH-Hagenberg\4.Semester\Pro4" t="IncludeRecursive">
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.-1010712004.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Alex\Desktop\FHHagenberg\Pro4" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -12,9 +12,11 @@
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
             <e p="AR_beaconWall.cs" t="Include" />
+            <e p="AR_ColorMaster.cs" t="Include" />
             <e p="AR_damagePlate.cs" t="Include" />
             <e p="Ar_damagePlateCollider.cs" t="Include" />
             <e p="AR_Light.cs" t="Include" />
+            <e p="AR_mover.cs" t="Include" />
             <e p="AR_scaler.cs" t="Include" />
             <e p="AudioHurdles.cs" t="Include" />
             <e p="FMODScripts" t="Include">
@@ -78,7 +80,8 @@
                     <e p="AvoidAction.cs" t="Include" />
                   </e>
                   <e p="Decisions" t="Include">
-                    <e p="AvikAttackDecision.cs" t="Include" />
+                    <e p="AvikPlayerDistanceDec.cs" t="Include" />
+                    <e p="AvikPlayerInFrontDec.cs" t="Include" />
                     <e p="AvikStunnedDecision.cs" t="Include" />
                     <e p="AvoidDecision.cs" t="Include" />
                   </e>
@@ -114,6 +117,7 @@
               </e>
             </e>
             <e p="Interfaces" t="Include">
+              <e p="AStats.cs" t="Include" />
               <e p="IHasHealth.cs" t="Include" />
               <e p="IKnockback.cs" t="Include" />
               <e p="IMultipliers.cs" t="Include" />
@@ -146,6 +150,7 @@
                 <e p="PlayerStateMachine.cs" t="Include" />
               </e>
               <e p="PlayerController.cs" t="Include" />
+              <e p="PlayerInteraction.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
               <e p="Weapons.cs" t="Include" />
               <e p="WeaponSettings.cs" t="Include" />
@@ -174,6 +179,7 @@
             <e p="EventSystem" t="Include">
               <e p="EventSystem.cs" t="Include" />
               <e p="LevelEventSystem.cs" t="Include" />
+              <e p="StoryEventSystem.cs" t="Include" />
             </e>
             <e p="GameDataStructures" t="Include">
               <e p="FloatReference.cs" t="Include" />
@@ -186,6 +192,8 @@
             </e>
             <e p="HealthManager.cs" t="Include" />
             <e p="Levelprogression" t="Include">
+              <e p="AreaBarrier.cs" t="Include" />
+              <e p="AreaBarrierList.cs" t="Include" />
               <e p="Level" t="Include">
                 <e p="Area.cs" t="Include" />
                 <e p="Level.cs" t="Include" />
@@ -224,6 +232,7 @@
             <e p="ParticleController.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
+            <e p="ProgressBarHealth.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
             <e p="RunTimeSets" t="Include">
               <e p="EnemySet.cs" t="Include" />
@@ -237,6 +246,16 @@
               <e p="SaveManager.cs" t="Include" />
             </e>
             <e p="SceneLoader.cs" t="Include" />
+            <e p="StoryScripting" t="Include">
+              <e p="AInteractable.cs" t="Include" />
+              <e p="DestructionInteraction.cs" t="Include" />
+              <e p="InteractTest.cs" t="Include" />
+              <e p="SectionScripts" t="Include">
+                <e p="TutorialSection_0.cs" t="Include" />
+              </e>
+              <e p="StoryScripting.cs" t="Include" />
+              <e p="StorySection.cs" t="Include" />
+            </e>
           </e>
           <e p="UI" t="Include">
             <e p="UIManager.cs" t="Include" />
