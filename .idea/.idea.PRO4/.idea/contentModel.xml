@@ -12,9 +12,11 @@
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
             <e p="AR_beaconWall.cs" t="Include" />
+            <e p="AR_ColorMaster.cs" t="Include" />
             <e p="AR_damagePlate.cs" t="Include" />
             <e p="Ar_damagePlateCollider.cs" t="Include" />
             <e p="AR_Light.cs" t="Include" />
+            <e p="AR_mover.cs" t="Include" />
             <e p="AR_scaler.cs" t="Include" />
             <e p="AudioHurdles.cs" t="Include" />
             <e p="FMODScripts" t="Include">
@@ -78,7 +80,8 @@
                     <e p="AvoidAction.cs" t="Include" />
                   </e>
                   <e p="Decisions" t="Include">
-                    <e p="AvikAttackDecision.cs" t="Include" />
+                    <e p="AvikPlayerDistanceDec.cs" t="Include" />
+                    <e p="AvikPlayerInFrontDec.cs" t="Include" />
                     <e p="AvikStunnedDecision.cs" t="Include" />
                     <e p="AvoidDecision.cs" t="Include" />
                   </e>
@@ -100,6 +103,8 @@
                 <e p="ShentauActions.cs" t="Include" />
                 <e p="STScripts" t="Include">
                   <e p="Actions" t="Include">
+                    <e p="Shentau_Approach.cs" t="Include" />
+                    <e p="Shentau_RunAway.cs" t="Include" />
                     <e p="ShentauAtt.cs" t="Include" />
                     <e p="ShentauChargeAtt.cs" t="Include" />
                     <e p="ShentauIdle.cs" t="Include" />
@@ -114,6 +119,7 @@
               </e>
             </e>
             <e p="Interfaces" t="Include">
+              <e p="AStats.cs" t="Include" />
               <e p="IHasHealth.cs" t="Include" />
               <e p="IKnockback.cs" t="Include" />
               <e p="IMultipliers.cs" t="Include" />
@@ -146,12 +152,14 @@
                 <e p="PlayerStateMachine.cs" t="Include" />
               </e>
               <e p="PlayerController.cs" t="Include" />
+              <e p="PlayerInteraction.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
               <e p="Weapons.cs" t="Include" />
               <e p="WeaponSettings.cs" t="Include" />
             </e>
             <e p="StatScripts" t="Include">
               <e p="EnemyBody.cs" t="Include" />
+              <e p="EnemyEnum.cs" t="Include" />
               <e p="ObstacleBody.cs" t="Include" />
               <e p="PlayerBody.cs" t="Include" />
             </e>
@@ -174,6 +182,7 @@
             <e p="EventSystem" t="Include">
               <e p="EventSystem.cs" t="Include" />
               <e p="LevelEventSystem.cs" t="Include" />
+              <e p="StoryEventSystem.cs" t="Include" />
             </e>
             <e p="GameDataStructures" t="Include">
               <e p="FloatReference.cs" t="Include" />
@@ -186,6 +195,8 @@
             </e>
             <e p="HealthManager.cs" t="Include" />
             <e p="Levelprogression" t="Include">
+              <e p="AreaBarrier.cs" t="Include" />
+              <e p="AreaBarrierList.cs" t="Include" />
               <e p="Level" t="Include">
                 <e p="Area.cs" t="Include" />
                 <e p="Level.cs" t="Include" />
@@ -219,7 +230,6 @@
             </e>
             <e p="MultiplierSystem" t="Include">
               <e p="MultiplierManager.cs" t="Include" />
-              <e p="Symbol.cs" t="Include" />
             </e>
             <e p="ParticleController.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
@@ -237,9 +247,27 @@
               <e p="SaveManager.cs" t="Include" />
             </e>
             <e p="SceneLoader.cs" t="Include" />
+            <e p="StoryScripting" t="Include">
+              <e p="AInteractable.cs" t="Include" />
+              <e p="DestructionInteraction.cs" t="Include" />
+              <e p="InteractTest.cs" t="Include" />
+              <e p="SectionScripts" t="Include">
+                <e p="TutorialSection_0.cs" t="Include" />
+              </e>
+              <e p="StoryScripting.cs" t="Include" />
+              <e p="StorySection.cs" t="Include" />
+            </e>
+            <e p="Symbol" t="Include">
+              <e p="Symbol.cs" t="Include" />
+            </e>
           </e>
           <e p="UI" t="Include">
             <e p="UIManager.cs" t="Include" />
+          </e>
+        </e>
+        <e p="05_Materials" t="Include">
+          <e p="EnergyFieldMats" t="Include">
+            <e p="NavMeshSourceTag.cs" t="Include" />
           </e>
         </e>
         <e p="08_NavMeshComponents" t="Include">
@@ -326,6 +354,7 @@
                 <e p="FMODRuntimeManagerOnGUIHelper.cs" t="Include" />
                 <e p="ParamRef.cs" t="Include" />
                 <e p="ParamRefAttribute.cs" t="Include" />
+                <e p="PlayNextMusicPart.cs" t="Include" />
                 <e p="RuntimeManager.cs" t="Include" />
                 <e p="RuntimeUtils.cs" t="Include" />
                 <e p="Settings.cs" t="Include" />
@@ -372,6 +401,15 @@
           </e>
         </e>
         <e p="RotateCam.cs" t="Include" />
+        <e p="Samples" t="Include">
+          <e p="Terrain Tools" t="Include">
+            <e p="0.1.0-preview" t="Include">
+              <e p="Terrain Assets" t="Include">
+                <e p="ThirdPartyNotices.txt" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
         <e p="SetSpeed.cs" t="Include" />
         <e p="Unparenter.cs" t="Include" />
       </e>

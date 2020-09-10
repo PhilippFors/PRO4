@@ -26,15 +26,18 @@ public class AnimationController : MonoBehaviour
         dashPlayableClip;
 
     public AnimationClipPlayable attackPlayableClip;
+    public AnimationClipPlayable nextAttackPlayableClip;
 
 
     public float weightX;
     public float weightY;
+    public float transWeight;
 
     PlayableGraph playableGraph;
 
     AnimationMixerPlayable movementBlendPlayable;
     AnimationMixerPlayable mixerPlayable;
+    AnimationMixerPlayable attackBlendPlayable;
 
     private Vector3 foo;
     private Vector3 bla;
@@ -56,6 +59,7 @@ public class AnimationController : MonoBehaviour
 
         movementBlendPlayable = AnimationMixerPlayable.Create(playableGraph, 5);
         mixerPlayable = AnimationMixerPlayable.Create(playableGraph, 3);
+        
 
         playableOutput.SetSourcePlayable(mixerPlayable);
 
@@ -138,10 +142,18 @@ public class AnimationController : MonoBehaviour
         playableGraph.Destroy();
     }
 
-    public void AttackAnimation(AnimationClip clip)
+    public void AttackAnimation(AnimationClip clip, AnimationClip nextClip)
     {
         attackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
-        playableGraph.Connect(attackPlayableClip, 0, mixerPlayable, 1);
+        nextAttackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
+        attackBlendPlayable = AnimationMixerPlayable.Create(playableGraph, 2);
+        playableGraph.Connect(attackPlayableClip, 0, attackBlendPlayable, 0);
+
+        playableGraph.Connect(nextAttackPlayableClip, 0, attackBlendPlayable, 1);
+        
+        attackBlendPlayable.SetInputWeight(0, 1.0f-transWeight);
+        attackBlendPlayable.SetInputWeight(1, transWeight);
+        playableGraph.Connect(attackBlendPlayable, 0, mixerPlayable, 1);
         playableGraph.Disconnect(mixerPlayable, 0);
     }
 
@@ -167,6 +179,11 @@ public class AnimationController : MonoBehaviour
         {
             playableGraph.Disconnect(mixerPlayable, i);
         }
+    }
+
+    public void blender()
+    {
+        
     }
 
 }
