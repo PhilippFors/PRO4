@@ -8,7 +8,7 @@ ModelImporter:
     second: Idle
   - first:
       74: -1178868232011614982
-    second: Light_att1
+    second: Dagger_L1_att
   - first:
       74: -1286369226005602535
     second: Light_att1_pause
@@ -17,7 +17,7 @@ ModelImporter:
     second: Light_att1_pullback
   - first:
       74: -5482183598158056247
-    second: Light_att2
+    second: Dagger_L2_att
   - first:
       74: -4061842406067720882
     second: Light_att2_pause
@@ -26,13 +26,31 @@ ModelImporter:
     second: Light_att2_pullback
   - first:
       74: -7287441003506761455
-    second: Heavy_att1
+    second: Dagger_H1_att
   - first:
       74: -8298619064395001920
     second: Heavy_att1_pause
   - first:
       74: -8553772314636334817
     second: Heavy_att1_pullback
+  - first:
+      74: 4655930267974465358
+    second: Dagger_L1_pause
+  - first:
+      74: 5832477552329249666
+    second: Dagger_L1_pullback
+  - first:
+      74: 2616110305437133819
+    second: Dagger_L2_pause
+  - first:
+      74: -2756300652292374372
+    second: Dagger_L2_pullback
+  - first:
+      74: -6013329594209198529
+    second: Dagger_H1_pause
+  - first:
+      74: -6483453660840494006
+    second: Dagger_H1_pullback
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -91,7 +109,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Light_att1
+      name: Dagger_L1_att
       takeName: Take 001
       internalID: 0
       firstFrame: 1
@@ -120,7 +138,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Light_att1_pause
+      name: Dagger_L1_pause
       takeName: Take 001
       internalID: 0
       firstFrame: 14
@@ -149,7 +167,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Light_att1_pullback
+      name: Dagger_L1_pullback
       takeName: Take 001
       internalID: 0
       firstFrame: 20
@@ -178,7 +196,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Light_att2
+      name: Dagger_L2_att
       takeName: Take 001
       internalID: 0
       firstFrame: 33
@@ -207,7 +225,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Light_att2_pause
+      name: Dagger_L2_pause
       takeName: Take 001
       internalID: 0
       firstFrame: 47
@@ -236,7 +254,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Light_att2_pullback
+      name: Dagger_L2_pullback
       takeName: Take 001
       internalID: 0
       firstFrame: 55
@@ -265,7 +283,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Heavy_att1
+      name: Dagger_H1_att
       takeName: Take 001
       internalID: 0
       firstFrame: 66
@@ -294,7 +312,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Heavy_att1_pause
+      name: Dagger_H1_pause
       takeName: Take 001
       internalID: 0
       firstFrame: 81
@@ -323,7 +341,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Heavy_att1_pullback
+      name: Dagger_H1_pullback
       takeName: Take 001
       internalID: 0
       firstFrame: 95

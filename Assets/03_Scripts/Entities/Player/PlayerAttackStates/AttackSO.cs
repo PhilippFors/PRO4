@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[CreateAssetMenu(fileName = "AttackStates", menuName = "AttackStates")]
+[CreateAssetMenu(fileName = "AttackStates", menuName = "Animation/AttackStates")]
 public class AttackSO : ScriptableObject
 {
     public Skills skill;

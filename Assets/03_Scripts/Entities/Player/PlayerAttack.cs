@@ -35,7 +35,6 @@ public class PlayerAttack : MonoBehaviour
 
     public GameObject AudioPeer;
     public static FMODUnity.StudioEventEmitter emitter;
-    
     private static PlayerMovementSate movementState => GameObject.FindGameObjectWithTag("Player")
         .GetComponent<PlayerStateMachine>().currentState;
 

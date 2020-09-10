@@ -27,7 +27,8 @@ public class DashMovementController
 
         if (controller.dashValue < 100 || !controller.isMoving)
             return;
-
+    	
+        controller.selfCol.enabled = false;
         animCon.Dasher();
         _attackStateMachine.SetBase();
         controller.checkEnemy = true;
@@ -66,7 +67,7 @@ public class DashMovementController
             //enable Hurtbox
             frametime = controller.dashDuration;
             dashDelayOn = true;
-
+            controller.selfCol.enabled = true;
             currentDashValueTime = Time.time;
         }
 

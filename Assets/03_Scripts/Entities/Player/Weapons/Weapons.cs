@@ -7,15 +7,26 @@ public class Weapons : MonoBehaviour
     public WeaponSettings stats;
     public AttackSO baseAttack;
     public AttackStateMachine attack => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
-
+    Animator animator => attack.animator;
     internal void Equip(Transform weaponPoint)
     {
+        switch (stats.weaponName)
+        {
+            case WeaponNames.Hammer:
+                animator.SetTrigger("toHammer");
+                
+                break;
+            case WeaponNames.Dagger:
+                animator.SetTrigger("toDagger");
+                break;
+        }
+        attack.SetBase(baseAttack);
         transform.gameObject.SetActive(true);
         transform.SetParent(weaponPoint);
 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
+        // transform.localScale = Vector3.one;
     }
 
     internal void Unequip()

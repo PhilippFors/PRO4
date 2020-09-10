@@ -53,7 +53,7 @@ public class GrenadeMovementController
             controller.gamepadused = true;
             controller.mouseused = false;
 
-            target = controller.target.target;
+            target = controller.playerAttack.target;
             Vector2 targetMove = controller.gamepadRotate;
             Vector3 targetDirection = new Vector3(targetMove.x, 0, targetMove.y);
 
@@ -72,7 +72,7 @@ public class GrenadeMovementController
         {
             controller.gamepadused = false;
             controller.mouseused = true;
-            target = controller.target.target;
+            target = controller.playerAttack.target;
             Vector3 temp = MousePosition(controller);
             target.transform.position = new Vector3(temp.x, 1, temp.z);
         }
