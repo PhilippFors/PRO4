@@ -8,7 +8,7 @@ public class ProgressBarSkills : ProgessBar
 {
     public PlayerAttack player;
 
-    public int id = 0;
+    //public int id = 0;
     public Skills skillObject;
     
     
@@ -17,7 +17,7 @@ public class ProgressBarSkills : ProgessBar
     { 
         
         player = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
-        skillObject = player.skills[id];
+        //skillObject = player.skills[id];
         
     }
     

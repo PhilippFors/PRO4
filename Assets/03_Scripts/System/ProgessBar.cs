@@ -13,7 +13,7 @@ public class ProgessBar: MonoBehaviour
     public float current;
 
     public Image image;
-    
+
     // Start is called before the first frame update
     void Start()
     {
