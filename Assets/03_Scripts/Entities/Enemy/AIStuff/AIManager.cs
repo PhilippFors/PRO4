@@ -86,11 +86,6 @@ public class AIManager : MonoBehaviour
             Debug.LogError("Could not find Player!");
     }
 
-    public IEnumerator AttackDelay(StateMachineController controller, float extra = 0)
-    {
-        yield return new WaitForSeconds(controller.enemyStats.GetStatValue(StatName.AttackRate) + extra);
 
-        controller.canAttack = true;
-    }
 }
 

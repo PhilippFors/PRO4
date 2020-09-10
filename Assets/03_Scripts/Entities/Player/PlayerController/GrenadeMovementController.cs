@@ -21,7 +21,7 @@ public class GrenadeMovementController
         targetForward.y = 0;
         targetForward = Vector3.Normalize(targetForward);
         targetRight = Quaternion.Euler(new Vector3(0, 90, 0)) * targetForward;
-        
+
     }
 
     public void Tick(PlayerStateMachine controller)
@@ -61,8 +61,8 @@ public class GrenadeMovementController
             Vector3 targetVertikMovement = targetForward * targetDirection.z;
 
             targetCurrentMoveDirection = targetHorizMovement + targetVertikMovement;
-            target.transform.position = 
-                target.transform.position + targetCurrentMoveDirection * targetMoveSpeed * Time.deltaTime;
+            target.transform.position += targetCurrentMoveDirection * targetMoveSpeed * Time.deltaTime;
+            
         }
     }
 

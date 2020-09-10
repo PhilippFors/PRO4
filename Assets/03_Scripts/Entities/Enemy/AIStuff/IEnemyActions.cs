@@ -1,4 +1,5 @@
-﻿public enum AnimatorStrings
+﻿using UnityEngine;
+public enum AnimatorStrings
 {
     undefined,
 
@@ -15,7 +16,8 @@
 
 public interface IEnemyActions
 {
-    void Attack(StateMachineController s, int i, bool combo = false);
+
+    void Attack(StateMachineController s, int i = -1, bool combo = false);
     void CancelAttack(StateMachineController s);
     void StopAttack(StateMachineController s);
 
@@ -24,4 +26,8 @@ public interface IEnemyActions
     void Stunned(StateMachineController s);
 
     bool CheckIsAttacking(StateMachineController s);
+
+    float GetAttackCountdown();
+
+    Animator GetAnimator();
 }

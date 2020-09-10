@@ -7,7 +7,7 @@ public class Shentau_ChargeOrAtt : Decision
 {
     public override bool Execute(StateMachineController controller)
     {
-        throw new System.NotImplementedException();
+        return controller.actions.CheckIsAttacking(controller);
     }
 
 }

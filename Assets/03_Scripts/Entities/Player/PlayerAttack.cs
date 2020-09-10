@@ -142,7 +142,7 @@ public class PlayerAttack : MonoBehaviour
         if (movementState.Equals(PlayerMovementSate.standard))
         {
             EventSystem.instance.OnSetState(PlayerMovementSate.grenade);
-            target = Instantiate(targetPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z),
+            target = Instantiate(targetPrefab, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
                 transform.rotation);
         }
     }
