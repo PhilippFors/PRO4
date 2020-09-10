@@ -17,6 +17,7 @@ public class TutorialSection_0 : StorySection
             EventSystem.instance.ActivateAI(e);
 
         storyScript.spawnManager.scriptedSpawn = false;
+        storyScript.SwitchStorySection();
     }
 
     public override void StoryEnter(StoryScripting script)

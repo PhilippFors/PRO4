@@ -53,6 +53,7 @@ public class SpawnpointID : MonoBehaviour
     {
         isSpawning = true;
         EnemyBody enemy = null;
+
         for (int i = 0; i < queue.Count; i++)
         {
             director.Play();
@@ -62,6 +63,9 @@ public class SpawnpointID : MonoBehaviour
                 case EnemyType.Avik:
                     enemy = InstEnemy(sp.Avik);
                     break;
+                case EnemyType.Shentau:
+                    enemy = InstEnemy(sp.Shentau);
+                    break;
                 case EnemyType.undefinded:
 
                     break;
@@ -70,13 +74,14 @@ public class SpawnpointID : MonoBehaviour
             enemy.GetComponent<Animation>().Play("Entry");
 
             sp.AddEnemyToList(enemy);
-            
+
             if (!scriptedSpawn)
                 StartCoroutine(WaitForAnimation(enemy));
 
             if (i + 1 < queue.Count)
                 yield return new WaitForSeconds(sp.SpawnWaitTime);
         }
+        
         queue.Clear();
         sp.count = true;
         isSpawning = false;

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9172e636db6c06c4394f5388383ab33c, type: 3}
   m_Name: Shentau_Idle
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 11400000, guid: 85faca741dab1c841aa28ba0ef702cb0, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 742b6cb069d72bf428e1a3ba95524afe, type: 2}
+    trueState: {fileID: 11400000, guid: b3acf88507a1431459a5ae328051ff17, type: 2}
+    falseState: {fileID: 11400000, guid: 76edd8e69f1b931409415a7597b5f84e, type: 2}
   onExitState: {fileID: 0}
   onEnterState: {fileID: 0}

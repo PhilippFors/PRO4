@@ -10,6 +10,8 @@ public class MusicManager : MonoBehaviour
     private bool m_snareActive = true;
     private bool m_highHatActive = true;
 
+    public FMODUnity.StudioEventEmitter _emitter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,9 @@ public class MusicManager : MonoBehaviour
                                 EventSystem.instance.OnHighHat();
                             }
                         }
+                        break;
+                    case 'R':
+                        _emitter.SetParameter("nextPart", 0);
                         break;
                 }
             }

@@ -54,6 +54,7 @@ namespace FMODUnity
                     for (int j = 0; j < Emitters[i].Params.Length; j++)
                     {
                         emitterRef.Target.EventInstance.setParameterByID(Emitters[i].Params[j].ID, Emitters[i].Params[j].Value);
+
                     }
                 }
             }

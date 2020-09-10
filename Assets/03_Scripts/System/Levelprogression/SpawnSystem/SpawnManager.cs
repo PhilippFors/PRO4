@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
 
     [Header("EnemyPrefabs")]
     public GameObject Avik;
+    public GameObject Shentau;
 
     [Header("Settings")]
     public float SpawnWaitTime = 4.8f;

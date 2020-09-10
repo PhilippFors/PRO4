@@ -9,8 +9,7 @@
     AttackSpeed,
     AttackRate,
     BaseDmg,
-    stunResist
-    
+    StunResist
 }
 public class GameStatistics
 {

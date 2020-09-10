@@ -30,7 +30,7 @@ public class AttackStateMachine : MonoBehaviour
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
     PlayableGraph playableGraph;
-    public Animator child => GetComponentInChildren<Animator>(); //animator of the character model
+    public Animator child => GetComponent<Animator>(); //animator of the character model
 
     private void Awake()
     {

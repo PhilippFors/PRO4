@@ -40,7 +40,6 @@ public class State : ScriptableObject
             }
 
         }
-
     }
     public void StateExit(StateMachineController controller)
     {

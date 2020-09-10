@@ -23,7 +23,14 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
     }
     virtual public float GetStatValue(StatName stat)
     {
-        return statList.Find(x => x.GetName().Equals(stat)).GetValue();
+        if (statList.Exists(x => x.GetName().Equals(stat)))
+        {
+            return statList.Find(x => x.GetName().Equals(stat)).GetValue();
+        }
+        else
+        {
+            return 1f;
+        }
     }
 
     virtual public void AddMultiplier(MultiplierName name, float value, float time)

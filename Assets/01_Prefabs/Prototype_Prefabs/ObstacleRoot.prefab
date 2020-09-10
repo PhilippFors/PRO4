@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e3a04a9f2a22354bbaf62abe95609a4, type: 2}
+  - {fileID: 2100000, guid: 48f4f232353e93a49b1d500f0d416179, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -612,9 +612,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  minActivationHealth: 15
-  regenPause: 2
-  regenRate: 8
+  minActivationHealth: 20
+  regenPause: 2.5
+  regenRate: 7
   regenActive: 0
   maxHealth: {fileID: 11400000, guid: d303cba5e6a450d4e9a7f41ad835d77c, type: 2}
 --- !u!65 &798826729
