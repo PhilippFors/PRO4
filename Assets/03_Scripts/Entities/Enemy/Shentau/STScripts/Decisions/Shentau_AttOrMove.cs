@@ -7,7 +7,7 @@ public class Shentau_AttOrMove : Decision
 {
     public override bool Execute(StateMachineController controller)
     {
-        return false;
+        return true;
     }
 
 }

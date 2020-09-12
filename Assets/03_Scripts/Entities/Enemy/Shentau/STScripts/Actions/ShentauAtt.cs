@@ -7,8 +7,8 @@ public class ShentauAtt : Action
 {
     public override void Execute(StateMachineController controller)
     {
-        throw new System.NotImplementedException();
-        
+        if (controller.actions.CheckIsAttacking(controller))
+            controller.actions.Attack(controller);
     }
 
 }

@@ -6,7 +6,6 @@ public class AvikActions : MonoBehaviour, IEnemyActions
 {
     public Animator animator;
     public Weapon[] weapons;
-    float attackCountdown;
     float extraComboTime = 1f;
     public ParticleSystem stunParticle;
 
@@ -17,20 +16,17 @@ public class AvikActions : MonoBehaviour, IEnemyActions
             case 1:
                 ExecuteAttack(controller, i, combo);
                 break;
-            case 2:
-                ExecuteAttack(controller, i, combo);
-                break;
             case -1:
                 animator.Play("Activation");
                 break;
         }
         if (combo)
         {
-            StartCoroutine(controller.settings.AttackDelay(controller, extraComboTime));
+            StartCoroutine(AttackDelay(controller, extraComboTime));
         }
         else
         {
-            StartCoroutine(controller.settings.AttackDelay(controller));
+            StartCoroutine(AttackDelay(controller));
         }
 
     }
@@ -58,7 +54,8 @@ public class AvikActions : MonoBehaviour, IEnemyActions
     {
         animator.SetTrigger(AnimatorStrings.cancel.ToString());
     }
-    public void StopAttack(StateMachineController controller){
+    public void StopAttack(StateMachineController controller)
+    {
         animator.SetTrigger(AnimatorStrings.stop.ToString());
     }
     public void Walk(StateMachineController s)
@@ -92,5 +89,22 @@ public class AvikActions : MonoBehaviour, IEnemyActions
 
         }
         return controller.isAttacking;
+    }
+
+    public float GetAttackCountdown()
+    {
+        return 0;
+    }
+
+    IEnumerator AttackDelay(StateMachineController controller, float extra = 0)
+    {
+        yield return new WaitForSeconds(controller.enemyStats.GetStatValue(StatName.AttackRate) + extra);
+
+        controller.canAttack = true;
+    }
+
+    public Animator GetAnimator()
+    {
+        return null;
     }
 }

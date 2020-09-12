@@ -22,13 +22,15 @@ public class DashMovementController
     }
     public void DashInit(PlayerStateMachine controller)
     {
-        animCon.Dasher();
-        _attackStateMachine.SetBase();
+
         GetCurrentMovedirection(controller);
 
-        if (controller.dashValue < 100 || controller.currentMoveDirection == Vector3.zero)
+        if (controller.dashValue < 100 || !controller.isMoving)
             return;
-
+    	
+        controller.selfCol.enabled = false;
+        animCon.Dasher();
+        _attackStateMachine.SetBase();
         controller.checkEnemy = true;
         controller.dashValue = 0f;
 
@@ -38,7 +40,7 @@ public class DashMovementController
         (Mathf.Log(1f / (controller.deltaTime * controller.drag + 1)) / -controller.deltaTime)));
 
         CheckDashPathForEnemys(controller);
-        
+
         //disable Hurtbox
         // rb.AddForce(velocity * dashForce, ForceMode.VelocityChange);
     }
@@ -65,7 +67,7 @@ public class DashMovementController
             //enable Hurtbox
             frametime = controller.dashDuration;
             dashDelayOn = true;
-            
+            controller.selfCol.enabled = true;
             currentDashValueTime = Time.time;
         }
 
@@ -73,7 +75,7 @@ public class DashMovementController
             return;
 
         DashDelay(controller);
-        
+
     }
 
     void DashDelay(PlayerStateMachine controller)
@@ -95,7 +97,7 @@ public class DashMovementController
         controller.RayEmitter.forward = controller.currentMoveDirection.normalized;
         actualDashDistance = Vector3.Distance(controller.transform.position, controller.transform.position + controller.currentMoveDirection + ((velocity + velocity) / 2) * controller.dashDuration);
 
-        RaycastHit[] cols = Physics.SphereCastAll(controller.RayEmitter.position,2f, controller.RayEmitter.forward, actualDashDistance, controller.enemyMask, QueryTriggerInteraction.Ignore);
+        RaycastHit[] cols = Physics.SphereCastAll(controller.RayEmitter.position, 2f, controller.RayEmitter.forward, actualDashDistance, controller.enemyMask, QueryTriggerInteraction.Ignore);
         if (cols != null)
         {
             foreach (RaycastHit hits in cols)

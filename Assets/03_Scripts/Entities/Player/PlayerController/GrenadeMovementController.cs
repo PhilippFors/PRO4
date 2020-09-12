@@ -21,7 +21,7 @@ public class GrenadeMovementController
         targetForward.y = 0;
         targetForward = Vector3.Normalize(targetForward);
         targetRight = Quaternion.Euler(new Vector3(0, 90, 0)) * targetForward;
-        
+
     }
 
     public void Tick(PlayerStateMachine controller)
@@ -53,7 +53,7 @@ public class GrenadeMovementController
             controller.gamepadused = true;
             controller.mouseused = false;
 
-            target = controller.target.target;
+            target = controller.playerAttack.target;
             Vector2 targetMove = controller.gamepadRotate;
             Vector3 targetDirection = new Vector3(targetMove.x, 0, targetMove.y);
 
@@ -61,8 +61,8 @@ public class GrenadeMovementController
             Vector3 targetVertikMovement = targetForward * targetDirection.z;
 
             targetCurrentMoveDirection = targetHorizMovement + targetVertikMovement;
-            target.transform.position = 
-                target.transform.position + targetCurrentMoveDirection * targetMoveSpeed * Time.deltaTime;
+            target.transform.position += targetCurrentMoveDirection * targetMoveSpeed * Time.deltaTime;
+            
         }
     }
 
@@ -72,15 +72,15 @@ public class GrenadeMovementController
         {
             controller.gamepadused = false;
             controller.mouseused = true;
-            target = controller.target.target;
-            Vector3 temp = MousePosition();
+            target = controller.playerAttack.target;
+            Vector3 temp = MousePosition(controller);
             target.transform.position = new Vector3(temp.x, 1, temp.z);
         }
     }
 
-    public Vector3 MousePosition()
+    public Vector3 MousePosition(PlayerStateMachine controller)
     {
-        groundPlane = new Plane(Vector3.up, 0f);
+        groundPlane = new Plane(Vector3.up, new Vector3(0, controller.transform.position.y, 0));
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float dist;

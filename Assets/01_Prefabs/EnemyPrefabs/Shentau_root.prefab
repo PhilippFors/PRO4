@@ -53,7 +53,6 @@ GameObject:
   - component: {fileID: 154978971}
   - component: {fileID: 154978969}
   - component: {fileID: 154978968}
-  - component: {fileID: 7519682439028619979}
   m_Layer: 9
   m_Name: Shentau_logic
   m_TagString: Shentau
@@ -95,12 +94,12 @@ MonoBehaviour:
   deltaTime: 0
   aiActive: 0
   isGrounded: 1
-  canAttack: 0
   checkedAmount: 0
   avoidDirection: 0
   stunned: 0
   checkAnyTransition: 1
   isAttacking: 0
+  canAttack: 0
   RayEmitter: {fileID: 7459731208333383351}
   currentState: {fileID: 0}
   startState: {fileID: 11400000, guid: 9c20e85b9d240e742849fce29161f345, type: 2}
@@ -173,6 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9675dfed11e4641b767c0bc2787243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdown: 0
+  animator: {fileID: 8407187102059918440}
 --- !u!111 &615468254808244039
 Animation:
   m_ObjectHideFlags: 0
@@ -245,18 +246,6 @@ CapsuleCollider:
   m_Height: 0.8
   m_Direction: 2
   m_Center: {x: 0, y: 1.07, z: 0.83}
---- !u!114 &7519682439028619979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658895092855660769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9675dfed11e4641b767c0bc2787243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &658895093965917319
 GameObject:
   m_ObjectHideFlags: 0

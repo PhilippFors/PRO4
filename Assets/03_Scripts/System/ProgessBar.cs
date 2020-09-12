@@ -5,10 +5,9 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteInEditMode]
 public class ProgessBar: MonoBehaviour
 {
-    public float maximum ;
+    public float maximum;
 
     public float current;
 
@@ -28,7 +27,6 @@ public class ProgessBar: MonoBehaviour
 
     public virtual void GetCurrentFill()
     {
-        
         float fillAmount = (float) current / (float) maximum;
         image.fillAmount = fillAmount;
     }

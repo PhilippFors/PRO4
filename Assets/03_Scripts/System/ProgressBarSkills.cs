@@ -15,10 +15,7 @@ public class ProgressBarSkills : ProgessBar
     // Start is called before the first frame update
     void Start()
     { 
-        
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
         //skillObject = player.skills[id];
-        
     }
     
 
@@ -31,14 +28,8 @@ public class ProgressBarSkills : ProgessBar
     
     public override void GetCurrentFill()
     {
-        
             maximum = (skillObject.max);
             current = (skillObject.current);
             base.GetCurrentFill();
-        
-      
-           
-        
-       
     }
 }

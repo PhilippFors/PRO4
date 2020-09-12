@@ -35,7 +35,6 @@ public class PlayerAttack : MonoBehaviour
 
     public GameObject AudioPeer;
     public static FMODUnity.StudioEventEmitter emitter;
-    
     private static PlayerMovementSate movementState => GameObject.FindGameObjectWithTag("Player")
         .GetComponent<PlayerStateMachine>().currentState;
 
@@ -143,7 +142,7 @@ public class PlayerAttack : MonoBehaviour
         if (movementState.Equals(PlayerMovementSate.standard))
         {
             EventSystem.instance.OnSetState(PlayerMovementSate.grenade);
-            target = Instantiate(targetPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z),
+            target = Instantiate(targetPrefab, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
                 transform.rotation);
         }
     }
@@ -204,7 +203,7 @@ public class PlayerAttack : MonoBehaviour
     void ChangeWeapon()
     {
         
-        if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 3)
+        if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 1)
         {
             currentWeaponCounter++;
             if (currentWeaponCounter >= weapons.Count)

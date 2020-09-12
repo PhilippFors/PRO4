@@ -30,7 +30,7 @@ public class AttackStateMachine : MonoBehaviour
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
     PlayableGraph playableGraph;
-    public Animator child => GetComponent<Animator>(); //animator of the character model
+    public Animator animator => GetComponent<Animator>(); //animator of the character model
 
     private void Awake()
     {
@@ -62,7 +62,7 @@ public class AttackStateMachine : MonoBehaviour
     private void Attack(int stateID)
     {
         // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
-        if (_stateMachine.currentState == PlayerMovementSate.standard && (currentState.canAttack || currentAttack == baseAttack))
+        if (_stateMachine.currentState == PlayerMovementSate.standard || _stateMachine.currentState == PlayerMovementSate.comboWait && (currentState.canAttack || currentAttack != null))
         {
             stateCounter = 0; //sets the counter back to zero because a new attack begins
             currentAttack =
@@ -82,7 +82,7 @@ public class AttackStateMachine : MonoBehaviour
 
     private void SetState(AttackState state)
     {
-       
+
         //sets currentstate and resets animation timer
         currentState = state;
         animTimer = 0;
@@ -92,7 +92,7 @@ public class AttackStateMachine : MonoBehaviour
         animCon.AttackDisconnecter();
         animCon.AttackAnimation(currentState.clip, currentState.clip);
         EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
-        
+
     }
 
 
@@ -108,7 +108,7 @@ public class AttackStateMachine : MonoBehaviour
             {
                 animCon.AttackDisconnecter();
                 animCon.MoveStarter();
-               
+
                 SetBase();
                 //maxRot = 0;
             }
@@ -117,18 +117,26 @@ public class AttackStateMachine : MonoBehaviour
                 stateCounter++;
                 SetState(currentAttack.stateList[stateCounter]);
                 playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
-                
+
             }
         }
     }
 
-    public void SetBase()
+    public void SetBase(AttackSO state = null)
     {
         playerAttack.comboCounter = 0;
-                
-        currentAttack = playerAttack.currentWeapon.baseAttack;
+
+        if (state != null)
+        {
+            currentAttack = state;
+        }
+        else
+        {
+            currentAttack = playerAttack.currentWeapon.baseAttack;
+            EventSystem.instance.OnSetState(PlayerMovementSate.standard);
+        }
         currentState = baseState;
-        EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
+        //sets movementState to the movementstate of the currentstate
         stateCounter = 0;
     }
 }

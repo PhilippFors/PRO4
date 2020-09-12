@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Timeline;
 
-[CreateAssetMenu(fileName = "States", menuName = "AttacksState", order = 0)]
+[CreateAssetMenu(fileName = "AnimClip", menuName = "Animation/Att anim Clip", order = 0)]
 public class AttackState : ScriptableObject
 {
     public TimelineAsset anim;
