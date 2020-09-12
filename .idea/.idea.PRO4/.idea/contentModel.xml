@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_PRO4.-1010712004.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Alex\Desktop\FHHagenberg\Pro4" t="IncludeRecursive">
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Alex\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_PRO4.2145416697.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Alex\Desktop\FH-Hagenberg\4.Semester\Pro4" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -103,6 +103,8 @@
                 <e p="ShentauActions.cs" t="Include" />
                 <e p="STScripts" t="Include">
                   <e p="Actions" t="Include">
+                    <e p="Shentau_Approach.cs" t="Include" />
+                    <e p="Shentau_RunAway.cs" t="Include" />
                     <e p="ShentauAtt.cs" t="Include" />
                     <e p="ShentauChargeAtt.cs" t="Include" />
                     <e p="ShentauIdle.cs" t="Include" />
@@ -157,6 +159,7 @@
             </e>
             <e p="StatScripts" t="Include">
               <e p="EnemyBody.cs" t="Include" />
+              <e p="EnemyEnum.cs" t="Include" />
               <e p="ObstacleBody.cs" t="Include" />
               <e p="PlayerBody.cs" t="Include" />
             </e>
@@ -227,7 +230,6 @@
             </e>
             <e p="MultiplierSystem" t="Include">
               <e p="MultiplierManager.cs" t="Include" />
-              <e p="Symbol.cs" t="Include" />
             </e>
             <e p="ParticleController.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
@@ -256,9 +258,18 @@
               <e p="StoryScripting.cs" t="Include" />
               <e p="StorySection.cs" t="Include" />
             </e>
+            <e p="Symbol" t="Include">
+              <e p="Symbol.cs" t="Include" />
+            </e>
           </e>
           <e p="UI" t="Include">
+            <e p="TutorialTemplate.cs" t="Include" />
             <e p="UIManager.cs" t="Include" />
+          </e>
+        </e>
+        <e p="05_Materials" t="Include">
+          <e p="EnergyFieldMats" t="Include">
+            <e p="NavMeshSourceTag.cs" t="Include" />
           </e>
         </e>
         <e p="08_NavMeshComponents" t="Include">
@@ -345,6 +356,7 @@
                 <e p="FMODRuntimeManagerOnGUIHelper.cs" t="Include" />
                 <e p="ParamRef.cs" t="Include" />
                 <e p="ParamRefAttribute.cs" t="Include" />
+                <e p="PlayNextMusicPart.cs" t="Include" />
                 <e p="RuntimeManager.cs" t="Include" />
                 <e p="RuntimeUtils.cs" t="Include" />
                 <e p="Settings.cs" t="Include" />
@@ -391,6 +403,15 @@
           </e>
         </e>
         <e p="RotateCam.cs" t="Include" />
+        <e p="Samples" t="Include">
+          <e p="Terrain Tools" t="Include">
+            <e p="0.1.0-preview" t="Include">
+              <e p="Terrain Assets" t="Include">
+                <e p="ThirdPartyNotices.txt" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
         <e p="SetSpeed.cs" t="Include" />
         <e p="Unparenter.cs" t="Include" />
       </e>

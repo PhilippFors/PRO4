@@ -90,7 +90,7 @@ public class AttackStateMachine : MonoBehaviour
         //plays the animation of the currentstate
         //AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
         animCon.AttackDisconnecter();
-        animCon.AttackAnimation(currentState.clip);
+        animCon.AttackAnimation(currentState.clip, currentState.clip);
         EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
         
     }
