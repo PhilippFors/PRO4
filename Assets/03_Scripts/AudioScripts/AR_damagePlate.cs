@@ -138,8 +138,9 @@ public class AR_damagePlate : MusicAnalyzer
         {
             if (!m_IntervalInvert)
             {
-                m_intervalCounter = m_interval - m_startInterval;
-                m_IntervalInvert = true;
+               //  m_intervalCounter = m_interval - m_startInterval;
+                //m_intervalCounter = -1;
+               // m_IntervalInvert = true;
             }
         } 
     }
@@ -150,8 +151,8 @@ public class AR_damagePlate : MusicAnalyzer
         {
             if (m_IntervalInvert)
             {
-                m_intervalCounter = m_interval + m_startInterval;
-                m_IntervalInvert = false;
+               // m_intervalCounter = m_interval + m_startInterval;
+               // m_IntervalInvert = false;
             }
         }
     }

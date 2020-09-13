@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Packages.Rider.Editor.UnitTesting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,10 @@ public abstract class MusicAnalyzer : AR_ColorMaster
     public float m_actionInDuration = 0.25f;
     public float m_actionOutDuration = 0.25f;
 
-   
+
+    bool test = false;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +42,36 @@ public abstract class MusicAnalyzer : AR_ColorMaster
 
     protected void increaseIntervalCounter()
     {
+        
         if (m_intervalBeat)
         {
-            m_intervalCounter++;
+            if (!colorErrorActive)
+            {
+                if (!test)
+                {
+                    test = true;
+                }
+                else
+                {
+                    m_intervalCounter++;
+                }
+               
+                
+            }
+            else
+            {
+                if (test)
+                {
+                    test = false;
+                }
+                else
+                {
+                    m_intervalCounter--;
+                }
+              
+            }
+
+            
            // m_overallIntervalCounter++;
         }
 

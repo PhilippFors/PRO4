@@ -7,7 +7,7 @@ public class MusicManager : MonoBehaviour
 {
 
     private bool m_kickActive = true;
-    private bool m_snareActive = true;
+    private bool m_snareActive = false;
     private bool m_highHatActive = true;
 
     public FMODUnity.StudioEventEmitter _emitter;
@@ -48,8 +48,13 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
+                            
+                            if (!m_snareActive)
+                            {
+                                EventSystem.instance.OnSnare();
+                            }
+                            snareLock();
 
-                            EventSystem.instance.OnSnare();
                         }                   
                         break;
 
@@ -118,6 +123,23 @@ public class MusicManager : MonoBehaviour
         {
             m_kickActive = true;
         }
+    }
+
+    public void snareLock()
+    {
+        StartCoroutine("lockSnare");
+    }
+
+    IEnumerator lockSnare()
+    {
+        
+            m_snareActive = true;
+            Debug.Log("SNARELOCK ENABLED");
+            yield return new WaitForSeconds(.1f);
+            Debug.Log("SNARELOCK DISABELD");
+            m_snareActive = false;
+        
+      
     }
 
 }
