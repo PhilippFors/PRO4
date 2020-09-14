@@ -39,7 +39,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     private float[] _freqBand8 = new float[8];
     private float[] _bandBuffer8 = new float[8];
     private float[] _bufferDecrease = new float[8];
-    private float[] _freqBandHighest8 = new float[8];
+    public float[] _freqBandHighest8 = new float[8];
 
     //variables for the 32band audio spectrum
     //this is used for the UI Spectrum
