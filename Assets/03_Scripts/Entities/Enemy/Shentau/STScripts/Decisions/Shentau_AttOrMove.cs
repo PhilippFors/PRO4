@@ -7,7 +7,9 @@ public class Shentau_AttOrMove : Decision
 {
     public override bool Execute(StateMachineController controller)
     {
-        return true;
+        if (controller.actions.GetAttackCountdown() > 0)
+            return true;
+        return false;
     }
 
 }

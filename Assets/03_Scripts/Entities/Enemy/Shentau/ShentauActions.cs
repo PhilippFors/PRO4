@@ -7,6 +7,8 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
     public float countdown;
     bool canAttack = false;
     public Animator animator;
+    public GameObject bullet;
+    public Transform bulletPoint;
     private void Start()
     {
         StartCoroutine(Recharge());
@@ -14,10 +16,11 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
     public void Attack(StateMachineController s, int i = -1, bool combo = false)
     {
         canAttack = false;
-
+        
         Debug.Log("Shentau ATTACK");
-        animator.SetTrigger("attack");
-
+        Bullet b = Instantiate(bullet, bulletPoint.position, bulletPoint.rotation).GetComponent<Bullet>();
+        b.InitBUllet(bulletPoint.forward, 17f, s.enemyStats.GetStatValue(StatName.BaseDmg));
+        countdown = s.enemyStats.GetStatValue(StatName.AttackRate);
         StartCoroutine(Recharge(s));
     }
 
@@ -59,9 +62,7 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
     IEnumerator Recharge(StateMachineController s = null)
     {
         yield return null;
-        if (s != null)
-            countdown = s.enemyStats.GetStatValue(StatName.AttackRate);
-        else
+        if(s == null)
             countdown = 6f;
 
         while (countdown >= 0)
