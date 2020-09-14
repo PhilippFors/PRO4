@@ -12,7 +12,7 @@ public abstract class StorySection : ScriptableObject
 
     public abstract void ProgressStory();
 
-    public abstract void CheckStoryUpdate();
+    public abstract void StorySecUpdate();
 
     public virtual void StoryEnter(StoryScripting script)
     {

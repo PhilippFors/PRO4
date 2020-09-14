@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public enum BaseScenes
 {
     undefined,
-    baseScene,
-    startMenu,
+    Base,
+    StartMenu,
     credits,
     UIScene,
     settings
@@ -17,7 +17,7 @@ public class SceneLoader : MonoBehaviour
 
     [Header("Main Scenes")]
     public Scene baseScene;
-    public Scene startMenu;
+    public Scene StartMenu;
     public Scene credits;
     public Scene UIScene;
     public Scene settings;
@@ -33,50 +33,71 @@ public class SceneLoader : MonoBehaviour
 
         switch (scene)
         {
-            case BaseScenes.baseScene:
-                SceneManager.LoadSceneAsync(baseScene.name, LoadSceneMode.Single);
+            case BaseScenes.Base:
+                SceneManager.LoadSceneAsync(BaseScenes.Base.ToString(), LoadSceneMode.Additive);
                 break;
-            case BaseScenes.startMenu:
-                SceneManager.LoadSceneAsync(startMenu.name, LoadSceneMode.Single);
+            case BaseScenes.StartMenu:
+                SceneManager.LoadSceneAsync(StartMenu.name, LoadSceneMode.Single);
                 break;
             case BaseScenes.credits:
-                SceneManager.LoadSceneAsync(startMenu.name, LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync(credits.name, LoadSceneMode.Single);
                 break;
-            case BaseScenes.UIScene:
-                SceneManager.LoadSceneAsync(startMenu.name, LoadSceneMode.Additive);
-                break;
-            case BaseScenes.settings:
-                SceneManager.LoadSceneAsync(startMenu.name, LoadSceneMode.Single);
-                break;
+                // case BaseScenes.settings:
+                //     SceneManager.LoadSceneAsync(startMenu.name, LoadSceneMode.Single);
+                //     break;
         }
     }
+    private void Start()
+    {
 
+    }
     public void LoadFirstLevel()
     {
-        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel].name));
+        StartCoroutine(LevelTransition(levelList[0]));
     }
     public void LoadNextLevel()
     {
-        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel + 1].name, levelList[levelManager.currentLevel].name));
+        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel + 1], levelList[levelManager.currentLevel].name));
     }
 
     public void LoadPreviousLevel()
     {
-        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel - 1].name, levelList[levelManager.currentLevel].name));
+        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel - 1], levelList[levelManager.currentLevel].name));
     }
-
-    public void LoadLoadSpecificLevel(int i)
+    public void UnloadScene(BaseScenes scene)
     {
-        StartCoroutine(LevelTransition(levelList[i].name, levelList[levelManager.currentLevel].name));
+        SceneManager.UnloadSceneAsync(scene.ToString());
+    }
+    public void LoadSpecificLevel(int i)
+    {
+        StartCoroutine(LevelTransition(levelList[i], levelList[levelManager.currentLevel].name));
     }
 
-    public IEnumerator LevelTransition(string newScene, string oldScene = "")
+    public void LoadScene(string newScene, string oldScene)
+    {
+        StartCoroutine(LevelTransition(SceneManager.GetSceneByName(newScene), oldScene));
+    }
+    public IEnumerator LevelTransition(Scene newScene, string oldScene = "")
     {
         //Level End Fade to Black
         yield return new WaitForSeconds(1f);
+        AsyncOperation load = SceneManager.LoadSceneAsync(3, LoadSceneMode.Additive);
+        AsyncOperation unload;
+        yield return load;
+
+        if (!SceneManager.GetSceneByName("Base").isLoaded)
+        {
+            load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
+            yield return load;
+        }
+
         if (oldScene != "")
-            SceneManager.UnloadSceneAsync(oldScene);
-        SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
+        {
+            unload = SceneManager.UnloadSceneAsync(oldScene);
+            yield return unload;
+        }
+
+
         yield return new WaitForSeconds(1f);
         //Level start fade from black
     }

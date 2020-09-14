@@ -75,13 +75,20 @@ public class SpawnpointID : MonoBehaviour
 
             sp.AddEnemyToList(enemy);
 
-            if (!scriptedSpawn)
+            if (scriptedSpawn)
+            {
+                StoryEventSystem.instance.ShowPrompt();
+            }
+            else
+            {
                 StartCoroutine(WaitForAnimation(enemy));
+            }
+
 
             if (i + 1 < queue.Count)
                 yield return new WaitForSeconds(sp.SpawnWaitTime);
         }
-        
+
         queue.Clear();
         sp.count = true;
         isSpawning = false;

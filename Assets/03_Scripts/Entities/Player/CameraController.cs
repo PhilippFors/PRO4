@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     {
         playercontrols = player.gameObject.GetComponent<PlayerStateMachine>();
         s = player.position;
+        transform.position = player.position;
     }
     private void Update()
     {

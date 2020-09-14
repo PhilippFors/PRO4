@@ -5,12 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //GameManager for starting games and managing game over states
-    public bool isNewGame;
+    public bool isNewGame = true;
     [SerializeField] private PlayerBody player;
     public static GameManager instance;
-
+    public SceneLoader sceneLoader;
     private void Awake() {
         instance = this;
+    }
+
+    private void Start() {
+        StartGame();
     }
     public void StartGame()
     {

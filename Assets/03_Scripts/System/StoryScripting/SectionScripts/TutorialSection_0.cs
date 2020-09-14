@@ -5,10 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New TutorialSection", menuName = "StoryScript/TutorialSection_0")]
 public class TutorialSection_0 : StorySection
 {
-    public override void CheckStoryUpdate()
+    public override void StorySecUpdate()
     {
         if (storyScript.playerMovement.input.Gameplay.Interact.triggered)
             ProgressStory();
+    }
+    public void ShowTutScreen()
+    {
+
     }
 
     public override void ProgressStory()
@@ -22,9 +26,15 @@ public class TutorialSection_0 : StorySection
 
     public override void StoryEnter(StoryScripting script)
     {
-        storyScript = script;
-        StoryEventSystem.instance.progress += ProgressStory;
+        base.StoryEnter(script);
+        StoryEventSystem.instance.showPrompt += ShowTutScreen;
         storyScript.spawnManager.scriptedSpawn = true;
+    }
+
+    public override void StoryExit()
+    {
+        base.StoryExit();
+        StoryEventSystem.instance.showPrompt -= ShowTutScreen;
     }
 
 }

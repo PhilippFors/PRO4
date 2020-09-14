@@ -21,7 +21,7 @@ public class StoryScripting : MonoBehaviour
     private void Update()
     {
         if (currentStory != null)
-            currentStory.CheckStoryUpdate();
+            currentStory.StorySecUpdate();
     }
     public void SwitchStorySection()
     {
