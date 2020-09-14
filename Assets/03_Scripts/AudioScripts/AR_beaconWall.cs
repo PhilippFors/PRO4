@@ -31,7 +31,7 @@ public class AR_beaconWall : MusicAnalyzer
        // _beaconEmissiveColor = _material.GetColor("EmissionRedColor");
 
         _energyWall = this.gameObject.transform.GetChild(0).gameObject;
-        //_energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
+        _energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
         //_energyWallColor = _energyWallMaterial.GetColor("EmissionRedColor");
 
         defaultLength = _energyWall.transform.localScale.y;
@@ -50,11 +50,56 @@ public class AR_beaconWall : MusicAnalyzer
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() { 
+    
+        if (colorErrorActive)
+        {
 
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
 
+            _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            /*
+            if (!m_holdHelper) {
+                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
+            }
+            */
 
+        }
+        else
+        {
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+
+            _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            
+            /*
+            if (!m_holdHelper)
+            {
+                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
+            }
+            */
+        }
     }
 
     protected override void objectAction()
