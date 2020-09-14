@@ -8,7 +8,7 @@ public class StoryScripting : MonoBehaviour
     public SpawnManager spawnManager;
     public AIManager aiManager;
     public PlayerStateMachine playerMovement;
-
+    public UIManager uiManager;
     public int currentStoryID;
     public StorySection currentStory;
     [SerializeField] StorySection[] storyList;
@@ -75,4 +75,8 @@ public class StoryScripting : MonoBehaviour
         return currentStoryID + 1 < storyList.Length;
     }
 
+    //For Continue Buttons
+    public void Progress(){
+        currentStory.ProgressStory();
+    }
 }

@@ -77,7 +77,8 @@ public class SpawnpointID : MonoBehaviour
 
             if (scriptedSpawn)
             {
-                StoryEventSystem.instance.ShowPrompt();
+                StartCoroutine(WaitForAnimation(enemy, true));
+
             }
             else
             {
@@ -99,12 +100,15 @@ public class SpawnpointID : MonoBehaviour
         return Instantiate(obj, transform.position, transform.localRotation).gameObject.GetComponentInChildren<EnemyBody>();
     }
 
-    IEnumerator WaitForAnimation(EnemyBody enemy)
+    IEnumerator WaitForAnimation(EnemyBody enemy, bool scripted = false)
     {
         while (enemy.gameObject.GetComponent<Animation>().isPlaying)
         {
             yield return null;
         }
-        EventSystem.instance.ActivateAI(enemy);
+        if (!scripted)
+            EventSystem.instance.ActivateAI(enemy);
+        else
+            StoryEventSystem.instance.ShowPrompt();
     }
 }

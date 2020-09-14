@@ -16,7 +16,7 @@ public enum AnimatorStrings
 
 public interface IEnemyActions
 {
-
+    void Init();
     void Attack(StateMachineController s, int i = -1, bool combo = false);
     void CancelAttack(StateMachineController s);
     void StopAttack(StateMachineController s);

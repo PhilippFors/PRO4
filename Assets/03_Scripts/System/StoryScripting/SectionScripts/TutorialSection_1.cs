@@ -1,31 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "New TutorialSection", menuName = "StoryScript/TutorialSection_0")]
-public class TutorialSection_0 : StorySection
+using System;
+public class TutorialSection_1 : StorySection
 {
     public string tutDescription;
-    public override void StorySecUpdate()
-    {
-        if (storyScript.playerMovement.input.Gameplay.Interact.triggered)
-            ProgressStory();
-    }
-    public void ShowTutScreen()
-    {
-        storyScript.uiManager.ShowPrompt(tutDescription);
-        storyScript.playerMovement.input.Gameplay.Disable();
-    }
-
     public override void ProgressStory()
-    {
+    {   
         storyScript.uiManager.DisablePrompt();
-        storyScript.playerMovement.input.Gameplay.Enable();
         foreach (EnemyBody e in storyScript.spawnManager.enemyCollection.entityList)
             EventSystem.instance.ActivateAI(e);
 
         storyScript.spawnManager.scriptedSpawn = false;
         storyScript.SwitchStorySection();
+    }
+
+    public override void StorySecUpdate()
+    {
+
+    }
+
+    public void ShowTutScreen()
+    {
+        storyScript.uiManager.ShowPrompt(tutDescription);
     }
 
     public override void StoryEnter(StoryScripting script)
@@ -40,5 +37,4 @@ public class TutorialSection_0 : StorySection
         base.StoryExit();
         StoryEventSystem.instance.showPrompt -= ShowTutScreen;
     }
-
 }

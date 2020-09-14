@@ -5,18 +5,18 @@ using UnityEngine;
 public class ShentauActions : MonoBehaviour, IEnemyActions
 {
     public float countdown;
-    bool canAttack = false;
+    public bool canAttack = false;
     public Animator animator;
     public GameObject bullet;
     public Transform bulletPoint;
-    private void Start()
+    public void Init()
     {
         StartCoroutine(Recharge());
     }
     public void Attack(StateMachineController s, int i = -1, bool combo = false)
     {
         canAttack = false;
-        
+
         Debug.Log("Shentau ATTACK");
         Bullet b = Instantiate(bullet, bulletPoint.position, bulletPoint.rotation).GetComponent<Bullet>();
         b.InitBUllet(bulletPoint.forward, 17f, s.enemyStats.GetStatValue(StatName.BaseDmg));
@@ -61,8 +61,7 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
 
     IEnumerator Recharge(StateMachineController s = null)
     {
-        yield return null;
-        if(s == null)
+        if (s == null)
             countdown = 6f;
 
         while (countdown >= 0)
@@ -70,7 +69,7 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
             yield return new WaitForSeconds(0.1f);
             countdown -= 0.1f;
         }
-
+        countdown = 0;
         canAttack = true;
     }
 

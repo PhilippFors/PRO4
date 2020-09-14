@@ -6,9 +6,7 @@ public class StoryEventSystem : MonoBehaviour
 {
     public event System.Action progress;
     public event System.Action nextStory;
-
     public event System.Action showPrompt;
-
     public static StoryEventSystem instance;
 
 

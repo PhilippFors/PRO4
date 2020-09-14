@@ -20,12 +20,11 @@ public class AttackStateMachine : MonoBehaviour
 {
     public AttackSO currentAttack; //the current attack
     public AttackState currentState; //in which state (attack, wait or return) of the attack the statemachine currently is
-    [HideInInspector] public PlayerControls input;
     private float animTimer = 0; // a timer to check if animation has finished playing
     private int stateCounter = 0; // counts the current states of an attack
-    private static PlayerAttack playerAttack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
-    AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
-    PlayerStateMachine _stateMachine => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>();
+    private PlayerAttack playerAttack => GetComponent<PlayerAttack>();
+    AnimationController animCon => GetComponent<AnimationController>();
+    PlayerStateMachine _stateMachine => GetComponent<PlayerStateMachine>();
 
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
@@ -34,20 +33,15 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Awake()
     {
-        input = new PlayerControls();
+        _stateMachine.input = new PlayerControls();
 
-        input.Gameplay.LeftAttack.performed += ctx => Attack(0);
-        input.Gameplay.RightAttack.performed += ctx => Attack(1);
-    }
-
-    private void OnEnable()
-    {
-        input.Enable();
+        _stateMachine.input.Gameplay.LeftAttack.performed += ctx => Attack(0);
+        _stateMachine.input.Gameplay.RightAttack.performed += ctx => Attack(1);
     }
 
     private void OnDisable()
     {
-        input.Disable();
+        
         playableGraph.Destroy();
     }
 

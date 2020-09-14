@@ -13,7 +13,6 @@ public class ShentauAtt : Action
         RaycastHit hit;
         if (Physics.Raycast(controller.transform.position, controller.transform.forward, out hit, 8f, LayerMask.GetMask("Player")))
         {
-            if (controller.actions.CheckIsAttacking(controller))
                 controller.actions.Attack(controller);
         }
 

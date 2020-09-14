@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
+    public GameObject prompt;
+    public Text promptText;
+
     public void StartGame()
     {
         SceneManager.LoadScene("Prototype 2");
@@ -24,5 +27,15 @@ public class UIManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void ShowPrompt(string text)
+    {
+        promptText.text = text;
+        prompt.SetActive(true);
+    }
+
+    public void DisablePrompt(){
+        prompt.SetActive(false);
     }
 }
