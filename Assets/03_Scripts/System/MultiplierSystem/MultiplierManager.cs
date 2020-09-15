@@ -32,9 +32,16 @@ public class MultiplierManager : MonoBehaviour
         {
             if (enemy.symbolInfo.name.Equals(skill.symbol.name))
                 if (skill.symbol.enhance)
+                {
                     enemy.AddMultiplier(skill.symbol.main, skill.increaseMultValue, skill.timer);
+                    enemy.BuffAnim();
+                }
                 else
+                {
                     enemy.AddMultiplier(skill.symbol.main, skill.decreaseMultValue, skill.timer);
+                    enemy.DebuffAnim();
+                }
+
         }
     }
 

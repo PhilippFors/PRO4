@@ -110,6 +110,6 @@ public class AvikActions : MonoBehaviour, IEnemyActions
 
     public void Init()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
