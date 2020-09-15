@@ -6,9 +6,9 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
 
-    private bool m_kickActive = true;
+    private bool m_kickActive = false;
     private bool m_snareActive = false;
-    private bool m_highHatActive = true;
+    private bool m_highHatActive = false;
 
     public FMODUnity.StudioEventEmitter _emitter;
 
@@ -53,7 +53,7 @@ public class MusicManager : MonoBehaviour
                             {
                                 EventSystem.instance.OnSnare();
                             }
-                            snareLock();
+                            lockInstrument("lockSnare");
 
                         }                   
                         break;
@@ -66,9 +66,10 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            if (m_kickActive) { 
-                            EventSystem.instance.OnKick();
+                            if (!m_kickActive) { 
+                                EventSystem.instance.OnKick();
                             }
+                            lockInstrument("lockKick");
                         }
                         break;
                     case 'H':
@@ -79,9 +80,10 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            if (m_highHatActive) { 
+                            if (!m_highHatActive) { 
                                 EventSystem.instance.OnHighHat();
                             }
+                            lockInstrument("lockHighHat");
                         }
                         break;
                     case 'R':
@@ -125,21 +127,39 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void snareLock()
+    public void lockInstrument(String instrumentName)
     {
-        StartCoroutine("lockSnare");
+        StartCoroutine(instrumentName);
     }
 
     IEnumerator lockSnare()
     {
         
-            m_snareActive = true;
-            Debug.Log("SNARELOCK ENABLED");
-            yield return new WaitForSeconds(.1f);
-            Debug.Log("SNARELOCK DISABELD");
-            m_snareActive = false;
-        
-      
+        m_snareActive = true;
+        //Debug.Log("SNARELOCK ENABLED");
+        yield return new WaitForSeconds(.1f);
+        //Debug.Log("SNARELOCK DISABELD");
+        m_snareActive = false;
+    }
+
+    IEnumerator lockKick()
+    {
+
+        m_kickActive = true;
+        //Debug.Log("SNARELOCK ENABLED");
+        yield return new WaitForSeconds(.1f);
+        //Debug.Log("SNARELOCK DISABELD");
+        m_kickActive = false;
+    }
+
+    IEnumerator lockHighHat()
+    {
+
+        m_highHatActive = true;
+        //Debug.Log("SNARELOCK ENABLED");
+        yield return new WaitForSeconds(.1f);
+        //Debug.Log("SNARELOCK DISABELD");
+        m_highHatActive = false;
     }
 
 }
