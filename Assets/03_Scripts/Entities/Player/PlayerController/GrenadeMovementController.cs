@@ -74,7 +74,7 @@ public class GrenadeMovementController
             controller.mouseused = true;
             target = controller.playerAttack.target;
             Vector3 temp = MousePosition(controller);
-            target.transform.position = new Vector3(temp.x, 1, temp.z);
+            target.transform.position = new Vector3(temp.x, temp.y, temp.z);
         }
     }
 

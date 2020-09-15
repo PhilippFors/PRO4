@@ -27,4 +27,6 @@ public class DestructionInteraction : MonoBehaviour, IHasHealth
         health -= damage;
         CheckHealth();
     }
+
+    
 }

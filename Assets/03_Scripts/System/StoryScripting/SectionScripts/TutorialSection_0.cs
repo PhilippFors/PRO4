@@ -5,26 +5,40 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New TutorialSection", menuName = "StoryScript/TutorialSection_0")]
 public class TutorialSection_0 : StorySection
 {
-    public override void CheckStoryUpdate()
+    public string tutDescription;
+    public override void StorySecUpdate()
     {
-        if (storyScript.playerMovement.input.Gameplay.Interact.triggered)
-            ProgressStory();
+
+    }
+    
+    public void ShowTutScreen()
+    {
+        st.uiManager.ShowPrompt(tutDescription);
+        st.playerMovement.input.Gameplay.Disable();
     }
 
     public override void ProgressStory()
     {
-        foreach (EnemyBody e in storyScript.spawnManager.enemyCollection.entityList)
+        st.uiManager.DisablePrompt();
+        st.playerMovement.input.Gameplay.Enable();
+        foreach (EnemyBody e in st.spawnManager.enemyCollection.entityList)
             EventSystem.instance.ActivateAI(e);
 
-        storyScript.spawnManager.scriptedSpawn = false;
-        storyScript.SwitchStorySection();
+        st.spawnManager.scriptedSpawn = false;
+        st.SwitchStorySection();
     }
 
     public override void StoryEnter(StoryScripting script)
     {
-        storyScript = script;
-        StoryEventSystem.instance.progress += ProgressStory;
-        storyScript.spawnManager.scriptedSpawn = true;
+        base.StoryEnter(script);
+        StoryEventSystem.instance.showPrompt += ShowTutScreen;
+        st.spawnManager.scriptedSpawn = true;
+    }
+
+    public override void StoryExit()
+    {
+        base.StoryExit();
+        StoryEventSystem.instance.showPrompt -= ShowTutScreen;
     }
 
 }

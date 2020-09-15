@@ -5,23 +5,26 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //GameManager for starting games and managing game over states
-    public bool isNewGame;
-    [SerializeField] private PlayerBody player;
-    public static GameManager instance;
+    public int currentLevel = 0;
+    public bool isNewGame = true;
+    public bool editing = true;
 
-    private void Awake() {
+    public static GameManager instance;
+    public SceneLoader sceneLoader;
+
+    private void Awake()
+    {
         instance = this;
     }
+    private void Start()
+    {
+        if (!editing)
+            sceneLoader.LoadMainScenes(BaseScenes.StartMenu);
+    }
+
     public void StartGame()
     {
-        if (isNewGame)
-        {
-            player.InitStats(player.template);
-        }
-        else
-        {
-            SaveManager.instance.LoadPlayer();
-        }
+        sceneLoader.LoadScene(sceneLoader.levelList[GameManager.instance.currentLevel].handle, (int)BaseScenes.StartMenu);
     }
 
     public void GameOver()

@@ -6,7 +6,7 @@ public class SpawnpointEditor : EditorWindow
 {
     bool choosen = true;
     float maxWidth = 400f;
-    List<Level> list = new List<Level>();
+    List<LevelData> list = new List<LevelData>();
     string[] path;
     List<bool> areaBools = new List<bool>();
     List<bool> waveBools = new List<bool>();

@@ -92,7 +92,7 @@ public class SpawnManager : MonoBehaviour
         return false;
     }
 
-    public void StartSpawn(List<Wave> waves, int waveIndex)
+    public void StartSpawn(List<WaveData> waves, int waveIndex)
     {
         if (waveIndex == 0)
             StartCoroutine(SpawnDelay(waves));
@@ -100,7 +100,7 @@ public class SpawnManager : MonoBehaviour
             StartCoroutine(SpawnDelay(waves, spawnDelay));
     }
 
-    IEnumerator SpawnDelay(List<Wave> waves, float wait = 0.5f)
+    IEnumerator SpawnDelay(List<WaveData> waves, float wait = 0.5f)
     {
         yield return new WaitForSeconds(wait);
 
@@ -128,11 +128,11 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    void SpawnEnemy(Wave w)
+    void SpawnEnemy(WaveData w)
     {
         for (int i = 0; i < w.spawnPoints.Length; i++)
         {
-            foreach (SpawnpointID spawnPointID in spawnpointlist.list)
+            foreach (SpawnPointWorker spawnPointID in spawnpointlist.list)
             {
                 if (spawnPointID.UniqueID == w.spawnPoints[i].UniqueID & spawnPointID.AreaID == levelManager.currentObjective.AreaID & spawnPointID.LevelID == levelManager.currentLevel)
                 {

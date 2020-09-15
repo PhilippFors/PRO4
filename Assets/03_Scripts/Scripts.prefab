@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 1475403605}
   - component: {fileID: 1278936676}
   m_Layer: 0
-  m_Name: GameSettings
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +148,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isNewGame: 1
   player: {fileID: 0}
+  sceneLoader: {fileID: 5168005283146593409}
+--- !u!1 &643343222577582799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7541492237674165922}
+  - component: {fileID: 3066025154036791318}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7541492237674165922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643343222577582799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 537976613570928071}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3066025154036791318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643343222577582799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445fe2b83d8b2154381d37e01855ec57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prompt: {fileID: 0}
+  promptText: {fileID: 0}
 --- !u!1 &2587438256095077187
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +230,7 @@ Transform:
   - {fileID: 1475403605}
   - {fileID: 3255961212665939368}
   - {fileID: 2584895390072853792}
+  - {fileID: 7541492237674165922}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -469,6 +516,7 @@ MonoBehaviour:
   spawnManager: {fileID: 3016386617689796680}
   aiManager: {fileID: 1097293485}
   playerMovement: {fileID: 0}
+  uiManager: {fileID: 0}
   currentStoryID: 0
   currentStory: {fileID: 0}
   storyList:
@@ -519,7 +567,7 @@ MonoBehaviour:
   levelManager: {fileID: 4556130863239267361}
   baseScene:
     m_Handle: 2
-  startMenu:
+  StartMenu:
     m_Handle: 0
   credits:
     m_Handle: 0

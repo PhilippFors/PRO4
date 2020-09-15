@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New DefeatEnemyObjective", menuName = "Objectives/DefeatEnemyObjective")]
 public class DefeatEnemyObjective : Objective
 {
-    public Wave[] waves;
+    public WaveData[] waves;
     public int currentWave = 0;
     public bool lastWaveDefeated = false;
 
@@ -26,7 +26,7 @@ public class DefeatEnemyObjective : Objective
             return;
         }
 
-        List<Wave> wavesToSpawn = new List<Wave>();
+        List<WaveData> wavesToSpawn = new List<WaveData>();
 
         int i = currentWave;
         if (!waves[currentWave].SpawnNextWaveInstantly)
@@ -60,15 +60,10 @@ public class DefeatEnemyObjective : Objective
 
     public override void ObjEnter(LevelManager manager)
     {
+        base.ObjEnter(manager);
         currentWave = 0;
         NewWave(manager);
         SpawnManager.instance.StartEnemyCount();
-
-    }
-
-    public override void ObjExit(LevelManager manager)
-    {
-        Debug.Log("Objective Exit");
     }
 
     public override void CheckGoal(LevelManager manager)

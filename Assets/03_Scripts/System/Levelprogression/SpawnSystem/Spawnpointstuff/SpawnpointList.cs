@@ -14,9 +14,9 @@ public class SpawnpointList : MonoBehaviour
 
     public void FindSpawnpoints()
     {
-        spawnlist.list = new List<SpawnpointID>();
-        SpawnpointID[] l = FindObjectsOfType<SpawnpointID>();
-        foreach (SpawnpointID sp in l)
+        spawnlist.list = new List<SpawnPointWorker>();
+        SpawnPointWorker[] l = FindObjectsOfType<SpawnPointWorker>();
+        foreach (SpawnPointWorker sp in l)
             spawnlist.list.Add(sp);
     }
 

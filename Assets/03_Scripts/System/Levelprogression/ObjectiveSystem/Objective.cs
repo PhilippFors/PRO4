@@ -21,10 +21,11 @@ public abstract class Objective : ScriptableObject
     }
     public abstract void ExecuteObjective(LevelManager manager);
     public abstract void CheckGoal(LevelManager manager);
-    public abstract void ObjExit(LevelManager manager);
-    public abstract void ObjEnter(LevelManager manager);
+    public virtual void ObjExit(LevelManager manager)
+    {
 
-    public void AutoEnter(LevelManager manager)
+    }
+    public virtual void ObjEnter(LevelManager manager)
     {
         if (hasStory)
             StoryEventSystem.instance.NextStory();

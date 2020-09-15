@@ -8,7 +8,7 @@ using UnityScript.Lang;
 
 public class PlayerAttack : MonoBehaviour
 {
-    PlayerControls input;
+    PlayerStateMachine playerMovement => GetComponent<PlayerStateMachine>();
 
     [SerializeField] public List<Weapons> weapons = new List<Weapons>(2);
     public Weapons currentWeapon;
@@ -39,29 +39,18 @@ public class PlayerAttack : MonoBehaviour
         .GetComponent<PlayerStateMachine>().currentState;
 
 
-    private void OnEnable()
-    {
-        input.Gameplay.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Gameplay.Disable();
-
-    }
-
     private void Awake()
     {
-        input = new PlayerControls();
+        playerMovement.input = new PlayerControls();
         
         //input.Gameplay.LeftAttack.performed += rt => Attack(0);
         //input.Gameplay.RightAttack.performed += rt => Attack(1);
-        input.Gameplay.GrenadeThrow.performed += rt => AimMove();
-        input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
-        input.Gameplay.Skill1.performed += rt => Skill(0);
-        input.Gameplay.Skill2.performed += rt => Skill(1);
-        input.Gameplay.Skill3.performed += rt => Skill(2);
-        input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
+        playerMovement.input.Gameplay.GrenadeThrow.performed += rt => AimMove();
+        playerMovement.input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
+        playerMovement.input.Gameplay.Skill1.performed += rt => Skill(0);
+        playerMovement.input.Gameplay.Skill2.performed += rt => Skill(1);
+        playerMovement.input.Gameplay.Skill3.performed += rt => Skill(2);
+        playerMovement.input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
     }
 
     private void Reset()

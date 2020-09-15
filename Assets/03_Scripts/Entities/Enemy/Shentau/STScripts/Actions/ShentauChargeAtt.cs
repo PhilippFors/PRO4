@@ -54,9 +54,9 @@ public class ShentauChargeAtt : Action
             controller.agent.isStopped = false;
             Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
             Quaternion look = Quaternion.LookRotation(dir);
-            controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
+            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
             controller.agent.destination = GetMovePos(controller);
-            Vector3 moveTo = -controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
+            Vector3 moveTo = -dir.normalized * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
             controller.agent.Move(moveTo);
         }
     }

@@ -10,18 +10,21 @@ public class LevelManager : MonoBehaviour
     public Objective currentObjective;
     public AreaBarrierList barrierList;
     [HideInInspector] public float deltaTime;
-
-    [Header("Level Data")]
-    public Level[] levelData;
     Transform playerSpawnpoint;
     [SerializeField] private Transform player;
-    
+
+    [Header("Level Data")]
+    public LevelData[] levelData;
+
+
+
     private void Start()
     {
         LevelEventSystem.instance.areaEntry += StartArea;
         LevelEventSystem.instance.areaExit += FinishArea;
         LevelEventSystem.instance.levelExit += FinishLevel;
         LevelEventSystem.instance.levelEntry += StartLevel;
+        StartLevel();
     }
 
     private void OnDisable()
@@ -43,7 +46,6 @@ public class LevelManager : MonoBehaviour
     {
         currentObjective = GetNextObjective();
         currentObjective.started = true;
-        currentObjective.AutoEnter(this);
         currentObjective.ObjEnter(this);
     }
 
@@ -83,17 +85,19 @@ public class LevelManager : MonoBehaviour
 
     public void FindPlayerSpawnpoint()
     {
-        foreach (SpawnpointID s in SpawnManager.instance.spawnpointlist.list)
+        foreach (SpawnPointWorker s in SpawnManager.instance.spawnpointlist.list)
             if (s.playerSpawnpoint)
             {
                 playerSpawnpoint = s.transform;
             }
 
-        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawnpoint.GetComponent<SpawnpointID>());
+        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawnpoint.GetComponent<SpawnPointWorker>());
     }
 
     public void FinishLevel()
     {
+        GameManager.instance.currentLevel++;
+        GameManager.instance.sceneLoader.LoadNextLevel();
         //TODO: Start loading new level
         //TODO: Start level transition
         //TODO: Reset Area count

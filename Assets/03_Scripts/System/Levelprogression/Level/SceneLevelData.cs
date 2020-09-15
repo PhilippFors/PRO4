@@ -6,11 +6,11 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class SceneLevelData : MonoBehaviour
 {
-    public Level levelInfo;
+    public LevelData levelInfo;
     public void OnEnable()
     {
         if (levelInfo == null)
-            levelInfo = ScriptableObject.CreateInstance<Level>();
+            levelInfo = ScriptableObject.CreateInstance<LevelData>();
     }
 
     public void SaveAsset()
@@ -24,7 +24,7 @@ public class SceneLevelData : MonoBehaviour
     public void Reload()
     {
         if (levelInfo == null)
-            levelInfo = ScriptableObject.CreateInstance<Level>();
+            levelInfo = ScriptableObject.CreateInstance<LevelData>();
     }
 
 

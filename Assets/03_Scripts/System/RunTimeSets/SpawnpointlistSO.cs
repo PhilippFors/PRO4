@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New SpawnpointList", menuName = "SpawnpointList")]
 public class SpawnpointlistSO : ScriptableObject
 {
-    public List<SpawnpointID> list;
+    public List<SpawnPointWorker> list;
 }
