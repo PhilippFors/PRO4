@@ -95,10 +95,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95472404d674cec45b07d47ddd68b252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_onSnare: 0
   m_onKick: 0
-  m_onBass: 0
+  m_onHighHat: 0
+  m_onSkillActive: 0
   m_intervalBeat: 0
+  m_interval: 2
   m_intervalCounter: 0
+  m_startInterval: 0
+  m_actionInDuration: 0.25
+  m_actionOutDuration: 0.25
+  m_holdValue: 0
+  _color1: {r: 0, g: 0, b: 0, a: 0}
 --- !u!65 &205194148712020311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,8 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioBand1: 0
   _audioBand2: 7
-  _enableAudioBand1: 1
-  _enableAudioBand2: 0
+  _enableBlueFQChannel: 1
+  _enableRedFQChannel: 1
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!1 &8820651841315933450

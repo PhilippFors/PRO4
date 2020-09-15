@@ -15,6 +15,7 @@ namespace FMODUnity
     {
         public EmitterRef[] Emitters;
         public EmitterGameEvent TriggerEvent;
+        public bool disabled = false;
 
         void Awake()
         {
@@ -58,6 +59,13 @@ namespace FMODUnity
                     }
                 }
             }
+            DisableSelf();
+        }
+
+        public void DisableSelf()
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            disabled = true;
         }
     }
 }
