@@ -12,6 +12,8 @@ public class AR_damagePlate : MusicAnalyzer
     bool m_holdHelper = true;
     Sequence mySequence;
 
+    private bool m_plateActive;
+
     Color m_color;
     float H, S, V;
     float H1, S1, V1;
@@ -101,6 +103,7 @@ public class AR_damagePlate : MusicAnalyzer
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionInDuration))
                     .SetEase(Ease.Flash);
                     m_holdHelper = false ;
+                    gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
                 }
                 else
                 {
@@ -109,6 +112,7 @@ public class AR_damagePlate : MusicAnalyzer
                     mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionOutDuration))
                     .SetEase(Ease.Flash);
+                    gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
                 }
             }
             else
@@ -118,17 +122,28 @@ public class AR_damagePlate : MusicAnalyzer
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", m_actionInDuration))
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", m_actionOutDuration))
                     .SetEase(Ease.Flash);
+               
+                gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
+                gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
             }
     
         }
     }
 
 
-    public void PullTrigger(Collider c)
+    public void PullTrigger(Collider c, float dmg)
     {
+        bool hit = false;
         if (mySequence.IsActive())
         {
-            Debug.Log("Damage Plate hit");
+        Debug.Log("Damage Plate hit");
+        GameObject obj = c.gameObject;
+            if (!obj.GetComponent<EnemyBody>() & obj.GetComponent<IHasHealth>() != null)
+            {
+                EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(),dmg);
+                hit = true;
+            }
+
         }
     }
 

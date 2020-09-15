@@ -6,9 +6,13 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
 
-    private bool m_kickActive = false;
-    private bool m_snareActive = false;
-    private bool m_highHatActive = false;
+    private bool m_kickLock = false;
+    private bool m_snareLock = false;
+    private bool m_highHatLock = false;
+
+    private bool m_kickSkillLock = false;
+    private bool m_snareSkillLock = false;
+    private bool m_highHatSkillLock = false;
 
     public FMODUnity.StudioEventEmitter _emitter;
 
@@ -49,10 +53,11 @@ public class MusicManager : MonoBehaviour
                         else
                         {
                             
-                            if (!m_snareActive)
+                            if (!m_snareLock)
                             {
                                 EventSystem.instance.OnSnare();
                             }
+
                             lockInstrument("lockSnare");
 
                         }                   
@@ -66,7 +71,7 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            if (!m_kickActive) { 
+                            if (!m_kickLock && !m_kickSkillLock) { 
                                 EventSystem.instance.OnKick();
                             }
                             lockInstrument("lockKick");
@@ -80,7 +85,7 @@ public class MusicManager : MonoBehaviour
                         }
                         else
                         {
-                            if (!m_highHatActive) { 
+                            if (!m_highHatLock && !m_highHatSkillLock) { 
                                 EventSystem.instance.OnHighHat();
                             }
                             lockInstrument("lockHighHat");
@@ -107,11 +112,11 @@ public class MusicManager : MonoBehaviour
     {
         if (skill.name == "LowPass")
         {
-            m_highHatActive = false;
+            m_highHatSkillLock = true;
         }
         if (skill.name == "HighPass")
         {
-            m_kickActive = false;
+            m_kickSkillLock = true;
         }
     }
 
@@ -119,47 +124,48 @@ public class MusicManager : MonoBehaviour
     {
         if (skill.name == "LowPass")
         {
-            m_highHatActive = true;
+            m_highHatSkillLock = false;
+            Debug.Log(m_highHatSkillLock);
         }
         if (skill.name == "HighPass")
         {
-            m_kickActive = true;
+            m_kickSkillLock = false;
         }
     }
 
-    public void lockInstrument(String instrumentName)
+    public void lockInstrument(String lockName)
     {
-        StartCoroutine(instrumentName);
+        StartCoroutine(lockName);
     }
 
     IEnumerator lockSnare()
     {
         
-        m_snareActive = true;
+        m_snareLock = true;
         //Debug.Log("SNARELOCK ENABLED");
         yield return new WaitForSeconds(.1f);
         //Debug.Log("SNARELOCK DISABELD");
-        m_snareActive = false;
+        m_snareLock = false;
     }
 
     IEnumerator lockKick()
     {
 
-        m_kickActive = true;
+        m_kickLock = true;
         //Debug.Log("SNARELOCK ENABLED");
         yield return new WaitForSeconds(.1f);
         //Debug.Log("SNARELOCK DISABELD");
-        m_kickActive = false;
+        m_kickLock = false;
     }
 
     IEnumerator lockHighHat()
     {
 
-        m_highHatActive = true;
+        m_highHatLock = true;
         //Debug.Log("SNARELOCK ENABLED");
         yield return new WaitForSeconds(.1f);
         //Debug.Log("SNARELOCK DISABELD");
-        m_highHatActive = false;
+        m_highHatLock = false;
     }
 
 }
