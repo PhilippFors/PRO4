@@ -446,6 +446,12 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1283641781}
+    - target: {fileID: 4556130863239267361, guid: 7ab2ec0b09864e046aba10e445d9af44,
+        type: 3}
+      propertyPath: levelData.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 435454f1fe97e3a46b7105c6863b6aab,
+        type: 2}
     - target: {fileID: 5871479942801384997, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: playerMovement
@@ -456,7 +462,9 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 221245969}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1278936676, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
+    - {fileID: 5168005283146593409, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
 --- !u!114 &225415371 stripped
 MonoBehaviour:

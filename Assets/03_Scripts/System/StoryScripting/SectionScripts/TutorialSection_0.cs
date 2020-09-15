@@ -8,31 +8,31 @@ public class TutorialSection_0 : StorySection
     public string tutDescription;
     public override void StorySecUpdate()
     {
-        if (storyScript.playerMovement.input.Gameplay.Interact.triggered)
-            ProgressStory();
+
     }
+    
     public void ShowTutScreen()
     {
-        storyScript.uiManager.ShowPrompt(tutDescription);
-        storyScript.playerMovement.input.Gameplay.Disable();
+        st.uiManager.ShowPrompt(tutDescription);
+        st.playerMovement.input.Gameplay.Disable();
     }
 
     public override void ProgressStory()
     {
-        storyScript.uiManager.DisablePrompt();
-        storyScript.playerMovement.input.Gameplay.Enable();
-        foreach (EnemyBody e in storyScript.spawnManager.enemyCollection.entityList)
+        st.uiManager.DisablePrompt();
+        st.playerMovement.input.Gameplay.Enable();
+        foreach (EnemyBody e in st.spawnManager.enemyCollection.entityList)
             EventSystem.instance.ActivateAI(e);
 
-        storyScript.spawnManager.scriptedSpawn = false;
-        storyScript.SwitchStorySection();
+        st.spawnManager.scriptedSpawn = false;
+        st.SwitchStorySection();
     }
 
     public override void StoryEnter(StoryScripting script)
     {
         base.StoryEnter(script);
         StoryEventSystem.instance.showPrompt += ShowTutScreen;
-        storyScript.spawnManager.scriptedSpawn = true;
+        st.spawnManager.scriptedSpawn = true;
     }
 
     public override void StoryExit()

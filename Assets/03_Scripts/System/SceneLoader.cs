@@ -4,24 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public enum BaseScenes
 {
-    undefined,
-    Base,
-    StartMenu,
-    credits,
-    UIScene,
-    settings
+    Manager = 0,
+    StartMenu = 1,
+    Base = 2,
 }
 public class SceneLoader : MonoBehaviour
 {
-    public LevelManager levelManager;
-
-    [Header("Main Scenes")]
-    public Scene baseScene;
-    public Scene StartMenu;
-    public Scene credits;
-    public Scene UIScene;
-    public Scene settings;
-
     [Header("Levels")]
     public List<Scene> levelList = new List<Scene>();
 
@@ -34,17 +22,11 @@ public class SceneLoader : MonoBehaviour
         switch (scene)
         {
             case BaseScenes.Base:
-                SceneManager.LoadSceneAsync(BaseScenes.Base.ToString(), LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync((int)BaseScenes.Base, LoadSceneMode.Additive);
                 break;
             case BaseScenes.StartMenu:
-                SceneManager.LoadSceneAsync(StartMenu.name, LoadSceneMode.Single);
+                SceneManager.LoadSceneAsync((int)BaseScenes.StartMenu, LoadSceneMode.Additive);
                 break;
-            case BaseScenes.credits:
-                SceneManager.LoadSceneAsync(credits.name, LoadSceneMode.Single);
-                break;
-                // case BaseScenes.settings:
-                //     SceneManager.LoadSceneAsync(startMenu.name, LoadSceneMode.Single);
-                //     break;
         }
     }
     private void Start()
@@ -53,16 +35,16 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadFirstLevel()
     {
-        StartCoroutine(LevelTransition(levelList[0]));
+        StartCoroutine(LevelTransition(levelList[0].buildIndex));
     }
     public void LoadNextLevel()
     {
-        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel + 1], levelList[levelManager.currentLevel].name));
+        StartCoroutine(LevelTransition(levelList[GameManager.instance.currentLevel + 1].buildIndex, levelList[GameManager.instance.currentLevel].buildIndex));
     }
 
     public void LoadPreviousLevel()
     {
-        StartCoroutine(LevelTransition(levelList[levelManager.currentLevel - 1], levelList[levelManager.currentLevel].name));
+        StartCoroutine(LevelTransition(levelList[GameManager.instance.currentLevel - 1].buildIndex, levelList[GameManager.instance.currentLevel].buildIndex));
     }
     public void UnloadScene(BaseScenes scene)
     {
@@ -70,28 +52,29 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadSpecificLevel(int i)
     {
-        StartCoroutine(LevelTransition(levelList[i], levelList[levelManager.currentLevel].name));
+        StartCoroutine(LevelTransition(levelList[i].buildIndex, levelList[GameManager.instance.currentLevel].buildIndex));
     }
 
-    public void LoadScene(string newScene, string oldScene)
+    public void LoadScene(int newScene, int oldScene)
     {
-        StartCoroutine(LevelTransition(SceneManager.GetSceneByName(newScene), oldScene));
+        StartCoroutine(LevelTransition(newScene, oldScene));
     }
-    public IEnumerator LevelTransition(Scene newScene, string oldScene = "")
+    public IEnumerator LevelTransition(int newScene, int oldScene = -1)
     {
         //Level End Fade to Black
         yield return new WaitForSeconds(1f);
-        AsyncOperation load = SceneManager.LoadSceneAsync(3, LoadSceneMode.Additive);
+        AsyncOperation load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
         AsyncOperation unload;
         yield return load;
 
         if (!SceneManager.GetSceneByName("Base").isLoaded)
         {
+            yield return new WaitForEndOfFrame();
             load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
             yield return load;
         }
 
-        if (oldScene != "")
+        if (oldScene != -1)
         {
             unload = SceneManager.UnloadSceneAsync(oldScene);
             yield return unload;

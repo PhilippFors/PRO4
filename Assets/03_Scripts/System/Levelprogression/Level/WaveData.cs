@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Wave
+public class WaveData
 {
     public bool SpawnNextWaveInstantly;
-    public SpawnPoint[] spawnPoints;
+    public SpawnpointData[] spawnPoints;
 }

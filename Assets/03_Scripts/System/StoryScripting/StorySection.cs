@@ -8,7 +8,7 @@ public abstract class StorySection : ScriptableObject
     public bool finished;
     public int AreaID;
     public bool multiArea = false;
-    public StoryScripting storyScript;
+    public StoryScripting st;
 
     public abstract void ProgressStory();
 
@@ -16,13 +16,13 @@ public abstract class StorySection : ScriptableObject
 
     public virtual void StoryEnter(StoryScripting script)
     {
-        storyScript = script;
+        st = script;
         StoryEventSystem.instance.progress += ProgressStory;
-        storyScript.levelManager.currentObjective.letAreaFinish = false;
+        st.levelManager.currentObjective.letAreaFinish = false;
     }
     public virtual void StoryExit()
     {
-        storyScript = null;
+        st = null;
         StoryEventSystem.instance.progress -= ProgressStory;
     }
 }

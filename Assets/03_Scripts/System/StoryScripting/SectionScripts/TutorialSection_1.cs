@@ -7,12 +7,12 @@ public class TutorialSection_1 : StorySection
     public string tutDescription;
     public override void ProgressStory()
     {   
-        storyScript.uiManager.DisablePrompt();
-        foreach (EnemyBody e in storyScript.spawnManager.enemyCollection.entityList)
+        st.uiManager.DisablePrompt();
+        foreach (EnemyBody e in st.spawnManager.enemyCollection.entityList)
             EventSystem.instance.ActivateAI(e);
 
-        storyScript.spawnManager.scriptedSpawn = false;
-        storyScript.SwitchStorySection();
+        st.spawnManager.scriptedSpawn = false;
+        st.SwitchStorySection();
     }
 
     public override void StorySecUpdate()
@@ -22,14 +22,14 @@ public class TutorialSection_1 : StorySection
 
     public void ShowTutScreen()
     {
-        storyScript.uiManager.ShowPrompt(tutDescription);
+        st.uiManager.ShowPrompt(tutDescription);
     }
 
     public override void StoryEnter(StoryScripting script)
     {
         base.StoryEnter(script);
         StoryEventSystem.instance.showPrompt += ShowTutScreen;
-        storyScript.spawnManager.scriptedSpawn = true;
+        st.spawnManager.scriptedSpawn = true;
     }
 
     public override void StoryExit()

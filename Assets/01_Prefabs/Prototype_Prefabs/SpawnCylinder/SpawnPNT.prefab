@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3476993869908635171}
   - component: {fileID: 3476993869908635172}
-  - component: {fileID: 498616910345916071}
+  - component: {fileID: 8637987808582672430}
   m_Layer: 0
   m_Name: SpawnPNT
   m_TagString: Untagged
@@ -145,7 +145,7 @@ PlayableDirector:
     value: {fileID: 293502861544250268}
   m_ExposedReferences:
     m_References: []
---- !u!114 &498616910345916071
+--- !u!114 &8637987808582672430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,13 +154,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3476993869908635173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6853d5db655f261418866cb885b5eb1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 24c059bc20531754a8978822d3fe65e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   director: {fileID: 3476993869908635172}
   LevelID: 0
   AreaID: 0
-  UniqueID: 1
+  UniqueID: 0
   playerSpawnpoint: 0
 --- !u!1 &4022228083924369034
 GameObject:

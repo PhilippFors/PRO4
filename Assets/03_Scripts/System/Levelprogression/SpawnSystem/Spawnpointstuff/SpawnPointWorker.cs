@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-[ExecuteInEditMode]
-public class SpawnpointID : MonoBehaviour
+public class SpawnPointWorker : MonoBehaviour
 {
     [SerializeField] private PlayableDirector director;
     public int LevelID;
@@ -13,7 +12,7 @@ public class SpawnpointID : MonoBehaviour
     int oldLevelID;
 
     public bool playerSpawnpoint = false;
-    List<SpawnPoint> queue = new List<SpawnPoint>();
+    List<SpawnpointData> queue = new List<SpawnpointData>();
     bool isSpawning = false;
 
     void Start()
@@ -23,16 +22,16 @@ public class SpawnpointID : MonoBehaviour
 
     public void UpdateID()
     {
-        SpawnpointID[] list = FindObjectsOfType<SpawnpointID>();
+        SpawnPointWorker[] list = FindObjectsOfType<SpawnPointWorker>();
         if (LevelID != oldLevelID)
         {
-            foreach (SpawnpointID id in list)
+            foreach (SpawnPointWorker id in list)
             {
                 id.LevelID = this.LevelID;
             }
             oldLevelID = LevelID;
         }
-        foreach (SpawnpointID id in list)
+        foreach (SpawnPointWorker id in list)
         {
             if (id.playerSpawnpoint)
                 id.gameObject.name = "PlayerSpawnPoint";
@@ -41,7 +40,7 @@ public class SpawnpointID : MonoBehaviour
         }
     }
 
-    public void AddToQueue(SpawnPoint spawnPoint, bool scriptedSpawn, SpawnManager sp)
+    public void AddToQueue(SpawnpointData spawnPoint, bool scriptedSpawn, SpawnManager sp)
     {
         queue.Add(spawnPoint);
 

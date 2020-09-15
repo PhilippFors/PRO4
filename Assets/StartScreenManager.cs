@@ -8,7 +8,7 @@ public class StartScreenManager : MonoBehaviour
     public SceneLoader sceneLoader;
     public void NewGame()
     {
-        sceneLoader.LoadScene(sceneLoader.levelList[0].name, "StartMenu");
+        GameManager.instance.StartGame();
     }
 
     public void QuitGame()
