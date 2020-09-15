@@ -30,7 +30,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
         currentHealth = GetStatValue(StatName.MaxHealth);
     }
-
+    
     void InitSymbol()
     {
         symbol.GetComponent<MeshRenderer>().material = symbolInfo.mat;

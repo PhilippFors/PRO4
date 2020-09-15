@@ -14,19 +14,28 @@ public class HealthPlate : MonoBehaviour
     public float nextHealCountdown = 10f;
     private void OnTriggerEnter(Collider other)
     {
-        body = other.GetComponent<PlayerBody>();
+        PlayerBody obj = other.GetComponent<PlayerBody>();
+        if (obj != null)
+            body = obj;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (canHeal)
-            heal = true;
+        if (other.gameObject.GetComponent<PlayerBody>())
+        {
+            if (canHeal)
+                heal = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        heal = false;
-        body = null;
+        if (other.gameObject.GetComponent<PlayerBody>())
+        {
+            heal = false;
+            body = null;
+        }
+
     }
 
     private void Update()
@@ -37,7 +46,7 @@ public class HealthPlate : MonoBehaviour
             body.Heal(h);
             if (body.currentHealth.Value < body.GetStatValue(StatName.MaxHealth))
                 currentHealfactor += h;
-                
+
             if (currentHealfactor >= maxHealfactor)
             {
                 heal = false;

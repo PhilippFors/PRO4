@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New TutorialSection", menuName = "StoryScript/TutorialSection_0")]
+[CreateAssetMenu(fileName = "New EnemyTutorialSection", menuName = "StoryScript/TutorialSection_0")]
 public class TutorialSection_0 : StorySection
 {
     public string tutDescription;

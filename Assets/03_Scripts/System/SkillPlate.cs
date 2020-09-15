@@ -14,19 +14,25 @@ public class SkillPlate : MonoBehaviour
     public float nextChargeCountdown = 10f;
     private void OnTriggerEnter(Collider other)
     {
-        body = other.GetComponent<AttackStateMachine>();
+        AttackStateMachine obj = other.GetComponent<AttackStateMachine>();
+        if (obj != null)
+            body = obj;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (canCharge)
-            chargeSkill = true;
+        if (other.gameObject.GetComponent<PlayerBody>())
+            if (canCharge)
+                chargeSkill = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        chargeSkill = false;
-        body = null;
+        if (other.gameObject.GetComponent<PlayerBody>())
+        {
+            chargeSkill = false;
+            body = null;
+        }
     }
 
     private void Update()

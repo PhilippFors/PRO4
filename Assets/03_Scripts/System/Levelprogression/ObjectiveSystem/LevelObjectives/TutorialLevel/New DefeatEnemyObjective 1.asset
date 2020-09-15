@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3894d0f9613592b43bbf9ca0b9de314f, type: 3}
+  m_Name: New DefeatEnemyObjective 1
+  m_EditorClassIdentifier: 
+  started: 1
+  finished: 1
+  AreaID: 1
+  letAreaFinish: 1
+  hasStory: 1
+  waves:
+  - SpawnNextWaveInstantly: 0
+    spawnPoints:
+    - enemyType: 2
+      UniqueID: 2
+  currentWave: 1
+  lastWaveDefeated: 1

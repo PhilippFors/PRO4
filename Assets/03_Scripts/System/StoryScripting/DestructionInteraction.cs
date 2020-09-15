@@ -5,7 +5,7 @@ using UnityEngine;
 public class DestructionInteraction : MonoBehaviour, IHasHealth
 {
     public float health;
-
+    public GameObject destroyedPrefab;
     public void Heal(float healAmount)
     {
 
@@ -18,8 +18,11 @@ public class DestructionInteraction : MonoBehaviour, IHasHealth
     }
     public void OnDeath()
     {
-        StoryEventSystem.instance.Progress();
-        enabled = false;
+        EventSystem.instance.GoalDestroyed();
+        destroyedPrefab.transform.position = gameObject.transform.position;
+        destroyedPrefab.transform.localScale = gameObject.transform.localScale;
+        destroyedPrefab.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage)

@@ -44,6 +44,10 @@ public class Grenade : MonoBehaviour
                 // rb.gameObject.GetComponent<StateMachineController>().Stun();
                 EventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
             }
+            else if (nearbyObject.gameObject.GetComponent<IHasHealth>() != null)
+            {
+                EventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
+            }
         }
 
         Destroy(gameObject);

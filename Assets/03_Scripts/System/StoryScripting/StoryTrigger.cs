@@ -8,7 +8,7 @@ public class StoryTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (behaviour != null & other.gameObject.GetComponent<PlayerBody>())
+        if (other.gameObject.GetComponent<PlayerBody>())
         {
             behaviour.Execute(other, this);
             enabled = false;
