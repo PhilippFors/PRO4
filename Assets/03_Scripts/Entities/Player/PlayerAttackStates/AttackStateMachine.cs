@@ -24,7 +24,7 @@ public class AttackStateMachine : MonoBehaviour
     private int stateCounter = 0; // counts the current states of an attack
     private PlayerAttack playerAttack => GetComponent<PlayerAttack>();
     AnimationController animCon => GetComponent<AnimationController>();
-    PlayerStateMachine _stateMachine => GetComponent<PlayerStateMachine>();
+    PlayerStateMachine _stateMachine;
 
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
@@ -33,15 +33,20 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Awake()
     {
-        _stateMachine.input = new PlayerControls();
+        _stateMachine = GetComponent<PlayerStateMachine>();
+        StartCoroutine(InitInput());
+    }
 
+    IEnumerator InitInput()
+    {
+        yield return new WaitForEndOfFrame();
         _stateMachine.input.Gameplay.LeftAttack.performed += ctx => Attack(0);
         _stateMachine.input.Gameplay.RightAttack.performed += ctx => Attack(1);
     }
 
     private void OnDisable()
     {
-        
+
         playableGraph.Destroy();
     }
 

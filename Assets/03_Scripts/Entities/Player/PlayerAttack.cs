@@ -8,7 +8,7 @@ using UnityScript.Lang;
 
 public class PlayerAttack : MonoBehaviour
 {
-    PlayerStateMachine playerMovement => GetComponent<PlayerStateMachine>();
+    PlayerStateMachine playerMovement;
 
     [SerializeField] public List<Weapons> weapons = new List<Weapons>(2);
     public Weapons currentWeapon;
@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public Skills currentActiveSkill;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
-    
+
     public int comboCounter = 0;
 
     public GameObject grenadePrefab;
@@ -41,10 +41,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
-        playerMovement.input = new PlayerControls();
-        
         //input.Gameplay.LeftAttack.performed += rt => Attack(0);
         //input.Gameplay.RightAttack.performed += rt => Attack(1);
+        playerMovement = GetComponent<PlayerStateMachine>();
+        StartCoroutine(InitInput());
+    }
+
+    IEnumerator InitInput()
+    {
+        yield return new WaitForEndOfFrame();
         playerMovement.input.Gameplay.GrenadeThrow.performed += rt => AimMove();
         playerMovement.input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
         playerMovement.input.Gameplay.Skill1.performed += rt => Skill(0);
@@ -52,7 +57,6 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.input.Gameplay.Skill3.performed += rt => Skill(2);
         playerMovement.input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
     }
-
     private void Reset()
     {
     }
@@ -114,7 +118,7 @@ public class PlayerAttack : MonoBehaviour
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }
-    
+
     public void GrenadeThrow()
     {
         if (movementState.Equals(PlayerMovementSate.grenade))
@@ -135,7 +139,7 @@ public class PlayerAttack : MonoBehaviour
                 transform.rotation);
         }
     }
-    
+
 
     IEnumerator SimulateProjectile(GameObject grenade)
     {
@@ -191,7 +195,7 @@ public class PlayerAttack : MonoBehaviour
     //simple script to change between the weapons
     void ChangeWeapon()
     {
-        
+
         if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 1)
         {
             currentWeaponCounter++;
@@ -209,7 +213,7 @@ public class PlayerAttack : MonoBehaviour
             currentWeapon.Equip(weaponPoint);
             changeWeaponTimer = 0;
         }
-        
+
 
     }
 
