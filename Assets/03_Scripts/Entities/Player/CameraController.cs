@@ -17,7 +17,6 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         playercontrols = player.gameObject.GetComponent<PlayerStateMachine>();
-        s = player.position;
         StartCoroutine(WaitForStart());
     }
     private void Update()
@@ -79,6 +78,6 @@ public class CameraController : MonoBehaviour
     IEnumerator WaitForStart()
     {
         yield return new WaitForEndOfFrame();
-        transform.position = player.position;
+        s = player.position;
     }
 }

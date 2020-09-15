@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 
 public class Grenade : MonoBehaviour
 {
-    private float radius = 10f;
+    private float radius = 6f;
     public float force = 700f;
-
+    public float dmg = 15f;
     private GameObject explosionEffect;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,6 @@ public class Grenade : MonoBehaviour
     // Update is called once per frame
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.name);
         Explode();
     }
 
@@ -42,7 +41,8 @@ public class Grenade : MonoBehaviour
             if (rb != null)
             {
                 rb.AddExplosionForce(force, transform.position, radius);
-                rb.gameObject.GetComponent<StateMachineController>().Stun();
+                // rb.gameObject.GetComponent<StateMachineController>().Stun();
+                EventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
             }
         }
 

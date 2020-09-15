@@ -8,22 +8,9 @@ using UnityEngine.UI;
 public class ProgessBar: MonoBehaviour
 {
     public float maximum;
-
     public float current;
-
     public Image image;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public virtual void GetCurrentFill()
     {

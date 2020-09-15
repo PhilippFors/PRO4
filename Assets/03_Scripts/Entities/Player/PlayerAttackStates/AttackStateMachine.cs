@@ -79,6 +79,33 @@ public class AttackStateMachine : MonoBehaviour
         }
     }
 
+    public void IncreaseSkillMeter(float amount, out bool increased)
+    {   
+        increased = true;
+        foreach (Skills skill in playerAttack.skills)
+        {
+            if (skill.current < skill.max)
+            {
+                if (skill.current + amount > skill.max)
+                {
+                    float overflow = skill.current + amount - skill.max;
+                    skill.current += amount - overflow;
+                    increased = true;
+                }
+                else
+                {
+                    skill.current += amount;
+                    increased = true;
+                }
+            }
+            else
+            {
+                increased = false;
+            }
+
+        }
+    }
+
     private void SetState(AttackState state)
     {
 

@@ -25,10 +25,11 @@ public class PlayerAttack : MonoBehaviour
     public GameObject target;
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
-
+    public float greandeCooldown = 10f;
+    public float currentGCooldown = 10f;
     private float changeWeaponTimer = 0;
 
-
+    bool canThrowG = true;
     [SerializeField] private float moveSpeed = 5f;
     //  public Vector3 currentDirection;
 
@@ -126,13 +127,15 @@ public class PlayerAttack : MonoBehaviour
             Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
             GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
             StartCoroutine(SimulateProjectile(grenade));
+            StartCoroutine(GrenadeCountdown());
             EventSystem.instance.OnSetState(PlayerMovementSate.standard);
+            Destroy(target);
         }
     }
 
     public void AimMove()
     {
-        if (movementState.Equals(PlayerMovementSate.standard))
+        if (movementState.Equals(PlayerMovementSate.standard) & canThrowG)
         {
             EventSystem.instance.OnSetState(PlayerMovementSate.grenade);
             target = Instantiate(targetPrefab, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -140,7 +143,17 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-
+    IEnumerator GrenadeCountdown()
+    {
+        canThrowG = false;
+        currentGCooldown = 0;
+        while (currentGCooldown <= greandeCooldown)
+        {
+            yield return new WaitForSeconds(0.1f);
+            currentGCooldown += 0.1f;
+        }
+        canThrowG = true;
+    }
     IEnumerator SimulateProjectile(GameObject grenade)
     {
         // Short delay added before Projectile is thrown
@@ -183,7 +196,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (elapseTime >= flightDuration || grenade == null)
         {
-            Destroy(target);
             if (grenade != null)
             {
                 EventSystem.instance.OnExplode();
