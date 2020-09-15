@@ -390,7 +390,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
     void setCustomAudioProfile()
     {
-        float modifier = 0.05f;
+        float modifier = 0.02f;
         _freqBandHighest8[0] = 7.087749f;
         _freqBandHighest8[1] = 14.599951f;
         _freqBandHighest8[2] = 8.991749f;
@@ -405,8 +405,17 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
             _freqBandHighest8[i] *= modifier;
         }
 
-       // _freqBandHighest8[0] = 0.5f;
-        //_freqBandHighest8[1] = 0.5f;
+        _freqBandHighest8[0] = 0.5f;
+        _freqBandHighest8[1] = 0.5f;
+       // _freqBandHighest8[7] = 9.435572f;
+    }
+
+    public void changeAudioProfile(float[] a)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            _freqBandHighest8[i] *= a[i];
+        }
     }
 
 
