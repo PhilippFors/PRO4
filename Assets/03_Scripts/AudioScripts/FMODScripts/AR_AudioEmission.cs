@@ -9,10 +9,10 @@ public class AR_AudioEmission : AR_ColorMaster
     public int _audioBand2 = 7;
 
     public bool _enableBlueFQChannel = true; //BLUE
-    public bool _enableLilaFQChannel = false; //BLUE
-    public bool _blueToMidFQ = false;
     public bool _enableRedFQChannel = true; //RED
-    public bool _redToMidFQ = false;
+
+    public bool _enableCustomMaterialColors = false;
+
 
     public bool _useBuffer = true;
     public bool _enable32Bands;
@@ -40,39 +40,40 @@ public class AR_AudioEmission : AR_ColorMaster
     // Start is called before the first frame update
     void Start()
     {
-
         _material = GetComponent<MeshRenderer>().material;
-        //_color1 = _material.GetColor("EmissionBlueColor");
-        //_color2 = _material.GetColor("EmissionRedColor");
-
-        if (_audioBand1 < 3)
+        if (_enableCustomMaterialColors)
         {
-            Color.RGBToHSV((m_blueChannelActiveColor), out H1, out S1, out V1);
-        }
-        else if (_audioBand1 >= 3 && _audioBand1 <= 5)
-        {
-            Color.RGBToHSV((m_bothChannelActiveColor), out H1, out S1, out V1);
+            Color.RGBToHSV((_material.GetColor("EmissionBlueColor")), out H1, out S1, out V1);
+            Color.RGBToHSV((_material.GetColor("EmissionRedColor")), out H2, out S2, out V2);
         }
         else
         {
-            Color.RGBToHSV((m_redChannelActiveColor), out H1, out S1, out V1);
-        }
+            if (_audioBand1 < 3)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H1, out S1, out V1);
+            }
+            else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H1, out S1, out V1);
+            }
+            else
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H1, out S1, out V1);
+            }
 
-        if (_audioBand2 < 3)
-        {
-            Color.RGBToHSV((m_blueChannelActiveColor), out H2, out S2, out V2);
+            if (_audioBand2 < 3)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H2, out S2, out V2);
+            }
+            else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H2, out S2, out V2);
+            }
+            else
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H2, out S2, out V2);
+            }
         }
-        else if (_audioBand1 >= 3 && _audioBand1 <= 5)
-        {
-            Color.RGBToHSV((m_bothChannelActiveColor), out H2, out S2, out V2);
-        }
-        else
-        {
-            Color.RGBToHSV((m_redChannelActiveColor), out H2, out S2, out V2);
-        }
-
-
-
     }
 
     // Update is called once per frame

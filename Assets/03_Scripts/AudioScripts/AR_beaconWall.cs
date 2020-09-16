@@ -7,19 +7,17 @@ public class AR_beaconWall : MusicAnalyzer
 {
 
     private Material _material;
+    Material _energyWallMaterial;
     private float defaultLength;
-
-
-   
     public float lengthOfLaser;
-
-
+    GameObject _energyWall;
+    Color _energyWallColor;
     Color _beaconEmissiveColor;
     float H, S, V;
 
-    GameObject _energyWall;
-    Color _energyWallColor;
-    Material _energyWallMaterial;
+    private bool m_beaconActive = true;
+
+
 
     Sequence tweenSeq;
 
@@ -28,20 +26,16 @@ public class AR_beaconWall : MusicAnalyzer
     {
 
         _material = GetComponent<MeshRenderer>().material;
-       // _beaconEmissiveColor = _material.GetColor("EmissionRedColor");
-
         _energyWall = this.gameObject.transform.GetChild(0).gameObject;
         _energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
-        //_energyWallColor = _energyWallMaterial.GetColor("EmissionRedColor");
 
         defaultLength = _energyWall.transform.localScale.y;
 
 
-       // Color.RGBToHSV((_beaconEmissiveColor), out H, out S, out V);
 
         addActionToEvent();
 
-        lengthOfLaser = lengthOfLaser /_energyWall.transform.localScale.y;
+        lengthOfLaser = lengthOfLaser / _energyWall.transform.localScale.y;
 
 
         EventSystem.instance.ActivateSkill += activateColorError1;
@@ -50,8 +44,9 @@ public class AR_beaconWall : MusicAnalyzer
     }
 
     // Update is called once per frame
-    void Update() { 
-    
+    void Update()
+    {
+
         if (colorErrorActive)
         {
 
@@ -69,11 +64,6 @@ public class AR_beaconWall : MusicAnalyzer
             }
 
             _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
-            /*
-            if (!m_holdHelper) {
-                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
-            }
-            */
 
         }
         else
@@ -92,13 +82,6 @@ public class AR_beaconWall : MusicAnalyzer
             }
 
             _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
-            
-            /*
-            if (!m_holdHelper)
-            {
-                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
-            }
-            */
         }
     }
 
@@ -112,20 +95,11 @@ public class AR_beaconWall : MusicAnalyzer
             increaseIntervalCounter();
             if (checkInterval())
             {
+               // shortDurationHelper();
                 tweenSeq = DOTween.Sequence()
                .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
                .Append(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
-           
                .SetEase(Ease.Flash);
-
-                /**
-                DOTween.Sequence()
-                .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", m_actionInDuration))
-                .Join(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
-                .Append(_energyWallMaterial.DOColor(Color.HSVToRGB(H, S, 1, true), "EmissionRedColor", m_actionOutDuration))
-                .Join(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
-                .SetEase(Ease.Flash);
-                **/
             }
 
         }
@@ -138,11 +112,7 @@ public class AR_beaconWall : MusicAnalyzer
         {
 
             tweenSeq.Kill();
-            Debug.Log("BeconBarrier activate");
-            // colorErrorActive = true;
-
-           
-
+            //Debug.Log("BeconBarrier activate");
             tweenSeq = DOTween.Sequence()
             .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
             .SetEase(Ease.Flash);
@@ -156,14 +126,40 @@ public class AR_beaconWall : MusicAnalyzer
     {
         if (skill.name == "PitchShift")
         {
-
-            Debug.Log("BeconBarrier deactivate");
-            /*
-            //colorErrorActive = false;
-            DOTween.Sequence()
-            .Join(_energyWall.transform.DOScaleY(defaultLength, m_actionInDuration))
-            .SetEase(Ease.Flash);
-            */
+            //Debug.Log("BeconBarrier deactivate");
         }
+    }
+
+
+    public void PullTrigger(Collider c, float dmg)
+    {
+        Debug.Log("BeaconWallTrigger is pulled");
+        if (m_beaconActive)
+        {
+            Debug.Log("BeaconWall hit");
+            GameObject obj = c.gameObject;
+            if (!obj.GetComponent<EnemyBody>() & obj.GetComponent<IHasHealth>() != null)
+            {
+                EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), dmg);
+               
+            }
+
+        }
+    }
+
+    public void shortDurationHelper()
+    {
+        StartCoroutine("enableDmgRoutine");
+    }
+
+    IEnumerator enableDmgRoutine()
+    {
+
+        m_beaconActive = true;
+        //gameObject.GetComponentInChildren<AR_beaconWallCollider>().EnableSelf();
+
+        yield return new WaitForSeconds(m_actionInDuration + m_actionOutDuration);
+        m_beaconActive = false;
+        //gameObject.GetComponentInChildren<AR_beaconWallCollider>().DisableSelf();
     }
 }

@@ -23,6 +23,10 @@ public class AR_damagePlate : MusicAnalyzer
     public Color _color1;
     private Color _color2;
 
+    [HideInInspector]
+    public float dmgOnEnter = 30;
+    [HideInInspector]
+    public float dmgOnStay = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -121,17 +125,12 @@ public class AR_damagePlate : MusicAnalyzer
             }
             else
             {
-                gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
-                m_plateActive = true;
-                //Debug.Log("changPlateEmission");
+    
+                shortDurationHelper();
                 mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", m_actionInDuration))
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", m_actionOutDuration))
                     .SetEase(Ease.Flash);
-                m_plateActive = false;
-                
-                
-                gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
             }
     
         }
@@ -153,6 +152,23 @@ public class AR_damagePlate : MusicAnalyzer
 
         }
     }
+
+    public void shortDurationHelper()
+    {
+        StartCoroutine("enableDmgRoutine");
+    }
+
+    IEnumerator enableDmgRoutine()
+    {
+
+        m_plateActive = true;
+        gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
+       
+        yield return new WaitForSeconds(m_actionInDuration);
+        m_plateActive = false;
+        gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
+    }
+
 
     public void onSkillActivated(Skills skill)
     {
@@ -178,6 +194,7 @@ public class AR_damagePlate : MusicAnalyzer
             }
         }
     }
+
 
 
 }
