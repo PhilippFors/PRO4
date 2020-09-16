@@ -3,8 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(FMODUnity.StudioEventEmitter))]
 public class MusicManager : MonoBehaviour
 {
+   public enum MusicPart {Start, Mid, Break, ArenaFight, Ending};
+   public MusicPart musicPart;
+ 
 
     private bool m_kickLock = false;
     private bool m_snareLock = false;
@@ -20,8 +25,17 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
 
+        
+        
+        _emitter  = GetComponent<FMODUnity.StudioEventEmitter>();
+        debugJumpToMusicPart();
+
+
         EventSystem.instance.ActivateSkill += deactivateListener;
         EventSystem.instance.DeactivateSkill += activateListener;
+
+       
+        
     }
 
     // Update is called once per frame
@@ -94,6 +108,9 @@ public class MusicManager : MonoBehaviour
                     case 'R':
                         _emitter.SetParameter("nextPart", 0);
                         break;
+
+                   
+
                 }
             }
         }
@@ -166,6 +183,28 @@ public class MusicManager : MonoBehaviour
         yield return new WaitForSeconds(.1f);
         //Debug.Log("SNARELOCK DISABELD");
         m_highHatLock = false;
+    }
+
+    void debugJumpToMusicPart()
+    {
+        switch (musicPart)
+        {
+            case MusicPart.Start:
+                _emitter.SetParameter("PlayFrom", 0);
+                break;
+            case MusicPart.Mid:
+                _emitter.SetParameter("PlayFrom", 1);
+                break;
+            case MusicPart.Break:
+                _emitter.SetParameter("PlayFrom", 2);
+                break;
+            case MusicPart.ArenaFight:
+                _emitter.SetParameter("PlayFrom", 3);
+                break;
+            case MusicPart.Ending:
+                _emitter.SetParameter("PlayFrom", 4);
+                break;
+        }
     }
 
 }

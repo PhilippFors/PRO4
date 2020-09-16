@@ -133,10 +133,10 @@ public class AR_beaconWall : MusicAnalyzer
 
     public void PullTrigger(Collider c, float dmg)
     {
-        Debug.Log("BeaconWallTrigger is pulled");
+        //Debug.Log("BeaconWallTrigger is pulled");
         if (m_beaconActive)
         {
-            Debug.Log("BeaconWall hit");
+            //Debug.Log("BeaconWall hit");
             GameObject obj = c.gameObject;
             if (!obj.GetComponent<EnemyBody>() & obj.GetComponent<IHasHealth>() != null)
             {

@@ -13,7 +13,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     public static FMODAudioPeer _instance;
     public float _smoothBuffer = 0.005f;
 
-    FMODUnity.StudioEventEmitter emitter;
+    public FMODUnity.StudioEventEmitter emitter;
     FMOD.Studio.EventInstance musicInstance;
 
 
