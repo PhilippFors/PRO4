@@ -9,12 +9,12 @@ public class Ar_damagePlateCollider : MonoBehaviour
     void OnTriggerEnter(Collider c)
     {
        
-        gameObject.GetComponentInParent<AR_damagePlate>().PullTrigger(c, 10);
+        gameObject.GetComponentInParent<AR_damagePlate>().PullTrigger(c, 30);
     }
 
     private void OnTriggerStay(Collider c)
     {
-        gameObject.GetComponentInParent<AR_damagePlate>().PullTrigger(c, 1);
+        gameObject.GetComponentInParent<AR_damagePlate>().PullTrigger(c, 5);
     }
 
     public void DisableSelf()

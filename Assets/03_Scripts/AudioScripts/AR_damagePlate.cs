@@ -12,7 +12,7 @@ public class AR_damagePlate : MusicAnalyzer
     bool m_holdHelper = true;
     Sequence mySequence;
 
-    private bool m_plateActive;
+    private bool m_plateActive = false;
 
     Color m_color;
     float H, S, V;
@@ -98,6 +98,7 @@ public class AR_damagePlate : MusicAnalyzer
             if (m_holdValue)
             {
                 if (m_holdHelper) {
+                    m_plateActive = true;
                     V = 10;
                     mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionInDuration))
@@ -107,23 +108,29 @@ public class AR_damagePlate : MusicAnalyzer
                 }
                 else
                 {
+                  
                     V = -10;
                     m_holdHelper = true;
                     mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionOutDuration))
                     .SetEase(Ease.Flash);
+                    m_plateActive = false;
+
                     gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
                 }
             }
             else
             {
+                gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
+                m_plateActive = true;
                 //Debug.Log("changPlateEmission");
                 mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", m_actionInDuration))
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", m_actionOutDuration))
                     .SetEase(Ease.Flash);
-               
-                gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
+                m_plateActive = false;
+                
+                
                 gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
             }
     
@@ -134,7 +141,7 @@ public class AR_damagePlate : MusicAnalyzer
     public void PullTrigger(Collider c, float dmg)
     {
         bool hit = false;
-        if (mySequence.IsActive())
+        if (m_plateActive)
         {
         Debug.Log("Damage Plate hit");
         GameObject obj = c.gameObject;
