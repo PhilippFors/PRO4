@@ -19,8 +19,6 @@ public class DestructionInteraction : MonoBehaviour, IHasHealth
     public void OnDeath()
     {
         EventSystem.instance.GoalDestroyed();
-        destroyedPrefab.transform.position = gameObject.transform.position;
-        destroyedPrefab.transform.localScale = gameObject.transform.localScale;
         destroyedPrefab.SetActive(true);
         gameObject.SetActive(false);
     }
