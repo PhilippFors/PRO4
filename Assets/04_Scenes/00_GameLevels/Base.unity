@@ -405,18 +405,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208996544}
   m_CullTransparentMesh: 0
---- !u!114 &221245969 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3066025154036791318, guid: 7ab2ec0b09864e046aba10e445d9af44,
-    type: 3}
-  m_PrefabInstance: {fileID: 225415370}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445fe2b83d8b2154381d37e01855ec57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &225415370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -436,10 +424,6 @@ PrefabInstance:
       propertyPath: playerTarget
       value: 
       objectReference: {fileID: 1283641781}
-    - target: {fileID: 1278936676, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1283641778}
     - target: {fileID: 84565653644464121, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: player
@@ -520,42 +504,12 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1283641781}
-    - target: {fileID: 4556130863239267361, guid: 7ab2ec0b09864e046aba10e445d9af44,
-        type: 3}
-      propertyPath: levelData.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 435454f1fe97e3a46b7105c6863b6aab,
-        type: 2}
-    - target: {fileID: 5871479942801384997, guid: 7ab2ec0b09864e046aba10e445d9af44,
-        type: 3}
-      propertyPath: storyList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5871479942801384997, guid: 7ab2ec0b09864e046aba10e445d9af44,
         type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1283641780}
-    - target: {fileID: 5871479942801384997, guid: 7ab2ec0b09864e046aba10e445d9af44,
-        type: 3}
-      propertyPath: uiManager
-      value: 
-      objectReference: {fileID: 221245969}
-    - target: {fileID: 5871479942801384997, guid: 7ab2ec0b09864e046aba10e445d9af44,
-        type: 3}
-      propertyPath: storyList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 187b4e22ba9fc9b4185e4cab71fb0ec6,
-        type: 2}
-    - target: {fileID: 5871479942801384997, guid: 7ab2ec0b09864e046aba10e445d9af44,
-        type: 3}
-      propertyPath: storyList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f2baa134e1f0424ebb3ff0413ba7126,
-        type: 2}
-    m_RemovedComponents:
-    - {fileID: 1278936676, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
-    - {fileID: 5168005283146593409, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2ec0b09864e046aba10e445d9af44, type: 3}
 --- !u!114 &225415371 stripped
 MonoBehaviour:

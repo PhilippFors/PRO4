@@ -11,6 +11,9 @@ public class StartScreenManager : MonoBehaviour
         GameManager.instance.StartGame();
     }
 
+    public void Arena(){
+        GameManager.instance.StartArena();
+    }
     public void QuitGame()
     {
         Application.Quit();

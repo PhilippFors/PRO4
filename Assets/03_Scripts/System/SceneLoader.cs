@@ -7,6 +7,8 @@ public enum BaseScenes
     Manager = 0,
     StartMenu = 1,
     Base = 2,
+
+    Arena = 4
 }
 public class SceneLoader : MonoBehaviour
 {
@@ -55,30 +57,36 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LevelTransition(levelList[i].buildIndex, levelList[GameManager.instance.currentLevel].buildIndex));
     }
 
-    public void LoadScene(int newScene, int oldScene)
+    public void LoadScene(int newScene, int oldScene, int oldScene2 = -1)
     {
-        StartCoroutine(LevelTransition(newScene, oldScene));
+        StartCoroutine(LevelTransition(newScene, oldScene, oldScene2));
     }
-    public IEnumerator LevelTransition(int newScene, int oldScene = -1)
+    public IEnumerator LevelTransition(int newScene, int oldScene = -1, int oldScene2 = -1)
     {
         //Level End Fade to Black
-        yield return new WaitForSeconds(1f);
-        AsyncOperation load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
         AsyncOperation unload;
-        yield return load;
+        AsyncOperation load;
+        yield return new WaitForSeconds(1f);
+        if (oldScene != -1)
+        {
+            unload = SceneManager.UnloadSceneAsync(oldScene);
+            yield return unload;
+        }
 
+        if (oldScene2 != -1)
+        {
+            unload = SceneManager.UnloadSceneAsync(oldScene2);
+            yield return unload;
+        }
         if (!SceneManager.GetSceneByName("Base").isLoaded)
         {
             yield return new WaitForEndOfFrame();
             load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
             yield return load;
         }
+        load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
 
-        if (oldScene != -1)
-        {
-            unload = SceneManager.UnloadSceneAsync(oldScene);
-            yield return unload;
-        }
+        yield return load;
 
 
         yield return new WaitForSeconds(1f);

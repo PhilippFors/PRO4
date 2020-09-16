@@ -8,6 +8,12 @@ public class Checkpointmanager : MonoBehaviour
     CheckPoint oldCheck;
     void Start()
     {
+        StartCoroutine(Wait());
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForEndOfFrame();
         LevelEventSystem.instance.checkPointReached += SetNewCheckPoint;
         LevelEventSystem.instance.returnToCheckpoint += TransportToCheckpoint;
     }

@@ -16,6 +16,8 @@ public class LevelManager : MonoBehaviour
     [Header("Level Data")]
     public LevelData[] levelData;
 
+    public LevelData Arena;
+
 
 
     private void Start()
@@ -24,7 +26,6 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaExit += FinishArea;
         LevelEventSystem.instance.levelExit += FinishLevel;
         LevelEventSystem.instance.levelEntry += StartLevel;
-        StartLevel();
     }
 
     private void OnDisable()
@@ -51,14 +52,15 @@ public class LevelManager : MonoBehaviour
 
     public void FinishArea()
     {
-        foreach (AreaBarrier a in barrierList.list)
-            if (a.AreaID == currentArea)
-                a.Deactivate();
+        if (barrierList.list.Count > 0)
+            foreach (AreaBarrier a in barrierList.list)
+                if (a.AreaID == currentArea)
+                    a.Deactivate();
 
         if (HasNextObjective())
             currentArea++;
 
-        StartCoroutine(SaveGame());
+        // StartCoroutine(SaveGame());
     }
 
     public void CheckEndofArea()
@@ -78,7 +80,7 @@ public class LevelManager : MonoBehaviour
     {
         FindPlayerSpawnpoint();
         player.position = playerSpawnpoint.position;
-        StartCoroutine(SaveGame());
+        // StartCoroutine(SaveGame());
         //TODO: Exit from Level transition
     }
 
@@ -114,7 +116,10 @@ public class LevelManager : MonoBehaviour
     Objective GetNextObjective()
     {
         // if (HasNextObjective())
-        return levelData[currentLevel].areas[currentArea];
+        if (GameManager.instance.arena)
+            return Arena.areas[currentArea];
+        else
+            return levelData[currentLevel].areas[currentArea];
         // else
         // return null;
     }
