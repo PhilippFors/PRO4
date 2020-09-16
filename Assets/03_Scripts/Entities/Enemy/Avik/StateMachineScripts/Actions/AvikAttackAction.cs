@@ -29,6 +29,6 @@ public class AvikAttackAction : Action
     bool GetSecondAttack(int one, StateMachineController controller)
     {
         int r = Random.Range(0, 100);
-        return r <= controller.settings.comboBias;
+        return r <= controller.aiManager.comboBias;
     }
 }

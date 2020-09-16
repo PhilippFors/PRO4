@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
-
+using UnityEngine.SceneManagement;
 public class SpawnPointWorker : MonoBehaviour
 {
     [SerializeField] private PlayableDirector director;
@@ -69,7 +69,8 @@ public class SpawnPointWorker : MonoBehaviour
 
                     break;
             }
-            enemy.GetComponent<StateMachineController>().settings = sp.manager;
+            SceneManager.MoveGameObjectToScene(enemy.parent, SceneManager.GetSceneByName("Base"));
+            enemy.GetComponent<StateMachineController>().aiManager = sp.manager;
             enemy.GetComponent<Animation>().Play("Entry");
 
             sp.AddEnemyToList(enemy);

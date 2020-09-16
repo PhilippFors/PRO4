@@ -14,8 +14,8 @@ public class AvikChaseAction : Action
 
     void Move(StateMachineController controller)
     {
-        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < 5f)
-            controller.agent.destination = controller.settings.playerTarget.position;
+        if (Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) < 5f)
+            controller.agent.destination = controller.aiManager.playerTarget.position;
         else
             controller.agent.destination = controller.offsetTargetPos;
             
@@ -26,9 +26,9 @@ public class AvikChaseAction : Action
     }
     void LookAt(StateMachineController controller)
     {
-        Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
+        Vector3 dir = controller.aiManager.playerTarget.position - controller.transform.position;
         dir.y = 0;
-        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < 3f)
+        if (Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) < 3f)
         {
             Quaternion look = Quaternion.LookRotation(dir);
             controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));

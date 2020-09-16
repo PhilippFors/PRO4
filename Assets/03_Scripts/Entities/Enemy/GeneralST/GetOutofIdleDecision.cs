@@ -9,7 +9,7 @@ public class GetOutofIdleDecision : Decision
     public override bool Execute(StateMachineController controller)
     {
 
-        if (controller.settings.playerTarget != null & activationtimer <= 0)
+        if (controller.aiManager.playerTarget != null & activationtimer <= 0)
         {
             controller.agent.isStopped = false;
             return true;

@@ -12,7 +12,7 @@ public class AvikPlayerDistanceDec : Decision
 
     public bool CheckForPlayer(StateMachineController controller)
     {
-        if (!CheckInFront(controller) && Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) > controller.enemyStats.GetStatValue(StatName.Range))
+        if (!CheckInFront(controller) && Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) > controller.enemyStats.GetStatValue(StatName.Range))
         {
             if (!controller.actions.CheckIsAttacking(controller))
             {

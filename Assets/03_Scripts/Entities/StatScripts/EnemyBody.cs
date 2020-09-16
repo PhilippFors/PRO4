@@ -8,7 +8,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
     public StateMachineController controller => GetComponent<StateMachineController>();
     public Rigidbody rb => GetComponent<Rigidbody>();
     public Symbol symbolInfo;
-    [SerializeField] private GameObject parent;
+    public GameObject parent;
     [SerializeField] private GameObject symbol;
     public float currentHealth;
     private void Awake()
@@ -82,7 +82,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
         if (rand < newstunchance)
             controller.Stun();
 
-        Vector3 direction = Vector3.Normalize(transform.position - controller.settings.playerTarget.position);
+        Vector3 direction = Vector3.Normalize(transform.position - controller.aiManager.playerTarget.position);
         rb.AddForce(direction * force, ForceMode.Impulse);
     }
 

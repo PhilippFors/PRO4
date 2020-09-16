@@ -15,12 +15,10 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
     }
     public void Attack(StateMachineController s, int i = -1, bool combo = false)
     {
-        canAttack = false;
-
         Debug.Log("Shentau ATTACK");
+        animator.SetTrigger("attack");
         Bullet b = Instantiate(bullet, bulletPoint.position, bulletPoint.rotation).GetComponent<Bullet>();
         b.InitBUllet(bulletPoint.forward, 17f, s.enemyStats.GetStatValue(StatName.BaseDmg));
-        countdown = s.enemyStats.GetStatValue(StatName.AttackRate);
         StartCoroutine(Recharge(s));
     }
 
@@ -61,15 +59,17 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
 
     IEnumerator Recharge(StateMachineController s = null)
     {
+        canAttack = false;
         if (s == null)
             countdown = 6f;
+        else
+            countdown = s.enemyStats.GetStatValue(StatName.AttackRate);
 
         while (countdown >= 0)
         {
             yield return new WaitForSeconds(0.1f);
             countdown -= 0.1f;
         }
-        countdown = 0;
         canAttack = true;
     }
 

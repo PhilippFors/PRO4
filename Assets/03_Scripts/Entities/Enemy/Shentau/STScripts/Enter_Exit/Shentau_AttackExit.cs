@@ -8,7 +8,7 @@ public class Shentau_AttackExit : OnExitState
 {
     public override void Execute(StateMachineController controller)
     {
-        controller.agent.isStopped = true;
+        controller.agent.isStopped = false;
         // controller.actions.GetAnimator().Play("tiltup");
     }
 

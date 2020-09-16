@@ -50,7 +50,7 @@ public class SpawnDebugging : MonoBehaviour
             Vector3 rayPoint = cameraRay.GetPoint(rayLength);
             //Debug.DrawLine(cameraRay.origin, rayPoint);
             EnemyBody enemy = Instantiate(obj, rayPoint, Quaternion.Euler(Vector3.forward)).gameObject.GetComponentInChildren<EnemyBody>();
-            enemy.GetComponent<StateMachineController>().settings = manager;
+            enemy.GetComponent<StateMachineController>().aiManager = manager;
             enemy.gameObject.GetComponent<Animation>().enabled = false;
             set.Add(enemy);
         }

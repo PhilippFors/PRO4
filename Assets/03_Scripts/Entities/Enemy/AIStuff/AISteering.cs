@@ -10,10 +10,10 @@ public class AISteering
 
         if (!FindObstacle(dir, out hit, controller, false))
         {
-            return controller.settings.playerTarget.position;
+            return controller.aiManager.playerTarget.position;
         }
 
-        Vector3 targetpos = controller.settings.playerTarget.position;
+        Vector3 targetpos = controller.aiManager.playerTarget.position;
 
         float angle = Vector3.Angle(dir * controller.deltaTime, hit.normal);
         if (angle > 165f)
@@ -22,7 +22,7 @@ public class AISteering
 
             perp = new Vector3(-hit.normal.z, hit.normal.y, hit.normal.x);
 
-            targetpos = targetpos + (perp * Mathf.Sin((angle - 165f) * Mathf.Deg2Rad) * 2 * controller.settings.obstacleAvoidDistance);
+            targetpos = targetpos + (perp * Mathf.Sin((angle - 165f) * Mathf.Deg2Rad) * 2 * controller.aiManager.obstacleAvoidDistance);
         }
 
         return Seek(targetpos, controller);
@@ -67,20 +67,20 @@ public class AISteering
     {
         dir = dir.normalized;
 
-        Vector3[] dirs = new Vector3[controller.settings.whiskerAmount];
+        Vector3[] dirs = new Vector3[controller.aiManager.whiskerAmount];
         dirs[0] = dir;
 
         float orientation = VectorToOrientation(dir);
         float angle = orientation;
         for (int i = 1; i < (dirs.Length + 1) / 2; i++)
         {
-            angle += controller.settings.angleIncrement;
+            angle += controller.aiManager.angleIncrement;
             dirs[i] = OrientationToVector(orientation + angle * Mathf.Deg2Rad);
         }
         angle = orientation;
         for (int i = (dirs.Length + 1) / 2; i < dirs.Length; i++)
         {
-            angle -= controller.settings.angleIncrement;
+            angle -= controller.aiManager.angleIncrement;
             dirs[i] = OrientationToVector(orientation - angle * Mathf.Deg2Rad);
         }
         return CastWhiskers(dirs, out hit, controller, findPlayer);
@@ -103,8 +103,8 @@ public class AISteering
             }
             else
             {
-                float dist = (i == 0) ? controller.settings.mainWhiskerL : controller.settings.secondaryWhiskerL;
-                if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, dist, controller.settings.enemyMask))
+                float dist = (i == 0) ? controller.aiManager.mainWhiskerL : controller.aiManager.secondaryWhiskerL;
+                if (Physics.SphereCast(controller.RayEmitter.position, 1f, dirs[i], out hit, dist, controller.aiManager.enemyMask))
                 {
                     firsthit = hit;
                     return true;

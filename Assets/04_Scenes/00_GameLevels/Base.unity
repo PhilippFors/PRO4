@@ -2073,17 +2073,17 @@ PrefabInstance:
     - target: {fileID: 1556470412479264141, guid: 9fe3307324cf8d047b74149b6256bfd8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -48.9
       objectReference: {fileID: 0}
     - target: {fileID: 1556470412479264141, guid: 9fe3307324cf8d047b74149b6256bfd8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.223
       objectReference: {fileID: 0}
     - target: {fileID: 1556470412479264141, guid: 9fe3307324cf8d047b74149b6256bfd8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -15.38
       objectReference: {fileID: 0}
     - target: {fileID: 1556470412479264141, guid: 9fe3307324cf8d047b74149b6256bfd8,
         type: 3}
@@ -2140,35 +2140,10 @@ PrefabInstance:
       propertyPath: currentWeapon
       value: 
       objectReference: {fileID: 516197962}
-    - target: {fileID: 2576877363223431057, guid: 9fe3307324cf8d047b74149b6256bfd8,
-        type: 3}
-      propertyPath: playerMovement
-      value: 
-      objectReference: {fileID: 1283641780}
-    - target: {fileID: 2576877363223431063, guid: 9fe3307324cf8d047b74149b6256bfd8,
-        type: 3}
-      propertyPath: _stateMachine
-      value: 
-      objectReference: {fileID: 1283641780}
     - target: {fileID: 2576877363223431070, guid: 9fe3307324cf8d047b74149b6256bfd8,
         type: 3}
       propertyPath: m_Name
       value: Character_final_Ripped_Bloke
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576877363223431071, guid: 9fe3307324cf8d047b74149b6256bfd8,
-        type: 3}
-      propertyPath: selfCol
-      value: 
-      objectReference: {fileID: 2080115277}
-    - target: {fileID: 2576877363223431071, guid: 9fe3307324cf8d047b74149b6256bfd8,
-        type: 3}
-      propertyPath: dashDuration
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2576877363223431071, guid: 9fe3307324cf8d047b74149b6256bfd8,
-        type: 3}
-      propertyPath: dashValueTime
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fe3307324cf8d047b74149b6256bfd8, type: 3}
@@ -3303,12 +3278,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013857041}
   m_CullTransparentMesh: 0
---- !u!136 &2080115277 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 2576877363223431061, guid: 9fe3307324cf8d047b74149b6256bfd8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1244962934}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2108715639
 GameObject:
   m_ObjectHideFlags: 0
