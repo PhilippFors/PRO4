@@ -42,7 +42,7 @@ public class SkillPlate : MonoBehaviour
             float h = chargeAmount * Time.deltaTime;
 
             bool increased = true;
-            body.IncreaseSkillMeter(h, out increased);
+            body.IncreaseAllSkills(h, out increased);
 
             if (increased)
                 if (currentChargeF >= maxChargeF)

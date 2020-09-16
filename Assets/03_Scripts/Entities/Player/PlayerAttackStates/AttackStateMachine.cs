@@ -73,14 +73,31 @@ public class AttackStateMachine : MonoBehaviour
             if (playerAttack.skills.Contains(currentAttack.skill) && playerAttack.comboCounter >= currentAttack.skill.comboCounter)
             {
                 int a = playerAttack.skills.IndexOf(currentAttack.skill);
-                playerAttack.skills[a].current += 2;
+                IncreaseOneSkill(2, playerAttack.skills[a]);
+                // playerAttack.skills[a].current += 2;
                 playerAttack.comboCounter = 0;
             }
         }
     }
+    public void IncreaseOneSkill(float amount, Skills skill)
+    {
+        if (skill.current < skill.max)
+        {
+            if (skill.current + amount > skill.max)
+            {
+                float overflow = skill.current + amount - skill.max;
+                skill.current += amount - overflow;
 
-    public void IncreaseSkillMeter(float amount, out bool increased)
-    {   
+            }
+            else
+            {
+                skill.current += amount;
+
+            }
+        }
+    }
+    public void IncreaseAllSkills(float amount, out bool increased)
+    {
         increased = true;
         foreach (Skills skill in playerAttack.skills)
         {
