@@ -10,6 +10,9 @@ public abstract class MusicAnalyzer : AR_ColorMaster
     public bool m_onKick;
     public bool m_onHighHat;
 
+    protected bool addedToEvent = false;
+
+
     public bool m_onSkillActive;
 
     public bool m_intervalBeat;
@@ -95,7 +98,7 @@ public abstract class MusicAnalyzer : AR_ColorMaster
 
     protected void addActionToEvent()
     {
-         
+        addedToEvent = true;
 
         if (m_onSnare)
         {
@@ -114,5 +117,26 @@ public abstract class MusicAnalyzer : AR_ColorMaster
 
 
     }
+
+    protected void removeActionFromEvent()
+    {
+        addedToEvent = false;
+
+        if (m_onSnare)
+        {
+            EventSystem.instance.Snare -= objectAction;
+        }
+
+        if (m_onKick)
+        {
+            EventSystem.instance.Kick -= objectAction;
+        }
+
+        if (m_onHighHat)
+        {
+            EventSystem.instance.HighHat -= objectAction;
+        }
+    }
+
 
 }

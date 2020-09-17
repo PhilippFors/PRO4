@@ -180,6 +180,8 @@ public class AR_damagePlate : MusicAnalyzer
                 //m_intervalCounter = -1;
                // m_IntervalInvert = true;
             }
+
+           
         } 
     }
 

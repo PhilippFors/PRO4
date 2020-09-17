@@ -11,11 +11,18 @@ public class AR_mover : MusicAnalyzer
 
     public bool m_backAndForth = true;
 
+    private Material m_material;
+    float H, S, V;
+
+    float x;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_material = GetComponent<MeshRenderer>().material;
         addActionToEvent();
+        
+
     }
 
     protected override void objectAction()
@@ -23,7 +30,7 @@ public class AR_mover : MusicAnalyzer
         increaseIntervalCounter();
         // moveSimple();
 
-        if (m_moveX > 0)
+        if (m_moveX > 0 && !colorErrorActive)
         {
             if (checkInterval())
             {
@@ -54,7 +61,10 @@ public class AR_mover : MusicAnalyzer
         {
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
+               
+
                 transform.DOLocalMoveY(transform.position.y + m_moveY, m_actionInDuration);
+              
             }
             else if (m_backAndForth && (m_intervalCounter % 2 != 0))
             {
@@ -62,6 +72,7 @@ public class AR_mover : MusicAnalyzer
             }
         }
 
+       
 
     }
 
@@ -76,7 +87,67 @@ public class AR_mover : MusicAnalyzer
     // Update is called once per frame
     void Update()
     {
+
+        if (colorErrorActive && addedToEvent)
+        {
+            removeActionFromEvent();
+        }
+        else if (!colorErrorActive && !addedToEvent)
+        {
+            addActionToEvent();
+        }
         
+
+
+        if (colorErrorActive)
+        {
+           
+
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+
+            m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            /*
+            if (!m_holdHelper)
+            {
+                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
+            }
+            */
+
+        }
+        else
+        {
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+
+            m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            /*
+            if (!m_holdHelper)
+            {
+                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
+            }
+            */
+        }
     }
 
     protected void increaseIntervalCounter()
