@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class AR_beaconWall : MusicAnalyzer
 {
-
+    public bool isTurret;
     private Material _material;
     Material _energyWallMaterial;
     private float defaultLength;
@@ -27,7 +27,7 @@ public class AR_beaconWall : MusicAnalyzer
 
         _material = GetComponent<MeshRenderer>().material;
         _energyWall = this.gameObject.transform.GetChild(0).gameObject;
-        _energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
+        //_energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
 
         defaultLength = _energyWall.transform.localScale.y;
 
@@ -62,8 +62,11 @@ public class AR_beaconWall : MusicAnalyzer
             {
                 Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
             }
-
-            _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            foreach (Transform child in transform)
+            {                      
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            }
+           // _energyWallMaterial
 
         }
         else
@@ -81,7 +84,10 @@ public class AR_beaconWall : MusicAnalyzer
                 Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
             }
 
-            _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V));
+            }
         }
     }
 
@@ -91,15 +97,26 @@ public class AR_beaconWall : MusicAnalyzer
         if (!colorErrorActive)
         {
 
-            Debug.Log("Normal Barrier Action");
+            
             increaseIntervalCounter();
             if (checkInterval())
             {
                // shortDurationHelper();
+               foreach (Transform child in transform)
+                {
+                   
+                   
+                    tweenSeq = DOTween.Sequence()
+                    .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
+                    .Append(child.DOScaleY(defaultLength, m_actionOutDuration))
+                    .SetEase(Ease.Flash);
+                }
+               /*
                 tweenSeq = DOTween.Sequence()
                .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
                .Append(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
                .SetEase(Ease.Flash);
+               */
             }
 
         }
@@ -110,12 +127,27 @@ public class AR_beaconWall : MusicAnalyzer
     {
         if (skill.name == "PitchShift")
         {
-
-            tweenSeq.Kill();
-            //Debug.Log("BeconBarrier activate");
-            tweenSeq = DOTween.Sequence()
-            .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
+           if (!isTurret)
+            {
+                tweenSeq.Kill();
+            }
+            
+            foreach (Transform child in transform)
+            {
+             
+                tweenSeq = DOTween.Sequence()
+            .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
             .SetEase(Ease.Flash);
+            }
+            /*
+            foreach (Transform child in transform)
+            {
+                tweenSeq = DOTween.Sequence()
+                .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
+                .Append(child.DOScaleY(defaultLength, m_actionOutDuration))
+                .SetEase(Ease.Flash);
+            }
+            */
 
 
 
