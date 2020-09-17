@@ -22,7 +22,7 @@ public class LevelEntry : MonoBehaviour
         LevelEventSystem.instance.LevelEntry();
     }
 
-    void StartLevel(Scene scene, LoadSceneMode mode = LoadSceneMode.Additive)
+    void StartLevel(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Base")
             LevelEventSystem.instance.LevelEntry();
@@ -33,6 +33,7 @@ public class LevelEntry : MonoBehaviour
     private void StartL()
     {
         LevelEventSystem.instance.LevelEntry();
+        scenLoaded = true;
     }
 
 

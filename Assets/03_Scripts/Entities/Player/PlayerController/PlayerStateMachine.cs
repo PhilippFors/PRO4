@@ -67,6 +67,7 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public CharacterController characterController => GetComponent<CharacterController>();
     public CapsuleCollider selfCol;
     [SerializeField] private StatTemplate playerTemplate;
+    public PlayerBody playerBody => GetComponent<PlayerBody>();
 
     public Transform currentEnemyTarget;
 
@@ -165,9 +166,12 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Move()
     {
-        IsGrounded();
-        velocity.y = 0;
-        characterController.Move(((Vector3.Normalize(currentMoveDirection) + velocity) * currentMoveSpeed) * Time.deltaTime);
+        if (playerBody.alive)
+        {
+            IsGrounded();
+            velocity.y = 0;
+            characterController.Move(((Vector3.Normalize(currentMoveDirection) + velocity) * currentMoveSpeed) * Time.deltaTime);
+        }
     }
 
     void IsMoving()

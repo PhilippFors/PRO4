@@ -39,7 +39,10 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
     void InitSymbol()
     {
-        symbol.GetComponent<MeshRenderer>().material = symbolInfo.mat;
+        // symbol.GetComponent<MeshRenderer>().material = symbolInfo.mat;
+        MeshRenderer[] rend = symbol.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer r in rend)
+            r.material = symbolInfo.mat;
     }
 
     #endregion

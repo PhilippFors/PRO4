@@ -7,6 +7,8 @@ public class PlayerBody : AStats, IHasHealth
     public StatTemplate template;
     public FloatVariable currentHealth;
 
+    public bool alive = true;
+
     private void Awake()
     {
         this.InitStats(template);
@@ -23,7 +25,7 @@ public class PlayerBody : AStats, IHasHealth
         }
         currentHealth.Value = GetStatValue(StatName.MaxHealth);
     }
-    
+
     void CheckHealth()
     {
         if (currentHealth.Value <= 0)
@@ -44,6 +46,7 @@ public class PlayerBody : AStats, IHasHealth
 
     public void OnDeath()
     {
+        alive = false;
         LevelEventSystem.instance.ReturnToCheckpoint(this);
     }
 

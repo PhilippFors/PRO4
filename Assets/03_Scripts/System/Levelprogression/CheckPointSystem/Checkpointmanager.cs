@@ -6,6 +6,7 @@ public class Checkpointmanager : MonoBehaviour
 {
     public CheckPoint currentCheck;
     CheckPoint oldCheck;
+    public Transform player;
     void Start()
     {
         StartCoroutine(Wait());
@@ -31,7 +32,7 @@ public class Checkpointmanager : MonoBehaviour
 
     public void TransportToCheckpoint(PlayerBody body)
     {
-        body.transform.position = currentCheck.transform.position;
+        GameManager.instance.Respawn(body, transform.TransformPoint(currentCheck.transform.position));
     }
 
 }

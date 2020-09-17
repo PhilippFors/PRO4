@@ -79,7 +79,9 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         FindPlayerSpawnpoint();
+        player.GetComponent<Animator>().applyRootMotion = false;
         player.position = playerSpawnpoint.position;
+        player.GetComponent<Animator>().applyRootMotion = true;
         // StartCoroutine(SaveGame());
         //TODO: Exit from Level transition
     }

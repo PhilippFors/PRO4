@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void Respawn(PlayerBody player, Vector3 respawn)
+    {
+        StartCoroutine(RespawnAnim(player, respawn));
+    }
+
     public void ReturnToStartMenu()
     {
         if (arena)
@@ -64,5 +69,16 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
 
+    }
+
+    IEnumerator RespawnAnim(PlayerBody player, Vector3 respawn)
+    {
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<Animator>().applyRootMotion = false;
+        player.transform.position = respawn;
+        player.currentHealth.Value = player.GetStatValue(StatName.MaxHealth);
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<Animator>().applyRootMotion = false;
+        player.alive = true;
     }
 }
