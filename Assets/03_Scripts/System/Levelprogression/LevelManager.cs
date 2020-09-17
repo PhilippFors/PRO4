@@ -48,14 +48,23 @@ public class LevelManager : MonoBehaviour
         currentObjective = GetNextObjective();
         currentObjective.started = true;
         currentObjective.ObjEnter(this);
+        if (barrierList.list.Count > 0)
+            foreach (AreaBarrier a in barrierList.list)
+                if (a.AreaID == currentArea - 1)
+                    a.Activate();
     }
 
     public void FinishArea()
     {
         if (barrierList.list.Count > 0)
             foreach (AreaBarrier a in barrierList.list)
+            {
                 if (a.AreaID == currentArea)
                     a.Deactivate();
+                if (currentArea != 0)
+                    if (a.AreaID == currentArea - 1)
+                        a.Deactivate();
+            }
 
         if (HasNextObjective())
             currentArea++;

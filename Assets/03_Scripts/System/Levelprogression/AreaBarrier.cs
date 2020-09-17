@@ -3,9 +3,13 @@
 public class AreaBarrier : MonoBehaviour
 {
     public int AreaID;
-    
+    public bool active = true;
     public void Deactivate(){
-        gameObject.SetActive(false);
+        gameObject.SetActive(!active);
+    }
+
+    public void Activate(){
+        gameObject.SetActive(!active);
     }
 
     public void UdpateNames(){

@@ -30,17 +30,16 @@ public class MultiplierManager : MonoBehaviour
     {
         foreach (EnemyBody enemy in set.entityList)
         {
-            if (enemy.symbolInfo.name.Equals(skill.symbol.name))
-                if (skill.symbol.enhance)
-                {
-                    enemy.AddMultiplier(skill.symbol.main, skill.increaseMultValue, skill.timer);
-                    enemy.BuffAnim();
-                }
-                else
-                {
-                    enemy.AddMultiplier(skill.symbol.main, skill.decreaseMultValue, skill.timer);
-                    enemy.DebuffAnim();
-                }
+            if (enemy.symbolInfo.name.Equals(skill.buffSymbol.name))
+            {
+                enemy.AddMultiplier(skill.buffSymbol.buff, skill.increaseMultValue, skill.timer);
+                enemy.BuffAnim();
+            }
+            else if (enemy.symbolInfo.name.Equals(skill.debuffSymbol.name))
+            {
+                enemy.AddMultiplier(skill.debuffSymbol.debuff, skill.decreaseMultValue, skill.timer);
+                enemy.DebuffAnim();
+            }
 
         }
     }
