@@ -6,21 +6,22 @@ public class Weapons : MonoBehaviour
     public List<AttackSO> attacks = new List<AttackSO>();
     public WeaponSettings stats;
     public AttackSO baseAttack;
-    public AttackStateMachine attack => GameObject.FindGameObjectWithTag("Player").GetComponent<AttackStateMachine>();
-    Animator animator => attack.animator;
+    public AttackStateMachine attackSt;
+    public PlayerAttack playerAttack;
+    Animator animator => attackSt.animator;
     internal void Equip(Transform weaponPoint)
     {
         switch (stats.weaponName)
         {
             case WeaponNames.Hammer:
                 animator.SetTrigger("toHammer");
-                
+
                 break;
             case WeaponNames.Dagger:
                 animator.SetTrigger("toDagger");
                 break;
         }
-        attack.SetBase(baseAttack);
+        attackSt.SetBase(baseAttack);
         transform.gameObject.SetActive(true);
         transform.SetParent(weaponPoint);
 
@@ -37,13 +38,15 @@ public class Weapons : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (attack.currentState.canDamage)
+        if (attackSt.currentState.canDamage)
         {
             if (other.gameObject.GetComponent<EnemyBody>() != null)
             {
                 GetComponentInParent<PlayerAttack>().comboCounter += 1;
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), stats.bsdmg);
-                other.GetComponent<IKnockback>().ApplyKnockback(stats.knockbackForce, stats.stunChance);
+                float damage = stats.bsdmg * (1+attackSt.currentAttack.comboDamageMultiplier * (playerAttack.comboCounter - 1));
+                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), damage);
+                other.GetComponent<IKnockback>().ApplyKnockback(stats.knockbackForce);
+                other.GetComponent<IKnockback>().ApplyStun(stats.stunChance);
             }
             else if (other.gameObject.GetComponent<ObstacleBody>())
             {

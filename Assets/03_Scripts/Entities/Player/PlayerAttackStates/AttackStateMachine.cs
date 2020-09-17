@@ -85,9 +85,7 @@ public class AttackStateMachine : MonoBehaviour
         {
             if (skill.current + amount > skill.max)
             {
-                float overflow = skill.current + amount - skill.max;
-                skill.current += amount - overflow;
-
+                skill.current = skill.max;
             }
             else
             {
@@ -105,8 +103,7 @@ public class AttackStateMachine : MonoBehaviour
             {
                 if (skill.current + amount > skill.max)
                 {
-                    float overflow = skill.current + amount - skill.max;
-                    skill.current += amount - overflow;
+                    skill.current = skill.max;
                     increased = true;
                 }
                 else
@@ -160,7 +157,6 @@ public class AttackStateMachine : MonoBehaviour
                 stateCounter++;
                 SetState(currentAttack.stateList[stateCounter]);
                 playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
-
             }
         }
     }

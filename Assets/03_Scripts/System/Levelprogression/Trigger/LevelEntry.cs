@@ -6,16 +6,11 @@ using UnityEngine.SceneManagement;
 public class LevelEntry : MonoBehaviour
 {
     bool scenLoaded = false;
-    private void OnEnable()
-    {
-        
-        // StartCoroutine(LeStart());
 
-    }
     private void Start()
     {
         SceneManager.sceneLoaded += StartLevel;
-        
+
         if (SceneManager.GetSceneByName("Base").isLoaded & !scenLoaded)
         {
             LevelEventSystem.instance.LevelEntry();

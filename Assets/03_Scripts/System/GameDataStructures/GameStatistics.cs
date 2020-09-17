@@ -1,6 +1,5 @@
 ﻿public enum StatName
 {
-    undefined,
     MaxHealth,
     Speed,
     Range,
@@ -9,7 +8,7 @@
     AttackSpeed,
     AttackRate,
     BaseDmg,
-    StunResist
+    StunResist,
 }
 public class GameStatistics
 {

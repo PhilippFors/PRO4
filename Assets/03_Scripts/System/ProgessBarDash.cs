@@ -21,8 +21,8 @@ public class ProgessBarDash : ProgessBar
 
     public void GetCurrentFill()
     {
-        maximum = dash.maxDashValue;
-        current = dash.dashValue;
+        maximum = dash.maxDashCharge;
+        current = dash.dashCharge;
         float fillAmount = (float) current / (float) maximum;
         slider.value = fillAmount;
     }

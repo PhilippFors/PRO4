@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055d4b53a0613eb49a884e9afe664027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 0}
+  aiManager: {fileID: 0}
   offsetTargetPos: {x: 0, y: 0, z: 0}
   ObstacleTarget: {fileID: 0}
   deltaTime: 0
@@ -523,7 +523,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.99
-  m_Speed: 0.5
+  m_Speed: 0.1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 1000
@@ -579,6 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicators: {fileID: 7291919099036320658}
   statTemplate: {fileID: 11400000, guid: 77a6aa34bf773af4da67fb306207e439, type: 2}
+  stunCooldown: 0.5
   symbolInfo: {fileID: 11400000, guid: b31e9aa8e05478745a40574b06eeb243, type: 2}
   parent: {fileID: 2649116113045803458}
   symbol: {fileID: 2462129304368738744}
@@ -1497,7 +1498,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.003921569, g: 0.39215687, b: 1, a: 1}
-  m_Intensity: 0.47746482
+  m_Intensity: 0.23873241
   m_Range: 0.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1868,7 +1869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5766312647491871303}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2950058, y: 1.0398581, z: 0.5674324}
+  m_LocalPosition: {x: 0.2950035, y: 1.039858, z: 0.5674322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 353171539539999485}
@@ -1953,7 +1954,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5766312648208895750}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.28331757, y: 1.0308065, z: 0.5779991}
+  m_LocalPosition: {x: -0.28331673, y: 1.0308065, z: 0.57800007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 353171539539999485}
@@ -2456,7 +2457,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.003921569, g: 0.39215687, b: 1, a: 1}
-  m_Intensity: 0.47746482
+  m_Intensity: 0.23873241
   m_Range: 0.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

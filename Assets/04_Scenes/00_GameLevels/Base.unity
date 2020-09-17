@@ -956,6 +956,16 @@ PrefabInstance:
       propertyPath: bsdmg
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 9131501478043311910, guid: 913e4e877e0d0154ca692911c06a1a31,
+        type: 3}
+      propertyPath: attackSt
+      value: 
+      objectReference: {fileID: 522471123}
+    - target: {fileID: 9131501478043311910, guid: 913e4e877e0d0154ca692911c06a1a31,
+        type: 3}
+      propertyPath: playerAttack
+      value: 
+      objectReference: {fileID: 1283641779}
     - target: {fileID: 9131501478043311911, guid: 913e4e877e0d0154ca692911c06a1a31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1081,6 +1091,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.34966183, y: 0.21752453, z: 0.79151154}
   m_Center: {x: 0.014527798, y: 0.005791664, z: 0.6080589}
+--- !u!114 &522471123 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2576877363223431063, guid: 9fe3307324cf8d047b74149b6256bfd8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1244962934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdce7a876d34478d93a1d78ee78a760f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &664316268
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,6 +2121,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_final_Ripped_Bloke
       objectReference: {fileID: 0}
+    - target: {fileID: 2576877363223431071, guid: 9fe3307324cf8d047b74149b6256bfd8,
+        type: 3}
+      propertyPath: delayTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576877363223431071, guid: 9fe3307324cf8d047b74149b6256bfd8,
+        type: 3}
+      propertyPath: drag
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fe3307324cf8d047b74149b6256bfd8, type: 3}
 --- !u!1 &1246544466
@@ -2918,6 +2950,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hammer
       objectReference: {fileID: 0}
+    - target: {fileID: 1451264603928299838, guid: b0cb4d032e3d46e42ab0015212f6c439,
+        type: 3}
+      propertyPath: attackSt
+      value: 
+      objectReference: {fileID: 522471123}
+    - target: {fileID: 1451264603928299838, guid: b0cb4d032e3d46e42ab0015212f6c439,
+        type: 3}
+      propertyPath: playerAttack
+      value: 
+      objectReference: {fileID: 1283641779}
     - target: {fileID: 1451264603928299839, guid: b0cb4d032e3d46e42ab0015212f6c439,
         type: 3}
       propertyPath: m_LocalPosition.x
