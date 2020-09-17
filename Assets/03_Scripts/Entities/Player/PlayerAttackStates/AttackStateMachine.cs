@@ -21,16 +21,16 @@ public class AttackStateMachine : MonoBehaviour
     public AttackSO currentAttack; //the current attack
     public AttackState currentState; //in which state (attack, wait or return) of the attack the statemachine currently is
     [HideInInspector] public PlayerControls input;
-    private float animTimer = 0; // a timer to check if animation has finished playing
+    public float animTimer = 0; // a timer to check if animation has finished playing
     private int stateCounter = 0; // counts the current states of an attack
     private static PlayerAttack playerAttack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
     PlayerStateMachine _stateMachine => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>();
-
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
     PlayableGraph playableGraph;
     public Animator animator => GetComponent<Animator>(); //animator of the character model
+    public AnimationClip lastClip;
 
     private void Awake()
     {
@@ -64,6 +64,7 @@ public class AttackStateMachine : MonoBehaviour
         // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
         if (_stateMachine.currentState == PlayerMovementSate.standard || _stateMachine.currentState == PlayerMovementSate.comboWait && (currentState.canAttack || currentAttack != null))
         {
+            lastClip = currentState.clip;
             stateCounter = 0; //sets the counter back to zero because a new attack begins
             currentAttack =
                 currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
@@ -90,7 +91,7 @@ public class AttackStateMachine : MonoBehaviour
         //plays the animation of the currentstate
         //AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
         animCon.AttackDisconnecter();
-        animCon.AttackAnimation(currentState.clip, currentState.clip);
+        animCon.AttackAnimation(lastClip, currentState.clip);
         EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
 
     }
@@ -100,6 +101,7 @@ public class AttackStateMachine : MonoBehaviour
     {
         //checks if animation is finished playing (and an animation was playing)
         animTimer += Time.deltaTime;
+
         //if (animTimer >= currentState.anim.duration && currentState != baseState)
         if (currentState != baseState && animTimer >= currentState.clip.averageDuration)
         {
@@ -114,7 +116,9 @@ public class AttackStateMachine : MonoBehaviour
             }
             else
             {
+                
                 stateCounter++;
+                lastClip = currentState.clip;
                 SetState(currentAttack.stateList[stateCounter]);
                 playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
 
@@ -125,7 +129,7 @@ public class AttackStateMachine : MonoBehaviour
     public void SetBase(AttackSO state = null)
     {
         playerAttack.comboCounter = 0;
-
+        lastClip = currentState.clip;
         if (state != null)
         {
             currentAttack = state;

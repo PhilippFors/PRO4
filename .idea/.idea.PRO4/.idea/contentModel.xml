@@ -49,6 +49,7 @@
             <e p="SaveAsset.cs" t="Include" />
             <e p="SaveGameEditor.cs" t="Include" />
             <e p="SpawnlistEditor.cs" t="Include" />
+            <e p="UpdateBarrierNames.cs" t="Include" />
             <e p="UpdateLevelID.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
@@ -115,6 +116,12 @@
                     <e p="Shentau_ChargeOrAtt.cs" t="Include" />
                     <e p="Shentau_ChargeOrMove.cs" t="Include" />
                   </e>
+                  <e p="Enter_Exit" t="Include">
+                    <e p="Shentau_AttackEnter.cs" t="Include" />
+                    <e p="Shentau_AttackExit.cs" t="Include" />
+                    <e p="Shentau_ChargeEnter.cs" t="Include" />
+                    <e p="Shentau_ChargeExit.cs" t="Include" />
+                  </e>
                 </e>
               </e>
             </e>
@@ -154,8 +161,10 @@
               <e p="PlayerController.cs" t="Include" />
               <e p="PlayerInteraction.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
-              <e p="Weapons.cs" t="Include" />
-              <e p="WeaponSettings.cs" t="Include" />
+              <e p="Weapons" t="Include">
+                <e p="Weapons.cs" t="Include" />
+                <e p="WeaponSettings.cs" t="Include" />
+              </e>
             </e>
             <e p="StatScripts" t="Include">
               <e p="EnemyBody.cs" t="Include" />
@@ -264,6 +273,7 @@
           </e>
           <e p="UI" t="Include">
             <e p="TutorialTemplate.cs" t="Include" />
+            <e p="TutTempObject.cs" t="Include" />
             <e p="UIManager.cs" t="Include" />
           </e>
         </e>
@@ -402,6 +412,7 @@
             </e>
           </e>
         </e>
+        <e p="ResetWeaponTriggers.cs" t="Include" />
         <e p="RotateCam.cs" t="Include" />
         <e p="Samples" t="Include">
           <e p="Terrain Tools" t="Include">

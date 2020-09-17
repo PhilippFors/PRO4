@@ -26,7 +26,7 @@ public class AnimationController : MonoBehaviour
         dashPlayableClip;
 
     public AnimationClipPlayable attackPlayableClip;
-    public AnimationClipPlayable nextAttackPlayableClip;
+    public AnimationClipPlayable lastAttackPlayableClip;
 
 
     public float weightX;
@@ -127,6 +127,9 @@ public class AnimationController : MonoBehaviour
 
         child.SetFloat("X", posx);
         child.SetFloat("Y", posy);
+
+        transWeight = attack.animTimer * 10;
+        transWeight = Mathf.Clamp(transWeight, 0, 1.0f);
     }
 
     private void OnEnable()
@@ -142,14 +145,14 @@ public class AnimationController : MonoBehaviour
         playableGraph.Destroy();
     }
 
-    public void AttackAnimation(AnimationClip clip, AnimationClip nextClip)
+    public void AttackAnimation(AnimationClip lastClip, AnimationClip clip)
     {
+        lastAttackPlayableClip = AnimationClipPlayable.Create(playableGraph, lastClip);
         attackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
-        nextAttackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
         attackBlendPlayable = AnimationMixerPlayable.Create(playableGraph, 2);
-        playableGraph.Connect(attackPlayableClip, 0, attackBlendPlayable, 0);
+        playableGraph.Connect(lastAttackPlayableClip, 0, attackBlendPlayable, 0);
 
-        playableGraph.Connect(nextAttackPlayableClip, 0, attackBlendPlayable, 1);
+        playableGraph.Connect(attackPlayableClip, 0, attackBlendPlayable, 1);
         
         attackBlendPlayable.SetInputWeight(0, 1.0f-transWeight);
         attackBlendPlayable.SetInputWeight(1, transWeight);
@@ -181,7 +184,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
-    public void blender()
+    public void Blender()
     {
         
     }
