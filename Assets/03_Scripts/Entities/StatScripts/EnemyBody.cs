@@ -10,13 +10,12 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
     public Coroutine stunCoroutine { get; set; }
     public float currentStun { get; set; }
-
     public float stunCooldown = 0.5f;
-
     public Symbol symbolInfo;
     public GameObject parent;
     [SerializeField] private GameObject symbol;
     public float currentHealth;
+
     private void Awake()
     {
         InitSymbol();
@@ -24,6 +23,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
     }
 
     #region Init
+
     public override void InitStats(StatTemplate template)
     {
         multList = new List<Multiplier>();
@@ -45,6 +45,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
     #endregion
 
     #region health
+
     public void CheckHealth()
     {
         if (currentHealth <= 0)
@@ -52,6 +53,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
             OnDeath();
         }
     }
+
     public void TakeDamage(float damage)
     {
         float calcDamage = damage * GetMultValue(MultiplierName.damage);
@@ -79,13 +81,9 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
     public void ApplyKnockback(float force)
     {
-        // float totalStun = stunChance - GetStatValue(StatName.stunResist);
-
-
         Vector3 direction = (transform.position - controller.aiManager.playerTarget.position).normalized;
         rb.AddForce(direction * force, ForceMode.Impulse);
     }
-
 
     public void ApplyStun(float stun)
     {
@@ -97,7 +95,6 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
         if (currentStun > GetStatValue(StatName.StunResist))
             controller.Stun();
-
     }
 
     public IEnumerator StunCooldown()

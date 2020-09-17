@@ -12,7 +12,6 @@ public class AttackMovementState
     public AttackMovementState(PlayerStateMachine controller)
     {
         _child = controller.transform.GetChild(0).gameObject; //first child object of the player
-
     }
 
     public void StopMovement(PlayerStateMachine controller)
@@ -20,6 +19,7 @@ public class AttackMovementState
         controller.currentMoveDirection = Vector3.zero;
         currentRotation = controller.transform.rotation;
     }
+
     public void Tick(PlayerStateMachine controller)
     {
 
@@ -27,14 +27,21 @@ public class AttackMovementState
         {
             controller.SetState(PlayerMovmentSate.standard);
         }*/
-        if (attack.currentState.canTurn)
-        {
-            MouseLook(controller);
-            GamepadLook(controller);
-        }
-        
+
+        MouseLook(controller);
+        GamepadLook(controller);
+        TurnToEnemy(controller);
     }
-    
+
+    void TurnToEnemy(PlayerStateMachine controller)
+    {
+        if (controller.currentEnemyTarget != null)
+        {
+            // Quaternion newRot = Quaternion.LookRotation(controller.currentEnemyTarget.position);
+            // controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, newRot, 2f * controller.deltaTime);
+        }
+    }
+
     void GamepadLook(PlayerStateMachine controller)
     {
         if (controller.input.Gameplay.Rotate.triggered || controller.gamepadused)
@@ -73,20 +80,31 @@ public class AttackMovementState
 
     void UpdateLookDirection(PlayerStateMachine controller)
     {
-        controller.pointToLook.y = 0;
-        if (controller.pointToLook != Vector3.zero)
-        {
-            Quaternion newRot = Quaternion.LookRotation(controller.pointToLook);
-            Vector3 temp = newRot.eulerAngles;
-            //temp.y = Mathf.Clamp(temp.y, currentRotation.eulerAngles.y -attack.maxRot, currentRotation.eulerAngles.y + attack.maxRot);
-           
-            controller.transform.rotation = newRot;
-            controller.currentLookDirection = temp;
-            
-            
-            //Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * rotationSpeed);
-        }
+        // controller.pointToLook.y = 0;
+        // if (controller.pointToLook != Vector3.zero)
+        // {
+        //     Quaternion newRot = Quaternion.LookRotation(controller.pointToLook);
+        //     Vector3 temp = newRot.eulerAngles;
+        //     //temp.y = Mathf.Clamp(temp.y, currentRotation.eulerAngles.y -attack.maxRot, currentRotation.eulerAngles.y + attack.maxRot);
+
+        //     controller.transform.rotation = newRot;
+        //     controller.currentLookDirection = temp;
+
+
+        //     //Quaternion.Lerp(transform.rotation, newRot, Time.deltaTime * rotationSpeed);
+        // }
     }
 
-
+    public Transform FindTarget(PlayerStateMachine controller)
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(controller.transform.position, 1f, controller.currentLookDirection, out hit, 4f, controller.enemyMask))
+        {
+            if (hit.transform.GetComponent<EnemyBody>())
+                return hit.transform;
+            else
+                return null;
+        }
+        return null;
+    }
 }

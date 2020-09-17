@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Checkpointmanager : MonoBehaviour
 {
-    CheckPoint currentCheck;
+    public CheckPoint currentCheck;
     CheckPoint oldCheck;
     void Start()
     {
@@ -20,8 +20,11 @@ public class Checkpointmanager : MonoBehaviour
 
     void SetNewCheckPoint(CheckPoint point)
     {
-        currentCheck.isActive = false;
-        oldCheck = currentCheck;
+        if (currentCheck != null)
+        {
+            currentCheck.isActive = false;
+            oldCheck = currentCheck;
+        }
         currentCheck = point;
         currentCheck.isActive = true;
     }

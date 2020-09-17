@@ -58,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.input.Gameplay.Skill3.performed += rt => Skill(2);
         playerMovement.input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
     }
+    
     private void Reset()
     {
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DashMovementController
 {
-    private float timeStartDash, currentDashValueTime, timeSinceStarted, actualDashDistance, frametime = 0.0f, delayCountdown;
+    private float timeStartDash, timeSinceStarted, actualDashDistance, frametime = 0.0f, delayCountdown;
     public bool isDashing = false, dashDelayOn = false;
     private Vector3 velocity;
     AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
@@ -15,6 +15,7 @@ public class DashMovementController
         frametime = controller.dashDuration;
         delayCountdown = controller.delayTime;
     }
+
     public void Tick(PlayerStateMachine controller)
     {
         DashUpdate(controller);
@@ -69,7 +70,7 @@ public class DashMovementController
             frametime = controller.dashDuration;
             dashDelayOn = true;
             controller.selfCol.enabled = true;
-            currentDashValueTime = Time.time;
+            controller.dashTime = Time.time;
         }
 
         if (!dashDelayOn)
@@ -111,14 +112,5 @@ public class DashMovementController
             }
         }
         controller.checkEnemy = false;
-    }
-
-    public void DashCooldown(PlayerStateMachine controller)
-    {
-        float timeSinceDashEnded = controller.time - currentDashValueTime;
-
-        float perc = timeSinceDashEnded / controller.dashValueTime;
-
-        controller.dashCharge = Mathf.Lerp(0, controller.maxDashCharge, perc);
     }
 }

@@ -27,7 +27,6 @@ public class Weapons : MonoBehaviour
 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        // transform.localScale = Vector3.one;
     }
 
     internal void Unequip()
@@ -43,8 +42,10 @@ public class Weapons : MonoBehaviour
             if (other.gameObject.GetComponent<EnemyBody>() != null)
             {
                 GetComponentInParent<PlayerAttack>().comboCounter += 1;
-                float damage = stats.bsdmg * (1+attackSt.currentAttack.comboDamageMultiplier * (playerAttack.comboCounter - 1));
+                float damage = stats.bsdmg * (1 + attackSt.currentAttack.comboDamageMultiplier * (playerAttack.comboCounter - 1));
+
                 EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), damage);
+
                 other.GetComponent<IKnockback>().ApplyKnockback(stats.knockbackForce);
                 other.GetComponent<IKnockback>().ApplyStun(stats.stunChance);
             }

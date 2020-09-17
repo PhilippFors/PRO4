@@ -23,6 +23,7 @@ public class PlayerBody : AStats, IHasHealth
         }
         currentHealth.Value = GetStatValue(StatName.MaxHealth);
     }
+    
     void CheckHealth()
     {
         if (currentHealth.Value <= 0)
@@ -30,6 +31,7 @@ public class PlayerBody : AStats, IHasHealth
             OnDeath();
         }
     }
+
     public void TakeDamage(float damage)
     {
         //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
@@ -37,6 +39,7 @@ public class PlayerBody : AStats, IHasHealth
         currentHealth.Value -= newDamage;
         // SetStatValue(StatName.MaxHealth, GetStatValue(StatName.MaxHealth) - damage);
         Debug.Log(gameObject.name + " just took " + newDamage + " damage.");
+        CheckHealth();
     }
 
     public void OnDeath()

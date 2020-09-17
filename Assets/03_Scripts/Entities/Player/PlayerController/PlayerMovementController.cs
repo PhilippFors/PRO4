@@ -40,12 +40,8 @@ public class PlayerMovementController
         Vector3 vertikMovement = controller.forward * direction.z;
 
         controller.currentMoveDirection = horizMovement + vertikMovement;
-
-        
     }
-
-
-
+    
     #endregion
 
     #region Look direction
