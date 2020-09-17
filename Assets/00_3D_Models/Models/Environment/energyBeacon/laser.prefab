@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1033534541616974565}
   - component: {fileID: 1033534541616974564}
   - component: {fileID: 1033534541616974562}
-  - component: {fileID: 1033534541616974561}
   m_Layer: 0
   m_Name: laser
   m_TagString: Untagged
@@ -296,16 +295,3 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!65 &1033534541616974561
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033534541616974559}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.99999994, y: 1.0000002, z: 1.0000001}
-  m_Center: {x: 0.50000024, y: 0.49999475, z: 0.4999997}

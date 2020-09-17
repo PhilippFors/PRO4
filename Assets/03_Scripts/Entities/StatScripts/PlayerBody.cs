@@ -23,7 +23,13 @@ public class PlayerBody : AStats, IHasHealth
         }
         currentHealth.Value = GetStatValue(StatName.MaxHealth);
     }
-
+    void CheckHealth()
+    {
+        if (currentHealth.Value <= 0)
+        {
+            OnDeath();
+        }
+    }
     public void TakeDamage(float damage)
     {
         //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
@@ -35,7 +41,7 @@ public class PlayerBody : AStats, IHasHealth
 
     public void OnDeath()
     {
-        //Death
+        LevelEventSystem.instance.ReturnToCheckpoint(this);
     }
 
     public void Heal(float healAmount)

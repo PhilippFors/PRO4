@@ -6,7 +6,7 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
 {
     public List<GameStatistics> statList { get; set; }
     public List<Multiplier> multList { get; set; }
-
+    public BuffIndicators indicators;
     virtual public void InitStats(StatTemplate template)
     {
         multList = new List<Multiplier>();
@@ -36,6 +36,7 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
     virtual public void AddMultiplier(MultiplierName name, float value, float time)
     {
         multList.Add(new Multiplier(value, name));
+
         StartCoroutine(MultiplierTimer(time, multList.FindIndex(x => x.GetName().Equals(name))));
     }
     virtual public float GetMultValue(MultiplierName name)
@@ -63,5 +64,21 @@ public abstract class AStats : MonoBehaviour, IStats, IMultipliers
     {
         yield return new WaitForSeconds(time);
         multList.RemoveAt(id);
+        StopBuffAnim();
     }
+
+    virtual public void BuffAnim(){
+        indicators.BuffLights();
+    }
+
+    virtual public void DebuffAnim(){
+        indicators.DebuffLights();
+    }
+
+    virtual public void StopBuffAnim(){
+        indicators.StandardColors();
+    }
+
+
+    
 }

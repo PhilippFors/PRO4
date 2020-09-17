@@ -13,7 +13,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     public static FMODAudioPeer _instance;
     public float _smoothBuffer = 0.005f;
 
-    FMODUnity.StudioEventEmitter emitter;
+    public FMODUnity.StudioEventEmitter emitter;
     FMOD.Studio.EventInstance musicInstance;
 
 
@@ -39,7 +39,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     private float[] _freqBand8 = new float[8];
     private float[] _bandBuffer8 = new float[8];
     private float[] _bufferDecrease = new float[8];
-    private float[] _freqBandHighest8 = new float[8];
+    public float[] _freqBandHighest8 = new float[8];
 
     //variables for the 32band audio spectrum
     //this is used for the UI Spectrum
@@ -125,7 +125,8 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
         _audioBandBuffer32 = new float[32];
 
 
-        AudioProfile(8, _audioProfile);
+        //AudioProfile(8, _audioProfile);
+        setCustomAudioProfile();
 
         //fetch the musicEvent from the EventEmitter
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
@@ -291,10 +292,13 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     {
         for (int i = 0; i < 8; i++)
         {
+            /*
             if (_freqBand8[i] > _freqBandHighest8[i])
             {
                 _freqBandHighest8[i] = _freqBand8[i];
             }
+            */
+            
             _audioBand8[i] = (_freqBand8[i] / _freqBandHighest8[i]);
             _audioBandBuffer8[i] = (_bandBuffer8[i] / _freqBandHighest8[i]);
         }
@@ -306,10 +310,12 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     {
         for (int i = 0; i < 32; i++)
         {
+            
             if (_freqBand32[i] > _freqBandHighest32[i])
             {
                 _freqBandHighest32[i] = _freqBand32[i];
             }
+            
             _audioBand32[i] = (_freqBand32[i] / _freqBandHighest32[i]);
             _audioBandBuffer32[i] = (_bandBuffer32[i] / _freqBandHighest32[i]);
 
@@ -382,6 +388,35 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
         }
     }
 
+    void setCustomAudioProfile()
+    {
+        float modifier = 0.02f;
+        _freqBandHighest8[0] = 7.087749f;
+        _freqBandHighest8[1] = 14.599951f;
+        _freqBandHighest8[2] = 8.991749f;
+        _freqBandHighest8[3] = 8.143146f;
+        _freqBandHighest8[4] = 9.672077f;
+        _freqBandHighest8[5] = 10.95406f;
+        _freqBandHighest8[6] = 25.38993f;
+        _freqBandHighest8[7] = 9.435572f;
+
+        for (int i = 0; i < 8; i++)
+        {
+            _freqBandHighest8[i] *= modifier;
+        }
+
+        _freqBandHighest8[0] = 0.5f;
+        _freqBandHighest8[1] = 0.5f;
+       // _freqBandHighest8[7] = 9.435572f;
+    }
+
+    public void changeAudioProfile(float[] a)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            _freqBandHighest8[i] *= a[i];
+        }
+    }
 
 
 

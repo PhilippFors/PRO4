@@ -1125,10 +1125,10 @@ MonoBehaviour:
   grenadeMoveSpeed: 3
   standardMoveSpeed: 6
   dashValue: 0
-  dashValueTime: 0
+  dashValueTime: 1
   maxDashValue: 100
   dashForce: 0.1
-  dashDuration: 0.3
+  dashDuration: 0.4
   dashDistance: 6
   drag: 8
   delayTime: 0.4
@@ -1136,6 +1136,7 @@ MonoBehaviour:
   RayEmitter: {fileID: 4538411176893929185}
   currentState: 0
   clip: {fileID: -203655887218126122, guid: 3727ad485afed754abbfcd68a20bc2a1, type: 3}
+  selfCol: {fileID: 2576877363223431061}
   playerTemplate: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
 --- !u!114 &2576877363223431057
 MonoBehaviour:
@@ -1168,6 +1169,8 @@ MonoBehaviour:
   target: {fileID: 0}
   firingAngle: 45
   gravity: 9.8
+  greandeCooldown: 10
+  currentGCooldown: 10
   moveSpeed: 5
   AudioPeer: {fileID: 0}
 --- !u!114 &2576877363223431056
@@ -1182,6 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de527f503ac3184429180d9e84ee55f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indicators: {fileID: 0}
   template: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
   currentHealth: {fileID: 11400000, guid: 7aa13f19c163f504d99c94d8437c9aee, type: 2}
 --- !u!114 &2576877363223431063
@@ -1223,6 +1227,7 @@ MonoBehaviour:
   dash: {fileID: 0}
   weightX: 0
   weightY: 0
+  transWeight: 0
 --- !u!136 &2576877363223431061
 CapsuleCollider:
   m_ObjectHideFlags: 0

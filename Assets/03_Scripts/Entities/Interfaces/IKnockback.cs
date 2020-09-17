@@ -1,4 +1,12 @@
-﻿public interface IKnockback
+﻿using System.Collections;
+using UnityEngine;
+public interface IKnockback
 {
-    void ApplyKnockback(float force, int stunChance);
+    Coroutine stunCoroutine {get; set;}
+    float currentStun {get; set;}
+    void ApplyKnockback(float force);
+
+    void ApplyStun(float stun);
+
+    IEnumerator StunCooldown();
 }

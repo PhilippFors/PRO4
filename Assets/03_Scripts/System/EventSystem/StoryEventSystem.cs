@@ -6,7 +6,9 @@ public class StoryEventSystem : MonoBehaviour
 {
     public event System.Action progress;
     public event System.Action nextStory;
+    public event System.Action showPrompt;
     public static StoryEventSystem instance;
+
 
     private void Awake()
     {
@@ -19,8 +21,15 @@ public class StoryEventSystem : MonoBehaviour
             progress();
     }
 
-    public void NextStory(){
-        if(nextStory != null)
+    public void NextStory()
+    {
+        if (nextStory != null)
             nextStory();
+    }
+
+    public void ShowPrompt()
+    {
+        if (showPrompt != null)
+            showPrompt();
     }
 }

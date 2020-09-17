@@ -28,7 +28,7 @@ public class AR_scaler : MusicAnalyzer
     // Start is called before the first frame update
     void Start()
     {
-        _multiply = _sizeMaxScale * 2;
+        //_multiply = _sizeMaxScale * 2;
         _multiplySave = _multiply;
         
         if (_invert)

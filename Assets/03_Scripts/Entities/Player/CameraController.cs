@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         playercontrols = player.gameObject.GetComponent<PlayerStateMachine>();
-        s = player.position;
+        StartCoroutine(WaitForStart());
     }
     private void Update()
     {
@@ -73,5 +73,11 @@ public class CameraController : MonoBehaviour
             Vector3 dist = f - player.position;
             s = player.position + dist * targetBias;
         }
+    }
+
+    IEnumerator WaitForStart()
+    {
+        yield return new WaitForEndOfFrame();
+        s = player.position;
     }
 }

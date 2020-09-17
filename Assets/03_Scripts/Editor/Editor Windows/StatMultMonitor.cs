@@ -9,6 +9,8 @@ public class StatMultMonitor : EditorWindow
     public EnemySet set;
     public PlayerBody player;
 
+    public PlayerAttack attack;
+
     Vector2 scrollPosition = Vector2.zero;
     Vector2 enemyScrollPosition = Vector2.zero;
 
@@ -22,6 +24,7 @@ public class StatMultMonitor : EditorWindow
     {
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBody>();
+        attack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
         set = (EnemySet)Resources.Load("New Enemy Set");
         // GUILayout.Label("Player Stats");
 
@@ -38,6 +41,15 @@ public class StatMultMonitor : EditorWindow
                     s.SetValue(EditorGUILayout.FloatField(s.GetName().ToString(), s.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
                 }
             }
+            
+            GUILayout.Space(5f);
+            GUILayout.Label("SKILLS");
+
+            foreach (Skills skill in attack.skills)
+            {
+                skill.current = EditorGUILayout.FloatField(skill.name, skill.current, GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f));
+            }
+
         }
 
         GUILayout.EndScrollView();

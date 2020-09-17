@@ -42,7 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public float deltaTime;
     [HideInInspector] public float time;
 
-    public float currentMoveSpeed = 5.0f, grenadeMoveSpeed = 3.0f, standardMoveSpeed, dashValue, dashValueTime, maxDashValue;
+    public float currentMoveSpeed = 5.0f, grenadeMoveSpeed = 3.0f, standardMoveSpeed, dashCharge, dashValueTime, maxDashCharge;
     public float dashForce = 1.0f, dashDuration = 0.3f, dashDistance = 7f, drag = 1f, delayTime;
 
     #endregion
@@ -221,7 +221,7 @@ public class PlayerStateMachine : MonoBehaviour
                 Attack();
                 break;
             case PlayerMovementSate.dash:
-                if (dashValue < 100 || !isMoving)
+                if (dashCharge < 100 || !isMoving)
                     return;
                 StartDash();
                 break;

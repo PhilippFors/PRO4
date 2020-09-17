@@ -26,9 +26,16 @@ public class EventSystem : MonoBehaviour
     public event Action<EnemyBody> activateAI;
     public static EventSystem instance;
 
+    public event System.Action goalDestroyed;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    public void GoalDestroyed(){
+        if(goalDestroyed != null)
+            goalDestroyed();
     }
     public void OnAttack(IHasHealth entity, float basedmg)
     {

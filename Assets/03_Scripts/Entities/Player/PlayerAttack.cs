@@ -8,7 +8,7 @@ using UnityScript.Lang;
 
 public class PlayerAttack : MonoBehaviour
 {
-    PlayerControls input;
+    PlayerStateMachine playerMovement;
 
     [SerializeField] public List<Weapons> weapons = new List<Weapons>(2);
     public Weapons currentWeapon;
@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public Skills currentActiveSkill;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
-    
+
     public int comboCounter = 0;
 
     public GameObject grenadePrefab;
@@ -25,10 +25,11 @@ public class PlayerAttack : MonoBehaviour
     public GameObject target;
     public float firingAngle = 45.0f;
     public float gravity = 9.8f;
-
+    public float greandeCooldown = 10f;
+    public float currentGCooldown = 10f;
     private float changeWeaponTimer = 0;
 
-
+    bool canThrowG = true;
     [SerializeField] private float moveSpeed = 5f;
     //  public Vector3 currentDirection;
 
@@ -39,31 +40,24 @@ public class PlayerAttack : MonoBehaviour
         .GetComponent<PlayerStateMachine>().currentState;
 
 
-    private void OnEnable()
-    {
-        input.Gameplay.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Gameplay.Disable();
-
-    }
-
     private void Awake()
     {
-        input = new PlayerControls();
-        
         //input.Gameplay.LeftAttack.performed += rt => Attack(0);
         //input.Gameplay.RightAttack.performed += rt => Attack(1);
-        input.Gameplay.GrenadeThrow.performed += rt => AimMove();
-        input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
-        input.Gameplay.Skill1.performed += rt => Skill(0);
-        input.Gameplay.Skill2.performed += rt => Skill(1);
-        input.Gameplay.Skill3.performed += rt => Skill(2);
-        input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
+        playerMovement = GetComponent<PlayerStateMachine>();
+        StartCoroutine(InitInput());
     }
 
+    IEnumerator InitInput()
+    {
+        yield return new WaitForEndOfFrame();
+        playerMovement.input.Gameplay.GrenadeThrow.performed += rt => AimMove();
+        playerMovement.input.Gameplay.GrenadeReleaser.performed += rt => GrenadeThrow();
+        playerMovement.input.Gameplay.Skill1.performed += rt => Skill(0);
+        playerMovement.input.Gameplay.Skill2.performed += rt => Skill(1);
+        playerMovement.input.Gameplay.Skill3.performed += rt => Skill(2);
+        playerMovement.input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
+    }
     private void Reset()
     {
     }
@@ -125,7 +119,7 @@ public class PlayerAttack : MonoBehaviour
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }
-    
+
     public void GrenadeThrow()
     {
         if (movementState.Equals(PlayerMovementSate.grenade))
@@ -133,21 +127,33 @@ public class PlayerAttack : MonoBehaviour
             Vector3 pos = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
             GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
             StartCoroutine(SimulateProjectile(grenade));
+            StartCoroutine(GrenadeCountdown());
             EventSystem.instance.OnSetState(PlayerMovementSate.standard);
+            Destroy(target);
         }
     }
 
     public void AimMove()
     {
-        if (movementState.Equals(PlayerMovementSate.standard))
+        if (movementState.Equals(PlayerMovementSate.standard) & canThrowG)
         {
             EventSystem.instance.OnSetState(PlayerMovementSate.grenade);
             target = Instantiate(targetPrefab, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
                 transform.rotation);
         }
     }
-    
 
+    IEnumerator GrenadeCountdown()
+    {
+        canThrowG = false;
+        currentGCooldown = 0;
+        while (currentGCooldown <= greandeCooldown)
+        {
+            yield return new WaitForSeconds(0.1f);
+            currentGCooldown += 0.1f;
+        }
+        canThrowG = true;
+    }
     IEnumerator SimulateProjectile(GameObject grenade)
     {
         // Short delay added before Projectile is thrown
@@ -190,7 +196,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (elapseTime >= flightDuration || grenade == null)
         {
-            Destroy(target);
             if (grenade != null)
             {
                 EventSystem.instance.OnExplode();
@@ -202,7 +207,7 @@ public class PlayerAttack : MonoBehaviour
     //simple script to change between the weapons
     void ChangeWeapon()
     {
-        
+
         if (movementState == PlayerMovementSate.standard && changeWeaponTimer > 1)
         {
             currentWeaponCounter++;
@@ -220,7 +225,7 @@ public class PlayerAttack : MonoBehaviour
             currentWeapon.Equip(weaponPoint);
             changeWeaponTimer = 0;
         }
-        
+
 
     }
 

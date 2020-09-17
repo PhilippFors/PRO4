@@ -7,6 +7,7 @@ public class AIManager : MonoBehaviour
     public string searchPlayerTag = "Player";
     [HideInInspector] public LayerMask groundMask => LayerMask.GetMask("Ground");
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
+    [HideInInspector] public LayerMask playerMask => LayerMask.GetMask("Player");
     public EnemySet allSet;
     public EnemySet avikSet;
     public EnemySet ralgerSet;
@@ -37,7 +38,9 @@ public class AIManager : MonoBehaviour
 
     public void SetAIActive(EnemyBody enemy)
     {
-        enemy.GetComponent<StateMachineController>().SetAI(true);
+        StateMachineController st = enemy.GetComponent<StateMachineController>();
+        st.SetAI(true);
+        st.actions.Init();
     }
 
     private void Update()

@@ -25,14 +25,15 @@ public class DashMovementController
 
         GetCurrentMovedirection(controller);
 
-        if (controller.dashValue < 100 || !controller.isMoving)
+        if (controller.dashCharge < controller.maxDashCharge || !controller.isMoving)
             return;
     	
+        velocity = Vector3.zero;
         controller.selfCol.enabled = false;
         animCon.Dasher();
         _attackStateMachine.SetBase();
         controller.checkEnemy = true;
-        controller.dashValue = 0f;
+        controller.dashCharge = 0f;
 
         velocity = Vector3.Scale(Vector3.Normalize(controller.currentMoveDirection + controller.velocity), controller.dashDistance * new Vector3((Mathf.Log
         (1f / (controller.deltaTime * controller.drag + 1)) / -controller.deltaTime),
@@ -118,6 +119,6 @@ public class DashMovementController
 
         float perc = timeSinceDashEnded / controller.dashValueTime;
 
-        controller.dashValue = Mathf.Lerp(0, controller.maxDashValue, perc);
+        controller.dashCharge = Mathf.Lerp(0, controller.maxDashCharge, perc);
     }
 }

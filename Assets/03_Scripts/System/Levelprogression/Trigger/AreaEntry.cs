@@ -18,11 +18,11 @@ public class AreaEntry : MonoBehaviour
             DisableSelf();
         }
     }
-    private void Awake()
-    {
-        gameObject.name = "_____Area " + AreaID + " ______";
-        AreaID++;
-    }
+    // private void Awake()
+    // {
+    //     gameObject.name = "_____Area " + AreaID + " ______";
+    //     AreaID++;
+    // }
     public void DisableSelf()
     {
         GetComponent<BoxCollider>().enabled = false;

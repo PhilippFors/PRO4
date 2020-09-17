@@ -107,4 +107,9 @@ public class AvikActions : MonoBehaviour, IEnemyActions
     {
         return null;
     }
+
+    public void Init()
+    {
+        
+    }
 }

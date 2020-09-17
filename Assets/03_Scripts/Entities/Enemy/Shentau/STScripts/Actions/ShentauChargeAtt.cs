@@ -17,7 +17,7 @@ public class ShentauChargeAtt : Action
         }
         else
         {
-            Vector3 dir = controller.transform.position - controller.settings.playerTarget.position;
+            Vector3 dir = controller.transform.position - controller.aiManager.playerTarget.position;
             return controller.transform.position + dir;
         }
     }
@@ -31,32 +31,32 @@ public class ShentauChargeAtt : Action
     void Move(StateMachineController controller)
     {
 
-        if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) > 5f & Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < 8f)
+        if (Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) > 5f & Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) < 8f)
         {
             controller.agent.isStopped = true;
-            Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
+            Vector3 dir = controller.aiManager.playerTarget.position - controller.transform.position;
             Quaternion look = Quaternion.LookRotation(dir);
             controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
 
         }
-        else if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) > 8f)
+        else if (Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) > 8f)
         {
             controller.agent.isStopped = false;
-            Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
+            Vector3 dir = controller.aiManager.playerTarget.position - controller.transform.position;
             Quaternion look = Quaternion.LookRotation(dir);
             controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
-            controller.agent.destination = controller.settings.playerTarget.position;
+            controller.agent.destination = controller.aiManager.playerTarget.position;
             Vector3 moveTo = controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
             controller.agent.Move(moveTo);
         }
-        else if (Vector3.Distance(controller.settings.playerTarget.position, controller.transform.position) < 5f)
+        else if (Vector3.Distance(controller.aiManager.playerTarget.position, controller.transform.position) < 5f)
         {
             controller.agent.isStopped = false;
-            Vector3 dir = controller.settings.playerTarget.position - controller.transform.position;
+            Vector3 dir = controller.aiManager.playerTarget.position - controller.transform.position;
             Quaternion look = Quaternion.LookRotation(dir);
-            controller.transform.rotation = Quaternion.Slerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
+            controller.transform.rotation = Quaternion.Lerp(controller.transform.rotation, look, controller.deltaTime * controller.enemyStats.GetStatValue(StatName.TurnSpeed));
             controller.agent.destination = GetMovePos(controller);
-            Vector3 moveTo = -controller.transform.forward * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
+            Vector3 moveTo = -dir.normalized * (controller.enemyStats.GetStatValue(StatName.Speed) * controller.enemyStats.GetMultValue(MultiplierName.speed)) * controller.deltaTime;
             controller.agent.Move(moveTo);
         }
     }

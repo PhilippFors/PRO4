@@ -12,6 +12,8 @@ public class AR_damagePlate : MusicAnalyzer
     bool m_holdHelper = true;
     Sequence mySequence;
 
+    private bool m_plateActive = false;
+
     Color m_color;
     float H, S, V;
     float H1, S1, V1;
@@ -21,6 +23,10 @@ public class AR_damagePlate : MusicAnalyzer
     public Color _color1;
     private Color _color2;
 
+    [HideInInspector]
+    public float dmgOnEnter = 30;
+    [HideInInspector]
+    public float dmgOnStay = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -96,24 +102,31 @@ public class AR_damagePlate : MusicAnalyzer
             if (m_holdValue)
             {
                 if (m_holdHelper) {
+                    m_plateActive = true;
                     V = 10;
                     mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionInDuration))
                     .SetEase(Ease.Flash);
                     m_holdHelper = false ;
+                    gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
                 }
                 else
                 {
+                  
                     V = -10;
                     m_holdHelper = true;
                     mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionOutDuration))
                     .SetEase(Ease.Flash);
+                    m_plateActive = false;
+
+                    gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
                 }
             }
             else
             {
-                //Debug.Log("changPlateEmission");
+    
+                shortDurationHelper();
                 mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, 10, true), "EmissionRedColor", m_actionInDuration))
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, -10, true), "EmissionRedColor", m_actionOutDuration))
@@ -124,13 +137,38 @@ public class AR_damagePlate : MusicAnalyzer
     }
 
 
-    public void PullTrigger(Collider c)
+    public void PullTrigger(Collider c, float dmg)
     {
-        if (mySequence.IsActive())
+        bool hit = false;
+        if (m_plateActive)
         {
-            Debug.Log("Damage Plate hit");
+        Debug.Log("Damage Plate hit");
+        GameObject obj = c.gameObject;
+            if (!obj.GetComponent<EnemyBody>() & obj.GetComponent<IHasHealth>() != null)
+            {
+                EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(),dmg);
+                hit = true;
+            }
+
         }
     }
+
+    public void shortDurationHelper()
+    {
+        StartCoroutine("enableDmgRoutine");
+    }
+
+    IEnumerator enableDmgRoutine()
+    {
+
+        m_plateActive = true;
+        gameObject.GetComponentInChildren<Ar_damagePlateCollider>().EnableSelf();
+       
+        yield return new WaitForSeconds(m_actionInDuration);
+        m_plateActive = false;
+        gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
+    }
+
 
     public void onSkillActivated(Skills skill)
     {
@@ -138,8 +176,9 @@ public class AR_damagePlate : MusicAnalyzer
         {
             if (!m_IntervalInvert)
             {
-                m_intervalCounter = m_interval - m_startInterval;
-                m_IntervalInvert = true;
+               //  m_intervalCounter = m_interval - m_startInterval;
+                //m_intervalCounter = -1;
+               // m_IntervalInvert = true;
             }
         } 
     }
@@ -150,11 +189,12 @@ public class AR_damagePlate : MusicAnalyzer
         {
             if (m_IntervalInvert)
             {
-                m_intervalCounter = m_interval + m_startInterval;
-                m_IntervalInvert = false;
+               // m_intervalCounter = m_interval + m_startInterval;
+               // m_IntervalInvert = false;
             }
         }
     }
+
 
 
 }

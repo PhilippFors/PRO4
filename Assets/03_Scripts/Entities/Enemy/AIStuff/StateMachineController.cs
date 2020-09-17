@@ -9,7 +9,7 @@ public class StateMachineController : MonoBehaviour
     [HideInInspector] public EnemyBody enemyStats => GetComponent<EnemyBody>();
     [HideInInspector] public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     [HideInInspector] public IEnemyActions actions => GetComponent<IEnemyActions>();
-    [HideInInspector] public AIManager settings;
+    [HideInInspector] public AIManager aiManager;
     [HideInInspector] public AISteering steering;
     [HideInInspector] public Vector3 offsetTargetPos;
     [HideInInspector] public Transform ObstacleTarget;
@@ -23,6 +23,7 @@ public class StateMachineController : MonoBehaviour
     public State startState;
     public State remainState;
     public Transition[] anyTransitions;
+
 
     #endregion
 

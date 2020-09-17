@@ -7,8 +7,14 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
     public StatTemplate statTemplate;
     public StateMachineController controller => GetComponent<StateMachineController>();
     public Rigidbody rb => GetComponent<Rigidbody>();
+
+    public Coroutine stunCoroutine { get; set; }
+    public float currentStun { get; set; }
+
+    public float stunCooldown = 0.5f;
+
     public Symbol symbolInfo;
-    [SerializeField] private GameObject parent;
+    public GameObject parent;
     [SerializeField] private GameObject symbol;
     public float currentHealth;
     private void Awake()
@@ -71,19 +77,33 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
     }
     #endregion
 
-    public void ApplyKnockback(float force, int stunChance)
+    public void ApplyKnockback(float force)
     {
         // float totalStun = stunChance - GetStatValue(StatName.stunResist);
-        int rand = Random.Range(0, 101);
-        float newstunchance = stunChance - GetStatValue(StatName.StunResist);
-        if (newstunchance < 0)
-            newstunchance = -1;
 
-        if (rand < newstunchance)
-            controller.Stun();
 
-        Vector3 direction = Vector3.Normalize(transform.position - controller.settings.playerTarget.position);
+        Vector3 direction = (transform.position - controller.aiManager.playerTarget.position).normalized;
         rb.AddForce(direction * force, ForceMode.Impulse);
     }
 
+
+    public void ApplyStun(float stun)
+    {
+        if (stunCoroutine != null)
+            StopCoroutine(stunCoroutine);
+
+        stunCoroutine = StartCoroutine(StunCooldown());
+        currentStun += stun;
+
+        if (currentStun > GetStatValue(StatName.StunResist))
+            controller.Stun();
+
+    }
+
+    public IEnumerator StunCooldown()
+    {
+        yield return new WaitForSeconds(stunCooldown);
+        while (currentStun >= 0)
+            currentStun -= Time.deltaTime;
+    }
 }

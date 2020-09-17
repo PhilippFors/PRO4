@@ -11,6 +11,13 @@ public class AR_mover : MusicAnalyzer
 
     public bool m_backAndForth = true;
 
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        addActionToEvent();
+    }
+
     protected override void objectAction()
     {
         increaseIntervalCounter();
@@ -64,11 +71,7 @@ public class AR_mover : MusicAnalyzer
        
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        addActionToEvent();
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -76,5 +79,19 @@ public class AR_mover : MusicAnalyzer
         
     }
 
+    protected void increaseIntervalCounter()
+    {
 
-}
+        if (m_intervalBeat)
+        {
+        
+                    m_intervalCounter++;
+         }
+
+
+
+            // m_overallIntervalCounter++;
+        }
+
+
+    }

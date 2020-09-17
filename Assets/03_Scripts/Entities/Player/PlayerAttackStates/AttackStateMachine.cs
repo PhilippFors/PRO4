@@ -23,9 +23,9 @@ public class AttackStateMachine : MonoBehaviour
     [HideInInspector] public PlayerControls input;
     public float animTimer = 0; // a timer to check if animation has finished playing
     private int stateCounter = 0; // counts the current states of an attack
-    private static PlayerAttack playerAttack => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
-    AnimationController animCon => GameObject.FindGameObjectWithTag("Player").GetComponent<AnimationController>();
-    PlayerStateMachine _stateMachine => GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStateMachine>();
+    private static PlayerAttack playerAttack => GetComponent<PlayerAttack>();
+    AnimationController animCon => GetComponent<AnimationController>();
+    PlayerStateMachine _stateMachine;
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
     PlayableGraph playableGraph;
@@ -34,20 +34,20 @@ public class AttackStateMachine : MonoBehaviour
 
     private void Awake()
     {
-        input = new PlayerControls();
-
-        input.Gameplay.LeftAttack.performed += ctx => Attack(0);
-        input.Gameplay.RightAttack.performed += ctx => Attack(1);
+        _stateMachine = GetComponent<PlayerStateMachine>();
+        StartCoroutine(InitInput());
     }
 
-    private void OnEnable()
+    IEnumerator InitInput()
     {
-        input.Enable();
+        yield return new WaitForEndOfFrame();
+        _stateMachine.input.Gameplay.LeftAttack.performed += ctx => Attack(0);
+        _stateMachine.input.Gameplay.RightAttack.performed += ctx => Attack(1);
     }
 
     private void OnDisable()
     {
-        input.Disable();
+
         playableGraph.Destroy();
     }
 
@@ -75,9 +75,50 @@ public class AttackStateMachine : MonoBehaviour
             if (playerAttack.skills.Contains(currentAttack.skill) && playerAttack.comboCounter >= currentAttack.skill.comboCounter)
             {
                 int a = playerAttack.skills.IndexOf(currentAttack.skill);
-                playerAttack.skills[a].current += 2;
+                IncreaseOneSkill(2, playerAttack.skills[a]);
+                // playerAttack.skills[a].current += 2;
                 playerAttack.comboCounter = 0;
             }
+        }
+    }
+    public void IncreaseOneSkill(float amount, Skills skill)
+    {
+        if (skill.current < skill.max)
+        {
+            if (skill.current + amount > skill.max)
+            {
+                skill.current = skill.max;
+            }
+            else
+            {
+                skill.current += amount;
+
+            }
+        }
+    }
+    public void IncreaseAllSkills(float amount, out bool increased)
+    {
+        increased = true;
+        foreach (Skills skill in playerAttack.skills)
+        {
+            if (skill.current < skill.max)
+            {
+                if (skill.current + amount > skill.max)
+                {
+                    skill.current = skill.max;
+                    increased = true;
+                }
+                else
+                {
+                    skill.current += amount;
+                    increased = true;
+                }
+            }
+            else
+            {
+                increased = false;
+            }
+
         }
     }
 
@@ -121,7 +162,6 @@ public class AttackStateMachine : MonoBehaviour
                 lastClip = currentState.clip;
                 SetState(currentAttack.stateList[stateCounter]);
                 playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
-
             }
         }
     }

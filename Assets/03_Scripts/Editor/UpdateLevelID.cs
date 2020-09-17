@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(SpawnpointID))]
+[CustomEditor(typeof(SpawnPointWorker))]
 public class UpdateLevelID : Editor
 {
     // Start is called before the first frame update
@@ -10,7 +10,7 @@ public class UpdateLevelID : Editor
     {
         DrawDefaultInspector();
 
-        SpawnpointID script = (SpawnpointID)target;
+        SpawnPointWorker script = (SpawnPointWorker)target;
         if (GUILayout.Button("Update ID's"))
         {
             script.UpdateID();
