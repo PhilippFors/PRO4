@@ -23,9 +23,8 @@ public class AR_damagePlate : MusicAnalyzer
     public Color _color1;
     private Color _color2;
 
-    [HideInInspector]
+
     public float dmgOnEnter = 30;
-    [HideInInspector]
     public float dmgOnStay = 5;
 
     // Start is called before the first frame update
@@ -35,10 +34,7 @@ public class AR_damagePlate : MusicAnalyzer
         m_startInterval = m_intervalCounter + 1;
 
         BoxCollider a  = GetComponentInChildren<BoxCollider>();
-        addActionToEvent();
-
-        EventSystem.instance.ActivateSkill += onSkillActivated;
-        EventSystem.instance.DeactivateSkill += onSkilldeactivated;
+        activateComponent();
     }
 
     // Update is called once per frame
@@ -196,8 +192,34 @@ public class AR_damagePlate : MusicAnalyzer
             }
         }
     }
+    public void activateComponent()
+    {
+        addActionToEvent();
+        EventSystem.instance.ActivateSkill += onSkillActivated;
+        EventSystem.instance.DeactivateSkill += onSkilldeactivated;
+        EventSystem.instance.Deactivate += deactivateComponent;
+    }
 
+    public void deactivateComponent()
+    {
+        removeActionFromEvent();
+        resetPlate();
+        EventSystem.instance.ActivateSkill -= onSkillActivated;
+        EventSystem.instance.DeactivateSkill -= onSkilldeactivated;
+        EventSystem.instance.Deactivate -= deactivateComponent;
+    }
 
+    public void resetPlate()
+    {
+        V = -10;
+        m_holdHelper = true;
+        mySequence = DOTween.Sequence()
+        .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionRedColor", m_actionOutDuration))
+        .SetEase(Ease.Flash);
+        m_plateActive = false;
+
+        gameObject.GetComponentInChildren<Ar_damagePlateCollider>().DisableSelf();
+    }
 
 }
 

@@ -22,6 +22,10 @@ public class AR_beaconWall : MusicAnalyzer
 
     Sequence tweenSeq;
 
+
+    public float dmgOnEnter = 30;
+    public float dmgOnStay = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +72,7 @@ public class AR_beaconWall : MusicAnalyzer
             foreach (Transform child in transform)
             {
                 Debug.Log("Hallo");
-                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 10));
             }
             // _energyWallMaterial
 
@@ -90,7 +94,7 @@ public class AR_beaconWall : MusicAnalyzer
 
             foreach (Transform child in transform)
             {
-                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 5));
             }
         }
         
@@ -116,12 +120,7 @@ public class AR_beaconWall : MusicAnalyzer
                     .Append(child.DOScaleY(defaultLength, m_actionOutDuration))
                     .SetEase(Ease.Flash);
                 }
-               /*
-                tweenSeq = DOTween.Sequence()
-               .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
-               .Append(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
-               .SetEase(Ease.Flash);
-               */
+
             }
 
         }
@@ -144,17 +143,6 @@ public class AR_beaconWall : MusicAnalyzer
             .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
             .SetEase(Ease.Flash);
             }
-            /*
-            foreach (Transform child in transform)
-            {
-                tweenSeq = DOTween.Sequence()
-                .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
-                .Append(child.DOScaleY(defaultLength, m_actionOutDuration))
-                .SetEase(Ease.Flash);
-            }
-            */
-
-
 
         }
     }

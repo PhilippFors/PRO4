@@ -15,11 +15,13 @@ public class EventSystem : MonoBehaviour
     public event System.Action Snare;
     public event System.Action Kick;
     public event System.Action HighHat;
+    public event System.Action Deactivate;
 
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
     
+
 
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
@@ -93,6 +95,18 @@ public class EventSystem : MonoBehaviour
         else
         {
             Kick();
+        }
+    }
+
+    public void OnDeactivate()
+    {
+        if (Deactivate == null)
+        {
+            Debug.Log("KickEvent has no subscriber");
+        }
+        else
+        {
+            Deactivate();
         }
     }
 

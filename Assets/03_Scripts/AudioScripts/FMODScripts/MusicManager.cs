@@ -108,8 +108,9 @@ public class MusicManager : MonoBehaviour
                     case 'R':
                         _emitter.SetParameter("nextPart", 0);
                         break;
-
-                   
+                    case 'X':
+                        EventSystem.instance.OnDeactivate();
+                        break;
 
                 }
             }
@@ -159,19 +160,15 @@ public class MusicManager : MonoBehaviour
     {
         
         m_snareLock = true;
-        //Debug.Log("SNARELOCK ENABLED");
         yield return new WaitForSeconds(.1f);
-        //Debug.Log("SNARELOCK DISABELD");
         m_snareLock = false;
     }
 
     IEnumerator lockKick()
     {
 
-        m_kickLock = true;
-        //Debug.Log("SNARELOCK ENABLED");
+        m_kickLock = true;     
         yield return new WaitForSeconds(.1f);
-        //Debug.Log("SNARELOCK DISABELD");
         m_kickLock = false;
     }
 
@@ -179,9 +176,7 @@ public class MusicManager : MonoBehaviour
     {
 
         m_highHatLock = true;
-        //Debug.Log("SNARELOCK ENABLED");
         yield return new WaitForSeconds(.1f);
-        //Debug.Log("SNARELOCK DISABELD");
         m_highHatLock = false;
     }
 
