@@ -62,7 +62,7 @@ public class MusicManager : MonoBehaviour
                         //Debug.Log("Parsed: Kick");
                         if(EventSystem.instance == null)
                         {
-                            Debug.Log("EventSystem is empty");
+                            // Debug.Log("EventSystem is empty");
                         }
                         else
                         {
@@ -81,7 +81,7 @@ public class MusicManager : MonoBehaviour
                        // Debug.Log("Parsed: Bass");
                         if (EventSystem.instance == null)
                         {
-                            Debug.Log("EventSystem is empty");
+                            // Debug.Log("EventSystem is empty");
                         }
                         else
                         {
@@ -95,7 +95,7 @@ public class MusicManager : MonoBehaviour
                         
                         if (EventSystem.instance == null)
                         {
-                            Debug.Log("EventSystem is empty");
+                            // Debug.Log("EventSystem is empty");
                         }
                         else
                         {

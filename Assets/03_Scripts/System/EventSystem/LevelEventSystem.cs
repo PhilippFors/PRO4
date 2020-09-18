@@ -46,6 +46,8 @@ public class LevelEventSystem : MonoBehaviour
     {
         if (levelEntry != null)
             levelEntry();
+        else
+            Debug.Log("No level to start " + Time.time);
     }
 
     public void LevelExit()

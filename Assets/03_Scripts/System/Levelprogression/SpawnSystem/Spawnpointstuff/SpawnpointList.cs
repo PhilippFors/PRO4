@@ -6,7 +6,7 @@ public class SpawnpointList : MonoBehaviour
 {
     public SpawnpointlistSO spawnlist;
     public AreaBarrierList barrierList;
-    void Awake()
+    void OnEnable()
     {
         FindSpawnpoints();
         FindBarriers();

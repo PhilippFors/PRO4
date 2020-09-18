@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public Objective currentObjective;
     public AreaBarrierList barrierList;
     [HideInInspector] public float deltaTime;
-    Transform playerSpawnpoint;
+    public Transform playerSpawn;
     [SerializeField] private Transform player;
 
     [Header("Level Data")]
@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour
     {
         FindPlayerSpawnpoint();
         player.GetComponent<Animator>().applyRootMotion = false;
-        player.position = playerSpawnpoint.position;
+        player.position = playerSpawn.position;
         player.GetComponent<Animator>().applyRootMotion = true;
         // StartCoroutine(SaveGame());
         //TODO: Exit from Level transition
@@ -101,10 +101,10 @@ public class LevelManager : MonoBehaviour
         foreach (SpawnPointWorker s in SpawnManager.instance.spawnpointlist.list)
             if (s.playerSpawnpoint)
             {
-                playerSpawnpoint = s.transform;
+                playerSpawn = s.transform;
             }
-
-        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawnpoint.GetComponent<SpawnPointWorker>());
+        Debug.Log("Spawnpoint time: " + Time.time);
+        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
     }
 
     public void FinishLevel()

@@ -67,6 +67,14 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation unload;
         AsyncOperation load;
         yield return new WaitForSeconds(1f);
+
+        if (!SceneManager.GetSceneByName("Base").isLoaded)
+        {
+            yield return new WaitForEndOfFrame();
+            load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
+            yield return load;
+        }
+
         if (oldScene != -1)
         {
             unload = SceneManager.UnloadSceneAsync(oldScene);
@@ -78,12 +86,7 @@ public class SceneLoader : MonoBehaviour
             unload = SceneManager.UnloadSceneAsync(oldScene2);
             yield return unload;
         }
-        if (!SceneManager.GetSceneByName("Base").isLoaded)
-        {
-            yield return new WaitForEndOfFrame();
-            load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
-            yield return load;
-        }
+
         load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
 
         yield return load;
