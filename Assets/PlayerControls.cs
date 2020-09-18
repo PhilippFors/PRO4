@@ -128,7 +128,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""860ffea1-ebda-4ca1-b6b5-59385a92a9df"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=1)""
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Interact"",
@@ -505,6 +505,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""712d7f10-7adc-45f0-9759-181d44eb844b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""WeaponSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""50c91935-d699-4707-9508-06527fc3394d"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -513,31 +524,53 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d0e7bea-9163-4fb4-9034-bb2097cc33d1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""New action map"",
+            ""name"": ""uiControls"",
             ""id"": ""e18a87e5-b7cf-472e-bb52-12a680308cf5"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
-                    ""id"": ""1c51ee1e-74c4-40c1-ac61-76f329a9fcdd"",
+                    ""id"": ""b43fa7b8-1c3e-47b8-8f21-e7556d612f03"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""1b310fa6-3f7b-47d5-824d-cdc1155673e2"",
-                    ""path"": """",
+                    ""id"": ""cf71d3a9-9491-4cc5-9304-2460ac08e5b6"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cedcc12e-a8f5-43fe-8c63-e57d3fd6a76d"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -591,9 +624,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_GrenadeReleaser = m_Gameplay.FindAction("GrenadeReleaser", throwIfNotFound: true);
         m_Gameplay_WeaponSwitch = m_Gameplay.FindAction("WeaponSwitch", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
+        // uiControls
+        m_uiControls = asset.FindActionMap("uiControls", throwIfNotFound: true);
+        m_uiControls_Pause = m_uiControls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -785,38 +818,38 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
 
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private INewactionmapActions m_NewactionmapActionsCallbackInterface;
-    private readonly InputAction m_Newactionmap_Newaction;
-    public struct NewactionmapActions
+    // uiControls
+    private readonly InputActionMap m_uiControls;
+    private IUiControlsActions m_UiControlsActionsCallbackInterface;
+    private readonly InputAction m_uiControls_Pause;
+    public struct UiControlsActions
     {
         private @PlayerControls m_Wrapper;
-        public NewactionmapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public UiControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_uiControls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_uiControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
-        public void SetCallbacks(INewactionmapActions instance)
+        public static implicit operator InputActionMap(UiControlsActions set) { return set.Get(); }
+        public void SetCallbacks(IUiControlsActions instance)
         {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterface != null)
+            if (m_Wrapper.m_UiControlsActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnNewaction;
+                @Pause.started -= m_Wrapper.m_UiControlsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_UiControlsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_UiControlsActionsCallbackInterface.OnPause;
             }
-            m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
+            m_Wrapper.m_UiControlsActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
+    public UiControlsActions @uiControls => new UiControlsActions(this);
     private int m_GamepadSchemeIndex = -1;
     public InputControlScheme GamepadScheme
     {
@@ -853,8 +886,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }
-    public interface INewactionmapActions
+    public interface IUiControlsActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

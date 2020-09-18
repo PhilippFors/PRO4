@@ -103,15 +103,16 @@ public class LevelManager : MonoBehaviour
             {
                 playerSpawn = s.transform;
             }
-            
+
         SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
     }
 
     public void FinishLevel()
     {
         GameManager.instance.currentLevel++;
+        currentArea = 0;
         GameManager.instance.sceneLoader.LoadNextLevel();
-        //TODO: Start loading new level
+
         //TODO: Start level transition
         //TODO: Reset Area count
     }

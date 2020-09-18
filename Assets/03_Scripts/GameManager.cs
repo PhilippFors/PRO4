@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public bool arena = false;
     public bool isNewGame = true;
     public bool editing = true;
-
+    public bool gamePaused = false;
     public static GameManager instance;
     public SceneLoader sceneLoader;
 
@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
     public void StartArena()
     {
         arena = true;
-        sceneLoader.LoadScene((int)BaseScenes.Arena, (int)BaseScenes.StartMenu);
+        sceneLoader.LoadScene((int)BaseScenes.Arena, true, (int)BaseScenes.StartMenu);
     }
     public void StartGame()
     {
-        sceneLoader.LoadScene(sceneLoader.levelList[GameManager.instance.currentLevel].handle, (int)BaseScenes.StartMenu);
+        sceneLoader.LoadScene(sceneLoader.levelList[GameManager.instance.currentLevel].handle, true, (int)BaseScenes.StartMenu);
     }
 
     public void GameOver()
@@ -48,11 +48,12 @@ public class GameManager : MonoBehaviour
     {
         if (arena)
         {
-            sceneLoader.LoadScene((int)BaseScenes.StartMenu, (int)BaseScenes.Base, (int)BaseScenes.Arena);
+            sceneLoader.LoadScene((int)BaseScenes.StartMenu, false, (int)BaseScenes.Base, (int)BaseScenes.Arena);
+            arena = false;
         }
         else
         {
-            sceneLoader.LoadScene((int)BaseScenes.StartMenu, (int)BaseScenes.Base, sceneLoader.levelList[GameManager.instance.currentLevel].handle);
+            sceneLoader.LoadScene((int)BaseScenes.StartMenu, false, (int)BaseScenes.Base, sceneLoader.levelList[GameManager.instance.currentLevel].handle);
         }
     }
     public void QuitGame()
