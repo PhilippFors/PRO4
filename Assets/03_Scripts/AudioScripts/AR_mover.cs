@@ -30,7 +30,7 @@ public class AR_mover : MusicAnalyzer
         increaseIntervalCounter();
         // moveSimple();
 
-        if (m_moveX > 0 && !colorErrorActive)
+        if (m_moveX != 0 && !colorErrorActive)
         {
             if (checkInterval())
             {
@@ -46,7 +46,7 @@ public class AR_mover : MusicAnalyzer
                 
             }
         }
-        if (m_moveZ > 0)
+        if (m_moveZ != 0)
         {
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
@@ -57,7 +57,7 @@ public class AR_mover : MusicAnalyzer
                 transform.DOLocalMoveZ(transform.position.z - m_moveZ, m_actionInDuration);
             }
         }
-        if (m_moveY > 0)
+        if (m_moveY != 0)
         {
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
