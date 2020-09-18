@@ -66,6 +66,7 @@ public class SceneLoader : MonoBehaviour
         //Level End Fade to Black
         AsyncOperation unload;
         AsyncOperation load;
+        
         yield return new WaitForSeconds(1f);
 
         if (!SceneManager.GetSceneByName("Base").isLoaded)
@@ -90,7 +91,6 @@ public class SceneLoader : MonoBehaviour
         load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
 
         yield return load;
-
 
         yield return new WaitForSeconds(1f);
         //Level start fade from black

@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour
             {
                 playerSpawn = s.transform;
             }
-        Debug.Log("Spawnpoint time: " + Time.time);
+            
         SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
     }
 

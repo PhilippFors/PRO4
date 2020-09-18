@@ -5,42 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class LevelEntry : MonoBehaviour
 {
-    public bool sceneLoaded = false;
+    bool sceneLoaded = false;
     private void OnEnable()
     {
         SceneManager.sceneLoaded += StartLevel;
     }
 
-    private void Start()
+    private void Awake()
     {
-        StartCoroutine(WaitForSTart());
-    }
-
-    IEnumerator WaitForSTart()
-    {
-        yield return new WaitForEndOfFrame();
-        while (!SceneManager.GetSceneByName("Base").isLoaded)
-            if (!sceneLoaded)
-            {
-                Debug.Log("start edit" + Time.time);
-                sceneLoaded = true;
-                LevelEventSystem.instance.LevelEntry();
-            }
+        if (!sceneLoaded & SceneManager.GetSceneByName("Base").isLoaded)
+        {
+            sceneLoaded = true;
+            StartCoroutine(WaitFStart());
+        }
+ 
     }
 
     void StartLevel(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Base")
         {
-            StartCoroutine(WaitFStart(scene));
+            sceneLoaded = true;
+            StartCoroutine(WaitFStart());
         }
     }
 
-    IEnumerator WaitFStart(Scene scene)
+    IEnumerator WaitFStart()
     {
         yield return new WaitForEndOfFrame();
-        sceneLoaded = true;
         LevelEventSystem.instance.LevelEntry();
-        Debug.Log(scene.name + ": " + Time.time);
+        SceneManager.sceneLoaded -= StartLevel;
     }
 }
