@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 1185968703004949668}
   - component: {fileID: 4848654049540358237}
   - component: {fileID: 5940869629220724359}
+  - component: {fileID: 6758815977889465267}
   m_Layer: 0
   m_Name: damagePlate
   m_TagString: Untagged
@@ -213,3 +214,16 @@ MonoBehaviour:
   _color1: {r: 0, g: 0, b: 0, a: 0}
   dmgOnEnter: 30
   dmgOnStay: 5
+--- !u!65 &6758815977889465267
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6590234272518304897}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.1699988, z: 1}
+  m_Center: {x: 0.5, y: 0.5849995, z: -0.50000024}
