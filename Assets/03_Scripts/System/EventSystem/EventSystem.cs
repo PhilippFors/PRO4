@@ -30,11 +30,23 @@ public class EventSystem : MonoBehaviour
 
     public event System.Action goalDestroyed;
 
+    public event Action<Transform, Transform, Transform, Transform> startCamAnim;
+    public event Action<Transform, Transform> notifyCamManager;
+
     private void Awake()
     {
         instance = this;
     }
 
+
+    public void StartCamAnim(Transform camera, Transform endposition, Transform player, Transform playerDest){
+        if(startCamAnim != null)
+            startCamAnim(camera, endposition, player, playerDest);
+    }
+    public void NotifyCamManager(Transform endposition,Transform playerDest){
+        if(notifyCamManager != null)
+            notifyCamManager(endposition, playerDest);
+    }
     public void GoalDestroyed(){
         if(goalDestroyed != null)
             goalDestroyed();
