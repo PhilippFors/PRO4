@@ -17,6 +17,7 @@ public class AR_beaconWall : MusicAnalyzer
 
     private bool m_beaconActive = true;
 
+    public bool m_activateComponent = false;
 
 
     Sequence tweenSeq;
@@ -31,64 +32,70 @@ public class AR_beaconWall : MusicAnalyzer
 
         defaultLength = _energyWall.transform.localScale.y;
 
+        if (m_activateComponent)
+        {
+            activateComponent();
+        }
 
-
-        addActionToEvent();
+       
 
         lengthOfLaser = lengthOfLaser / _energyWall.transform.localScale.y;
 
 
-        EventSystem.instance.ActivateSkill += activateColorError1;
-        EventSystem.instance.DeactivateSkill += deactivateColorError1;
+       
 
     }
 
     // Update is called once per frame
     void Update()
     {
+     
 
-        if (colorErrorActive)
-        {
+        
 
-            if (m_onKick)
+            if (colorErrorActive)
             {
-                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
-            }
-            else if (m_onHighHat)
-            {
-                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
-            }
-            else if (m_onSnare)
-            {
-                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
-            }
-            foreach (Transform child in transform)
-            {                      
-                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
-            }
-           // _energyWallMaterial
 
-        }
-        else
-        {
-            if (m_onKick)
-            {
-                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
-            }
-            else if (m_onHighHat)
-            {
-                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
-            }
-            else if (m_onSnare)
-            {
-                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
-            }
+                if (m_onKick)
+                {
+                    Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+                }
+                else if (m_onHighHat)
+                {
+                    Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+                }
+                else if (m_onSnare)
+                {
+                    Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+                }
+                foreach (Transform child in transform)
+                {                      
+                    child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+                }
+               // _energyWallMaterial
 
-            foreach (Transform child in transform)
-            {
-                child.GetComponent<MeshRenderer>().material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V));
             }
-        }
+            else
+            {
+                if (m_onKick)
+                {
+                    Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+                }
+                else if (m_onHighHat)
+                {
+                    Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+                }
+                else if (m_onSnare)
+                {
+                    Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+                }
+
+                foreach (Transform child in transform)
+                {
+                    child.GetComponent<MeshRenderer>().material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V));
+                }
+            }
+        
     }
 
     protected override void objectAction()
@@ -193,5 +200,20 @@ public class AR_beaconWall : MusicAnalyzer
         yield return new WaitForSeconds(m_actionInDuration + m_actionOutDuration);
         m_beaconActive = false;
         //gameObject.GetComponentInChildren<AR_beaconWallCollider>().DisableSelf();
+    }
+
+
+    public void activateComponent()
+    {
+        addActionToEvent();
+        EventSystem.instance.ActivateSkill += activateColorError1;
+        EventSystem.instance.DeactivateSkill += deactivateColorError1;
+    }
+
+    public void deactivateComponent()
+    {
+        removeActionFromEvent();
+        EventSystem.instance.ActivateSkill -= activateColorError1;
+        EventSystem.instance.DeactivateSkill -= deactivateColorError1;
     }
 }

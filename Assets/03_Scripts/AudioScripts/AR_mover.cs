@@ -16,13 +16,13 @@ public class AR_mover : MusicAnalyzer
 
     float x;
 
+    public bool m_activateComponent = false;
+
     // Start is called before the first frame update
     void Start()
     {
         m_material = GetComponent<MeshRenderer>().material;
-        addActionToEvent();
         
-
     }
 
     protected override void objectAction()
@@ -92,7 +92,7 @@ public class AR_mover : MusicAnalyzer
         {
             removeActionFromEvent();
         }
-        else if (!colorErrorActive && !addedToEvent)
+        else if (!colorErrorActive && !addedToEvent && m_activateComponent)
         {
             addActionToEvent();
         }
@@ -162,7 +162,21 @@ public class AR_mover : MusicAnalyzer
 
 
             // m_overallIntervalCounter++;
-        }
-
-
     }
+
+
+    public void activateComponent()
+    {
+   
+            addActionToEvent();
+    }
+
+    public void deactivateComponent()
+    {
+
+        removeActionFromEvent();
+    }
+
+}
+
+
