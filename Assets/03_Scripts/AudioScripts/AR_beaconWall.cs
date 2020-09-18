@@ -49,52 +49,50 @@ public class AR_beaconWall : MusicAnalyzer
     // Update is called once per frame
     void Update()
     {
-     
 
-        
+        if (colorErrorActive)
+        {
 
-            if (colorErrorActive)
+            if (m_onKick)
             {
-
-                if (m_onKick)
-                {
-                    Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
-                }
-                else if (m_onHighHat)
-                {
-                    Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
-                }
-                else if (m_onSnare)
-                {
-                    Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
-                }
-                foreach (Transform child in transform)
-                {                      
-                    child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
-                }
-               // _energyWallMaterial
-
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
             }
-            else
+            else if (m_onHighHat)
             {
-                if (m_onKick)
-                {
-                    Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
-                }
-                else if (m_onHighHat)
-                {
-                    Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
-                }
-                else if (m_onSnare)
-                {
-                    Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
-                }
-
-                foreach (Transform child in transform)
-                {
-                    child.GetComponent<MeshRenderer>().material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V));
-                }
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
             }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+            foreach (Transform child in transform)
+            {
+                Debug.Log("Hallo");
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            }
+            // _energyWallMaterial
+
+        }
+        else
+        {
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            }
+        }
         
     }
 

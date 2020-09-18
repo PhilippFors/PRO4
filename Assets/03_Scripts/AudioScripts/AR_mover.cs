@@ -61,8 +61,6 @@ public class AR_mover : MusicAnalyzer
         {
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
-               
-
                 transform.DOLocalMoveY(transform.position.y + m_moveY, m_actionInDuration);
               
             }
@@ -167,13 +165,13 @@ public class AR_mover : MusicAnalyzer
 
     public void activateComponent()
     {
-   
+        m_activateComponent = true;
             addActionToEvent();
     }
 
     public void deactivateComponent()
     {
-
+        m_activateComponent = false;
         removeActionFromEvent();
     }
 

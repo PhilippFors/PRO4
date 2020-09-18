@@ -79,7 +79,32 @@ public class AR_AudioEmission : AR_ColorMaster
     // Update is called once per frame
     void Update()
     {
+  
+        if (_audioBand1 < 3)
+        {
+            Color.RGBToHSV((m_blueChannelActiveColor), out H1, out S1, out V1);
+        }
+        else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+        {
+            Color.RGBToHSV((m_bothChannelActiveColor), out H1, out S1, out V1);
+        }
+        else
+        {
+            Color.RGBToHSV((m_redChannelActiveColor), out H1, out S1, out V1);
+        }
 
+        if (_audioBand2 < 3)
+        {
+            Color.RGBToHSV((m_blueChannelActiveColor), out H2, out S2, out V2);
+        }
+        else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+        {
+            Color.RGBToHSV((m_bothChannelActiveColor), out H2, out S2, out V2);
+        }
+        else
+        {
+            Color.RGBToHSV((m_redChannelActiveColor), out H2, out S2, out V2);
+        }
 
         if (_useBuffer)
         {
@@ -95,10 +120,6 @@ public class AR_AudioEmission : AR_ColorMaster
                 V2 = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand2);
                 _material.SetColor("EmissionRedColor", Color.HSVToRGB(H2, S2, V2, true));
             }
-               
-            
-
-
 
         }
         //IF NOT USE BUFFER

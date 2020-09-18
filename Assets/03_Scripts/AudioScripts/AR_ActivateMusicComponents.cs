@@ -86,4 +86,11 @@ public class AR_ActivateMusicComponents : MonoBehaviour
         }
     }
 
+
+    void OnTriggerEnter(Collider c)
+    {
+
+        m_groupActive = true;
+    }
+
 }
