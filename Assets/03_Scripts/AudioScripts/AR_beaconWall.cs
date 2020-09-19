@@ -54,6 +54,15 @@ public class AR_beaconWall : MusicAnalyzer
     void Update()
     {
 
+        if (colorErrorActive && addedToEvent)
+        {
+            removeActionFromEvent();
+        }
+        else if (!colorErrorActive && !addedToEvent && m_activateComponent)
+        {
+            addActionToEvent();
+        }
+
         if (colorErrorActive)
         {
 
@@ -191,6 +200,7 @@ public class AR_beaconWall : MusicAnalyzer
 
     public void activateComponent()
     {
+        m_activateComponent = true;
         addActionToEvent();
         EventSystem.instance.ActivateSkill += activateColorError1;
         EventSystem.instance.DeactivateSkill += deactivateColorError1;
@@ -198,6 +208,7 @@ public class AR_beaconWall : MusicAnalyzer
 
     public void deactivateComponent()
     {
+        m_activateComponent = false;
         removeActionFromEvent();
         EventSystem.instance.ActivateSkill -= activateColorError1;
         EventSystem.instance.DeactivateSkill -= deactivateColorError1;
