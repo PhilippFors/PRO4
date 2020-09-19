@@ -9,19 +9,50 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
     public Animator animator;
     public GameObject bullet;
     public Transform bulletPoint;
+    public Transform laser;
     public void Init()
     {
         StartCoroutine(Recharge());
     }
     public void Attack(StateMachineController s, int i = -1, bool combo = false)
     {
-        Debug.Log("Shentau ATTACK");
+        switch (i)
+        {
+            case 0:
+                Shoot(s);
+                break;
+            case 1:
+                ShowChargeLaser(s);
+                break;
+            case 2:
+                laser.gameObject.SetActive(true);
+                break;
+            case 3:
+                laser.gameObject.SetActive(false);
+                break;
+        }
+    }
+
+    void Shoot(StateMachineController s)
+    {
         animator.SetTrigger("attack");
         Bullet b = Instantiate(bullet, bulletPoint.position, bulletPoint.rotation).GetComponent<Bullet>();
         b.InitBUllet(bulletPoint.forward, 17f, s.enemyStats.GetStatValue(StatName.BaseDmg));
         StartCoroutine(Recharge(s));
     }
+    void ShowChargeLaser(StateMachineController s)
+    {
 
+        RaycastHit hit;
+        float dist;
+
+        if (Physics.Raycast(bulletPoint.position, bulletPoint.forward, out hit, 20f))
+            dist = hit.distance;
+        else
+            dist = 25f;
+
+        laser.localScale = new Vector3(laser.localScale.x, laser.localScale.y, dist);
+    }
     public void CancelAttack(StateMachineController s)
     {
         throw new System.NotImplementedException();

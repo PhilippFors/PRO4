@@ -16,7 +16,10 @@ public class ShentauAtt : Action
         if (Physics.Raycast(controller.RayEmitter.position, controller.RayEmitter.forward, out hit, 15f, controller.aiManager.playerMask))
         {
             if (WaitForDelay(controller))
-                controller.actions.Attack(controller);
+            {
+                controller.actions.Attack(controller, 3);
+                controller.actions.Attack(controller, 0);
+            }
         }
     }
 

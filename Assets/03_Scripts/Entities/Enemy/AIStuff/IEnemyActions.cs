@@ -29,5 +29,7 @@ public interface IEnemyActions
 
     float GetAttackCountdown();
 
+    
+
     Animator GetAnimator();
 }

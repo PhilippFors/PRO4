@@ -7,7 +7,7 @@ public class DisableCols : MonoBehaviour
     float enableCountdown;
     public float reenableColliderTime;
     public bool checkForExit = false;
-
+    Rigidbody rb => GetComponent<Rigidbody>();
     private void Update()
     {
 
@@ -22,8 +22,10 @@ public class DisableCols : MonoBehaviour
     }
     public void Disable()
     {
-        GetComponent<CapsuleCollider>().isTrigger = true;
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        GetComponent<CapsuleCollider>().enabled = false;
+        rb.detectCollisions = false;
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+
         checkForExit = true;
     }
 
@@ -32,10 +34,10 @@ public class DisableCols : MonoBehaviour
         enableCountdown -= Time.deltaTime;
         if (enableCountdown <= 0)
         {
-            GetComponent<CapsuleCollider>().isTrigger = false;
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-
+            GetComponent<CapsuleCollider>().enabled = true;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.detectCollisions = true;
             enableCountdown = reenableColliderTime;
             checkForExit = false;
         }

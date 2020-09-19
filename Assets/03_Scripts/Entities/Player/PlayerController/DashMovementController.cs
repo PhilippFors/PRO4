@@ -91,6 +91,7 @@ public class DashMovementController
             dashDelayOn = false;
             animCon.MoveStarter();
             controller.SetState(PlayerMovementSate.standard);
+            controller.characterController.detectCollisions = true;
         }
     }
 
@@ -98,7 +99,8 @@ public class DashMovementController
     {
         controller.RayEmitter.forward = controller.currentMoveDirection.normalized;
         actualDashDistance = Vector3.Distance(controller.transform.position, controller.transform.position + controller.currentMoveDirection + ((velocity + velocity) / 2) * controller.dashDuration);
-
+        controller.characterController.detectCollisions = false;
+        
         RaycastHit[] cols = Physics.SphereCastAll(controller.RayEmitter.position, 2f, controller.RayEmitter.forward, actualDashDistance, controller.enemyMask, QueryTriggerInteraction.Ignore);
         if (cols != null)
         {
