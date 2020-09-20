@@ -124,6 +124,14 @@ public class AttackStateMachine : MonoBehaviour
         }
     }
 
+    public void SetAllSkillsToZero()
+    {
+        foreach (Skills skill in playerAttack.skills)
+        {
+            skill.current = 0;
+        }
+    }
+
     private void SetState(AttackState state)
     {
         //sets currentstate and resets animation timer
