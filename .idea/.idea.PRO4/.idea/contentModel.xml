@@ -12,6 +12,7 @@
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
             <e p="AR_beaconWall.cs" t="Include" />
+            <e p="AR_beaconWallCollider.cs" t="Include" />
             <e p="AR_ColorMaster.cs" t="Include" />
             <e p="AR_damagePlate.cs" t="Include" />
             <e p="Ar_damagePlateCollider.cs" t="Include" />
@@ -22,6 +23,7 @@
             <e p="FMODScripts" t="Include">
               <e p="AR_AudioEmission.cs" t="Include" />
               <e p="AudioCube.cs" t="Include" />
+              <e p="AudioProfileChange.cs" t="Include" />
               <e p="FMODAudioPeer.cs" t="Include" />
               <e p="FMODTimeline.cs" t="Include" />
               <e p="IAudioSpectrum.cs" t="Include" />
@@ -49,6 +51,7 @@
             <e p="SaveAsset.cs" t="Include" />
             <e p="SaveGameEditor.cs" t="Include" />
             <e p="SpawnlistEditor.cs" t="Include" />
+            <e p="UpdateBarrierNames.cs" t="Include" />
             <e p="UpdateLevelID.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
@@ -94,6 +97,8 @@
                   </e>
                 </e>
               </e>
+              <e p="BuffIndicators.cs" t="Include" />
+              <e p="Bullet.cs" t="Include" />
               <e p="DisableCols.cs" t="Include" />
               <e p="GeneralST" t="Include">
                 <e p="GetOutofIdleDecision.cs" t="Include" />
@@ -115,6 +120,12 @@
                     <e p="Shentau_ChargeOrAtt.cs" t="Include" />
                     <e p="Shentau_ChargeOrMove.cs" t="Include" />
                   </e>
+                  <e p="Enter_Exit" t="Include">
+                    <e p="Shentau_AttackEnter.cs" t="Include" />
+                    <e p="Shentau_AttackExit.cs" t="Include" />
+                    <e p="Shentau_ChargeEnter.cs" t="Include" />
+                    <e p="Shentau_ChargeExit.cs" t="Include" />
+                  </e>
                 </e>
               </e>
             </e>
@@ -135,6 +146,7 @@
             </e>
             <e p="Player" t="Include">
               <e p="AnimationController.cs" t="Include" />
+              <e p="AnimatorController.cs" t="Include" />
               <e p="CameraController.cs" t="Include" />
               <e p="Grenade.cs" t="Include" />
               <e p="PlayerAttack.cs" t="Include" />
@@ -154,8 +166,10 @@
               <e p="PlayerController.cs" t="Include" />
               <e p="PlayerInteraction.cs" t="Include" />
               <e p="Skills.cs" t="Include" />
-              <e p="Weapons.cs" t="Include" />
-              <e p="WeaponSettings.cs" t="Include" />
+              <e p="Weapons" t="Include">
+                <e p="Weapons.cs" t="Include" />
+                <e p="WeaponSettings.cs" t="Include" />
+              </e>
             </e>
             <e p="StatScripts" t="Include">
               <e p="EnemyBody.cs" t="Include" />
@@ -169,7 +183,6 @@
           <e p="PrototypeScripts" t="Include">
             <e p="AttackNorth_1.cs" t="Include" />
             <e p="AttackNorth_2.cs" t="Include" />
-            <e p="Bullet.cs" t="Include" />
             <e p="Door.cs" t="Include" />
             <e p="Downer.cs" t="Include" />
             <e p="Gapper.cs" t="Include" />
@@ -194,14 +207,21 @@
               <e p="StatVariable.cs" t="Include" />
             </e>
             <e p="HealthManager.cs" t="Include" />
+            <e p="HealthPlate.cs" t="Include" />
             <e p="Levelprogression" t="Include">
               <e p="AreaBarrier.cs" t="Include" />
               <e p="AreaBarrierList.cs" t="Include" />
+              <e p="CheckPointSystem" t="Include">
+                <e p="CheckPoint.cs" t="Include" />
+                <e p="CheckPointList.cs" t="Include" />
+                <e p="Checkpointmanager.cs" t="Include" />
+                <e p="OutOfBoundStrigger.cs" t="Include" />
+              </e>
               <e p="Level" t="Include">
                 <e p="Area.cs" t="Include" />
-                <e p="Level.cs" t="Include" />
+                <e p="LevelData.cs" t="Include" />
                 <e p="SceneLevelData.cs" t="Include" />
-                <e p="Wave.cs" t="Include" />
+                <e p="WaveData.cs" t="Include" />
               </e>
               <e p="LevelManager.cs" t="Include" />
               <e p="ObjectiveSystem" t="Include">
@@ -211,14 +231,15 @@
                 <e p="ObjectiveTransition.cs" t="Include" />
                 <e p="ObjectiveTypes" t="Include">
                   <e p="DefeatEnemyObjective.cs" t="Include" />
+                  <e p="DestructObjective.cs" t="Include" />
                 </e>
               </e>
               <e p="SpawnSystem" t="Include">
                 <e p="SpawnManager.cs" t="Include" />
                 <e p="Spawnpointstuff" t="Include">
-                  <e p="Spawnpoint.cs" t="Include" />
-                  <e p="SpawnpointID.cs" t="Include" />
+                  <e p="SpawnpointData.cs" t="Include" />
                   <e p="SpawnpointList.cs" t="Include" />
+                  <e p="SpawnPointWorker.cs" t="Include" />
                 </e>
               </e>
               <e p="Trigger" t="Include">
@@ -234,6 +255,7 @@
             <e p="ParticleController.cs" t="Include" />
             <e p="ProgessBar.cs" t="Include" />
             <e p="ProgessBarDash.cs" t="Include" />
+            <e p="ProgressBarGrenade.cs" t="Include" />
             <e p="ProgressBarHealth.cs" t="Include" />
             <e p="ProgressBarSkills.cs" t="Include" />
             <e p="RunTimeSets" t="Include">
@@ -248,15 +270,22 @@
               <e p="SaveManager.cs" t="Include" />
             </e>
             <e p="SceneLoader.cs" t="Include" />
+            <e p="SkillPlate.cs" t="Include" />
             <e p="StoryScripting" t="Include">
               <e p="AInteractable.cs" t="Include" />
               <e p="DestructionInteraction.cs" t="Include" />
               <e p="InteractTest.cs" t="Include" />
               <e p="SectionScripts" t="Include">
                 <e p="TutorialSection_0.cs" t="Include" />
+                <e p="TutorialSection_1.cs" t="Include" />
               </e>
               <e p="StoryScripting.cs" t="Include" />
               <e p="StorySection.cs" t="Include" />
+              <e p="StoryTrigger.cs" t="Include" />
+              <e p="TriggerBehaviour.cs" t="Include" />
+              <e p="TriggerBehaviours" t="Include">
+                <e p="ShowPrompt.cs" t="Include" />
+              </e>
             </e>
             <e p="Symbol" t="Include">
               <e p="Symbol.cs" t="Include" />
@@ -264,6 +293,7 @@
           </e>
           <e p="UI" t="Include">
             <e p="TutorialTemplate.cs" t="Include" />
+            <e p="TutTempObject.cs" t="Include" />
             <e p="UIManager.cs" t="Include" />
           </e>
         </e>
@@ -402,6 +432,7 @@
             </e>
           </e>
         </e>
+        <e p="ResetWeaponTriggers.cs" t="Include" />
         <e p="RotateCam.cs" t="Include" />
         <e p="Samples" t="Include">
           <e p="Terrain Tools" t="Include">
@@ -413,6 +444,7 @@
           </e>
         </e>
         <e p="SetSpeed.cs" t="Include" />
+        <e p="StartScreenManager.cs" t="Include" />
         <e p="Unparenter.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />

@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
+
 public class TutorialTemplate : MonoBehaviour
 {
-    public List<Transform> frontObjects;
+    public List<ObjectList> objectList;
+    public int currentObjectListID;
     private int[] objectIndex;
 
     private void OnEnable()
     {
-        objectIndex = new int[frontObjects.Count];
+        objectIndex = new int[objectList[currentObjectListID].frontObjects.Count];
         SetSiblingsToFront();
     }
 
     private void OnDisable()
     {
-        SetSiblingsBack();
         transform.SetAsLastSibling();
+        SetSiblingsBack();
+        
     }
 
     void SetSiblingsToFront()
     {
         int i = 0;
         transform.SetAsLastSibling();
-        foreach (var front in frontObjects)
+        foreach (var front in objectList[currentObjectListID].frontObjects)
         {
             objectIndex[i] = (front.GetSiblingIndex());
             front.SetAsLastSibling();
@@ -35,13 +38,19 @@ public class TutorialTemplate : MonoBehaviour
     void SetSiblingsBack()
     {
         int i = 0;
-        foreach (var front in frontObjects)
+        foreach (var front in objectList[currentObjectListID].frontObjects)
         {
             front.SetSiblingIndex(objectIndex[i]);
             i++;
         }
     }
 
+    
+    [System.Serializable]
+    public class ObjectList
+    {
+        public List<Transform> frontObjects;
+    }
 
 
 }

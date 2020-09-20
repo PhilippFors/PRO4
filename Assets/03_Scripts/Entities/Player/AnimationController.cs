@@ -26,11 +26,8 @@ public class AnimationController : MonoBehaviour
         dashPlayableClip;
 
     public AnimationClipPlayable attackPlayableClip;
-    public AnimationClipPlayable nextAttackPlayableClip;
-
-
-    public float weightX;
-    public float weightY;
+    public AnimationClipPlayable lastAttackPlayableClip;
+    
     public float transWeight;
 
     PlayableGraph playableGraph;
@@ -42,6 +39,9 @@ public class AnimationController : MonoBehaviour
     private Vector3 foo;
     private Vector3 bla;
     private Vector3 pah;
+
+    private float timeStartedLerping;
+    private bool shouldBlend;
     private void Awake()
     {
         input = new PlayerControls();
@@ -127,6 +127,12 @@ public class AnimationController : MonoBehaviour
 
         child.SetFloat("X", posx);
         child.SetFloat("Y", posy);
+
+        if (shouldBlend)
+        {
+            transWeight = Blender(timeStartedLerping);
+        }
+        
     }
 
     private void OnEnable()
@@ -142,17 +148,25 @@ public class AnimationController : MonoBehaviour
         playableGraph.Destroy();
     }
 
-    public void AttackAnimation(AnimationClip clip, AnimationClip nextClip)
+    public void AttackAnimation(AnimationClip clip)
     {
-        attackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
-        nextAttackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
-        attackBlendPlayable = AnimationMixerPlayable.Create(playableGraph, 2);
-        playableGraph.Connect(attackPlayableClip, 0, attackBlendPlayable, 0);
+        timeStartedLerping = Time.deltaTime;
+        shouldBlend = true;
+        transWeight = 1;
+        //lastAttackPlayableClip = AnimationClipPlayable.Create(playableGraph, lastClip);
 
-        playableGraph.Connect(nextAttackPlayableClip, 0, attackBlendPlayable, 1);
+        attackPlayableClip = AnimationClipPlayable.Create(playableGraph, clip);
+        
+        attackBlendPlayable = AnimationMixerPlayable.Create(playableGraph, 2);
+
+        playableGraph.Connect(lastAttackPlayableClip, 0, attackBlendPlayable, 0);
+        playableGraph.Connect(attackPlayableClip, 0, attackBlendPlayable, 1);
+        
+        //lastAttackPlayableClip.Pause();
         
         attackBlendPlayable.SetInputWeight(0, 1.0f-transWeight);
         attackBlendPlayable.SetInputWeight(1, transWeight);
+        
         playableGraph.Connect(attackBlendPlayable, 0, mixerPlayable, 1);
         playableGraph.Disconnect(mixerPlayable, 0);
     }
@@ -160,6 +174,8 @@ public class AnimationController : MonoBehaviour
     public void AttackDisconnecter()
     {
         playableGraph.Disconnect(mixerPlayable, 1);
+       
+
     }
 
     public void Dasher()
@@ -181,9 +197,21 @@ public class AnimationController : MonoBehaviour
         }
     }
 
-    public void blender()
+    public float Blender(float timeStartedLerping, float lerpTime = 0.1f)
     {
-        
+        float timeSinceStarted = Time.time - timeStartedLerping;
+        float percentageComplete = timeSinceStarted / lerpTime;
+        var result = Mathf.Lerp(0, 1, percentageComplete);
+        if (result >= 1)
+        {
+            shouldBlend = false;
+        }
+        return result;
+    }
+
+    public void BlendStarter()
+    {
+       
     }
 
 }
