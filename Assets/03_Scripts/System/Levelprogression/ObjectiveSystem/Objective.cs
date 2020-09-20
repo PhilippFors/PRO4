@@ -31,4 +31,10 @@ public abstract class Objective : ScriptableObject
             StoryEventSystem.instance.NextStory();
     }
 
+    private void OnDisable()
+    {
+        started = false;
+        finished = false;
+    }
+
 }

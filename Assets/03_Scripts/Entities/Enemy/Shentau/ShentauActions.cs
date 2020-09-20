@@ -6,6 +6,7 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
 {
     public float countdown;
     public bool canAttack = false;
+    public float bulletForce = 20f;
     public Animator animator;
     public GameObject bullet;
     public Transform bulletPoint;
@@ -37,9 +38,10 @@ public class ShentauActions : MonoBehaviour, IEnemyActions
     {
         animator.SetTrigger("attack");
         Bullet b = Instantiate(bullet, bulletPoint.position, bulletPoint.rotation).GetComponent<Bullet>();
-        b.InitBUllet(bulletPoint.forward, 17f, s.enemyStats.GetStatValue(StatName.BaseDmg));
+        b.InitBUllet(bulletPoint.forward, bulletForce, s.enemyStats.GetStatValue(StatName.BaseDmg));
         StartCoroutine(Recharge(s));
     }
+    
     void ShowChargeLaser(StateMachineController s)
     {
 

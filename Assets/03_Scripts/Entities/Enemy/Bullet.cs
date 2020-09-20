@@ -4,24 +4,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public Vector3 direction;
-    public float speed;
+
     public float damage;
     public Rigidbody rb => GetComponent<Rigidbody>();
 
-    // Update is called once per frame
-    private void Update()
+    public void InitBUllet(Vector3 dir, float force, float dmg)
     {
-        //transform.position += direction * speed * Time.deltaTime;
-    }
-
-    public void InitBUllet(Vector3 dir, float s, float d)
-    {
-        direction = dir;
-        speed = s;
-        damage = d;
-        rb.AddForce(dir * s, ForceMode.Impulse);
+        damage = dmg;
+        rb.AddForce(dir * force, ForceMode.Impulse);
         Destroy(this.gameObject, 5f);
     }
 

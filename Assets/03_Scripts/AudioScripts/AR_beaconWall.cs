@@ -80,7 +80,7 @@ public class AR_beaconWall : MusicAnalyzer
             }
             foreach (Transform child in transform)
             {
-                Debug.Log("Hallo");
+                // Debug.Log("Hallo");
                 child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 10));
             }
             // _energyWallMaterial
