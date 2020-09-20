@@ -20,8 +20,7 @@ public class AR_damagePlate : MusicAnalyzer
     float H2, S2, V2;
 
     private Material _material;
-    public Color _color1;
-    private Color _color2;
+
 
 
     public float dmgOnEnter = 30;
