@@ -11,19 +11,19 @@ public class AR_beaconWallCollider : MonoBehaviour
 
     public void Start()
     {
-        //dmgOnEnter = gameObject.GetComponentInParent<AR_beaconWall>().dmgOnEnter;
-        //dmgOnStay = gameObject.GetComponentInParent<AR_beaconWall>().dmgOnStay;
+        dmgOnEnter = gameObject.GetComponentInParent<AR_beaconWall>().dmgOnEnter;
+        dmgOnStay = gameObject.GetComponentInParent<AR_beaconWall>().dmgOnStay;
 
     }
     void OnTriggerEnter(Collider c)
     {
 
-        gameObject.GetComponentInParent<AR_beaconWall>().PullTrigger(c, 10);
+        gameObject.GetComponentInParent<AR_beaconWall>().PullTrigger(c, dmgOnEnter);
     }
 
     private void OnTriggerStay(Collider c)
     {
-        gameObject.GetComponentInParent<AR_beaconWall>().PullTrigger(c, 5);
+        gameObject.GetComponentInParent<AR_beaconWall>().PullTrigger(c, dmgOnStay);
     }
 
     public void DisableSelf()

@@ -7,6 +7,8 @@ public class PlayerBody : AStats, IHasHealth
     public StatTemplate template;
     public FloatVariable currentHealth;
 
+    public bool alive = true;
+
     private void Awake()
     {
         this.InitStats(template);
@@ -23,6 +25,7 @@ public class PlayerBody : AStats, IHasHealth
         }
         currentHealth.Value = GetStatValue(StatName.MaxHealth);
     }
+
     void CheckHealth()
     {
         if (currentHealth.Value <= 0)
@@ -30,6 +33,7 @@ public class PlayerBody : AStats, IHasHealth
             OnDeath();
         }
     }
+
     public void TakeDamage(float damage)
     {
         //float damage = baseDmg * (baseDmg/(baseDmg + enemy.GetStat(EnemyStatName.defense)))
@@ -37,10 +41,12 @@ public class PlayerBody : AStats, IHasHealth
         currentHealth.Value -= newDamage;
         // SetStatValue(StatName.MaxHealth, GetStatValue(StatName.MaxHealth) - damage);
         Debug.Log(gameObject.name + " just took " + newDamage + " damage.");
+        CheckHealth();
     }
 
     public void OnDeath()
     {
+        alive = false;
         LevelEventSystem.instance.ReturnToCheckpoint(this);
     }
 

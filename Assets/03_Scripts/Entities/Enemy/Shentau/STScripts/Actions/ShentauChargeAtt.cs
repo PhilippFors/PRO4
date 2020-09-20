@@ -8,6 +8,7 @@ public class ShentauChargeAtt : Action
     public override void Execute(StateMachineController controller)
     {
         Move(controller);
+        controller.actions.Attack(controller, 1);
     }
     Vector3 GetMovePos(StateMachineController controller)
     {

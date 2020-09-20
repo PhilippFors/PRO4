@@ -13,5 +13,6 @@ public class Skills : ScriptableObject
     public float deactiveValue = 1f;
     public float decreaseMultValue;
     public float increaseMultValue;
-    public Symbol symbol;
+    public Symbol buffSymbol;
+    public Symbol debuffSymbol;
 }

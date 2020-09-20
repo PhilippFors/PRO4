@@ -6,7 +6,6 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.PlayerLoop;
-using Debug = UnityEngine.Debug;
 
 public enum AttackStates
 {
@@ -127,7 +126,6 @@ public class AttackStateMachine : MonoBehaviour
 
     private void SetState(AttackState state)
     {
-
         //sets currentstate and resets animation timer
         currentState = state;
         animTimer = 0;
@@ -138,7 +136,6 @@ public class AttackStateMachine : MonoBehaviour
         animCon.AttackAnimation(currentState.clip);
 
         EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
-
     }
 
 

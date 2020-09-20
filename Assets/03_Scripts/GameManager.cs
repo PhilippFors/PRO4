@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public bool arena = false;
     public bool isNewGame = true;
     public bool editing = true;
-
+    public bool gamePaused = false;
     public static GameManager instance;
     public SceneLoader sceneLoader;
 
@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
     public void StartArena()
     {
         arena = true;
-        sceneLoader.LoadScene((int)BaseScenes.Arena, (int)BaseScenes.StartMenu);
+        sceneLoader.LoadScene((int)BaseScenes.Arena, true, (int)BaseScenes.StartMenu);
     }
     public void StartGame()
     {
-        sceneLoader.LoadScene(sceneLoader.levelList[GameManager.instance.currentLevel].handle, (int)BaseScenes.StartMenu);
+        sceneLoader.LoadScene(sceneLoader.levelList[GameManager.instance.currentLevel].handle, true, (int)BaseScenes.StartMenu);
     }
 
     public void GameOver()
@@ -39,15 +39,21 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void Respawn(PlayerBody player, Vector3 respawn)
+    {
+        StartCoroutine(RespawnAnim(player, respawn));
+    }
+
     public void ReturnToStartMenu()
     {
         if (arena)
         {
-            sceneLoader.LoadScene((int)BaseScenes.StartMenu, (int)BaseScenes.Base, (int)BaseScenes.Arena);
+            sceneLoader.LoadScene((int)BaseScenes.StartMenu, false, (int)BaseScenes.Base, (int)BaseScenes.Arena);
+            arena = false;
         }
         else
         {
-            sceneLoader.LoadScene((int)BaseScenes.StartMenu, (int)BaseScenes.Base, sceneLoader.levelList[GameManager.instance.currentLevel].handle);
+            sceneLoader.LoadScene((int)BaseScenes.StartMenu, false, (int)BaseScenes.Base, sceneLoader.levelList[GameManager.instance.currentLevel].handle);
         }
     }
     public void QuitGame()
@@ -64,5 +70,16 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
 
+    }
+
+    IEnumerator RespawnAnim(PlayerBody player, Vector3 respawn)
+    {
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<Animator>().applyRootMotion = false;
+        player.transform.position = respawn;
+        player.currentHealth.Value = player.GetStatValue(StatName.MaxHealth);
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<Animator>().applyRootMotion = false;
+        player.alive = true;
     }
 }

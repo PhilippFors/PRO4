@@ -1082,7 +1082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2576877363223431070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.69, z: -19.84}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1042652485801479816}
@@ -1124,20 +1124,22 @@ MonoBehaviour:
   currentMoveSpeed: 5
   grenadeMoveSpeed: 3
   standardMoveSpeed: 6
-  dashValue: 0
-  dashValueTime: 1
-  maxDashValue: 100
+  dashCharge: 0
+  dashRechargeTime: 1
+  maxDashCharge: 100
   dashForce: 0.1
   dashDuration: 0.4
   dashDistance: 6
-  drag: 8
-  delayTime: 0.4
+  drag: 5
+  delayTime: 0.2
+  dashTime: 0
   dashTarget: {fileID: 0}
   RayEmitter: {fileID: 4538411176893929185}
   currentState: 0
   clip: {fileID: -203655887218126122, guid: 3727ad485afed754abbfcd68a20bc2a1, type: 3}
   selfCol: {fileID: 2576877363223431061}
   playerTemplate: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
+  currentEnemyTarget: {fileID: 0}
 --- !u!114 &2576877363223431057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1190,7 @@ MonoBehaviour:
   indicators: {fileID: 0}
   template: {fileID: 11400000, guid: 35828f959b355c44fbfd210bfba36934, type: 2}
   currentHealth: {fileID: 11400000, guid: 7aa13f19c163f504d99c94d8437c9aee, type: 2}
+  alive: 1
 --- !u!114 &2576877363223431063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,7 +1241,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

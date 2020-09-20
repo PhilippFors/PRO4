@@ -4,6 +4,7 @@
 public class Symbol : ScriptableObject
 {
     public Material mat;
+    public Texture tex => mat.GetTexture("_Texture");
     // public Texture symbolSprite;
     public bool enhance;
     public MultiplierName main

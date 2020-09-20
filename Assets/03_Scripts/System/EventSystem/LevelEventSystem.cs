@@ -46,6 +46,7 @@ public class LevelEventSystem : MonoBehaviour
     {
         if (levelEntry != null)
             levelEntry();
+
     }
 
     public void LevelExit()

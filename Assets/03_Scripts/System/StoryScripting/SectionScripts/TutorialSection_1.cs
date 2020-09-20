@@ -17,7 +17,6 @@ public class TutorialSection_1 : StorySection
     {
         st.uiManager.DisablePrompt();
         st.playerMovement.input.Gameplay.Enable();
-
         st.SwitchStorySection();
     }
 
@@ -31,12 +30,13 @@ public class TutorialSection_1 : StorySection
     {
         base.StoryEnter(script);
         StoryEventSystem.instance.showPrompt += ShowTutScreen;
-        st.spawnManager.scriptedSpawn = true;
+        
     }
 
     public override void StoryExit()
     {
         base.StoryExit();
         StoryEventSystem.instance.showPrompt -= ShowTutScreen;
+        
     }
 }

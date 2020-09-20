@@ -11,11 +11,18 @@ public class AR_mover : MusicAnalyzer
 
     public bool m_backAndForth = true;
 
+    private Material m_material;
+    float H, S, V;
+
+    float x;
+
+    public bool m_activateComponent = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        addActionToEvent();
+        m_material = GetComponent<MeshRenderer>().material;
+        
     }
 
     protected override void objectAction()
@@ -23,7 +30,7 @@ public class AR_mover : MusicAnalyzer
         increaseIntervalCounter();
         // moveSimple();
 
-        if (m_moveX > 0)
+        if (m_moveX != 0 && !colorErrorActive)
         {
             if (checkInterval())
             {
@@ -39,7 +46,7 @@ public class AR_mover : MusicAnalyzer
                 
             }
         }
-        if (m_moveZ > 0)
+        if (m_moveZ != 0)
         {
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
@@ -50,11 +57,12 @@ public class AR_mover : MusicAnalyzer
                 transform.DOLocalMoveZ(transform.position.z - m_moveZ, m_actionInDuration);
             }
         }
-        if (m_moveY > 0)
+        if (m_moveY != 0)
         {
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
                 transform.DOLocalMoveY(transform.position.y + m_moveY, m_actionInDuration);
+              
             }
             else if (m_backAndForth && (m_intervalCounter % 2 != 0))
             {
@@ -62,6 +70,7 @@ public class AR_mover : MusicAnalyzer
             }
         }
 
+       
 
     }
 
@@ -76,7 +85,67 @@ public class AR_mover : MusicAnalyzer
     // Update is called once per frame
     void Update()
     {
+
+        if (colorErrorActive && addedToEvent)
+        {
+            removeActionFromEvent();
+        }
+        else if (!colorErrorActive && !addedToEvent && m_activateComponent)
+        {
+            addActionToEvent();
+        }
         
+
+
+        if (colorErrorActive)
+        {
+           
+
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+
+            m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            /*
+            if (!m_holdHelper)
+            {
+                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
+            }
+            */
+
+        }
+        else
+        {
+            if (m_onKick)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onHighHat)
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H, out S, out V);
+            }
+            else if (m_onSnare)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
+            }
+
+            m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            /*
+            if (!m_holdHelper)
+            {
+                m_material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, 10));
+            }
+            */
+        }
     }
 
     protected void increaseIntervalCounter()
@@ -91,7 +160,21 @@ public class AR_mover : MusicAnalyzer
 
 
             // m_overallIntervalCounter++;
-        }
-
-
     }
+
+
+    public void activateComponent()
+    {
+        m_activateComponent = true;
+            addActionToEvent();
+    }
+
+    public void deactivateComponent()
+    {
+        m_activateComponent = false;
+        removeActionFromEvent();
+    }
+
+}
+
+

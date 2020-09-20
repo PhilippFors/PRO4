@@ -7,19 +7,13 @@ public class ProgessBarDash : ProgessBar
 {
     public Slider slider;
     public PlayerStateMachine dash;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         GetCurrentFill();
     }
 
-    public void GetCurrentFill()
+    public override void GetCurrentFill()
     {
         maximum = dash.maxDashCharge;
         current = dash.dashCharge;

@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class AR_beaconWall : MusicAnalyzer
 {
-
+    public bool isTurret;
     private Material _material;
     Material _energyWallMaterial;
     private float defaultLength;
@@ -17,9 +17,14 @@ public class AR_beaconWall : MusicAnalyzer
 
     private bool m_beaconActive = true;
 
+    public bool m_activateComponent = false;
 
 
     Sequence tweenSeq;
+
+
+    public float dmgOnEnter = 30;
+    public float dmgOnStay = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -27,25 +32,36 @@ public class AR_beaconWall : MusicAnalyzer
 
         _material = GetComponent<MeshRenderer>().material;
         _energyWall = this.gameObject.transform.GetChild(0).gameObject;
-        _energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
+        //_energyWallMaterial = _energyWall.GetComponent<MeshRenderer>().material;
 
         defaultLength = _energyWall.transform.localScale.y;
 
+        if (m_activateComponent)
+        {
+            activateComponent();
+        }
 
-
-        addActionToEvent();
+       
 
         lengthOfLaser = lengthOfLaser / _energyWall.transform.localScale.y;
 
 
-        EventSystem.instance.ActivateSkill += activateColorError1;
-        EventSystem.instance.DeactivateSkill += deactivateColorError1;
+       
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (colorErrorActive && addedToEvent)
+        {
+            removeActionFromEvent();
+        }
+        else if (!colorErrorActive && !addedToEvent && m_activateComponent)
+        {
+            addActionToEvent();
+        }
 
         if (colorErrorActive)
         {
@@ -62,8 +78,12 @@ public class AR_beaconWall : MusicAnalyzer
             {
                 Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
             }
-
-            _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            foreach (Transform child in transform)
+            {
+                Debug.Log("Hallo");
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 10));
+            }
+            // _energyWallMaterial
 
         }
         else
@@ -81,8 +101,12 @@ public class AR_beaconWall : MusicAnalyzer
                 Color.RGBToHSV((m_bothChannelActiveColor), out H, out S, out V);
             }
 
-            _energyWallMaterial.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V));
+            foreach (Transform child in transform)
+            {
+                child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 5));
+            }
         }
+        
     }
 
     protected override void objectAction()
@@ -91,15 +115,21 @@ public class AR_beaconWall : MusicAnalyzer
         if (!colorErrorActive)
         {
 
-            Debug.Log("Normal Barrier Action");
+            
             increaseIntervalCounter();
             if (checkInterval())
             {
                // shortDurationHelper();
-                tweenSeq = DOTween.Sequence()
-               .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
-               .Append(_energyWall.transform.DOScaleY(defaultLength, m_actionOutDuration))
-               .SetEase(Ease.Flash);
+               foreach (Transform child in transform)
+                {
+                   
+                   
+                    tweenSeq = DOTween.Sequence()
+                    .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
+                    .Append(child.DOScaleY(defaultLength, m_actionOutDuration))
+                    .SetEase(Ease.Flash);
+                }
+
             }
 
         }
@@ -110,14 +140,18 @@ public class AR_beaconWall : MusicAnalyzer
     {
         if (skill.name == "PitchShift")
         {
-
-            tweenSeq.Kill();
-            //Debug.Log("BeconBarrier activate");
-            tweenSeq = DOTween.Sequence()
-            .Append(_energyWall.transform.DOScaleY(lengthOfLaser, m_actionInDuration))
+           if (!isTurret)
+            {
+                tweenSeq.Kill();
+            }
+            
+            foreach (Transform child in transform)
+            {
+             
+                tweenSeq = DOTween.Sequence()
+            .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
             .SetEase(Ease.Flash);
-
-
+            }
 
         }
     }
@@ -161,5 +195,22 @@ public class AR_beaconWall : MusicAnalyzer
         yield return new WaitForSeconds(m_actionInDuration + m_actionOutDuration);
         m_beaconActive = false;
         //gameObject.GetComponentInChildren<AR_beaconWallCollider>().DisableSelf();
+    }
+
+
+    public void activateComponent()
+    {
+        m_activateComponent = true;
+        addActionToEvent();
+        EventSystem.instance.ActivateSkill += activateColorError1;
+        EventSystem.instance.DeactivateSkill += deactivateColorError1;
+    }
+
+    public void deactivateComponent()
+    {
+        m_activateComponent = false;
+        removeActionFromEvent();
+        EventSystem.instance.ActivateSkill -= activateColorError1;
+        EventSystem.instance.DeactivateSkill -= deactivateColorError1;
     }
 }

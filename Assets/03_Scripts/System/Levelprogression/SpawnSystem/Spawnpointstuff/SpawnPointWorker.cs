@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+
 public class SpawnPointWorker : MonoBehaviour
 {
     [SerializeField] private PlayableDirector director;

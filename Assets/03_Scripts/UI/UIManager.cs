@@ -5,29 +5,68 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
+    PlayerControls input;
+    [SerializeField] PlayerStateMachine player;
+
     public GameObject prompt;
     public Text promptText;
 
-    public void StartGame()
+    public GameObject pauseMenu;
+
+
+    private void Start()
     {
-        SceneManager.LoadScene("Prototype 2");
+        input = player.input;
+        input.uiControls.Enable();
+        input.uiControls.Pause.performed += ctx => TogglePauseMenu();
     }
-    public void OpenSettings()
+
+    private void OnDisable()
     {
-        SceneManager.LoadScene("Settings");
+        input.uiControls.Disable();
     }
-    public void OpenCredits()
+
+    public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("Credits");
+        GameManager.instance.ReturnToStartMenu();
     }
-    public void StartMenu()
+
+    #region PauseMenu
+    public void TogglePauseMenu()
     {
-        SceneManager.LoadScene("StartMenu");
+        if (GameManager.instance.gamePaused)
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+            input.Gameplay.Enable();
+        }
+        else
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+            input.Gameplay.Disable();
+        }
+
+        GameManager.instance.gamePaused = !GameManager.instance.gamePaused;
     }
-    public void ExitGame()
+
+    public void ResumeGame()
     {
-        Application.Quit();
+        Time.timeScale = 1;
+        GameManager.instance.gamePaused = false;
+        pauseMenu.SetActive(false);
+        input.Gameplay.Enable();
     }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        GameManager.instance.gamePaused = true;
+        pauseMenu.SetActive(true);
+        input.Gameplay.Disable();
+    }
+
+    #endregion
 
     public void ShowPrompt(string text)
     {
@@ -35,7 +74,9 @@ public class UIManager : MonoBehaviour
         prompt.SetActive(true);
     }
 
-    public void DisablePrompt(){
+    public void DisablePrompt()
+    {
         prompt.SetActive(false);
     }
+
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Checkpointmanager : MonoBehaviour
 {
-    CheckPoint currentCheck;
+    public CheckPoint currentCheck;
     CheckPoint oldCheck;
+    public Transform player;
     void Start()
     {
         StartCoroutine(Wait());
@@ -20,15 +21,18 @@ public class Checkpointmanager : MonoBehaviour
 
     void SetNewCheckPoint(CheckPoint point)
     {
-        currentCheck.isActive = false;
-        oldCheck = currentCheck;
+        if (currentCheck != null)
+        {
+            currentCheck.isActive = false;
+            oldCheck = currentCheck;
+        }
         currentCheck = point;
         currentCheck.isActive = true;
     }
 
     public void TransportToCheckpoint(PlayerBody body)
     {
-        body.transform.position = currentCheck.transform.position;
+        GameManager.instance.Respawn(body, transform.TransformPoint(currentCheck.transform.position));
     }
 
 }

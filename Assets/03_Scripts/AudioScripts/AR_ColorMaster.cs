@@ -19,6 +19,9 @@ public class AR_ColorMaster : MonoBehaviour
 
     protected static Color m_blueChannelErrorColor = Color.red;
     protected static Color m_redChannelErrorColor = Color.cyan;
+    protected static Color m_bothChannelErrorColor = Color.blue;
+
+
 
     public static bool colorErrorActive = false;
     public static bool colorErrorEnd = false;
@@ -38,9 +41,10 @@ public class AR_ColorMaster : MonoBehaviour
     {
         if (colorErrorActive)
         {
+            Debug.Log("CollorError in Master");
             m_blueChannelActiveColor = Color.Lerp(m_blueChannelColor, m_blueChannelErrorColor, Mathf.PingPong(Time.time, 1));
             m_redChannelActiveColor = Color.Lerp(m_redChannelColor, m_redChannelErrorColor, Mathf.PingPong(Time.time, 1));
-            m_bothChannelActiveColor = Color.Lerp(m_bothChannelColor, Color.white, Mathf.PingPong(Time.time, 1));
+            m_bothChannelActiveColor = Color.Lerp(m_bothChannelColor, m_bothChannelErrorColor, Mathf.PingPong(Time.time, 1));
             colorErrorEnd = true;
         }
         

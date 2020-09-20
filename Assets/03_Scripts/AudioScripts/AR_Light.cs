@@ -78,7 +78,7 @@ public class AR_Light : MusicAnalyzer
             {
                 _light.color = m_redChannelActiveColor;
             }
-            else if (m_onSnare || _audioBand == 5)
+            else if (m_onSnare ||( _audioBand >= 3 && _audioBand <= 5))
             {
                 _light.color = m_bothChannelActiveColor;
             }

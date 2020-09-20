@@ -5,37 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class LevelEntry : MonoBehaviour
 {
-    bool scenLoaded = false;
-
-    private void Start()
+    bool sceneLoaded = false;
+    private void OnEnable()
     {
         SceneManager.sceneLoaded += StartLevel;
+    }
 
-        if (SceneManager.GetSceneByName("Base").isLoaded & !scenLoaded)
+    private void Awake()
+    {
+        if (!sceneLoaded & SceneManager.GetSceneByName("Base").isLoaded)
         {
-            LevelEventSystem.instance.LevelEntry();
+            sceneLoaded = true;
+            StartCoroutine(WaitFStart());
+        }
+ 
+    }
+
+    void StartLevel(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Base")
+        {
+            sceneLoaded = true;
+            StartCoroutine(WaitFStart());
         }
     }
-    IEnumerator LeStart()
+
+    IEnumerator WaitFStart()
     {
         yield return new WaitForEndOfFrame();
         LevelEventSystem.instance.LevelEntry();
+        SceneManager.sceneLoaded -= StartLevel;
     }
-
-    void StartLevel(Scene scene, LoadSceneMode mode = LoadSceneMode.Additive)
-    {
-        if (scene.name == "Base")
-            LevelEventSystem.instance.LevelEntry();
-
-        scenLoaded = true;
-    }
-
-    private void StartL()
-    {
-        LevelEventSystem.instance.LevelEntry();
-    }
-
-
-
-
 }

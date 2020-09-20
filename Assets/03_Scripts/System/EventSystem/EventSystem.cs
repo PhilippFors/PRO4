@@ -15,11 +15,13 @@ public class EventSystem : MonoBehaviour
     public event System.Action Snare;
     public event System.Action Kick;
     public event System.Action HighHat;
+    public event System.Action Deactivate;
 
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
     
+
 
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
@@ -28,11 +30,23 @@ public class EventSystem : MonoBehaviour
 
     public event System.Action goalDestroyed;
 
+    public event Action<Transform, Transform, Transform, Transform> startCamAnim;
+    public event Action<Transform, Transform> notifyCamManager;
+
     private void Awake()
     {
         instance = this;
     }
 
+
+    public void StartCamAnim(Transform camera, Transform endposition, Transform player, Transform playerDest){
+        if(startCamAnim != null)
+            startCamAnim(camera, endposition, player, playerDest);
+    }
+    public void NotifyCamManager(Transform endposition,Transform playerDest){
+        if(notifyCamManager != null)
+            notifyCamManager(endposition, playerDest);
+    }
     public void GoalDestroyed(){
         if(goalDestroyed != null)
             goalDestroyed();
@@ -93,6 +107,18 @@ public class EventSystem : MonoBehaviour
         else
         {
             Kick();
+        }
+    }
+
+    public void OnDeactivate()
+    {
+        if (Deactivate == null)
+        {
+            Debug.Log("KickEvent has no subscriber");
+        }
+        else
+        {
+            Deactivate();
         }
     }
 

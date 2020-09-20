@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public Objective currentObjective;
     public AreaBarrierList barrierList;
     [HideInInspector] public float deltaTime;
-    Transform playerSpawnpoint;
+    public Transform playerSpawn;
     [SerializeField] private Transform player;
 
     [Header("Level Data")]
@@ -48,14 +48,23 @@ public class LevelManager : MonoBehaviour
         currentObjective = GetNextObjective();
         currentObjective.started = true;
         currentObjective.ObjEnter(this);
+        if (barrierList.list.Count > 0)
+            foreach (AreaBarrier a in barrierList.list)
+                if (a.AreaID == currentArea - 1)
+                    a.Activate();
     }
 
     public void FinishArea()
     {
         if (barrierList.list.Count > 0)
             foreach (AreaBarrier a in barrierList.list)
+            {
                 if (a.AreaID == currentArea)
                     a.Deactivate();
+                if (currentArea != 0)
+                    if (a.AreaID == currentArea - 1)
+                        a.Deactivate();
+            }
 
         if (HasNextObjective())
             currentArea++;
@@ -79,7 +88,9 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         FindPlayerSpawnpoint();
-        player.position = playerSpawnpoint.position;
+        player.GetComponent<Animator>().applyRootMotion = false;
+        player.position = playerSpawn.position;
+        player.GetComponent<Animator>().applyRootMotion = true;
         // StartCoroutine(SaveGame());
         //TODO: Exit from Level transition
     }
@@ -90,17 +101,18 @@ public class LevelManager : MonoBehaviour
         foreach (SpawnPointWorker s in SpawnManager.instance.spawnpointlist.list)
             if (s.playerSpawnpoint)
             {
-                playerSpawnpoint = s.transform;
+                playerSpawn = s.transform;
             }
 
-        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawnpoint.GetComponent<SpawnPointWorker>());
+        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
     }
 
     public void FinishLevel()
     {
         GameManager.instance.currentLevel++;
+        currentArea = 0;
         GameManager.instance.sceneLoader.LoadNextLevel();
-        //TODO: Start loading new level
+
         //TODO: Start level transition
         //TODO: Reset Area count
     }
