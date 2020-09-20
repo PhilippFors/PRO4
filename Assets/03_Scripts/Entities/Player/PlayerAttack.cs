@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     public int currentWeaponCounter = 0;
     public Transform weaponPoint;
     public Skills currentActiveSkill;
+    public bool skillIsActive;
 
     [SerializeField] public List<Skills> skills = new List<Skills>();
 
@@ -88,7 +89,7 @@ public class PlayerAttack : MonoBehaviour
     void Skill(int id)
     {
         Skills temp = skills[id];
-        if (!temp.isActive && temp.current == temp.max)
+        if (!temp.isActive && temp.current == temp.max && currentActiveSkill == null)
         {
             foreach (Skills skill in skills)
             {

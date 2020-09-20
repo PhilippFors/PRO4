@@ -23,14 +23,16 @@ public class AttackStateMachine : MonoBehaviour
     [HideInInspector] public PlayerControls input;
     public float animTimer = 0; // a timer to check if animation has finished playing
     private int stateCounter = 0; // counts the current states of an attack
-    private static PlayerAttack playerAttack => GetComponent<PlayerAttack>();
+    private PlayerAttack playerAttack => GetComponent<PlayerAttack>();
     AnimationController animCon => GetComponent<AnimationController>();
+    AnimatorController animCon2 => GetComponent<AnimatorController>();
+    
     PlayerStateMachine _stateMachine;
     public AttackSO baseAttack; //an attack which has no states and only holds the next attack
     public AttackState baseState; // an empty state that does nothing
     PlayableGraph playableGraph;
     public Animator animator => GetComponent<Animator>(); //animator of the character model
-    public AnimationClip lastClip;
+  
 
     private void Awake()
     {
@@ -64,10 +66,11 @@ public class AttackStateMachine : MonoBehaviour
         // tests if the player should be able to attack (which means he is either in the baseattack or a wait state)
         if (_stateMachine.currentState == PlayerMovementSate.standard || _stateMachine.currentState == PlayerMovementSate.comboWait && (currentState.canAttack || currentAttack != null))
         {
-            lastClip = currentState.clip;
+            
             stateCounter = 0; //sets the counter back to zero because a new attack begins
             currentAttack =
                 currentAttack.nextAttacks[stateID]; //the new currentattack based on which attack button got pressed
+            //animCon2.AttackAnimation(currentAttack.stateList[0].clip, currentAttack.stateList[1].clip, currentAttack.stateList[2].clip);
             SetState(currentAttack.stateList[0]); //sets first (attack) state of the attack
             playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = true;
 
@@ -132,7 +135,8 @@ public class AttackStateMachine : MonoBehaviour
         //plays the animation of the currentstate
         //AnimationPlayableUtilities.PlayClip(child, currentState.clip, out playableGraph);
         animCon.AttackDisconnecter();
-        animCon.AttackAnimation(lastClip, currentState.clip);
+        animCon.AttackAnimation(currentState.clip);
+
         EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
 
     }
@@ -142,24 +146,29 @@ public class AttackStateMachine : MonoBehaviour
     {
         //checks if animation is finished playing (and an animation was playing)
         animTimer += Time.deltaTime;
+        
+        
 
         //if (animTimer >= currentState.anim.duration && currentState != baseState)
         if (currentState != baseState && animTimer >= currentState.clip.averageDuration)
         {
+            
             //checks if we are already in the returnstate and resets everything to start, else changes to the next state
             if ((stateCounter + 1) == currentAttack.stateList.Count || currentAttack.stateList.Count.Equals(0))
             {
+                
                 animCon.AttackDisconnecter();
                 animCon.MoveStarter();
+                
 
                 SetBase();
                 //maxRot = 0;
             }
             else
             {
+                //lastClip = currentState.clip;
                 
                 stateCounter++;
-                lastClip = currentState.clip;
                 SetState(currentAttack.stateList[stateCounter]);
                 playerAttack.currentWeapon.gameObject.GetComponent<Collider>().enabled = false;
             }
@@ -168,8 +177,8 @@ public class AttackStateMachine : MonoBehaviour
 
     public void SetBase(AttackSO state = null)
     {
+        //lastClip = null;
         playerAttack.comboCounter = 0;
-        lastClip = currentState.clip;
         if (state != null)
         {
             currentAttack = state;
@@ -183,4 +192,6 @@ public class AttackStateMachine : MonoBehaviour
         //sets movementState to the movementstate of the currentstate
         stateCounter = 0;
     }
+    
+    
 }
