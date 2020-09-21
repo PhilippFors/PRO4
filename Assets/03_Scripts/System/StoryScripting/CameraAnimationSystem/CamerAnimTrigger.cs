@@ -12,6 +12,6 @@ public class CamerAnimTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerBody>())
-            EventSystem.instance.NotifyCamManager(endPosition, playerDest);
+            MyEventSystem.instance.NotifyCamManager(endPosition, playerDest);
     }
 }

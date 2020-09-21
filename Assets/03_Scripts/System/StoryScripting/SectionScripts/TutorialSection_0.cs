@@ -22,7 +22,7 @@ public class TutorialSection_0 : StorySection
         st.uiManager.DisablePrompt();
         st.playerMovement.input.Gameplay.Enable();
         foreach (EnemyBody e in st.spawnManager.enemyCollection.entityList)
-            EventSystem.instance.ActivateAI(e);
+            MyEventSystem.instance.ActivateAI(e);
 
         st.spawnManager.scriptedSpawn = false;
         st.SwitchStorySection();

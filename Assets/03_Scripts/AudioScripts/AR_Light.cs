@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using UnityEngine.SceneManagement;
 public class AR_Light : MusicAnalyzer
 {
     public bool _useFrequency;
     public int _audioBand;
     public float _startScale, _maxScale;
-    
+
     public bool _highIntensityLight;
     Light _light;
     int _multiply;
@@ -24,7 +24,10 @@ public class AR_Light : MusicAnalyzer
 
     Sequence lightSequence;
 
-
+    private void OnEnable()
+    {
+        // SceneManager.sceneLoaded += addActionToEvent;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +63,7 @@ public class AR_Light : MusicAnalyzer
 
         }
 
-        addActionToEvent();
+ 
     }
 
     // Update is called once per frame
@@ -78,7 +81,7 @@ public class AR_Light : MusicAnalyzer
             {
                 _light.color = m_redChannelActiveColor;
             }
-            else if (m_onSnare ||( _audioBand >= 3 && _audioBand <= 5))
+            else if (m_onSnare || (_audioBand >= 3 && _audioBand <= 5))
             {
                 _light.color = m_bothChannelActiveColor;
             }
@@ -114,7 +117,7 @@ public class AR_Light : MusicAnalyzer
         }
 
 
-       
+
 
 
     }
@@ -137,7 +140,7 @@ public class AR_Light : MusicAnalyzer
                 }
                 else
                 {
-                    
+
                     m_holdHelper = true;
                     lightSequence = DOTween.Sequence()
                     .Append(_light.DOIntensity(0, m_actionOutDuration))

@@ -76,7 +76,7 @@ public class EnemyBody : AStats, IHasHealth, IKnockback
 
     public void OnDeath()
     {
-        EventSystem.instance.OnEnemyDeath(this);
+        MyEventSystem.instance.OnEnemyDeath(this);
         Destroy(parent);
         Destroy(symbol);
     }

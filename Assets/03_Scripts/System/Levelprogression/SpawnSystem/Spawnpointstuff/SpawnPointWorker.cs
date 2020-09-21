@@ -108,7 +108,7 @@ public class SpawnPointWorker : MonoBehaviour
             yield return null;
         }
         if (!scripted)
-            EventSystem.instance.ActivateAI(enemy);
+            MyEventSystem.instance.ActivateAI(enemy);
         else
             StoryEventSystem.instance.ShowPrompt();
     }

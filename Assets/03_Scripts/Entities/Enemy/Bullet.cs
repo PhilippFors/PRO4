@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         PlayerBody p = other.GetComponent<PlayerBody>();
         if(p != null)
         {
-            EventSystem.instance.OnAttack(p, damage);
+            MyEventSystem.instance.OnAttack(p, damage);
         }
         Destroy(this.gameObject);
     }

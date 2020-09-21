@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using UnityEngine.SceneManagement;
 public class AR_beaconWall : MusicAnalyzer
 {
     public bool lengthChange = false;
@@ -23,6 +23,11 @@ public class AR_beaconWall : MusicAnalyzer
 
     Sequence tweenSeq;
 
+    private void OnEnable()
+    {
+        // SceneManager.sceneLoaded += addActionToEvent;
+        // SceneManager.sceneLoaded += activateComponent;
+    }
 
     public float dmgOnEnter = 30;
     public float dmgOnStay = 5;
@@ -37,21 +42,16 @@ public class AR_beaconWall : MusicAnalyzer
 
         defaultLength = _energyWall.transform.localScale.y;
 
-        if (m_activateComponent)
-        {
-            activateComponent();
-        }
+        // if (m_activateComponent)
+        // {
+        //     activateComponent();
+        // }
 
-       
+
         if (!lengthChange)
         {
             lengthOfLaser = lengthOfLaser / _energyWall.transform.localScale.y;
         }
-
-        
-
-
-       
 
     }
 
@@ -111,7 +111,7 @@ public class AR_beaconWall : MusicAnalyzer
                 child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 5));
             }
         }
-        
+
     }
 
     protected override void objectAction()
@@ -120,15 +120,15 @@ public class AR_beaconWall : MusicAnalyzer
         if (!colorErrorActive)
         {
 
-            
+
             increaseIntervalCounter();
             if (checkInterval())
             {
-               // shortDurationHelper();
-               foreach (Transform child in transform)
+                // shortDurationHelper();
+                foreach (Transform child in transform)
                 {
-              
-                   
+
+
                     tweenSeq = DOTween.Sequence()
                     .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
                     .Append(child.DOScaleY(defaultLength, m_actionOutDuration))
@@ -151,7 +151,7 @@ public class AR_beaconWall : MusicAnalyzer
                 tweenSeq.Kill();
             }
             */
-            
+
             foreach (Transform child in transform)
             {
                 tweenSeq.Complete();
@@ -181,10 +181,8 @@ public class AR_beaconWall : MusicAnalyzer
             GameObject obj = c.gameObject;
             if (!obj.GetComponent<EnemyBody>() & obj.GetComponent<IHasHealth>() != null)
             {
-                EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), dmg);
-               
+                MyEventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), dmg);
             }
-
         }
     }
 
@@ -208,16 +206,24 @@ public class AR_beaconWall : MusicAnalyzer
     public void activateComponent()
     {
         m_activateComponent = true;
-        addActionToEvent();
-        EventSystem.instance.ActivateSkill += activateColorError1;
-        EventSystem.instance.DeactivateSkill += deactivateColorError1;
+        // addActionToEvent();
+        MyEventSystem.instance.ActivateSkill += activateColorError1;
+        MyEventSystem.instance.DeactivateSkill += deactivateColorError1;
+    }
+    public void activateComponent(Scene scene, LoadSceneMode mode)
+    {
+        m_activateComponent = true;
+        // addActionToEvent();
+        MyEventSystem.instance.ActivateSkill += activateColorError1;
+        MyEventSystem.instance.DeactivateSkill += deactivateColorError1;
     }
 
     public void deactivateComponent()
     {
         m_activateComponent = false;
         removeActionFromEvent();
-        EventSystem.instance.ActivateSkill -= activateColorError1;
-        EventSystem.instance.DeactivateSkill -= deactivateColorError1;
+        MyEventSystem.instance.ActivateSkill -= activateColorError1;
+        MyEventSystem.instance.DeactivateSkill -= deactivateColorError1;
     }
 }
+

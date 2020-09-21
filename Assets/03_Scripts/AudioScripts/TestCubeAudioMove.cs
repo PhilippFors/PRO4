@@ -15,8 +15,8 @@ public class TestCubeAudioMove : MonoBehaviour
 
         if (eventTest)
         {
-            EventSystem.instance.Kick += test;
-            EventSystem.instance.Kick += incMoveCounter;
+            MyEventSystem.instance.Kick += test;
+            MyEventSystem.instance.Kick += incMoveCounter;
         } else
         {
   

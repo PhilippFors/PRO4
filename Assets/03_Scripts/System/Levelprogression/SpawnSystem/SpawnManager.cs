@@ -29,12 +29,12 @@ public class SpawnManager : MonoBehaviour
     }
     private void Start()
     {
-        EventSystem.instance.onEnemyDeath += RemoveEnemyFromList;
+        MyEventSystem.instance.onEnemyDeath += RemoveEnemyFromList;
     }
 
     private void OnDisable()
     {
-        EventSystem.instance.onEnemyDeath -= RemoveEnemyFromList;
+        MyEventSystem.instance.onEnemyDeath -= RemoveEnemyFromList;
     }
 
     public void AddEnemyToList(EnemyBody enemy)
@@ -85,7 +85,7 @@ public class SpawnManager : MonoBehaviour
                 if (!isSpawning)
                 {
                     count = false;
-                    EventSystem.instance.WaveDefeated();
+                    MyEventSystem.instance.WaveDefeated();
                     return true;
                 }
             }

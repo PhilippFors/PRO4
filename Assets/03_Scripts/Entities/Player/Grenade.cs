@@ -13,12 +13,12 @@ public class Grenade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventSystem.instance.Explode += Explode;
+        MyEventSystem.instance.Explode += Explode;
     }
 
     private void OnDisable()
     {
-        EventSystem.instance.Explode -= Explode;
+        MyEventSystem.instance.Explode -= Explode;
 
     }
 
@@ -42,11 +42,11 @@ public class Grenade : MonoBehaviour
             {
                 rb.AddExplosionForce(force, transform.position, radius);
                 // rb.gameObject.GetComponent<StateMachineController>().Stun();
-                EventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
+                MyEventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
             }
             else if (nearbyObject.gameObject.GetComponent<IHasHealth>() != null)
             {
-                EventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
+                MyEventSystem.instance.OnAttack(nearbyObject.gameObject.GetComponent<IHasHealth>(), dmg);
             }
         }
 

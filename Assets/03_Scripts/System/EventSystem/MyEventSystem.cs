@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EventSystem : MonoBehaviour
+public class MyEventSystem : MonoBehaviour
 {
     public event Action<IHasHealth, float> Attack;
     public event Action<Skills> ActivateSkill;
@@ -25,7 +25,7 @@ public class EventSystem : MonoBehaviour
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
     public event Action<EnemyBody> activateAI;
-    public static EventSystem instance;
+    public static MyEventSystem instance;
 
     public event System.Action goalDestroyed;
     public event System.Action waveDefeated;
@@ -87,7 +87,7 @@ public class EventSystem : MonoBehaviour
     {
         if (Snare == null)
         {
-           
+           Debug.LogError("No Snare event");
         }
         else
         {
@@ -99,7 +99,7 @@ public class EventSystem : MonoBehaviour
     {
         if (HighHat == null)
         {
-           
+           Debug.LogError("No Highhat event");
         }
         else
         {
@@ -111,7 +111,7 @@ public class EventSystem : MonoBehaviour
     {
         if (Kick == null)
         {
-           
+           Debug.LogError("No OnKick event");
         }
         else
         {

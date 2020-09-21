@@ -6,7 +6,7 @@ public class CameraAnimation : MonoBehaviour
 {
     private void Start()
     {
-        EventSystem.instance.startCamAnim += StartAnimation;
+        MyEventSystem.instance.startCamAnim += StartAnimation;
     }
 
     public void StartAnimation(Transform camera, Transform endposition, Transform player, Transform playerDest)

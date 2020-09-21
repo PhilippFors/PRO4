@@ -18,7 +18,7 @@ public class DestructionInteraction : MonoBehaviour, IHasHealth
     }
     public void OnDeath()
     {
-        EventSystem.instance.GoalDestroyed();
+        MyEventSystem.instance.GoalDestroyed();
         destroyedPrefab.SetActive(true);
         gameObject.SetActive(false);
     }

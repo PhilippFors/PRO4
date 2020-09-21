@@ -141,7 +141,7 @@ public class AttackStateMachine : MonoBehaviour
         animCon.AttackDisconnecter();
         animCon.AttackAnimation(currentState.clip);
 
-        EventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
+        MyEventSystem.instance.OnSetState(currentState.movementState); //sets movementState to the movementstate of the currentstate
     }
 
 
@@ -189,7 +189,7 @@ public class AttackStateMachine : MonoBehaviour
         else
         {
             currentAttack = playerAttack.currentWeapon.baseAttack;
-            EventSystem.instance.OnSetState(PlayerMovementSate.standard);
+            MyEventSystem.instance.OnSetState(PlayerMovementSate.standard);
         }
         currentState = baseState;
         //sets movementState to the movementstate of the currentstate

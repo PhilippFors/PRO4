@@ -109,10 +109,10 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
         {
             _instance = this;
         }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
+        // else if (_instance != this)
+        // {
+        //     Destroy(gameObject);
+        // }
     }
 
     void Start()

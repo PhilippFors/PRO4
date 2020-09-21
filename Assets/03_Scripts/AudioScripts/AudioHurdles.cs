@@ -45,11 +45,11 @@ public class AudioHurdles : MonoBehaviour
         if (deathWall)
         {
             if (onKick) 
-            EventSystem.instance.Snare += triggerDeathWall;          
+            MyEventSystem.instance.Snare += triggerDeathWall;          
             
         
             else if (onSnare) 
-            EventSystem.instance.Snare += triggerDeathWall;        
+            MyEventSystem.instance.Snare += triggerDeathWall;        
             
 
         defaultLength = transform.localScale.y;
@@ -58,7 +58,7 @@ public class AudioHurdles : MonoBehaviour
 
         if (damagePlate)
         {
-             EventSystem.instance.Kick += changePlateEmission;
+             MyEventSystem.instance.Kick += changePlateEmission;
         }
 
     }

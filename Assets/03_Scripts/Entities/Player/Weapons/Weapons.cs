@@ -44,14 +44,14 @@ public class Weapons : MonoBehaviour
                 GetComponentInParent<PlayerAttack>().comboCounter += 1;
                 float damage = stats.bsdmg * (1 + attackSt.currentAttack.comboDamageMultiplier * (playerAttack.comboCounter - 1));
 
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), damage);
+                MyEventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), damage);
 
                 other.GetComponent<IKnockback>().ApplyKnockback(stats.knockbackForce);
                 other.GetComponent<IKnockback>().ApplyStun(stats.stunChance);
             }
             else if (other.gameObject.GetComponent<ObstacleBody>())
             {
-                EventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), stats.bsdmg);
+                MyEventSystem.instance.OnAttack(other.gameObject.GetComponent<IHasHealth>(), stats.bsdmg);
             }
         }
     }

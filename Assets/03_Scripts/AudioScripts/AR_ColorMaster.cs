@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class AR_ColorMaster : MonoBehaviour
 {
 
     protected static Color magenta = new Color(0.2660f, 0, 0.8f, 1);
-   
+
 
     protected static Color m_blueChannelColor = Color.cyan;
     protected static Color m_redChannelColor = Color.red;
@@ -27,14 +27,17 @@ public class AR_ColorMaster : MonoBehaviour
     public static bool colorErrorEnd = false;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        EventSystem.instance.ActivateSkill += activateColorError;
-        EventSystem.instance.DeactivateSkill += deactivateColorError;
-
-
+        // SceneManager.sceneLoaded += addActionToEvent;
+        // SceneManager.sceneLoaded += activateComponent;
     }
+
+    // void Init(Scene scene, LoadSceneMode mode)
+    // {
+    //     MyEventSystem.instance.ActivateSkill += activateColorError;
+    //     MyEventSystem.instance.DeactivateSkill += deactivateColorError;
+    // }
 
     // Update is called once per frame
     void Update()
@@ -47,8 +50,8 @@ public class AR_ColorMaster : MonoBehaviour
             m_bothChannelActiveColor = Color.Lerp(m_bothChannelColor, m_bothChannelErrorColor, Mathf.PingPong(Time.time, 1));
             colorErrorEnd = true;
         }
-        
-        
+
+
         if (!colorErrorActive && colorErrorEnd)
         {
             Color help1 = m_blueChannelActiveColor;
@@ -63,11 +66,12 @@ public class AR_ColorMaster : MonoBehaviour
 
     public void activateColorError(Skills skill)
     {
-        if (skill.name == "PitchShift") {
+        if (skill.name == "PitchShift")
+        {
             colorErrorActive = true;
             // m_blueChannelActiveColor = m_blueChannelErrorColor;
-           // m_blueChannelActiveColor = Color.Lerp(m_blueChannelColor, m_redChannelColor, Mathf.PingPong(Time.time, 1));
-          //  m_redChannelActiveColor = Color.Lerp(m_redChannelColor, m_blueChannelColor, Mathf.PingPong(Time.time, 1));
+            // m_blueChannelActiveColor = Color.Lerp(m_blueChannelColor, m_redChannelColor, Mathf.PingPong(Time.time, 1));
+            //  m_redChannelActiveColor = Color.Lerp(m_redChannelColor, m_blueChannelColor, Mathf.PingPong(Time.time, 1));
 
         }
     }
@@ -80,5 +84,29 @@ public class AR_ColorMaster : MonoBehaviour
             //m_blueChannelActiveColor = m_blueChannelColor;
             //m_redChannelActiveColor = m_redChannelColor;
         }
+    }
+
+    public void activateComponent()
+    {
+        // m_activateComponent = true;
+        // addActionToEvent();
+        MyEventSystem.instance.ActivateSkill += activateColorError;
+        MyEventSystem.instance.DeactivateSkill += deactivateColorError;
+    }
+    // public void activateComponent(Scene scene, LoadSceneMode mode)
+    // {
+    //     // m_activateComponent = true;
+    //     // addActionToEvent();
+        
+    //     MyEventSystem.instance.ActivateSkill += activateColorError;
+    //     MyEventSystem.instance.DeactivateSkill += deactivateColorError;
+    // }
+
+    public void deactivateComponent()
+    {
+        // m_activateComponent = false;
+        // removeActionFromEvent();
+        MyEventSystem.instance.ActivateSkill -= activateColorError;
+        MyEventSystem.instance.DeactivateSkill -= deactivateColorError;
     }
 }

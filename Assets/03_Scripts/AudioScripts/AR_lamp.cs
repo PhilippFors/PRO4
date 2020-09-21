@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class AR_lamp : MusicAnalyzer
 {
     private Material m_material;
@@ -34,7 +34,7 @@ public class AR_lamp : MusicAnalyzer
         m_light = transform.GetComponentInChildren<Light>();
         if (!_useFrequency)
         {
-            activateComponent();
+            // activateComponent();
             _audioBand = -1;
         }
 
@@ -54,9 +54,9 @@ public class AR_lamp : MusicAnalyzer
         m_material = GetComponent<MeshRenderer>().material;
         m_startInterval = m_intervalCounter + 1;
 
-      
 
-      
+
+
     }
 
     // Update is called once per frame
@@ -81,7 +81,7 @@ public class AR_lamp : MusicAnalyzer
                 m_light.color = m_bothChannelActiveColor;
             }
 
-          
+
             if (!m_holdHelper)
             {
                 m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 10));
@@ -107,13 +107,13 @@ public class AR_lamp : MusicAnalyzer
                 m_light.color = m_bothChannelActiveColor;
             }
 
-        
+
 
             if (!m_holdHelper)
             {
                 m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 10));
-               // m_light.color = Color.HSVToRGB(H, S, 10);
-                
+                // m_light.color = Color.HSVToRGB(H, S, 10);
+
             }
         }
 
@@ -122,7 +122,7 @@ public class AR_lamp : MusicAnalyzer
             Debug.Log("HEY LISTEN");
             V = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand) * m_frequencyMultiply;
             m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
-            m_light.intensity = V; 
+            m_light.intensity = V;
         }
     }
 
@@ -139,14 +139,14 @@ public class AR_lamp : MusicAnalyzer
             {
                 if (m_holdHelper)
                 {
-                   
+
                     V = 10;
                     mySequence = DOTween.Sequence()
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionBlueColor", m_actionInDuration))
-                    .Join(m_light.DOIntensity(m_lightIntensityOn,m_actionInDuration))
+                    .Join(m_light.DOIntensity(m_lightIntensityOn, m_actionInDuration))
                     .SetEase(Ease.Flash);
                     m_holdHelper = false;
-                  
+
                 }
                 else
                 {
@@ -157,9 +157,9 @@ public class AR_lamp : MusicAnalyzer
                     .Append(m_material.DOColor(Color.HSVToRGB(H, S, V, true), "EmissionBlueColor", m_actionOutDuration))
                     .Join(m_light.DOIntensity(m_lightIntensityOff, m_actionInDuration))
                     .SetEase(Ease.Flash);
-              
 
-                   
+
+
                 }
             }
             else
@@ -204,21 +204,22 @@ public class AR_lamp : MusicAnalyzer
             }
         }
     }
-    public void activateComponent()
+    public void activateComponent(Scene scene, LoadSceneMode mode)
     {
-        addActionToEvent();
-        EventSystem.instance.ActivateSkill += onSkillActivated;
-        EventSystem.instance.DeactivateSkill += onSkilldeactivated;
-        EventSystem.instance.Deactivate += deactivateComponent;
+
+        MyEventSystem.instance.ActivateSkill += onSkillActivated;
+        MyEventSystem.instance.DeactivateSkill += onSkilldeactivated;
+        MyEventSystem.instance.Deactivate += deactivateComponent;
     }
 
     public void deactivateComponent()
     {
         removeActionFromEvent();
-        EventSystem.instance.ActivateSkill -= onSkillActivated;
-        EventSystem.instance.DeactivateSkill -= onSkilldeactivated;
-        EventSystem.instance.Deactivate -= deactivateComponent;
+        MyEventSystem.instance.ActivateSkill -= onSkillActivated;
+        MyEventSystem.instance.DeactivateSkill -= onSkilldeactivated;
+        MyEventSystem.instance.Deactivate -= deactivateComponent;
     }
+
 
 
 

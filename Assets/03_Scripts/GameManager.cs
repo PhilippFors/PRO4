@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            sceneLoader.LoadScene((int)BaseScenes.StartMenu, false, (int)BaseScenes.Base, sceneLoader.levelList[GameManager.instance.currentLevel].handle);
+            sceneLoader.LoadScene((int)BaseScenes.StartMenu, false, sceneLoader.levelList[GameManager.instance.currentLevel].handle, (int)BaseScenes.Base);
         }
     }
     public void QuitGame()

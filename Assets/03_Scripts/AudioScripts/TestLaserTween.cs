@@ -26,11 +26,11 @@ public class TestLaserTween : MonoBehaviour
 
         if (onKick)
         {
-            EventSystem.instance.Snare += shootLaserSequence;
+            MyEventSystem.instance.Snare += shootLaserSequence;
         }
         if (onSnare)
         {
-            EventSystem.instance.Kick += moveTurretOneWaySequence;
+            MyEventSystem.instance.Kick += moveTurretOneWaySequence;
         }
 
        // moveTurretSequence();

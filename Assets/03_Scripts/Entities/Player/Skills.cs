@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using System;
+using System.Collections;
 
 [CreateAssetMenu(fileName = "New Skill", menuName = "Skills")]
 public class Skills : ScriptableObject
 {
     public string skillName;
-    public float current = 0;
+    public float current;
     public float max;
     public float timer;
-    public bool isActive = false;
+    public bool isActive;
     public int comboCounter;
-    public float activeValue = 0.3f;
-    public float deactiveValue = 1f;
+    public float activeValue;
+    public float deactiveValue;
     public float decreaseMultValue;
     public float increaseMultValue;
     public Symbol buffSymbol;

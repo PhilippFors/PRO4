@@ -94,7 +94,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void OnDisable()
     {
         input.Disable();
-        EventSystem.instance.SetState -= SetState;
+        MyEventSystem.instance.SetState -= SetState;
         playableGraph.Destroy();
 
     }
@@ -102,7 +102,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void Start()
     {
         SetState(PlayerMovementSate.standard);
-        EventSystem.instance.SetState += SetState;
+        MyEventSystem.instance.SetState += SetState;
 
         playableGraph = PlayableGraph.Create();
 

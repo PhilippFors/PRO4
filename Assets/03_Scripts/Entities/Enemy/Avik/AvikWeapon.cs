@@ -37,7 +37,7 @@ public class AvikWeapon : Weapon
         {
             if (!obj.GetComponent<EnemyBody>() & obj.GetComponent<IHasHealth>() != null)
             {
-                EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), controller.enemyStats.GetStatValue(StatName.BaseDmg) * controller.enemyStats.GetMultValue(MultiplierName.damage));
+                MyEventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), controller.enemyStats.GetStatValue(StatName.BaseDmg) * controller.enemyStats.GetMultValue(MultiplierName.damage));
             }
         }
     }

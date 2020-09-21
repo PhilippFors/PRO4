@@ -28,12 +28,12 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.instance.activateAI += SetAIActive;
+        MyEventSystem.instance.activateAI += SetAIActive;
     }
 
     private void OnDisable()
     {
-        EventSystem.instance.activateAI -= SetAIActive;
+        MyEventSystem.instance.activateAI -= SetAIActive;
     }
 
     public void SetAIActive(EnemyBody enemy)

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public abstract class MusicAnalyzer : AR_ColorMaster
 {
     public bool m_onSnare;
@@ -31,8 +31,8 @@ public abstract class MusicAnalyzer : AR_ColorMaster
     // Start is called before the first frame update
     void Start()
     {
-        
-       
+
+
 
     }
 
@@ -44,7 +44,7 @@ public abstract class MusicAnalyzer : AR_ColorMaster
 
     protected void increaseIntervalCounter()
     {
-        
+
         if (m_intervalBeat)
         {
             if (!colorErrorActive)
@@ -57,8 +57,8 @@ public abstract class MusicAnalyzer : AR_ColorMaster
                 {
                     m_intervalCounter++;
                 }
-               
-                
+
+
             }
             else
             {
@@ -70,11 +70,11 @@ public abstract class MusicAnalyzer : AR_ColorMaster
                 {
                     m_intervalCounter--;
                 }
-              
+
             }
 
-            
-           // m_overallIntervalCounter++;
+
+            // m_overallIntervalCounter++;
         }
 
     }
@@ -95,27 +95,49 @@ public abstract class MusicAnalyzer : AR_ColorMaster
 
 
 
-    protected void addActionToEvent()
+    public void addActionToEvent()
     {
         addedToEvent = true;
 
         if (m_onSnare)
         {
-            EventSystem.instance.Snare += objectAction;
+            MyEventSystem.instance.Snare += objectAction;
         }
 
         if (m_onKick)
         {
-            EventSystem.instance.Kick += objectAction;
+            MyEventSystem.instance.Kick += objectAction;
         }
 
         if (m_onHighHat)
         {
-            EventSystem.instance.HighHat += objectAction;
+            MyEventSystem.instance.HighHat += objectAction;
         }
 
 
     }
+
+    // protected void addActionToEvent()
+    // {
+    //     addedToEvent = true;
+
+    //     if (m_onSnare)
+    //     {
+    //         MyEventSystem.instance.Snare += objectAction;
+    //     }
+
+    //     if (m_onKick)
+    //     {
+    //         MyEventSystem.instance.Kick += objectAction;
+    //     }
+
+    //     if (m_onHighHat)
+    //     {
+    //         MyEventSystem.instance.HighHat += objectAction;
+    //     }
+
+
+    // }
 
     protected void removeActionFromEvent()
     {
@@ -123,17 +145,17 @@ public abstract class MusicAnalyzer : AR_ColorMaster
 
         if (m_onSnare)
         {
-            EventSystem.instance.Snare -= objectAction;
+            MyEventSystem.instance.Snare -= objectAction;
         }
 
         if (m_onKick)
         {
-            EventSystem.instance.Kick -= objectAction;
+            MyEventSystem.instance.Kick -= objectAction;
         }
 
         if (m_onHighHat)
         {
-            EventSystem.instance.HighHat -= objectAction;
+            MyEventSystem.instance.HighHat -= objectAction;
         }
     }
 

@@ -59,7 +59,7 @@ public class SpawnDebugging : MonoBehaviour
     public void SetActive()
     {
         foreach (EnemyBody enemy in set.entityList)
-            EventSystem.instance.ActivateAI(enemy);
+            MyEventSystem.instance.ActivateAI(enemy);
 
     }
 }

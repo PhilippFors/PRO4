@@ -31,14 +31,13 @@ public class ProgressBarSkills : ProgessBar
     // Update is called once per frame
     void Update()
     {
-
-        GetCurrentFill();
+        this.GetCurrentFill();
     }
 
     public override void GetCurrentFill()
     {
-        maximum = (skillObject.max);
-        current = (skillObject.current);
+        maximum = skillObject.max;
+        current = skillObject.current;
         base.GetCurrentFill();
     }
 }

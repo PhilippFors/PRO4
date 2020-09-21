@@ -13,7 +13,7 @@ public class EnemyTestWeapon : MonoBehaviour
 
         if (obj.GetComponent<EnemyBody>() == null && obj.GetComponent<IHasHealth>() != null)
         {
-            EventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
+            MyEventSystem.instance.OnAttack(obj.GetComponent<IHasHealth>(), basedmg);
         }
     }
 

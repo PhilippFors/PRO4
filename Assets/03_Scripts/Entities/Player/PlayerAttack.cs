@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-
+using UnityEngine.SceneManagement;
 public class PlayerAttack : MonoBehaviour
 {
     PlayerStateMachine playerMovement;
@@ -38,9 +38,14 @@ public class PlayerAttack : MonoBehaviour
     private static PlayerMovementSate movementState => GameObject.FindGameObjectWithTag("Player")
         .GetComponent<PlayerStateMachine>().currentState;
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += GetEmitter;
+    }
 
     private void Awake()
     {
+
         //input.Gameplay.LeftAttack.performed += rt => Attack(0);
         //input.Gameplay.RightAttack.performed += rt => Attack(1);
         playerMovement = GetComponent<PlayerStateMachine>();
@@ -57,7 +62,12 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.input.Gameplay.Skill3.performed += rt => Skill(2);
         playerMovement.input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
     }
-    
+
+    void GetEmitter(Scene scene, LoadSceneMode mode)
+    {
+        emitter = FMODAudioPeer._instance.gameObject.GetComponent<FMODUnity.StudioEventEmitter>();
+    }
+
     private void Reset()
     {
     }
@@ -67,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
         currentWeapon = weapons[currentWeaponCounter];
         currentWeapon.Equip(weaponPoint);
 
-        emitter = FMODAudioPeer._instance.GetComponent<FMODUnity.StudioEventEmitter>();
+
         foreach (Skills skill in skills)
         {
             skill.current = 0;
@@ -88,15 +98,23 @@ public class PlayerAttack : MonoBehaviour
     void Skill(int id)
     {
         Skills temp = skills[id];
-        if (!temp.isActive && temp.current == temp.max && currentActiveSkill == null)
+        if (temp.current == temp.max && currentActiveSkill == null)
         {
+            if (temp.isActive & (temp.current <= 0 || temp.current >= temp.max))
+            {
+                temp.isActive = false;
+                MyEventSystem.instance.OnSkill(temp);
+                StartCoroutine(Timer(temp, id));
+            }
+            else if (!temp.isActive)
+            {
+                MyEventSystem.instance.OnSkill(temp);
+                StartCoroutine(Timer(temp, id));
+            }
             // foreach (Skills skill in skills)
             // {
             //     skill.isActive = false;
             // }
-
-            EventSystem.instance.OnSkill(temp);
-            StartCoroutine(Timer(temp, id));
         }
     }
 
@@ -111,7 +129,7 @@ public class PlayerAttack : MonoBehaviour
         temp.isActive = false;
         currentActiveSkill = null;
         //Debug.Log("hi");
-        EventSystem.instance.OnSkillDeactivation(temp);
+        MyEventSystem.instance.OnSkillDeactivation(temp);
         emitter.SetParameter(temp.skillName, temp.deactiveValue);
         yield return null;
     }
@@ -124,7 +142,7 @@ public class PlayerAttack : MonoBehaviour
             GameObject grenade = Instantiate(grenadePrefab, pos, transform.rotation);
             StartCoroutine(SimulateProjectile(grenade));
             StartCoroutine(GrenadeCountdown());
-            EventSystem.instance.OnSetState(PlayerMovementSate.standard);
+            MyEventSystem.instance.OnSetState(PlayerMovementSate.standard);
             Destroy(target);
         }
     }
@@ -133,7 +151,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (movementState.Equals(PlayerMovementSate.standard) & canThrowG)
         {
-            EventSystem.instance.OnSetState(PlayerMovementSate.grenade);
+            MyEventSystem.instance.OnSetState(PlayerMovementSate.grenade);
             target = Instantiate(targetPrefab, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
                 transform.rotation);
         }
@@ -194,7 +212,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (grenade != null)
             {
-                EventSystem.instance.OnExplode();
+                MyEventSystem.instance.OnExplode();
             }
             yield return null;
         }

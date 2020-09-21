@@ -9,11 +9,11 @@ public class CameraAnimManager : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.instance.notifyCamManager += StartAnim;
+        MyEventSystem.instance.notifyCamManager += StartAnim;
     }
     public void StartAnim(Transform endposition, Transform playerDest)
     {
-        EventSystem.instance.StartCamAnim(cam.transform, endposition, player.transform, playerDest);
+        MyEventSystem.instance.StartCamAnim(cam.transform, endposition, player.transform, playerDest);
     }
 
     public void ResetCAm()

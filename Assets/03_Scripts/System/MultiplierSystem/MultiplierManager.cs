@@ -12,7 +12,7 @@ public class MultiplierManager : MonoBehaviour
     public PlayerBody player;
     private void OnDisable()
     {
-        EventSystem.instance.ActivateSkill -= SetEnemyMultValues;
+        MyEventSystem.instance.ActivateSkill -= SetEnemyMultValues;
     }
 
     private void Awake()
@@ -22,7 +22,7 @@ public class MultiplierManager : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.instance.ActivateSkill += SetEnemyMultValues;
+        MyEventSystem.instance.ActivateSkill += SetEnemyMultValues;
     }
 
     //TODO: Add Symbol to parameters, iterate over each enemy and compare Symbol names

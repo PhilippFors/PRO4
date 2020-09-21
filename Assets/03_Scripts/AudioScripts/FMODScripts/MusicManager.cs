@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(FMODUnity.StudioEventEmitter))]
 public class MusicManager : MonoBehaviour
 {
-   public enum MusicPart {Start, Mid, Break, ArenaFight, Ending};
-   public MusicPart musicPart;
- 
+    public enum MusicPart { Start, Mid, Break, ArenaFight, Ending };
+    public MusicPart musicPart;
+
 
     private bool m_kickLock = false;
     private bool m_snareLock = false;
@@ -19,36 +19,35 @@ public class MusicManager : MonoBehaviour
     private bool m_snareSkillLock = false;
     private bool m_highHatSkillLock = false;
 
-    
+    private void OnEnable()
+    {
+        // SceneManager.sceneLoaded += Init;
+    }
 
     public FMODUnity.StudioEventEmitter _emitter;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        
-        
-        _emitter  = GetComponent<FMODUnity.StudioEventEmitter>();
+        _emitter = GetComponent<FMODUnity.StudioEventEmitter>();
         debugJumpToMusicPart();
+    }
 
-
-        EventSystem.instance.ActivateSkill += deactivateListener;
-        EventSystem.instance.DeactivateSkill += activateListener;
-
-       
-        
+    public void Init()
+    {
+        MyEventSystem.instance.ActivateSkill += deactivateListener;
+        MyEventSystem.instance.DeactivateSkill += activateListener;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SectionKickLaser(int sectionID)
     {
-     
+
     }
 
 
@@ -62,47 +61,49 @@ public class MusicManager : MonoBehaviour
                 {
                     case 'S':
                         //Debug.Log("Parsed: Kick");
-                        if(EventSystem.instance == null)
+                        if (MyEventSystem.instance == null)
                         {
                             // Debug.Log("EventSystem is empty");
                         }
                         else
                         {
-                            
+
                             if (!m_snareLock)
                             {
-                                EventSystem.instance.OnSnare();
+                                MyEventSystem.instance.OnSnare();
                             }
 
                             lockInstrument("lockSnare");
 
-                        }                   
+                        }
                         break;
 
                     case 'K':
-                       // Debug.Log("Parsed: Bass");
-                        if (EventSystem.instance == null)
+                        // Debug.Log("Parsed: Bass");
+                        if (MyEventSystem.instance == null)
                         {
                             // Debug.Log("EventSystem is empty");
                         }
                         else
                         {
-                            if (!m_kickLock && !m_kickSkillLock) { 
-                                EventSystem.instance.OnKick();
+                            if (!m_kickLock && !m_kickSkillLock)
+                            {
+                                MyEventSystem.instance.OnKick();
                             }
                             lockInstrument("lockKick");
                         }
                         break;
                     case 'H':
-                        
-                        if (EventSystem.instance == null)
+
+                        if (MyEventSystem.instance == null)
                         {
                             // Debug.Log("EventSystem is empty");
                         }
                         else
                         {
-                            if (!m_highHatLock && !m_highHatSkillLock) { 
-                                EventSystem.instance.OnHighHat();
+                            if (!m_highHatLock && !m_highHatSkillLock)
+                            {
+                                MyEventSystem.instance.OnHighHat();
                             }
                             lockInstrument("lockHighHat");
                         }
@@ -111,7 +112,7 @@ public class MusicManager : MonoBehaviour
                         _emitter.SetParameter("nextPart", 0);
                         break;
                     case 'X':
-                        EventSystem.instance.OnDeactivate();
+                        MyEventSystem.instance.OnDeactivate();
                         break;
 
                 }
@@ -160,7 +161,7 @@ public class MusicManager : MonoBehaviour
 
     IEnumerator lockSnare()
     {
-        
+
         m_snareLock = true;
         yield return new WaitForSeconds(.1f);
         m_snareLock = false;
@@ -169,7 +170,7 @@ public class MusicManager : MonoBehaviour
     IEnumerator lockKick()
     {
 
-        m_kickLock = true;     
+        m_kickLock = true;
         yield return new WaitForSeconds(.1f);
         m_kickLock = false;
     }

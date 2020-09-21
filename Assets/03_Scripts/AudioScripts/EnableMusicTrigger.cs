@@ -20,7 +20,7 @@ public class EnableMusicTrigger : MonoBehaviour
         if (subscribeToEvent && !helper)
         {
             helper = true;
-            EventSystem.instance.waveDefeated += enableTrigger;
+            MyEventSystem.instance.waveDefeated += enableTrigger;
         }
     }
 

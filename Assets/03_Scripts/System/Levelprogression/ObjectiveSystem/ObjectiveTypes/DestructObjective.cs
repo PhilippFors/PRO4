@@ -23,13 +23,13 @@ public class DestructObjective : Objective
     public override void ObjEnter(LevelManager manager)
     {
         base.ObjEnter(manager);
-        EventSystem.instance.goalDestroyed += Destroyed;
+        MyEventSystem.instance.goalDestroyed += Destroyed;
     }
 
     public override void ObjExit(LevelManager manager)
     {
         base.ObjExit(manager);
-        EventSystem.instance.goalDestroyed -= Destroyed;
+        MyEventSystem.instance.goalDestroyed -= Destroyed;
     }
 
 

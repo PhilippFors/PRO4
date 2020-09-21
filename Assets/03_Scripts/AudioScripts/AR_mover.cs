@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using UnityEngine.SceneManagement;
 public class AR_mover : MusicAnalyzer
 {
     public float m_moveX = 0;
@@ -22,7 +22,7 @@ public class AR_mover : MusicAnalyzer
     void Start()
     {
         m_material = GetComponent<MeshRenderer>().material;
-        
+
     }
 
     protected override void objectAction()
@@ -34,7 +34,7 @@ public class AR_mover : MusicAnalyzer
         {
             if (checkInterval())
             {
-               
+
             }
             if (m_intervalBeat && checkInterval())
             {
@@ -43,7 +43,7 @@ public class AR_mover : MusicAnalyzer
             if (m_backAndForth && !checkInterval())
             {
                 transform.DOLocalMoveX(transform.localPosition.x - m_moveX, m_actionInDuration);
-                
+
             }
         }
         if (m_moveZ != 0)
@@ -62,7 +62,7 @@ public class AR_mover : MusicAnalyzer
             if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
                 transform.DOLocalMoveY(transform.position.y + m_moveY, m_actionInDuration);
-              
+
             }
             else if (m_backAndForth && (m_intervalCounter % 2 != 0))
             {
@@ -70,14 +70,14 @@ public class AR_mover : MusicAnalyzer
             }
         }
 
-       
+
 
     }
 
     void moveSimple()
     {
 
-       
+
     }
 
 
@@ -94,12 +94,12 @@ public class AR_mover : MusicAnalyzer
         {
             addActionToEvent();
         }
-        
+
 
 
         if (colorErrorActive)
         {
-           
+
 
             if (m_onKick)
             {
@@ -153,26 +153,37 @@ public class AR_mover : MusicAnalyzer
 
         if (m_intervalBeat)
         {
-        
-                    m_intervalCounter++;
-         }
+
+            m_intervalCounter++;
+        }
 
 
 
-            // m_overallIntervalCounter++;
+        // m_overallIntervalCounter++;
     }
 
 
+    public void activateComponent(Scene scene, LoadSceneMode mode)
+    {
+        m_activateComponent = true;
+    }
+    
     public void activateComponent()
     {
         m_activateComponent = true;
-            addActionToEvent();
     }
+    
 
     public void deactivateComponent()
     {
         m_activateComponent = false;
         removeActionFromEvent();
+    }
+
+    private void OnEnable()
+    {
+        // SceneManager.sceneLoaded += addActionToEvent;
+        // SceneManager.sceneLoaded += activateComponent;
     }
 
 }

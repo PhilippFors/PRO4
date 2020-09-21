@@ -7,7 +7,6 @@ public enum BaseScenes
     Manager = 0,
     StartMenu = 1,
     Base = 2,
-
     Arena = 4
 }
 public class SceneLoader : MonoBehaviour
@@ -48,16 +47,13 @@ public class SceneLoader : MonoBehaviour
     {
         StartCoroutine(LevelTransition(levelList[GameManager.instance.currentLevel - 1].buildIndex, levelList[GameManager.instance.currentLevel].buildIndex));
     }
-    public void UnloadScene(BaseScenes scene)
-    {
-        SceneManager.UnloadSceneAsync(scene.ToString());
-    }
+
     public void LoadSpecificLevel(int i)
     {
         StartCoroutine(LevelTransition(levelList[i].buildIndex, levelList[GameManager.instance.currentLevel].buildIndex));
     }
 
-    public void LoadScene(int newScene, bool loadWithBase, int oldScene, int oldScene2 = -1)
+    public void LoadScene(int newScene, bool loadWithBase, int oldScene = -1, int oldScene2 = -1)
     {
         if (loadWithBase)
             StartCoroutine(LevelTransition(newScene, oldScene, oldScene2));
@@ -71,15 +67,8 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation unload;
         AsyncOperation load;
 
+
         yield return new WaitForSeconds(1f);
-
-        if (!SceneManager.GetSceneByName("Base").isLoaded)
-        {
-            yield return new WaitForEndOfFrame();
-            load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
-            yield return load;
-        }
-
         if (oldScene != -1)
         {
             unload = SceneManager.UnloadSceneAsync(oldScene);
@@ -92,9 +81,21 @@ public class SceneLoader : MonoBehaviour
             yield return unload;
         }
 
+
+
+
         load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
 
         yield return load;
+
+        if (!SceneManager.GetSceneByName("Base").isLoaded)
+        {
+            yield return new WaitForEndOfFrame();
+            load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
+            yield return load;
+        }
+
+
 
         yield return new WaitForSeconds(1f);
         //Level start fade from black
@@ -104,6 +105,8 @@ public class SceneLoader : MonoBehaviour
     {
         AsyncOperation unload;
         AsyncOperation load;
+
+        yield return new WaitForSeconds(1f);
 
         if (oldScene != -1)
         {
