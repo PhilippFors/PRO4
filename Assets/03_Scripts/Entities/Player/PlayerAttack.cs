@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using UnityScript.Lang;
-
 
 public class PlayerAttack : MonoBehaviour
 {

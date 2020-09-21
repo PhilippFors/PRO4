@@ -28,6 +28,12 @@ public class UIManager : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        if (GameManager.instance.gamePaused)
+        {
+            Time.timeScale = 1;
+            GameManager.instance.gamePaused = false;
+            input.Gameplay.Enable();
+        }
         GameManager.instance.ReturnToStartMenu();
     }
 

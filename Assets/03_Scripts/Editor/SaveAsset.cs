@@ -8,16 +8,16 @@ public class SaveAsset : Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        // DrawDefaultInspector();
 
-        SceneLevelData script = (SceneLevelData)target;
-        if (GUILayout.Button("Save Asset"))
-        {
-            script.SaveAsset();
-        }
-        if (GUILayout.Button("Reload"))
-        {
-            script.Reload();
-        }
+        // SceneLevelData script = (SceneLevelData)target;
+        // if (GUILayout.Button("Save Asset"))
+        // {
+        //     script.SaveAsset();
+        // }
+        // if (GUILayout.Button("Reload"))
+        // {
+        //     script.Reload();
+        // }
     }
 }

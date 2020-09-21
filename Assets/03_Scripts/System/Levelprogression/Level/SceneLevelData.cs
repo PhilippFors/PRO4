@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEditor;
-[ExecuteInEditMode]
+
 public class SceneLevelData : MonoBehaviour
 {
     public LevelData levelInfo;
@@ -13,13 +12,13 @@ public class SceneLevelData : MonoBehaviour
             levelInfo = ScriptableObject.CreateInstance<LevelData>();
     }
 
-    public void SaveAsset()
-    {
-        AssetDatabase.CreateAsset(levelInfo, "Assets/03_Scripts/" + gameObject.name +".asset");
-        var so = new SerializedObject(levelInfo);
-        so.ApplyModifiedProperties();
-        AssetDatabase.SaveAssets();
-    }
+    // public void SaveAsset()
+    // {
+    //     AssetDatabase.CreateAsset(levelInfo, "Assets/03_Scripts/" + gameObject.name +".asset");
+    //     var so = new SerializedObject(levelInfo);
+    //     so.ApplyModifiedProperties();
+    //     AssetDatabase.SaveAssets();
+    // }
 
     public void Reload()
     {

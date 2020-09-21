@@ -2,10 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMOD;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.PlayerLoop;
 
 public enum AttackStates
 {

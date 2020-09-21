@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9172e636db6c06c4394f5388383ab33c, type: 3}
-  m_Name: DurgaAttackState
+  m_Name: AvikAttackState
   m_EditorClassIdentifier: 
   actions:
+  - {fileID: 11400000, guid: fc3bb934fc16eae40b5a600f677f282f, type: 2}
   - {fileID: 11400000, guid: fc3bb934fc16eae40b5a600f677f282f, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 8f0f23e6df5317d4f929957acb7832cd, type: 2}

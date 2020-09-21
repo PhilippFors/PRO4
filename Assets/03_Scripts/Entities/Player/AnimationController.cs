@@ -4,7 +4,6 @@ using FMOD;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Animations;
-using Debug = UnityEngine.Debug;
 
 
 public class AnimationController : MonoBehaviour
@@ -55,7 +54,7 @@ public class AnimationController : MonoBehaviour
         playableGraph = PlayableGraph.Create("CharacterAnims");
 
         var playableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", child);
-        Debug.Log(GetComponentInChildren<Animator>());
+        // Debug.Log(GetComponentInChildren<Animator>());
 
         movementBlendPlayable = AnimationMixerPlayable.Create(playableGraph, 5);
         mixerPlayable = AnimationMixerPlayable.Create(playableGraph, 3);

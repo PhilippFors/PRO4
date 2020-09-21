@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using FMOD;
-using UnityEditor.Animations;
+// using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Animations;
-using UnityEngine.Video;
-using Debug = UnityEngine.Debug;
-
 
 public class AnimatorController : MonoBehaviour
 {
@@ -17,7 +14,7 @@ public class AnimatorController : MonoBehaviour
     private PlayerStateMachine controller => gameObject.GetComponent<PlayerStateMachine>();
     private AttackStateMachine attack => gameObject.GetComponent<AttackStateMachine>();
     private Animator child => gameObject.GetComponent<Animator>();
-    private AnimatorStateMachine child2 => gameObject.GetComponent<AnimatorStateMachine>();
+    // private AnimatorStateMachine child2 => gameObject.GetComponent<AnimatorStateMachine>();
 
     public AnimationClip forward, backward, right, left, idle, dash;
 
