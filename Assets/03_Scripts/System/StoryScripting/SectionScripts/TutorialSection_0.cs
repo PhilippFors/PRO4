@@ -10,7 +10,7 @@ public class TutorialSection_0 : StorySection
     {
 
     }
-    
+
     public void ShowTutScreen()
     {
         st.uiManager.ShowPrompt(tutDescription);
@@ -41,4 +41,9 @@ public class TutorialSection_0 : StorySection
         StoryEventSystem.instance.showPrompt -= ShowTutScreen;
     }
 
+    private void OnDisable()
+    {
+        started = false;
+        finished = false;
+    }
 }

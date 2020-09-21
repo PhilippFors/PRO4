@@ -30,13 +30,19 @@ public class TutorialSection_1 : StorySection
     {
         base.StoryEnter(script);
         StoryEventSystem.instance.showPrompt += ShowTutScreen;
-        
+
     }
 
     public override void StoryExit()
     {
         base.StoryExit();
         StoryEventSystem.instance.showPrompt -= ShowTutScreen;
-        
+
+    }
+
+    private void OnDisable()
+    {
+        started = false;
+        finished = false;
     }
 }

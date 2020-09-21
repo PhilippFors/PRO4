@@ -90,10 +90,10 @@ public class PlayerAttack : MonoBehaviour
         Skills temp = skills[id];
         if (!temp.isActive && temp.current == temp.max && currentActiveSkill == null)
         {
-            foreach (Skills skill in skills)
-            {
-                skill.isActive = false;
-            }
+            // foreach (Skills skill in skills)
+            // {
+            //     skill.isActive = false;
+            // }
 
             EventSystem.instance.OnSkill(temp);
             StartCoroutine(Timer(temp, id));

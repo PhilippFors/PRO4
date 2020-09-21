@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3894d0f9613592b43bbf9ca0b9de314f, type: 3}
   m_Name: New DefeatEnemyObjective A4
   m_EditorClassIdentifier: 
-  started: 0
+  started: 1
   finished: 0
   AreaID: 4
   letAreaFinish: 1
@@ -23,24 +23,24 @@ MonoBehaviour:
     - enemyType: 1
       UniqueID: 0
     - enemyType: 2
-      UniqueID: 0
+      UniqueID: 1
   - SpawnNextWaveInstantly: 0
     spawnPoints:
     - enemyType: 1
-      UniqueID: 0
+      UniqueID: 1
     - enemyType: 1
-      UniqueID: 0
+      UniqueID: 2
     - enemyType: 2
-      UniqueID: 0
+      UniqueID: 3
   - SpawnNextWaveInstantly: 0
     spawnPoints:
     - enemyType: 1
-      UniqueID: 0
+      UniqueID: 1
     - enemyType: 1
-      UniqueID: 0
+      UniqueID: 2
     - enemyType: 1
-      UniqueID: 0
+      UniqueID: 3
     - enemyType: 2
-      UniqueID: 0
+      UniqueID: 4
   currentWave: 0
   lastWaveDefeated: 0

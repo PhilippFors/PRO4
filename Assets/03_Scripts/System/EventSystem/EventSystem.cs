@@ -22,7 +22,6 @@ public class EventSystem : MonoBehaviour
     public event System.Action Explode;
 
 
-
     //Events for Enemy managment
     public event Action<EnemyBody> onEnemyDeath;
     public event Action<EnemyBody> activateAI;
@@ -30,6 +29,7 @@ public class EventSystem : MonoBehaviour
 
     public event System.Action goalDestroyed;
     public event System.Action waveDefeated;
+
     public event Action<Transform, Transform, Transform, Transform> startCamAnim;
     public event Action<Transform, Transform> notifyCamManager;
 
@@ -67,16 +67,20 @@ public class EventSystem : MonoBehaviour
     public void OnSkill(Skills skill)
     {
         if (ActivateSkill != null)
+        {
             Debug.Log("Skill: " + skill.name + " activated");
-        ActivateSkill(skill);
+            ActivateSkill(skill);
+        }
     }
 
 
     public void OnSkillDeactivation(Skills skill)
     {
         if (DeactivateSkill != null)
+        {
             Debug.Log("Skill: " + skill.name + " deactivated");
-        DeactivateSkill(skill);
+            DeactivateSkill(skill);
+        }
     }
 
     public void OnSnare()
@@ -101,8 +105,6 @@ public class EventSystem : MonoBehaviour
         {
             HighHat();
         }
-
-
     }
 
     public void OnKick()
