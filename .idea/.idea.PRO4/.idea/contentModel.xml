@@ -11,11 +11,13 @@
       <e p="Assets" t="Include">
         <e p="03_Scripts" t="Include">
           <e p="AudioScripts" t="Include">
+            <e p="AR_ActivateMusicComponents.cs" t="Include" />
             <e p="AR_beaconWall.cs" t="Include" />
             <e p="AR_beaconWallCollider.cs" t="Include" />
             <e p="AR_ColorMaster.cs" t="Include" />
             <e p="AR_damagePlate.cs" t="Include" />
             <e p="Ar_damagePlateCollider.cs" t="Include" />
+            <e p="AR_lamp.cs" t="Include" />
             <e p="AR_Light.cs" t="Include" />
             <e p="AR_mover.cs" t="Include" />
             <e p="AR_scaler.cs" t="Include" />
@@ -232,6 +234,7 @@
                 <e p="ObjectiveTypes" t="Include">
                   <e p="DefeatEnemyObjective.cs" t="Include" />
                   <e p="DestructObjective.cs" t="Include" />
+                  <e p="PuzzleObjective.cs" t="Include" />
                 </e>
               </e>
               <e p="SpawnSystem" t="Include">
@@ -273,7 +276,13 @@
             <e p="SkillPlate.cs" t="Include" />
             <e p="StoryScripting" t="Include">
               <e p="AInteractable.cs" t="Include" />
+              <e p="CameraAnimationSystem" t="Include">
+                <e p="CameraAnimation.cs" t="Include" />
+                <e p="CameraAnimManager.cs" t="Include" />
+                <e p="CamerAnimTrigger.cs" t="Include" />
+              </e>
               <e p="DestructionInteraction.cs" t="Include" />
+              <e p="GenericTrigger.cs" t="Include" />
               <e p="InteractTest.cs" t="Include" />
               <e p="SectionScripts" t="Include">
                 <e p="TutorialSection_0.cs" t="Include" />
@@ -281,7 +290,6 @@
               </e>
               <e p="StoryScripting.cs" t="Include" />
               <e p="StorySection.cs" t="Include" />
-              <e p="StoryTrigger.cs" t="Include" />
               <e p="TriggerBehaviour.cs" t="Include" />
               <e p="TriggerBehaviours" t="Include">
                 <e p="ShowPrompt.cs" t="Include" />
@@ -433,7 +441,6 @@
           </e>
         </e>
         <e p="ResetWeaponTriggers.cs" t="Include" />
-        <e p="RotateCam.cs" t="Include" />
         <e p="Samples" t="Include">
           <e p="Terrain Tools" t="Include">
             <e p="0.1.0-preview" t="Include">

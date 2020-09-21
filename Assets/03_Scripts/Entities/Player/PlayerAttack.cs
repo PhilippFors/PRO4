@@ -96,13 +96,9 @@ public class PlayerAttack : MonoBehaviour
             {
                 skill.isActive = false;
             }
+
             EventSystem.instance.OnSkill(temp);
             StartCoroutine(Timer(temp, id));
-        }
-        else
-        {
-            temp.isActive = false;
-            emitter.SetParameter(temp.skillName, temp.deactiveValue);
         }
     }
 
