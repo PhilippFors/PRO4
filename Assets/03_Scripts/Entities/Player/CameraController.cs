@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour
 
     void GamePadCam()
     {
-        if (playercontrols.input.Gameplay.Rotate.triggered)
+        if (playercontrols.input.Gameplay.Rotate.triggered || gamepadused)
         {
 
             gamepadused = true;

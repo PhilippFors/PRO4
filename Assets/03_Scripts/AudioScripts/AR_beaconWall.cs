@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class AR_beaconWall : MusicAnalyzer
 {
+    public bool lengthChange = false;
     public bool isTurret;
     private Material _material;
     Material _energyWallMaterial;
@@ -42,8 +43,12 @@ public class AR_beaconWall : MusicAnalyzer
         }
 
        
+        if (!lengthChange)
+        {
+            lengthOfLaser = lengthOfLaser / _energyWall.transform.localScale.y;
+        }
 
-        lengthOfLaser = lengthOfLaser / _energyWall.transform.localScale.y;
+        
 
 
        
@@ -80,7 +85,7 @@ public class AR_beaconWall : MusicAnalyzer
             }
             foreach (Transform child in transform)
             {
-                Debug.Log("Hallo");
+                // Debug.Log("Hallo");
                 child.GetComponent<MeshRenderer>().material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, 10));
             }
             // _energyWallMaterial
@@ -122,7 +127,7 @@ public class AR_beaconWall : MusicAnalyzer
                // shortDurationHelper();
                foreach (Transform child in transform)
                 {
-                   
+              
                    
                     tweenSeq = DOTween.Sequence()
                     .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
@@ -140,15 +145,17 @@ public class AR_beaconWall : MusicAnalyzer
     {
         if (skill.name == "PitchShift")
         {
+            /*
            if (!isTurret)
             {
                 tweenSeq.Kill();
             }
+            */
             
             foreach (Transform child in transform)
             {
-             
-                tweenSeq = DOTween.Sequence()
+                tweenSeq.Complete();
+                Sequence errorSequence = DOTween.Sequence()
             .Append(child.DOScaleY(lengthOfLaser, m_actionInDuration))
             .SetEase(Ease.Flash);
             }

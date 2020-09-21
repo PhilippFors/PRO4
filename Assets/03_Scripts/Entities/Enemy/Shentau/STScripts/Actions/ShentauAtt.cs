@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PluggableAI/Shentau/Action/Attack")]
 public class ShentauAtt : Action
 {
-    float delay = 0.2f;
+    float delay = 0.5f;
     float countdown = 0f;
     public override void Execute(StateMachineController controller)
     {

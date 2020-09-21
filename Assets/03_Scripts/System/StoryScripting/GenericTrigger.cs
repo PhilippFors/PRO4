@@ -11,7 +11,7 @@ public class GenericTrigger : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerBody>())
         {
             behaviour.Execute(other, this);
-            enabled = false;
+            gameObject.SetActive(false);
         }
     }
 }

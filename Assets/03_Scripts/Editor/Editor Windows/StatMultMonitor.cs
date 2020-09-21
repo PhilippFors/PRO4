@@ -41,7 +41,7 @@ public class StatMultMonitor : EditorWindow
                     s.SetValue(EditorGUILayout.FloatField(s.GetName().ToString(), s.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
                 }
             }
-            
+
             GUILayout.Space(5f);
             GUILayout.Label("SKILLS");
 
@@ -58,34 +58,35 @@ public class StatMultMonitor : EditorWindow
         enemyFoldout = EditorGUILayout.Foldout(enemyFoldout, "Enemies");
 
         if (enemyFoldout)
-            foreach (EnemyBody e in set.entityList)
-            {
-                if (e != null)
+            if (set.entityList.Count != 0)
+                foreach (EnemyBody e in set.entityList)
                 {
-                    GUILayout.Space(5f);
-                    GUILayout.Label(e.gameObject.name, EditorStyles.largeLabel);
-                    EditorGUILayout.ObjectField(e, typeof(EnemyBody));
+                    if (e != null)
+                    {
+                        GUILayout.Space(5f);
+                        GUILayout.Label(e.gameObject.name, EditorStyles.largeLabel);
+                        EditorGUILayout.ObjectField(e, typeof(EnemyBody));
 
-                    GUILayout.Label("Stats", EditorStyles.boldLabel);
-                    e.currentHealth = EditorGUILayout.FloatField("Current Health", e.currentHealth, GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f));
-                    foreach (GameStatistics s in e.statList)
-                    {
-                        s.SetValue(EditorGUILayout.FloatField(s.GetName().ToString(), s.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
+                        GUILayout.Label("Stats", EditorStyles.boldLabel);
+                        e.currentHealth = EditorGUILayout.FloatField("Current Health", e.currentHealth, GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f));
+                        foreach (GameStatistics s in e.statList)
+                        {
+                            s.SetValue(EditorGUILayout.FloatField(s.GetName().ToString(), s.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
+                        }
+
+                        GUILayout.Label("Multipliers", EditorStyles.boldLabel);
+                        foreach (Multiplier m in e.multList)
+                        {
+                            m.SetValue(EditorGUILayout.FloatField(m.GetName().ToString(), m.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
+                        }
+                        if (GUILayout.Button("Destroy", GUILayout.Width(120f)))
+                        {
+                            // set.Remove(e);
+                            e.OnDeath();
+                        }
                     }
 
-                    GUILayout.Label("Multipliers", EditorStyles.boldLabel);
-                    foreach (Multiplier m in e.multList)
-                    {
-                        m.SetValue(EditorGUILayout.FloatField(m.GetName().ToString(), m.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
-                    }
-                    if (GUILayout.Button("Destroy", GUILayout.Width(120f)))
-                    {
-                        // set.Remove(e);
-                        e.OnDeath();
-                    }
                 }
-
-            }
 
         GUILayout.EndScrollView();
     }

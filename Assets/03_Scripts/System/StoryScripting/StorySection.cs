@@ -25,4 +25,10 @@ public abstract class StorySection : ScriptableObject
         st = null;
         StoryEventSystem.instance.progress -= ProgressStory;
     }
+
+    private void OnDisable()
+    {
+        started = false;
+        finished = false;
+    }
 }
