@@ -20,7 +20,7 @@ public class EventSystem : MonoBehaviour
     public event System.Action AimGrenade;
     public event System.Action ThrowGrenade;
     public event System.Action Explode;
-    
+
 
 
     //Events for Enemy managment
@@ -29,7 +29,7 @@ public class EventSystem : MonoBehaviour
     public static EventSystem instance;
 
     public event System.Action goalDestroyed;
-
+    public event System.Action waveDefeated;
     public event Action<Transform, Transform, Transform, Transform> startCamAnim;
     public event Action<Transform, Transform> notifyCamManager;
 
@@ -38,17 +38,24 @@ public class EventSystem : MonoBehaviour
         instance = this;
     }
 
-
-    public void StartCamAnim(Transform camera, Transform endposition, Transform player, Transform playerDest){
-        if(startCamAnim != null)
+    public void WaveDefeated()
+    {
+        if (waveDefeated != null)
+            waveDefeated();
+    }
+    public void StartCamAnim(Transform camera, Transform endposition, Transform player, Transform playerDest)
+    {
+        if (startCamAnim != null)
             startCamAnim(camera, endposition, player, playerDest);
     }
-    public void NotifyCamManager(Transform endposition,Transform playerDest){
-        if(notifyCamManager != null)
+    public void NotifyCamManager(Transform endposition, Transform playerDest)
+    {
+        if (notifyCamManager != null)
             notifyCamManager(endposition, playerDest);
     }
-    public void GoalDestroyed(){
-        if(goalDestroyed != null)
+    public void GoalDestroyed()
+    {
+        if (goalDestroyed != null)
             goalDestroyed();
     }
     public void OnAttack(IHasHealth entity, float basedmg)
@@ -152,5 +159,5 @@ public class EventSystem : MonoBehaviour
     {
         SetState(state);
     }
-    
+
 }

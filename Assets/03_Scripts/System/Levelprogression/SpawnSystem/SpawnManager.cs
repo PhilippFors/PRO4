@@ -85,6 +85,7 @@ public class SpawnManager : MonoBehaviour
                 if (!isSpawning)
                 {
                     count = false;
+                    EventSystem.instance.WaveDefeated();
                     return true;
                 }
             }
