@@ -83,7 +83,7 @@ public class EventSystem : MonoBehaviour
     {
         if (Snare == null)
         {
-            Debug.Log("SnareEvent has no subscriber");
+           
         }
         else
         {
@@ -95,7 +95,7 @@ public class EventSystem : MonoBehaviour
     {
         if (HighHat == null)
         {
-            Debug.Log("HighHatEvent has no subscriber");
+           
         }
         else
         {
@@ -109,7 +109,7 @@ public class EventSystem : MonoBehaviour
     {
         if (Kick == null)
         {
-            Debug.Log("KickEvent has no subscriber");
+           
         }
         else
         {
