@@ -19,6 +19,8 @@ public class MusicManager : MonoBehaviour
     private bool m_snareSkillLock = false;
     private bool m_highHatSkillLock = false;
 
+    
+
     public FMODUnity.StudioEventEmitter _emitter;
 
     // Start is called before the first frame update

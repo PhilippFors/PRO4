@@ -5,8 +5,8 @@ public class AreaBarrier : MonoBehaviour
     public int AreaID;
     public bool active;
 
-    public BoxCollider col;
-    public MeshRenderer rend;
+    BoxCollider col => GetComponent<BoxCollider>();
+    MeshRenderer rend => GetComponent<MeshRenderer>();
     public void Deactivate()
     {
         col.enabled = !active;
