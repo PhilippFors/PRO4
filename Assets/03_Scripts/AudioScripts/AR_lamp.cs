@@ -119,7 +119,7 @@ public class AR_lamp : MusicAnalyzer
 
         if (_useFrequency)
         {
-            Debug.Log("HEY LISTEN");
+            // Debug.Log("HEY LISTEN");
             V = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand) * m_frequencyMultiply;
             m_material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
             m_light.intensity = V;
