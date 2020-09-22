@@ -17,21 +17,20 @@ public class EnableMusicTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (subscribeToEvent && !helper)
-        {
-            helper = true;
-            MyEventSystem.instance.waveDefeated += enableTrigger;
-        }
+
     }
 
     void OnTriggerEnter(Collider c)
     {
         subscribeToEvent = true;
+        MyEventSystem.instance.waveDefeated += enableTrigger;
+
        
     }
 
     void enableTrigger()
     {
+        
         triggerObj.SetActive(true);
     }
 
