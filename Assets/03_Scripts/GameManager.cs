@@ -38,6 +38,29 @@ public class GameManager : MonoBehaviour
         if (deInitAll != null)
             deInitAll();
     }
+
+    public void ToggleCanvas()
+    {
+        transitionCanvas.gameObject.SetActive(false);
+    }
+
+
+    public void ActivateCanvas()
+    {
+        transitionCanvas.gameObject.SetActive(true);
+    }
+
+    public float PlayInAnim()
+    {
+        transitionImage.Play("InTransition");
+        return transitionImage.GetClip("InTransition").length;
+    }
+
+    public float PlayOutAnim()
+    {
+        transitionImage.Play("OutTransition");
+        return transitionImage.GetClip("OutTransition").length;
+    }
     public void StartArena()
     {
         arena = true;
@@ -90,13 +113,13 @@ public class GameManager : MonoBehaviour
     IEnumerator RespawnAnim(PlayerBody player, Vector3 respawn)
     {
         transitionCanvas.gameObject.SetActive(true);
-        float length = transitionImage.GetClip("InTransition").length;
-        transitionImage.Play("InTransition");
+        float length = transitionImage.GetClip("OutTransition").length;
+        transitionImage.Play("OutTransition");
         yield return new WaitForSeconds(length);
         player.GetComponent<Animator>().applyRootMotion = false;
         player.transform.position = respawn;
         player.currentHealth.Value = player.GetStatValue(StatName.MaxHealth);
-        transitionImage.Play("OutTransition");
+        transitionImage.Play("InTransition");
         player.GetComponent<Animator>().applyRootMotion = false;
         player.alive = true;
         yield return new WaitForSeconds(length);

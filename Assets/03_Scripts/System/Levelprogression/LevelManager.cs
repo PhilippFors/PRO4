@@ -115,7 +115,8 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.instance.currentLevel++;
         currentArea = 0;
-        GameManager.instance.sceneLoader.LoadNextLevel();
+        
+        GameManager.instance.ReturnToStartMenu();
 
         //TODO: Start level transition
     }

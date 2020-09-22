@@ -23,20 +23,24 @@ public class LevelEntry : MonoBehaviour
 
     private void Awake()
     {
-        if (!sceneLoaded & SceneManager.GetSceneByName("Base").isLoaded)
+        // if (!sceneLoaded & SceneManager.GetSceneByName("Base").isLoaded)
+        // {
+        //     sceneLoaded = true;
+        //     StartCoroutine(WaitFStart());
+        // }
+    }
+    private void Start()
+    {
+        if (!sceneLoaded)
         {
-            sceneLoaded = true;
-            StartCoroutine(WaitFStart());
+            StartLevel();
         }
     }
 
     void StartLevel()
     {
-        // if (scene.name == "Base")
-        // {
         sceneLoaded = true;
         StartCoroutine(WaitFStart());
-        // }
     }
 
     IEnumerator WaitFStart()

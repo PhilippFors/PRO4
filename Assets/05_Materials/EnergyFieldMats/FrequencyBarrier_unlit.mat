@@ -24,7 +24,7 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 127ac900884d12247b95ec1059bb500b,
     type: 3}
   m_ShaderKeywords: _BLENDMODE_ALPHA _SURFACE_TYPE_TRANSPARENT
-  m_LightmapFlags: 1
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -32,8 +32,8 @@ Material:
     MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
-  - MOTIONVECTORS
   - TransparentBackface
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -85,6 +85,7 @@ Material:
     - Color_C6BF15F4: {r: 0, g: 0, b: 0, a: 0}
     - EmissionBlueColor: {r: 1, g: 1, b: 1, a: 0}
     - EmissionRedColor: {r: 1, g: 1, b: 1, a: 0}
+    - Vector2_7307314A: {r: 1, g: 0, b: 0, a: 0}
     - Vector2_D92CBA7F: {r: 1, g: 1, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

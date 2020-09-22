@@ -50,6 +50,7 @@ public class PlayerAttack : MonoBehaviour
         GameManager.instance.deInitAll -= DisbandEmiter;
     }
 
+
     void DisbandEmiter()
     {
         emitter = null;
@@ -83,6 +84,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        if (emitter == null)
+            GetEmitter();
+
         currentWeapon = weapons[currentWeaponCounter];
         currentWeapon.Equip(weaponPoint);
 
