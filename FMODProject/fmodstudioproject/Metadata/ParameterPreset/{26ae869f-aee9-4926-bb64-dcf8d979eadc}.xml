@@ -24,5 +24,13 @@
 		<property name="isExposedRecursively">
 			<value>false</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{5535da35-7338-44dc-9ad7-405ee696d41a}</destination>
+		</relationship>
+	</object>
+	<object class="RandomizerModulator" id="{5535da35-7338-44dc-9ad7-405ee696d41a}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>cursorPosition</value>
+		</property>
 	</object>
 </objects>
