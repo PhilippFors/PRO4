@@ -40,14 +40,26 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += GetEmitter;
+        GameManager.instance.initAll += GetEmitter;
+        GameManager.instance.deInitAll += DisbandEmiter;
     }
 
+    private void OnDisable()
+    {
+        GameManager.instance.initAll -= GetEmitter;
+        GameManager.instance.deInitAll -= DisbandEmiter;
+    }
+
+    void DisbandEmiter()
+    {
+        emitter = null;
+    }
+    void GetEmitter()
+    {
+        emitter = FMODAudioPeer._instance.gameObject.GetComponent<FMODUnity.StudioEventEmitter>();
+    }
     private void Awake()
     {
-
-        //input.Gameplay.LeftAttack.performed += rt => Attack(0);
-        //input.Gameplay.RightAttack.performed += rt => Attack(1);
         playerMovement = GetComponent<PlayerStateMachine>();
         StartCoroutine(InitInput());
     }
@@ -63,10 +75,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.input.Gameplay.WeaponSwitch.performed += rt => ChangeWeapon();
     }
 
-    void GetEmitter(Scene scene, LoadSceneMode mode)
-    {
-        emitter = FMODAudioPeer._instance.gameObject.GetComponent<FMODUnity.StudioEventEmitter>();
-    }
+
 
     private void Reset()
     {

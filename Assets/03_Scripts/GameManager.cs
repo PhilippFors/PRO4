@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //GameManager for starting games and managing game over states
+    public Canvas transitionCanvas;
+    public Animation transitionImage;
+    public event System.Action initAll;
+    public event System.Action deInitAll;
     public int currentLevel = 0;
     public bool arena = false;
     public bool isNewGame = true;
@@ -23,6 +27,17 @@ public class GameManager : MonoBehaviour
             sceneLoader.LoadMainScenes(BaseScenes.StartMenu);
     }
 
+    public void InitAll()
+    {
+        if (initAll != null)
+            initAll();
+    }
+
+    public void DeInitAll()
+    {
+        if (deInitAll != null)
+            deInitAll();
+    }
     public void StartArena()
     {
         arena = true;
@@ -74,12 +89,17 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RespawnAnim(PlayerBody player, Vector3 respawn)
     {
-        yield return new WaitForSeconds(0.5f);
+        transitionCanvas.gameObject.SetActive(true);
+        float length = transitionImage.GetClip("InTransition").length;
+        transitionImage.Play("InTransition");
+        yield return new WaitForSeconds(length);
         player.GetComponent<Animator>().applyRootMotion = false;
         player.transform.position = respawn;
         player.currentHealth.Value = player.GetStatValue(StatName.MaxHealth);
-        yield return new WaitForSeconds(0.5f);
+        transitionImage.Play("OutTransition");
         player.GetComponent<Animator>().applyRootMotion = false;
         player.alive = true;
+        yield return new WaitForSeconds(length);
+        transitionCanvas.gameObject.SetActive(false);
     }
 }

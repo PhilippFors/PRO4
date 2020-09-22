@@ -67,8 +67,11 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation unload;
         AsyncOperation load;
 
-
-        yield return new WaitForSeconds(1f);
+        GameManager.instance.transitionCanvas.gameObject.SetActive(true);
+        float length = GameManager.instance.transitionImage.GetClip("OutTransition").length;
+        GameManager.instance.transitionImage.Play("OutTransition");
+        yield return new WaitForSeconds(length);
+        GameManager.instance.DeInitAll();
         if (oldScene != -1)
         {
             unload = SceneManager.UnloadSceneAsync(oldScene);
@@ -90,24 +93,29 @@ public class SceneLoader : MonoBehaviour
 
         if (!SceneManager.GetSceneByName("Base").isLoaded)
         {
-            yield return new WaitForEndOfFrame();
             load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
             yield return load;
         }
 
-
-
-        yield return new WaitForSeconds(1f);
+        GameManager.instance.transitionCanvas.overrideSorting = true;
+        yield return new WaitForEndOfFrame();
+        GameManager.instance.InitAll();
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.transitionImage.Play("InTransition");
+        yield return new WaitForSeconds(length);
+        GameManager.instance.transitionCanvas.gameObject.SetActive(false);
         //Level start fade from black
     }
 
     public IEnumerator LoadSceneTransition(int newScene, int oldScene = -1, int oldScene2 = -1)
     {
+        GameManager.instance.transitionCanvas.gameObject.SetActive(true);
         AsyncOperation unload;
         AsyncOperation load;
-
-        yield return new WaitForSeconds(1f);
-
+        float length = GameManager.instance.transitionImage.GetClip("OutTransition").length;
+        GameManager.instance.transitionImage.Play("OutTransition");
+        yield return new WaitForSeconds(length);
+        GameManager.instance.DeInitAll();
         if (oldScene != -1)
         {
             unload = SceneManager.UnloadSceneAsync(oldScene);
@@ -123,8 +131,13 @@ public class SceneLoader : MonoBehaviour
         load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
 
         yield return load;
-
-        yield return new WaitForSeconds(1f);
+        GameManager.instance.transitionCanvas.overrideSorting = true;
+        yield return new WaitForEndOfFrame();
+        GameManager.instance.InitAll();
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.transitionImage.Play("InTransition");
+        yield return new WaitForSeconds(length);
+        GameManager.instance.transitionCanvas.gameObject.SetActive(false);
     }
 
 }

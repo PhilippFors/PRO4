@@ -88,9 +88,7 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         FindPlayerSpawnpoint();
-        player.GetComponent<Animator>().applyRootMotion = false;
-        player.position = playerSpawn.position;
-        player.GetComponent<Animator>().applyRootMotion = true;
+        StartCoroutine(WaitSpawn());
         // StartCoroutine(SaveGame());
         //TODO: Exit from Level transition
     }
@@ -106,7 +104,13 @@ public class LevelManager : MonoBehaviour
 
         SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
     }
-
+    IEnumerator WaitSpawn()
+    {
+        yield return new WaitForEndOfFrame();
+        player.GetComponent<Animator>().applyRootMotion = false;
+        player.position = playerSpawn.position;
+        player.GetComponent<Animator>().applyRootMotion = true;
+    }
     public void FinishLevel()
     {
         GameManager.instance.currentLevel++;
@@ -114,7 +118,6 @@ public class LevelManager : MonoBehaviour
         GameManager.instance.sceneLoader.LoadNextLevel();
 
         //TODO: Start level transition
-        //TODO: Reset Area count
     }
 
     public void SwitchObjective()

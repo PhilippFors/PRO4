@@ -21,7 +21,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     public event System.Action myAction;
 
 
-    
+
     //---SPECTRUM ANALYZER---
     FMOD.DSP fft;
     FMOD.ChannelGroup channelGroup;
@@ -96,7 +96,15 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
         return _audioBand32[id];
     }
 
+    private void OnEnable()
+    {
+        GameManager.instance.deInitAll += DeInit;
+    }
 
+    private void OnDisable()
+    {
+        GameManager.instance.deInitAll -= DeInit;
+    }
 
     public FMOD.Studio.EventInstance getMusicInstance()
     {
@@ -105,7 +113,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
     void Awake()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
         }
@@ -139,14 +147,14 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
         //assign the dsp to a channel
         musicInstance.getChannelGroup(out channelGroup);
-        
+
 
     }
 
     void Update()
     {
         //BPM Calculation Methods
-      
+
 
 
         if (!ready)
@@ -164,7 +172,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
         if (ready)
         {
-         
+
             //Creating the spectrum with 512 samples
             IntPtr unmanagedData;
             uint length;
@@ -282,9 +290,12 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
     }
 
-  
 
-    
+    void DeInit()
+    {
+        getMusicInstance().stop(0);
+    }
+
 
     //normalisiert die 8 Frequenzbänder
     //damit erhalten wir Werte zwischen 0 und 1 für jedes Frequenzband
@@ -298,7 +309,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
                 _freqBandHighest8[i] = _freqBand8[i];
             }
             */
-            
+
             _audioBand8[i] = (_freqBand8[i] / _freqBandHighest8[i]);
             _audioBandBuffer8[i] = (_bandBuffer8[i] / _freqBandHighest8[i]);
         }
@@ -310,12 +321,12 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
     {
         for (int i = 0; i < 32; i++)
         {
-            
+
             if (_freqBand32[i] > _freqBandHighest32[i])
             {
                 _freqBandHighest32[i] = _freqBand32[i];
             }
-            
+
             _audioBand32[i] = (_freqBand32[i] / _freqBandHighest32[i]);
             _audioBandBuffer32[i] = (_bandBuffer32[i] / _freqBandHighest32[i]);
 
@@ -407,7 +418,7 @@ class FMODAudioPeer : MonoBehaviour, IAudioSpectrum
 
         _freqBandHighest8[0] = 0.5f;
         _freqBandHighest8[1] = 0.5f;
-       // _freqBandHighest8[7] = 9.435572f;
+        // _freqBandHighest8[7] = 9.435572f;
     }
 
     public void changeAudioProfile(float[] a)
