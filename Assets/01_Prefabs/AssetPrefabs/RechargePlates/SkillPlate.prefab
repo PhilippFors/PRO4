@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2350252118370140405}
   - component: {fileID: 8332025113885293580}
   - component: {fileID: 1396018791440579520}
-  - component: {fileID: 2021909978532522353}
   - component: {fileID: 675688769304100484}
   - component: {fileID: 2963168585014552148}
   m_Layer: 0
@@ -99,21 +98,9 @@ MonoBehaviour:
   _audioBand2: 4
   _enableBlueFQChannel: 1
   _enableRedFQChannel: 1
+  _enableCustomMaterialColors: 1
   _useBuffer: 1
   _enable32Bands: 0
---- !u!65 &2021909978532522353
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7754524276406225104}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0887961, y: 0.06418045, z: 1.0887961}
-  m_Center: {x: 0, y: -0.028395982, z: 0}
 --- !u!65 &675688769304100484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -139,6 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc87296eabf51e4c8c9a230e135b8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeAmount: 2
+  chargeAmount: 3
   maxChargeF: 10
-  nextChargeCountdown: 8
+  nextChargeCountdown: 6

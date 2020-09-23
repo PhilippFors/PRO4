@@ -9,9 +9,6 @@ public class AIManager : MonoBehaviour
     [HideInInspector] public LayerMask enemyMask => LayerMask.GetMask("Enemy");
     [HideInInspector] public LayerMask playerMask => LayerMask.GetMask("Player");
     public EnemySet allSet;
-    public EnemySet avikSet;
-    public EnemySet ralgerSet;
-    public EnemySet shentauSet;
     public Transform playerTarget;
     public float avoidDistance = 5f;
     public float obstacleAvoidDistance = 2f;
@@ -29,6 +26,7 @@ public class AIManager : MonoBehaviour
     private void Start()
     {
         MyEventSystem.instance.activateAI += SetAIActive;
+        allSet.entityList = new List<EnemyBody>();
     }
 
     private void OnDisable()

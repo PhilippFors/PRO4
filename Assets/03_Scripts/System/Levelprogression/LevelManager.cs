@@ -87,6 +87,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartLevel()
     {
+        player.position = new Vector3(0, 0, 0);
         FindPlayerSpawnpoint();
         StartCoroutine(WaitSpawn());
         // StartCoroutine(SaveGame());
@@ -113,9 +114,9 @@ public class LevelManager : MonoBehaviour
     }
     public void FinishLevel()
     {
-        GameManager.instance.currentLevel++;
+        // GameManager.instance.currentLevel++;
         currentArea = 0;
-        
+
         GameManager.instance.ReturnToStartMenu();
 
         //TODO: Start level transition

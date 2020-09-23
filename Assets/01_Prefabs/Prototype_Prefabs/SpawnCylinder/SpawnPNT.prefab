@@ -159,8 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   director: {fileID: 3476993869908635172}
   LevelID: 0
-  AreaID: 0
-  UniqueID: 0
+  AreaID: 4
+  UniqueID: 4
   playerSpawnpoint: 0
 --- !u!1 &4022228083924369034
 GameObject:
@@ -299,7 +299,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 64be01d28dbd99248bdf5944fe8f0cbf, type: 2}
+  - {fileID: 2100000, guid: d567b57e09d12564ab63a28c060ad03c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -391,11 +391,11 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5841077691812270811}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9150943, g: 0.62162995, b: 0.19424175, a: 1}
+  m_Color: {r: 0, g: 0.8446779, b: 1, a: 1}
   m_Intensity: 23.873241
   m_Range: 5
   m_SpotAngle: 30
@@ -441,7 +441,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.721e-42, y: 1.04e-43, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 4.36e-43, y: -2.249307e+11, z: 4.34e-43, w: -13.755394}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

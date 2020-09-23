@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2781871486638071785
 Transform:
@@ -23,9 +23,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207079840227749370}
-  m_LocalRotation: {x: -0, y: 0.70706224, z: -0, w: 0.70715135}
+  m_LocalRotation: {x: 0, y: 0.7070636, z: 0, w: 0.7071499}
   m_LocalPosition: {x: 138, y: -58, z: -24}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1128, y: 1.1128, z: 1.1128}
   m_Children:
   - {fileID: 8417824354656672626}
   - {fileID: 8080489542312021580}
@@ -51,8 +51,8 @@ GameObject:
   m_Name: tower1SlicedHalf_lowPoly1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8417824354656672626
 Transform:
@@ -131,6 +131,7 @@ MonoBehaviour:
   _audioBand2: 7
   _enableBlueFQChannel: 1
   _enableRedFQChannel: 1
+  _enableCustomMaterialColors: 0
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!1 &3715088052428493389
@@ -149,8 +150,8 @@ GameObject:
   m_Name: tower2SlicedHalf_lowPoly2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3752542689542440485
 Transform:
@@ -229,6 +230,7 @@ MonoBehaviour:
   _audioBand2: 7
   _enableBlueFQChannel: 1
   _enableRedFQChannel: 1
+  _enableCustomMaterialColors: 0
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!1 &4345956632397528043
@@ -247,8 +249,8 @@ GameObject:
   m_Name: tower1SlicedHalf_lowPoly2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8080489542312021580
 Transform:
@@ -327,6 +329,7 @@ MonoBehaviour:
   _audioBand2: 7
   _enableBlueFQChannel: 1
   _enableRedFQChannel: 1
+  _enableCustomMaterialColors: 0
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!1 &7197180662757224290
@@ -340,14 +343,13 @@ GameObject:
   - component: {fileID: 7197180662757224291}
   - component: {fileID: 7197180662757224295}
   - component: {fileID: 7197180662757224294}
-  - component: {fileID: 7197180662757224293}
   - component: {fileID: 7197180662757224292}
   m_Layer: 0
   m_Name: "hilflsCube weil Geo hier loch hat mach ich sp\xE4ter besser"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7197180662757224291
 Transform:
@@ -410,19 +412,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7197180662757224293
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7197180662757224290}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7197180662757224292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +428,7 @@ MonoBehaviour:
   _audioBand2: 7
   _enableBlueFQChannel: 0
   _enableRedFQChannel: 1
+  _enableCustomMaterialColors: 0
   _useBuffer: 1
   _enable32Bands: 0
 --- !u!1 &7984365765642917021
@@ -457,8 +447,8 @@ GameObject:
   m_Name: tower2SlicedHalf_lowPoly1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6620326520716208087
 Transform:
@@ -537,5 +527,6 @@ MonoBehaviour:
   _audioBand2: 7
   _enableBlueFQChannel: 1
   _enableRedFQChannel: 1
+  _enableCustomMaterialColors: 0
   _useBuffer: 1
   _enable32Bands: 0

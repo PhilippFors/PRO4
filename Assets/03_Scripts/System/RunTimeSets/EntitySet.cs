@@ -9,6 +9,11 @@ public abstract class EntitySet<T> : ScriptableObject
     {
         entityList.Add(t);
     }
+    
+    private void OnEnable()
+    {
+        entityList.Clear();
+    }
 
     public void Remove(T t)
     {
@@ -19,6 +24,5 @@ public abstract class EntitySet<T> : ScriptableObject
     private void OnDisable()
     {
         entityList.Clear();
-        
     }
 }

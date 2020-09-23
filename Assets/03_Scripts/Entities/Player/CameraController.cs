@@ -14,11 +14,27 @@ public class CameraController : MonoBehaviour
     bool gamepadused;
     Plane groundPlane;
     Vector3 s;
+
+    [SerializeField] LevelManager l;
+    private void OnEnable()
+    {
+        GameManager.instance.initAll += SetPos;
+    }
+    private void OnDisable()
+    {
+        GameManager.instance.initAll -= SetPos;
+    }
+
     private void Start()
     {
         playercontrols = player.gameObject.GetComponent<PlayerStateMachine>();
+    }
+
+    void SetPos()
+    {
         StartCoroutine(WaitForStart());
     }
+
     private void Update()
     {
         GetCamPosition();
@@ -78,6 +94,6 @@ public class CameraController : MonoBehaviour
     IEnumerator WaitForStart()
     {
         yield return new WaitForEndOfFrame();
-        s = player.position;
+        transform.position = l.playerSpawn.position;
     }
 }

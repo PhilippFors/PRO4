@@ -8,6 +8,16 @@ public class AR_mover : MusicAnalyzer
     public float m_moveX = 0;
     public float m_moveY = 0;
     public float m_moveZ = 0;
+    float m_posX;
+
+    public float m_moveXMinBorder;
+    public float m_moveXMaxBorder;
+
+    public float m_moveYMinBorder; 
+    public float m_moveYMaxBorder;
+
+    public float m_moveZMinBorder;
+    public float m_moveZMaxBorder;
 
     public bool m_backAndForth = true;
 
@@ -18,15 +28,24 @@ public class AR_mover : MusicAnalyzer
 
     public bool m_activateComponent = false;
 
-    bool completionHelper1;
-    bool completionHelper2;
+
 
     // Start is called before the first frame update
     void Start()
     {
         m_material = GetComponent<MeshRenderer>().material;
-        completionHelper1 = true;
-        completionHelper2 = false;
+
+
+        m_moveXMinBorder = transform.localPosition.x;
+        m_moveXMaxBorder = transform.localPosition.x + m_moveX;
+
+
+
+        m_moveYMinBorder = transform.localPosition.y;
+        m_moveYMaxBorder = transform.localPosition.y + m_moveY;
+        
+        m_moveZMinBorder = transform.localPosition.z;
+        m_moveZMaxBorder = transform.localPosition.z + m_moveZ;
     }
 
     protected override void objectAction()
@@ -40,49 +59,40 @@ public class AR_mover : MusicAnalyzer
             {
 
             }
-            if (m_intervalBeat && checkInterval()&&completionHelper1)
+            if (m_intervalBeat && checkInterval())
             {
-                completionHelper1 = false;
-                completionHelper2 = true;
-                transform.DOLocalMoveX(transform.localPosition.x + m_moveX, m_actionInDuration) ;
+                transform.DOLocalMoveX(m_moveXMaxBorder, m_actionInDuration) ;
             }
-            if (m_backAndForth && !checkInterval() && completionHelper2)
+            if (m_backAndForth && !checkInterval())
             {
-                completionHelper1 = true;
-                completionHelper2 = false;
-                transform.DOLocalMoveX(transform.localPosition.x - m_moveX, m_actionInDuration);
-
+                transform.DOLocalMoveX(m_moveXMinBorder, m_actionInDuration);
             }
         }
         if (m_moveZ != 0)
         {
-            if (m_intervalBeat && m_intervalCounter % 2 == 0 && completionHelper1)
+            if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
-                completionHelper1 = false;
-                completionHelper2 = true;
-                transform.DOLocalMoveZ(transform.position.z + m_moveZ, m_actionInDuration);
+
+                transform.DOLocalMoveZ(m_moveZMaxBorder, m_actionInDuration);
             }
-            else if (m_backAndForth && (m_intervalCounter % 2 != 0) && completionHelper2)
+            else if (m_backAndForth && (m_intervalCounter % 2 != 0))
             {
-                completionHelper1 = true;
-                completionHelper2 = false;
-                transform.DOLocalMoveZ(transform.position.z - m_moveZ, m_actionInDuration);
+
+                transform.DOLocalMoveZ(m_moveZMinBorder, m_actionInDuration);
             }
         }
         if (m_moveY != 0)
         {
-            if (m_intervalBeat && m_intervalCounter % 2 == 0 && completionHelper1)
+            if (m_intervalBeat && m_intervalCounter % 2 == 0)
             {
-                completionHelper1 = false;
-                completionHelper2 = true;
-                transform.DOLocalMoveY(transform.position.y + m_moveY, m_actionInDuration);
+               
+                transform.DOLocalMoveY(m_moveYMaxBorder, m_actionInDuration);
 
             }
-            else if (m_backAndForth && (m_intervalCounter % 2 != 0) && completionHelper2)
+            else if (m_backAndForth && (m_intervalCounter % 2 != 0))
             {
-                completionHelper1 = true;
-                completionHelper2 = false;
-                transform.DOLocalMoveY(transform.position.y - m_moveY, m_actionInDuration);
+
+                transform.DOLocalMoveY(m_moveYMinBorder, m_actionInDuration);
             }
         }
 

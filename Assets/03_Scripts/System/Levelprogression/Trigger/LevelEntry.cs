@@ -31,10 +31,10 @@ public class LevelEntry : MonoBehaviour
     }
     private void Start()
     {
-        if (!sceneLoaded)
-        {
-            StartLevel();
-        }
+        // if (!sceneLoaded)
+        // {
+        //     StartLevel();
+        // }
     }
 
     void StartLevel()

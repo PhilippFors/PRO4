@@ -774,7 +774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: 59.999985}
   m_SizeDelta: {x: 1309.7, y: 268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316287184
@@ -853,7 +853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -191}
+  m_AnchoredPosition: {x: 0, y: -163}
   m_SizeDelta: {x: 334.4, y: 81.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &318574106
@@ -5656,8 +5656,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0024414, y: 20.000013}
-  m_SizeDelta: {x: 1371.5, y: 318}
+  m_AnchoredPosition: {x: 0.0000052452, y: 60}
+  m_SizeDelta: {x: 1437.9, y: 333.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473067709
 MonoBehaviour:
@@ -5672,7 +5672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.36862746}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7607843}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6290,6 +6290,12 @@ PrefabInstance:
       propertyPath: playerAttack
       value: 
       objectReference: {fileID: 1283641779}
+    - target: {fileID: 1451264603928299838, guid: b0cb4d032e3d46e42ab0015212f6c439,
+        type: 3}
+      propertyPath: attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c6c31486050db044093c05713810bb3b,
+        type: 2}
     - target: {fileID: 1451264603928299839, guid: b0cb4d032e3d46e42ab0015212f6c439,
         type: 3}
       propertyPath: m_LocalPosition.x

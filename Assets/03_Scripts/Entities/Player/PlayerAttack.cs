@@ -84,8 +84,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        if (emitter == null)
-            GetEmitter();
+        // if (emitter == null)
+        //     GetEmitter();
 
         currentWeapon = weapons[currentWeaponCounter];
         currentWeapon.Equip(weaponPoint);

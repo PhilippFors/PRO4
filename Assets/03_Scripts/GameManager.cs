@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RespawnAnim(PlayerBody player, Vector3 respawn)
     {
+        player.GetComponent<PlayerStateMachine>().input.Disable();
         transitionCanvas.gameObject.SetActive(true);
         float length = transitionImage.GetClip("OutTransition").length;
         transitionImage.Play("OutTransition");
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<Animator>().applyRootMotion = false;
         player.alive = true;
         yield return new WaitForSeconds(length);
+        player.GetComponent<PlayerStateMachine>().input.Enable();
         transitionCanvas.gameObject.SetActive(false);
     }
 }

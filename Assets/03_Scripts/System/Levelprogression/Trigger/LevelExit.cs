@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class LevelExit : MonoBehaviour
 {
-   private void OnTriggerEnter(Collider other)
-   {
-       LevelEventSystem.instance.LevelExit();
-   }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerBody>())
+        {
+            LevelEventSystem.instance.LevelExit();
+            enabled = false;
+        }
+    }
 }
