@@ -7,7 +7,8 @@ public enum MultiplierName
     damage,
     speed,
 
-    health
+    health,
+    stunMultiplier
 
 }
 public class Multiplier
@@ -15,7 +16,7 @@ public class Multiplier
     private readonly float RESET_VALUE;
     private MultiplierName _name;
     private float v;
-    public Multiplier(float value, float resetValue, MultiplierName name)
+    public Multiplier(float value,  MultiplierName name, float resetValue = 1.0f)
     {
         v = value;
         RESET_VALUE = resetValue;

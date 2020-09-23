@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{a982a10f-02e1-4414-9f40-59e125f4c71b}">
+		<property name="name">
+			<value>PitchShift</value>
+		</property>
+		<relationship name="folder">
+			<destination>{15719bf4-0ebc-459e-82ec-442538aab0f6}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{24af3f82-5d51-483a-8a5e-efa0ecc7b8e6}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{24af3f82-5d51-483a-8a5e-efa0ecc7b8e6}">
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="seekSpeed">
+			<value>1</value>
+		</property>
+	</object>
+</objects>

@@ -5,7 +5,7 @@
 			<value>triggerMusic</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{e27c262d-d81f-4256-a7fa-cadafdbb8a80}</destination>
@@ -108,7 +108,6 @@
 	<object class="MarkerTrack" id="{77cc3b70-8436-473d-82cd-f74e8240b997}" />
 	<object class="GroupTrack" id="{dd370bb7-3358-427b-b43e-16b37eedad37}">
 		<relationship name="modules">
-			<destination>{3fa985f9-b30d-4064-956b-d4fb77e0338d}</destination>
 			<destination>{e15a80d9-9cf8-4bb5-a3b9-73a186c69073}</destination>
 			<destination>{38a77853-9d55-4f7a-b570-7e9a47d870be}</destination>
 			<destination>{1ae1c522-adbd-4f5a-8f8a-2b3dbaee5563}</destination>
@@ -143,9 +142,6 @@
 		</relationship>
 	</object>
 	<object class="Timeline" id="{95a58487-8dce-479e-8d60-3c1804fe9977}">
-		<relationship name="modules">
-			<destination>{3fa985f9-b30d-4064-956b-d4fb77e0338d}</destination>
-		</relationship>
 		<relationship name="markers">
 			<destination>{e7ac76d4-05b7-4e17-8f0e-c13fd3fa7351}</destination>
 			<destination>{61598296-13b3-4749-9507-a18f50b2e022}</destination>
@@ -408,17 +404,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{97504756-a434-49d8-a9d9-30d420088dbb}" />
-	<object class="SingleSound" id="{3fa985f9-b30d-4064-956b-d4fb77e0338d}">
-		<property name="length">
-			<value>330.82384427625072</value>
-		</property>
-		<property name="timelockedOffset">
-			<value>0.3043189890553788</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{840c8dec-5346-449d-ad2a-c61ceb353a34}</destination>
-		</relationship>
-	</object>
 	<object class="TransitionDestinationSound" id="{e15a80d9-9cf8-4bb5-a3b9-73a186c69073}">
 		<property name="length">
 			<value>1.9999999999999998</value>
@@ -914,7 +899,6 @@
 		<property name="length">
 			<value>12</value>
 		</property>
-		<property name="name" />
 		<relationship name="timeline">
 			<destination>{95a58487-8dce-479e-8d60-3c1804fe9977}</destination>
 		</relationship>

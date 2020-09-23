@@ -1,18 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProgessBarDash : ProgessBar
 {
-    
-    public PlayerController dash;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider slider;
+    public PlayerStateMachine dash;
 
-    // Update is called once per frame
     void Update()
     {
         GetCurrentFill();
@@ -20,8 +15,9 @@ public class ProgessBarDash : ProgessBar
 
     public override void GetCurrentFill()
     {
-        maximum = dash.maxDashValue;
-        current = dash.dashValue;
-        base.GetCurrentFill();
+        maximum = dash.maxDashCharge;
+        current = dash.dashCharge;
+        float fillAmount = (float) current / (float) maximum;
+        slider.value = fillAmount;
     }
 }

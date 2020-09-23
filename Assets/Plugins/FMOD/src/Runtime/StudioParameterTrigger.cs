@@ -15,6 +15,7 @@ namespace FMODUnity
     {
         public EmitterRef[] Emitters;
         public EmitterGameEvent TriggerEvent;
+        public bool disabled = false;
 
         void Awake()
         {
@@ -54,9 +55,17 @@ namespace FMODUnity
                     for (int j = 0; j < Emitters[i].Params.Length; j++)
                     {
                         emitterRef.Target.EventInstance.setParameterByID(Emitters[i].Params[j].ID, Emitters[i].Params[j].Value);
+
                     }
                 }
             }
+            DisableSelf();
+        }
+
+        public void DisableSelf()
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            disabled = true;
         }
     }
 }

@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Obstacle
+  - Avik
+  - Shentau
+  - MusicObstacle
   layers:
   - Default
   - TransparentFX
@@ -14,15 +19,15 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Ground
+  - Player
+  - Grenade
+  - Ceiling
+  - Reciever
+  - ObstacleMaster
+  - SpawnPoint
+  - Tutorial
   - 
   - 
   - 
@@ -40,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Highlight
+    uniqueID: 1394669867
     locked: 0

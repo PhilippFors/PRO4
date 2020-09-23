@@ -2,98 +2,165 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AR_AudioEmission : MonoBehaviour
+public class AR_AudioEmission : AR_ColorMaster
 {
-    private FMODAudioPeer _audioPeer;
-    public int[] _bandArray;
-    // public float _startScale, _maxScale;
-    public bool _useBuffer;
-  
 
-    public bool _colorCube;
+    public int _audioBand1 = 0;
+    public int _audioBand2 = 7;
 
-    public bool _yDynamicCube;
-    public float _yDynamicStartScale, _yDynamicMaxScale;
+    public bool _enableBlueFQChannel = true; //BLUE
+    public bool _enableRedFQChannel = true; //RED
+
+    public bool _enableCustomMaterialColors = false;
 
 
+    public bool _useBuffer = true;
+    public bool _enable32Bands;
 
-    public bool enable32Bands;
-    public int[] _bandArray32;
+    public static Color a  = Color.green;
 
-    int _bandAmount = 2;
-    Material _material;
+    private int _bandAmount = 2;
+   
+    
+    private Material _material;
+    private Color _color1;
+    private Color _color2;
 
+    private Color _helpc1;
+    private Color _helpc2;
 
-    Color color1;
-    Color color2;
+    private Color _errorColor1 = Color.magenta;
+    private Color _errorColor2 = Color.yellow;
 
-    Color[] colorArray;
-    int hitCounter;
+    private bool test = false;
+
+    float H1, S1, V1;
+    float H2, S2, V2;
+
     // Start is called before the first frame update
     void Start()
     {
-        //TODO 
-        //Einbauen dass nur Materials mit den Anfang ar in die Liste aufgenommen werden
-
-        GameObject gameObj = GameObject.Find("FMODAudioPeer");
-        _audioPeer = gameObj.GetComponent<FMODAudioPeer>();
-
-
-        _bandAmount = _bandArray.Length;
-        colorArray = new Color[_bandAmount];
         _material = GetComponent<MeshRenderer>().material;
+        if (_enableCustomMaterialColors)
+        {
+            Color.RGBToHSV((_material.GetColor("EmissionBlueColor")), out H1, out S1, out V1);
+            Color.RGBToHSV((_material.GetColor("EmissionRedColor")), out H2, out S2, out V2);
+        }
+        else
+        {
+            if (_audioBand1 < 3)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H1, out S1, out V1);
+            }
+            else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H1, out S1, out V1);
+            }
+            else
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H1, out S1, out V1);
+            }
 
-
-        hitCounter = 0;
-
-        colorArray[0] = _material.GetColor("EmissionBlueColor");
-        colorArray[1] = _material.GetColor("EmissionRedColor");
-
+            if (_audioBand2 < 3)
+            {
+                Color.RGBToHSV((m_blueChannelActiveColor), out H2, out S2, out V2);
+            }
+            else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+            {
+                Color.RGBToHSV((m_bothChannelActiveColor), out H2, out S2, out V2);
+            }
+            else
+            {
+                Color.RGBToHSV((m_redChannelActiveColor), out H2, out S2, out V2);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (enable32Bands)
+  
+        if (_audioBand1 < 3)
         {
-            transform.localScale = new Vector3(transform.localScale.x, (FMODAudioPeer._audioBandBuffer32[_bandArray[0]] * 20) + _yDynamicStartScale, transform.localScale.z);
+            Color.RGBToHSV((m_blueChannelActiveColor), out H1, out S1, out V1);
+        }
+        else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+        {
+            Color.RGBToHSV((m_bothChannelActiveColor), out H1, out S1, out V1);
+        }
+        else
+        {
+            Color.RGBToHSV((m_redChannelActiveColor), out H1, out S1, out V1);
+        }
+
+        if (_audioBand2 < 3)
+        {
+            Color.RGBToHSV((m_blueChannelActiveColor), out H2, out S2, out V2);
+        }
+        else if (_audioBand1 >= 3 && _audioBand1 <= 5)
+        {
+            Color.RGBToHSV((m_bothChannelActiveColor), out H2, out S2, out V2);
+        }
+        else
+        {
+            Color.RGBToHSV((m_redChannelActiveColor), out H2, out S2, out V2);
         }
 
         if (_useBuffer)
         {
-            if (_yDynamicCube)
-            {
-                if (FMODAudioPeer._audioBandBuffer8[_bandArray[0]] >= 0)
-                {
-                    transform.localScale = new Vector3(transform.localScale.x, (FMODAudioPeer._audioBandBuffer8[_bandArray[0]] * _yDynamicMaxScale) + _yDynamicStartScale, transform.localScale.z);
-                }
-            }
-            if (_colorCube)
-            {
-                float H, S, V;
-               
-                Color.RGBToHSV((colorArray[0]), out H, out S, out V);
-                V = FMODAudioPeer._audioBandBuffer8[_bandArray[0]];
-                _material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
 
-                Color.RGBToHSV((colorArray[1]), out H, out S, out V);
-                V = FMODAudioPeer._audioBandBuffer8[_bandArray[1]];
-                _material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V, true));  
+            if (_enableBlueFQChannel)
+            {
+                V1 = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand1);
+                _material.SetColor("EmissionBlueColor", Color.HSVToRGB(H1, S1, V1, true));
+            }
+               
+            if (_enableRedFQChannel)
+            {
+                V2 = FMODAudioPeer._instance.getFqBandBuffer8(_audioBand2);
+                _material.SetColor("EmissionRedColor", Color.HSVToRGB(H2, S2, V2, true));
             }
 
         }
         //IF NOT USE BUFFER
-        else
+        else if (test)
         {
             float H, S, V;
-            for (int i = 0; i < _bandAmount; i++)
+
+            if (_enableBlueFQChannel)
             {
-                Color.RGBToHSV((colorArray[i]), out H, out S, out V);
-                V = FMODAudioPeer._audioBand8[_bandArray[i]];
+                Color.RGBToHSV((_color1), out H, out S, out V);
+                V = FMODAudioPeer._instance.getFqBand8(_audioBand1);
                 _material.SetColor("EmissionBlueColor", Color.HSVToRGB(H, S, V, true));
             }
+
+            if (_enableRedFQChannel)
+            {
+                Color.RGBToHSV((_color2), out H, out S, out V);
+                V = FMODAudioPeer._instance.getFqBand8(_audioBand2);
+                _material.SetColor("EmissionRedColor", Color.HSVToRGB(H, S, V, true));
+            }
+                
+
+            
         }
+        else
+        {
+            if (_enableBlueFQChannel)
+            {
+            
+                _material.SetColor("EmissionBlueColor", m_blueChannelActiveColor);
+            }
+
+            if (_enableRedFQChannel)
+            {
+                
+                _material.SetColor("EmissionRedColor", m_redChannelActiveColor);
+            }
+        }
+
+
     }
+
 }
 
