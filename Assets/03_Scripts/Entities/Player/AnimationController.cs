@@ -15,14 +15,14 @@ public class AnimationController : MonoBehaviour
     private AttackStateMachine attack => gameObject.GetComponent<AttackStateMachine>();
     private Animator child => gameObject.GetComponent<Animator>();
 
-    public AnimationClip forward, backward, right, left, idle, dash;
+    // public AnimationClip forward, backward, right, left, idle, dash;
 
-    public AnimationClipPlayable runPlayableClip,
-        backPlayableClip,
-        leftPlayableClip,
-        rightPlayableClip,
-        idlePlayableClip,
-        dashPlayableClip;
+    // public AnimationClipPlayable runPlayableClip,
+    //     backPlayableClip,
+    //     leftPlayableClip,
+    //     rightPlayableClip,
+    //     idlePlayableClip,
+    //     dashPlayableClip;
 
     public AnimationClipPlayable attackPlayableClip;
     public AnimationClipPlayable lastAttackPlayableClip;
@@ -68,7 +68,7 @@ public class AnimationController : MonoBehaviour
         // backPlayableClip = AnimationClipPlayable.Create(playableGraph, backward);
         // leftPlayableClip = AnimationClipPlayable.Create(playableGraph, left);
         // rightPlayableClip = AnimationClipPlayable.Create(playableGraph, right);
-        idlePlayableClip = AnimationClipPlayable.Create(playableGraph, idle);
+        // idlePlayableClip = AnimationClipPlayable.Create(playableGraph, idle);
         // dashPlayableClip = AnimationClipPlayable.Create(playableGraph, dash);
 
 
@@ -180,7 +180,7 @@ public class AnimationController : MonoBehaviour
     public void Dasher()
     {
         AnimationDisconnecter();
-        playableGraph.Connect(dashPlayableClip, 0, mixerPlayable, 2);
+        // playableGraph.Connect(dashPlayableClip, 0, mixerPlayable, 2);
     }
     public void MoveStarter()
     {
