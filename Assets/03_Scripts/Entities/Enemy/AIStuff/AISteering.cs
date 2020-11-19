@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author("Philipp Forstner")]
 public class AISteering
 {
     public Vector3 AvoidanceSteering(Vector3 dir, StateMachineController controller)

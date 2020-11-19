@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class LevelEntry : MonoBehaviour
 {
     bool sceneLoaded = false;
@@ -46,8 +46,9 @@ public class LevelEntry : MonoBehaviour
     IEnumerator WaitFStart()
     {
         yield return new WaitForEndOfFrame();
-        LevelEventSystem.instance.LevelEntry();
-        GameManager.instance.initAll -= StartLevel;
+        yield return new WaitForEndOfFrame();
+
+
 
         if (beaconWalls != null)
             foreach (AR_beaconWall w in beaconWalls)
@@ -84,5 +85,7 @@ public class LevelEntry : MonoBehaviour
             }
         musicManager.Init();
         colorMaster.activateComponent();
+        LevelEventSystem.instance.LevelEntry();
+        GameManager.instance.initAll -= StartLevel;
     }
 }

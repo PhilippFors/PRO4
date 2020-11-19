@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+[Author("Philipp Forstner")]
 public class BuffIndicators : MonoBehaviour
 {
     public List<Light> lights = new List<Light>();

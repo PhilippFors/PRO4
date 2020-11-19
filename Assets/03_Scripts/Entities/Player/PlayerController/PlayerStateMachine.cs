@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 using Debug = UnityEngine.Debug;
 
+
 public enum PlayerMovementSate
 {
     standard,
@@ -15,6 +16,7 @@ public enum PlayerMovementSate
     comboWait
 }
 
+[Author(mainAuthor = "Philipp Forstner", coAuthors = "Alexander Graf")]
 public class PlayerStateMachine : MonoBehaviour
 {
 
@@ -67,8 +69,8 @@ public class PlayerStateMachine : MonoBehaviour
     [HideInInspector] public CharacterController characterController => GetComponent<CharacterController>();
     public CapsuleCollider selfCol;
     [SerializeField] private StatTemplate playerTemplate;
-    public PlayerBody playerBody => GetComponent<PlayerBody>();
-
+    public PlayerStatistics playerBody => GetComponent<PlayerStatistics>();
+    public bool alive;
     public Transform currentEnemyTarget;
 
     #endregion

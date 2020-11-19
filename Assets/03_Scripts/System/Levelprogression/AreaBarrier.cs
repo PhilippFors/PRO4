@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class AreaBarrier : MonoBehaviour
 {
     public int AreaID;

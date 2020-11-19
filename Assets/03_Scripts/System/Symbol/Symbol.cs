@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[Author(mainAuthor = "Philipp Forstner")]
 [CreateAssetMenu(fileName = "Symbol", menuName = "Symbols/Symbol")]
 public class Symbol : ScriptableObject
 {

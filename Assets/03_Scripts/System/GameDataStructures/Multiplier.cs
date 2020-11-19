@@ -11,6 +11,7 @@ public enum MultiplierName
     stunMultiplier
 
 }
+[Author(mainAuthor = "Philipp Forstner")]
 public class Multiplier
 {
     private readonly float RESET_VALUE;

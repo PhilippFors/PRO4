@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+
+[Author("Philipp Forstner")]
 [CustomEditor(typeof(SpawnPointWorker))]
 public class UpdateLevelID : Editor
 {

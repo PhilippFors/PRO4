@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author("Philipp Forstner")]
 [CreateAssetMenu(menuName = "PluggableAI/Shentau/Decision/AttOrMove")]
 public class Shentau_AttOrMove : Decision
 {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+
+[Author("Philipp Forstner")]
 public class SpawnDebugging : MonoBehaviour
 {
     public AIManager manager;

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+[Author("Philipp Forstner")]
 public class StateMachineController : MonoBehaviour
 {
     #region "Variables"
-    [HideInInspector] public EnemyBody enemyStats => GetComponent<EnemyBody>();
+    [HideInInspector] public EnemyBody body => GetComponent<EnemyBody>();
     [HideInInspector] public NavMeshAgent agent => GetComponent<NavMeshAgent>();
     [HideInInspector] public IEnemyActions actions => GetComponent<IEnemyActions>();
+    [HideInInspector] public EnemyStatistics enemyStats => GetComponent<EnemyStatistics>();
     [HideInInspector] public AIManager aiManager;
     [HideInInspector] public AISteering steering;
     [HideInInspector] public Vector3 offsetTargetPos;

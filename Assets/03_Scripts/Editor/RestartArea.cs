@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+[Author("Philipp Forstner")]
+
 [CustomEditor(typeof(LevelManager))]
 public class RestartArea : Editor
 {

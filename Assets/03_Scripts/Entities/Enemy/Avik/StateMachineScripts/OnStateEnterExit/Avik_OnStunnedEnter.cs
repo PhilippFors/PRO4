@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Author("Philipp Forstner")]
+
 [CreateAssetMenu(menuName = "PluggableAI/Avik/OnStatEnter_Exit/OnStunnedEnter")]
 public class Avik_OnStunnedEnter : OnEnterState
 {

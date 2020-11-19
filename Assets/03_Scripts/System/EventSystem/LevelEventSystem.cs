@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class LevelEventSystem : MonoBehaviour
 {
     public event System.Action areaEntry;
@@ -11,7 +11,7 @@ public class LevelEventSystem : MonoBehaviour
     public event System.Action levelExit;
 
     public event Action<CheckPoint> checkPointReached;
-    public event Action<PlayerBody> returnToCheckpoint;
+    public event Action<PlayerStatistics> returnToCheckpoint;
     public static LevelEventSystem instance;
     
 
@@ -20,7 +20,7 @@ public class LevelEventSystem : MonoBehaviour
         instance = this;
     }
 
-    public void ReturnToCheckpoint(PlayerBody player){
+    public void ReturnToCheckpoint(PlayerStatistics player){
         if(returnToCheckpoint != null)
             returnToCheckpoint(player);
     }

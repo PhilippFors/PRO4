@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+[Author(mainAuthor = "Philipp Forstner")]
 public class LevelManager : MonoBehaviour
 {
     public int currentLevel = 0;
@@ -26,6 +28,8 @@ public class LevelManager : MonoBehaviour
         LevelEventSystem.instance.areaExit += FinishArea;
         LevelEventSystem.instance.levelExit += FinishLevel;
         LevelEventSystem.instance.levelEntry += StartLevel;
+
+        // StartLevel();
     }
 
     private void OnDisable()
@@ -87,8 +91,10 @@ public class LevelManager : MonoBehaviour
 
     public void StartLevel()
     {
-        player.position = new Vector3(0, 0, 0);
         FindPlayerSpawnpoint();
+        player.GetComponent<PlayerStateMachine>().input.Gameplay.Disable();
+        player.GetComponent<Animator>().applyRootMotion = false;
+
         StartCoroutine(WaitSpawn());
         // StartCoroutine(SaveGame());
         //TODO: Exit from Level transition
@@ -103,14 +109,19 @@ public class LevelManager : MonoBehaviour
                 playerSpawn = s.transform;
             }
 
-        SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
+        // SpawnManager.instance.spawnpointlist.list.Remove(playerSpawn.GetComponent<SpawnPointWorker>());
     }
     IEnumerator WaitSpawn()
     {
         yield return new WaitForEndOfFrame();
-        player.GetComponent<Animator>().applyRootMotion = false;
-        player.position = playerSpawn.position;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        // player.position = playerSpawn.position;
+        player.position = new Vector3(playerSpawn.position.x, playerSpawn.position.y, playerSpawn.position.z);
+        yield return new WaitForEndOfFrame();
         player.GetComponent<Animator>().applyRootMotion = true;
+        player.GetComponent<PlayerStateMachine>().input.Gameplay.Enable();
     }
     public void FinishLevel()
     {

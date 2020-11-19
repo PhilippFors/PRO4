@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public enum AnimatorStrings
 {
     undefined,
@@ -13,7 +14,7 @@ public enum AnimatorStrings
 
     stop
 }
-
+[Author("Philipp Forstner")]
 public interface IEnemyActions
 {
     void Init();

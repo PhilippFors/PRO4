@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
+[Author("Philipp Forstner")]
+
 [CustomEditor(typeof(SceneLevelData))]
 public class SaveAsset : Editor
 {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
 
+
+[Author(mainAuthor = "Philipp Forstner", coAuthors = "Alexander Graf")]
 public class PlayerMovementController
 
 {

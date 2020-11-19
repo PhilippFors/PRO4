@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 [CreateAssetMenu(fileName = "New StatTemplate", menuName = "StatTemplate")]
 public class StatTemplate : ScriptableObject
 {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Author(mainAuthor = "Philipp Forstner")]
+
 [CreateAssetMenu(fileName = "StartSectoin", menuName = "StoryScript/Triggers/StartSection")]
 public class StartSection : TriggerBehaviour
 {

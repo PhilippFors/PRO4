@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Author(mainAuthor = "Philipp Forstner")]
 [CreateAssetMenu(fileName = "New PuzzleObjective", menuName = "Objectives/PuzzleObjective")]
 public class PuzzleObjective : Objective
 {

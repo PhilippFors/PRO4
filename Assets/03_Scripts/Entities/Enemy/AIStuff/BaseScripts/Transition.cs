@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Author("Philipp Forstner")]
+
 [System.Serializable]
 public class Transition
 {

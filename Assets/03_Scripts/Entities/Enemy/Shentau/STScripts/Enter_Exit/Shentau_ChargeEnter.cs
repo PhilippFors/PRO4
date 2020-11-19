@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author("Philipp Forstner")]
 [CreateAssetMenu(fileName ="Shentau Charge Enter", menuName = "PluggableAI/Shentau/Enter_Exit/ChargeEnter")]
 public class Shentau_ChargeEnter : OnEnterState
 {

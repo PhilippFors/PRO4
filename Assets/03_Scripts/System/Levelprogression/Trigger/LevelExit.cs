@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class LevelExit : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)

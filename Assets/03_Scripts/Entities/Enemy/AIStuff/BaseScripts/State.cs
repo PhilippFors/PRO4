@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Author("Philipp Forstner")]
+
 [CreateAssetMenu(menuName = "PluggableAI/State")]
 public class State : ScriptableObject
 {

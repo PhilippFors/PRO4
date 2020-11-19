@@ -9,6 +9,8 @@ public enum BaseScenes
     Base = 2,
     Arena = 4
 }
+
+[Author(mainAuthor = "Philipp Forstner")]
 public class SceneLoader : MonoBehaviour
 {
     [Header("Levels")]
@@ -90,20 +92,19 @@ public class SceneLoader : MonoBehaviour
         load = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Additive);
 
         yield return load;
-
+        yield return new WaitForEndOfFrame();
         if (!SceneManager.GetSceneByName("Base").isLoaded)
         {
             load = SceneManager.LoadSceneAsync("Base", LoadSceneMode.Additive);
             yield return load;
         }
 
-        GameManager.instance.transitionCanvas.overrideSorting = true;
         yield return new WaitForEndOfFrame();
-        GameManager.instance.InitAll();
         yield return new WaitForSeconds(0.5f);
+        GameManager.instance.InitAll();
         GameManager.instance.transitionImage.Play("InTransition");
         yield return new WaitForSeconds(length);
-        GameManager.instance.transitionCanvas.gameObject.SetActive(false);
+        // GameManager.instance.transitionCanvas.gameObject.SetActive(false);
         //Level start fade from black
     }
 
@@ -116,6 +117,7 @@ public class SceneLoader : MonoBehaviour
         GameManager.instance.transitionImage.Play("OutTransition");
         yield return new WaitForSeconds(length);
         GameManager.instance.DeInitAll();
+
         if (oldScene != -1)
         {
             unload = SceneManager.UnloadSceneAsync(oldScene);
@@ -137,7 +139,7 @@ public class SceneLoader : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         GameManager.instance.transitionImage.Play("InTransition");
         yield return new WaitForSeconds(length);
-        GameManager.instance.transitionCanvas.gameObject.SetActive(false);
+        // GameManager.instance.transitionCanvas.gameObject.SetActive(false);
     }
 
 }

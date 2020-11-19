@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
+[Author("Philipp Forstner")]
 public class StatMultMonitor : EditorWindow
 {
     bool enemyFoldout = false;
     bool playerFoldout = false;
-
+    bool found = false;
     public EnemySet set;
-    public PlayerBody player;
+    public PlayerStatistics player;
 
     public PlayerAttack attack;
 
@@ -22,9 +22,12 @@ public class StatMultMonitor : EditorWindow
 
     void OnGUI()
     {
-
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBody>();
-        attack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        if (!found)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatistics>();
+            attack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+            found = true;
+        }
         set = (EnemySet)Resources.Load("New Enemy Set");
         // GUILayout.Label("Player Stats");
 
@@ -60,29 +63,30 @@ public class StatMultMonitor : EditorWindow
         if (enemyFoldout)
             if (set.entityList.Count != 0)
                 foreach (EnemyBody e in set.entityList)
-                {
+                {   
+                    EnemyStatistics stats = e.GetComponent<EnemyStatistics>();
                     if (e != null)
                     {
                         GUILayout.Space(5f);
                         GUILayout.Label(e.gameObject.name, EditorStyles.largeLabel);
-                        EditorGUILayout.ObjectField(e, typeof(EnemyBody));
+                        EditorGUILayout.ObjectField(e, typeof(EnemyBody), true);
 
                         GUILayout.Label("Stats", EditorStyles.boldLabel);
-                        e.currentHealth = EditorGUILayout.FloatField("Current Health", e.currentHealth, GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f));
-                        foreach (GameStatistics s in e.statList)
+                        stats.currentHealth = EditorGUILayout.FloatField("Current Health", stats.currentHealth, GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f));
+                        foreach (GameStatistics s in stats.statList)
                         {
                             s.SetValue(EditorGUILayout.FloatField(s.GetName().ToString(), s.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
                         }
 
                         GUILayout.Label("Multipliers", EditorStyles.boldLabel);
-                        foreach (Multiplier m in e.multList)
+                        foreach (Multiplier m in stats.multList)
                         {
                             m.SetValue(EditorGUILayout.FloatField(m.GetName().ToString(), m.GetValue(), GUILayout.MinWidth(150f), GUILayout.MaxWidth(250f)));
                         }
                         if (GUILayout.Button("Destroy", GUILayout.Width(120f)))
                         {
                             // set.Remove(e);
-                            e.OnDeath();
+                            stats.OnDeath();
                         }
                     }
 

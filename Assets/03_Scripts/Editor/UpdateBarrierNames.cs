@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+[Author("Philipp Forstner")]
 [CustomEditor(typeof(AreaBarrier))]
 public class UpdateBarrierNames : Editor
 {

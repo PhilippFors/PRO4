@@ -10,6 +10,7 @@
     BaseDmg,
     StunResist,
 }
+[Author(mainAuthor = "Philipp Forstner")]
 public class GameStatistics
 {
     private float v;
