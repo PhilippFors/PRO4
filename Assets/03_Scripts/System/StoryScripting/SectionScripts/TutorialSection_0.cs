@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Author(mainAuthor = "Philipp Forstner")]
+
 [CreateAssetMenu(fileName = "New EnemyTutorialSection", menuName = "StoryScript/TutorialSection_0")]
 public class TutorialSection_0 : StorySection
 {

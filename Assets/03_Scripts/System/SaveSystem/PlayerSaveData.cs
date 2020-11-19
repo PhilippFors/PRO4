@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 [System.Serializable]
 public class PlayerSaveData
 {
@@ -16,13 +16,13 @@ public class PlayerSaveData
     public List<int> unlockedSkills;
 
 
-    public PlayerSaveData(PlayerBody playerBody, PlayerAttack playerAttack)
+    public PlayerSaveData(PlayerStatistics playerBody, PlayerAttack playerAttack)
     {
         SavePlayerStats(playerBody);
         SaveWeaponData(playerAttack);
     }
 
-    void SavePlayerStats(PlayerBody playerBody)
+    void SavePlayerStats(PlayerStatistics playerBody)
     {
         currentPlayerHealth = playerBody.currentHealth.Value;
         playerPos = new float[3];

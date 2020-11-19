@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[Author("Philipp Forstner")]
+
 [CustomEditor(typeof(SaveManager))]
 public class SaveGameEditor : Editor
 {

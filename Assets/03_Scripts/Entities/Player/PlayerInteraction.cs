@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class PlayerInteraction : MonoBehaviour
 {
     public AInteractable currentInteractable;

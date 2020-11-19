@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[Author(mainAuthor = "Philipp Forstner", coAuthors = "Alexander Graf")]
 public class DashMovementController
 {
     private float timeStartDash, timeSinceStarted, actualDashDistance, frametime = 0.0f, delayCountdown;

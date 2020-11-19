@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author("Philipp Forstner")]
 [CreateAssetMenu(menuName = "PluggableAI/General/Decision/IdleDecision")]
 public class GetOutofIdleDecision : Decision
 {

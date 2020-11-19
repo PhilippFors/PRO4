@@ -9,6 +9,8 @@ public enum BaseScenes
     Base = 2,
     Arena = 4
 }
+
+[Author(mainAuthor = "Philipp Forstner")]
 public class SceneLoader : MonoBehaviour
 {
     [Header("Levels")]

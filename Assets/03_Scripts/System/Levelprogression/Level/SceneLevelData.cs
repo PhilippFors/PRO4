@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class SceneLevelData : MonoBehaviour
 {
     public LevelData levelInfo;

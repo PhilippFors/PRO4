@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author("Philipp Forstner")]
 public class ObstacleMaster : MonoBehaviour
 {
     // Start is called before the first frame update

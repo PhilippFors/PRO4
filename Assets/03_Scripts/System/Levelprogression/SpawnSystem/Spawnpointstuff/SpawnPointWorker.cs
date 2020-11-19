@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class SpawnPointWorker : MonoBehaviour
 {
     [SerializeField] private PlayableDirector director;
@@ -66,11 +66,8 @@ public class SpawnPointWorker : MonoBehaviour
                 case EnemyType.Shentau:
                     enemy = InstEnemy(sp.Shentau);
                     break;
-                case EnemyType.undefinded:
-
-                    break;
             }
-            SceneManager.MoveGameObjectToScene(enemy.parent, SceneManager.GetSceneByName("Base"));
+            
             enemy.GetComponent<StateMachineController>().aiManager = sp.manager;
             enemy.GetComponent<Animation>().Play("Entry");
 

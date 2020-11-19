@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 [CreateAssetMenu(fileName = "New DestroyObjective", menuName = "Objectives/DestroyObjective")]
 public class DestructObjective : Objective
 {

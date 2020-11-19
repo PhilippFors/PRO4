@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public abstract class EntitySet<T> : ScriptableObject
 {
     public List<T> entityList = new List<T>();

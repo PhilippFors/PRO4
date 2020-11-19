@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Animations;
 
-
+[Author(mainAuthor = "Alexander Graf", coAuthors = "Philipp Forstner")]
 public class AnimationController : MonoBehaviour
 {
     [HideInInspector] public PlayerControls input;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class LevelEntry : MonoBehaviour
 {
     bool sceneLoaded = false;

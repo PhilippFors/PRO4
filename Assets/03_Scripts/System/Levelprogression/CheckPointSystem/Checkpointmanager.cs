@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class Checkpointmanager : MonoBehaviour
 {
     public CheckPoint currentCheck;
@@ -30,7 +30,7 @@ public class Checkpointmanager : MonoBehaviour
         currentCheck.isActive = true;
     }
 
-    public void TransportToCheckpoint(PlayerBody body)
+    public void TransportToCheckpoint(PlayerStatistics body)
     {
         GameManager.instance.Respawn(body, transform.TransformPoint(currentCheck.transform.position));
     }

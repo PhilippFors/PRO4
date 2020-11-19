@@ -1,5 +1,5 @@
 ﻿using System;
-
+[Author(mainAuthor = "Philipp Forstner")]
 [Serializable]
 public class FloatReference
 {

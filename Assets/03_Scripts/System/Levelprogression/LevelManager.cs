@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+[Author(mainAuthor = "Philipp Forstner")]
 public class LevelManager : MonoBehaviour
 {
     public int currentLevel = 0;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+[Author(mainAuthor = "Philipp Forstner")]
 public class GameManager : MonoBehaviour
 {
     //GameManager for starting games and managing game over states
@@ -77,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void Respawn(PlayerBody player, Vector3 respawn)
+    public void Respawn(PlayerStatistics player, Vector3 respawn)
     {
         StartCoroutine(RespawnAnim(player, respawn));
     }
@@ -110,7 +112,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    IEnumerator RespawnAnim(PlayerBody player, Vector3 respawn)
+    IEnumerator RespawnAnim(PlayerStatistics player, Vector3 respawn)
     {
         player.GetComponent<PlayerStateMachine>().input.Disable();
         transitionCanvas.gameObject.SetActive(true);

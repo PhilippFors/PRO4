@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[Author(mainAuthor = "Philipp Forstner")]
+
 [CreateAssetMenu(fileName = "New DestructTutSection", menuName = "StoryScript/TutorialSection_1")]
 public class TutorialSection_1 : StorySection
 {

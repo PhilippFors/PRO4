@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+
+[Author(mainAuthor = "Philipp Forstner")]
 public static class SaveLoadGame
 {
     static string playerPath = Application.persistentDataPath + "/player.data";
     static string levelPath = Application.persistentDataPath + "/levelprogress.data";
-    public static void SaveGameData(PlayerBody playerData, PlayerAttack playerAttack, LevelManager levelData)
+    public static void SaveGameData(PlayerStatistics playerData, PlayerAttack playerAttack, LevelManager levelData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
 

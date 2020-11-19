@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+[Author(mainAuthor = "Philipp Forstner", coAuthors = "Alexander Graf, Thomas Fürst")]
 public class MyEventSystem : MonoBehaviour
 {
     public event Action<IHasHealth, float> Attack;

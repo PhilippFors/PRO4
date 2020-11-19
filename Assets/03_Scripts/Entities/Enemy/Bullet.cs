@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author("Philipp Forstner")]
 public class Bullet : MonoBehaviour
 {
 
@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerBody p = other.GetComponent<PlayerBody>();
+        PlayerStatistics p = other.GetComponent<PlayerStatistics>();
         if(p != null)
         {
             MyEventSystem.instance.OnAttack(p, damage);

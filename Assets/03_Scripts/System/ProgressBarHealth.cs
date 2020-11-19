@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class ProgressBarHealth : ProgessBar
 {
-    public PlayerBody player;
+    public PlayerStatistics player;
 
     public Slider slider;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerBody>();
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerStatistics>();
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class ProgressBarHealth : ProgessBar
 
     public override void GetCurrentFill()
     {
-        maximum = (player.template.statList[2].Value);
+        maximum = (player.statTemplate.statList[2].Value);
         current = (player.currentHealth.Value);
         float fillAmount = (float) current / (float) maximum;
         slider.value = fillAmount;

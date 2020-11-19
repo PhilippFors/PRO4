@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[Author("Philipp Forstner")]
 public class StateEditor : EditorWindow
 {
     string[] folderPath = new string[2];

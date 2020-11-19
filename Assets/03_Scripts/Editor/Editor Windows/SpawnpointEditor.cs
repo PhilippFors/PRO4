@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+[Author("Philipp Forstner")]
 public class SpawnpointEditor : EditorWindow
 {
     bool choosen = true;

@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class SaveManager : MonoBehaviour
 {
     public LevelManager levelManager;
-    public PlayerBody playerBody;
+    public PlayerStatistics playerBody;
     public PlayerAttack playerAttack;
     public static SaveManager instance;
 
@@ -60,7 +60,7 @@ public class SaveManager : MonoBehaviour
         playerBody.transform.position = new Vector3(data.playerPos[0], data.playerPos[1], data.playerPos[2]);
         playerBody.statList = new List<GameStatistics>();
         float o;
-        foreach (FloatReference stat in playerBody.template.statList)
+        foreach (FloatReference stat in playerBody.statTemplate.statList)
         {
             o = 0;
             StatVariable v = (StatVariable)stat.Variable;

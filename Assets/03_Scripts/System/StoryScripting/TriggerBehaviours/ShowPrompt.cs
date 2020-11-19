@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Author(mainAuthor = "Philipp Forstner")]
+
 [CreateAssetMenu(fileName = "ShowPromptTrigger", menuName = "StoryScript/Triggers/ShowPromptTrigger")]
 public class ShowPrompt : TriggerBehaviour
 {

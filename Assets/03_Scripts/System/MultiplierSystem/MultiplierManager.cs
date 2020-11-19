@@ -2,14 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class MultiplierManager : MonoBehaviour
 {
     //Singleton setup
     public EnemySet set;
     public static MultiplierManager instance;
-    public PlayerBody player;
+    public PlayerStatistics player;
     private void OnDisable()
     {
         MyEventSystem.instance.ActivateSkill -= SetEnemyMultValues;
@@ -30,17 +29,17 @@ public class MultiplierManager : MonoBehaviour
     {
         foreach (EnemyBody enemy in set.entityList)
         {
+            EnemyStatistics stats = enemy.GetComponent<EnemyStatistics>();
             if (enemy.symbolInfo.name.Equals(skill.buffSymbol.name))
             {
-                enemy.AddMultiplier(skill.buffSymbol.buff, skill.increaseMultValue, skill.timer);
-                enemy.BuffAnim();
+                stats.AddMultiplier(skill.buffSymbol.buff, skill.increaseMultValue, skill.timer);
+                enemy.GetComponent<BuffIndicators>().BuffLights();
             }
             else if (enemy.symbolInfo.name.Equals(skill.debuffSymbol.name))
             {
-                enemy.AddMultiplier(skill.debuffSymbol.debuff, skill.decreaseMultValue, skill.timer);
-                enemy.DebuffAnim();
+                stats.AddMultiplier(skill.debuffSymbol.debuff, skill.decreaseMultValue, skill.timer);
+                enemy.GetComponent<BuffIndicators>().DebuffLights();
             }
-
         }
     }
 
@@ -54,7 +53,9 @@ public class MultiplierManager : MonoBehaviour
         //iterate over every mod with foreach
         foreach (EnemyBody enemy in set.entityList)
         {
-            enemy.ResetMultipliers();
+            EnemyStatistics stats = enemy.GetComponent<EnemyStatistics>();
+            stats.ResetMultipliers();
+            enemy.GetComponent<BuffIndicators>().StandardColors();
         }
     }
 }

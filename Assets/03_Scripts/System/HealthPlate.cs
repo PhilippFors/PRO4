@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Author(mainAuthor = "Philipp Forstner")]
 public class HealthPlate : MonoBehaviour
 {
     public float healAmount;
     bool heal = false;
-    PlayerBody body;
+    PlayerStatistics body;
     float currentHealfactor = 0;
     public float maxHealfactor = 30f;
     bool canHeal = true;
@@ -14,14 +14,14 @@ public class HealthPlate : MonoBehaviour
     public float nextHealCountdown = 10f;
     private void OnTriggerEnter(Collider other)
     {
-        PlayerBody obj = other.GetComponent<PlayerBody>();
+        PlayerStatistics obj = other.GetComponent<PlayerStatistics>();
         if (obj != null)
             body = obj;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerBody>())
+        if (other.gameObject.GetComponent<PlayerStatistics>())
         {
             if (canHeal)
                 heal = true;
@@ -30,7 +30,7 @@ public class HealthPlate : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerBody>())
+        if (other.gameObject.GetComponent<PlayerStatistics>())
         {
             heal = false;
             body = null;

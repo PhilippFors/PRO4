@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+[Author("Philipp Forstner")]
 [CreateAssetMenu(menuName = "PluggableAI/Avik/Decision/PlayerDistance")]
 public class AvikPlayerDistanceDec : Decision
 {
